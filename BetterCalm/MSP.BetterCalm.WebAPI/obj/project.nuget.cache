@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "U0hBTMOyZIQWgk0n9ouatkjwdi9R2tfidvbs0MTS/d5hEwaOLd5yfDb93Tx1iZsh1GDcDB+3ROrCFaae5/osSQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Choche\\OneDrive\\Escritorio\\Semestre 6\\Diseño de aplicaciones 2\\Obligatorio\\Poittevin-169766--Cecilia-233552-\\BetterCalm\\MSP.BetterCalm.WebAPI\\MSP.BetterCalm.WebAPI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Choche\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\Choche\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\Choche\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
+    "C:\\Users\\Choche\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
+    "C:\\Users\\Choche\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\5.6.3\\swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
+    "C:\\Users\\Choche\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.6.3\\swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512"
+  ],
+  "logs": []
+}
