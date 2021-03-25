@@ -11,8 +11,9 @@ namespace MSP.BetterCalm.Test
         {
             string categoryName = "Dormir";
             Category category = new Category();
+            category.Name = "Dormir";
             string getCategoryName = category.Name;
-            Assert.Equals(categoryName, getCategoryName);
+            Assert.AreEqual(categoryName, getCategoryName);
         }
         
         [TestMethod]
@@ -30,7 +31,8 @@ namespace MSP.BetterCalm.Test
         {
             Category category = new Category();
             category.Name="Dormir";
-            Assert.AreEqual(category, null);
+            Category categoryToCompare = null;
+            Assert.AreNotEqual(category, categoryToCompare);
         }
         
         [TestMethod]
@@ -38,7 +40,7 @@ namespace MSP.BetterCalm.Test
         {
             Category category = new Category();
             category.Name="Dormir";
-            Assert.AreEqual(category, "");
+            Assert.AreNotEqual(category, "");
         }
     }
 }
