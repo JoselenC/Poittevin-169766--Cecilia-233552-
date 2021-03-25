@@ -22,7 +22,23 @@ namespace MSP.BetterCalm.Test
             category.Name="Dormir";
             Category categoryToCompare = new Category();
             categoryToCompare.Name="Dormir";
-            Assert.Equals(category, categoryToCompare);
+            Assert.AreEqual(category, categoryToCompare);
+        }
+        
+        [TestMethod]
+        public void EqualsCategoryNull()
+        {
+            Category category = new Category();
+            category.Name="Dormir";
+            Assert.AreEqual(category, null);
+        }
+        
+        [TestMethod]
+        public void EqualsCategoryType()
+        {
+            Category category = new Category();
+            category.Name="Dormir";
+            Assert.AreEqual(category, "");
         }
     }
 }
