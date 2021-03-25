@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.Test
 {

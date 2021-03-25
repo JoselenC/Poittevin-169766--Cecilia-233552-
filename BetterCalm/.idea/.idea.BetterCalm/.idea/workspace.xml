@@ -19,6 +19,7 @@
       <option value="$PROJECT_DIR$/MSP.BetterCalm.BusinessLogic/Class1.cs" />
       <option value="$PROJECT_DIR$/MSP.BetterCalm.Domain/Class1.cs" />
       <option value="$PROJECT_DIR$/MSP.BetterCalm.Test/UnitTest1.cs" />
+      <option value="$PROJECT_DIR$/MSP.BetterCalm.Domain/Category.cs" />
       <option value="$PROJECT_DIR$/MSP.BetterCalm.Test/CategoryTest.cs" />
     </changedPaths>
   </component>
