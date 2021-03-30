@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    ".NETCoreApp,Version=v3.1": {}
+    ".NETCoreApp,Version=v3.1": {
+      "MSP.BetterCalm.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/MSP.BetterCalm.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MSP.BetterCalm.Domain.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "MSP.BetterCalm.Domain/1.0.0": {
+      "type": "project",
+      "path": "../MSP.BetterCalm.Domain/MSP.BetterCalm.Domain.csproj",
+      "msbuildProject": "../MSP.BetterCalm.Domain/MSP.BetterCalm.Domain.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    ".NETCoreApp,Version=v3.1": []
+    ".NETCoreApp,Version=v3.1": [
+      "MSP.BetterCalm.Domain >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Choche\\.nuget\\packages\\": {}
@@ -33,7 +52,11 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Choche\\OneDrive\\Escritorio\\Semestre 6\\Diseño de aplicaciones 2\\Obligatorio\\Poittevin-169766--Cecilia-233552-\\BetterCalm\\MSP.BetterCalm.Domain\\MSP.BetterCalm.Domain.csproj": {
+              "projectPath": "C:\\Users\\Choche\\OneDrive\\Escritorio\\Semestre 6\\Diseño de aplicaciones 2\\Obligatorio\\Poittevin-169766--Cecilia-233552-\\BetterCalm\\MSP.BetterCalm.Domain\\MSP.BetterCalm.Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
