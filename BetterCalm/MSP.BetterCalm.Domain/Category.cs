@@ -10,6 +10,10 @@
             if (obj.GetType() != GetType()) return false;
             return Name == ((Category)obj).Name;
         }
-
+      
+        public bool IsSameCategoryName(string categoryName)
+        { 
+            return Name == categoryName;
+        }
     }
 }

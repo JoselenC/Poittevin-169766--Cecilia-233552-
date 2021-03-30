@@ -7,7 +7,7 @@ namespace MSP.BetterCalm.Test
     public class CategoryTest
     {
         [TestMethod]
-        public void GetCategoryName()
+        public void GetSetCategoryName()
         {
             string categoryName = "Dormir";
             Category category = new Category();
@@ -65,6 +65,23 @@ namespace MSP.BetterCalm.Test
             category.Name="Dormir";
             Assert.AreNotEqual(category, "");
         }
+
+        [TestMethod]
+        public void IsSameCategoryName()
+        {
+            Category category = new Category();
+            category.Name = "Yoga";
+            string categoryName = "Yoga";
+            Assert.IsTrue(category.IsSameCategoryName(categoryName));
+        }
         
+        [TestMethod]
+        public void IsDifferentCategoryName()
+        {
+            Category category = new Category();
+            category.Name = "Yoga";
+            string categoryName = "Musica";
+            Assert.IsFalse(category.IsSameCategoryName(categoryName));
+        }
     }
 }
