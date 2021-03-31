@@ -1,5 +1,4 @@
-﻿using System.Data.Entity;
-
+﻿
 namespace MSP.BetterCalm.DataAccess
 {
     public interface IMapper<D,T>

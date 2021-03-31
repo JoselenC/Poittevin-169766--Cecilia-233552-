@@ -11,7 +11,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
 using MSP.BetterCalm.DataAccess;
 
 namespace MSP.BetterCalm.WebAPI
@@ -28,19 +27,23 @@ namespace MSP.BetterCalm.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers();
+            
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowEverything",builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             });
-            services.AddSwaggerGen();
-            services.AddControllers(options => options.Filters.Add(typeof(Exception)));
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "MSP.BetterCalm.WebAPI", Version = "v1"});
-            });
-           services.AddDbContext<ContextDB>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("BetterCalmDB")));
+            
+            string directory = System.IO.Directory.GetCurrentDirectory();
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+                .SetBasePath(directory)
+                .AddJsonFile("appsettings.json")
+                .Build();
+            var connectionString = configuration.GetConnectionString("BetterCalmDB");
+            services.AddDbContext<ContextDB>(options =>
+                options.UseSqlServer(connectionString).UseLazyLoadingProxies());
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,8 +52,6 @@ namespace MSP.BetterCalm.WebAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MSP.BetterCalm.WebAPI v1"));
             }
 
             app.UseHttpsRedirection();
@@ -61,6 +62,5 @@ namespace MSP.BetterCalm.WebAPI
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
-     
     }
 }
