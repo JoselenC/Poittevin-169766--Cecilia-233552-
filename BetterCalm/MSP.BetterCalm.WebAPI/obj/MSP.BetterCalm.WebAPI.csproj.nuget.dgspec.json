@@ -113,10 +113,6 @@
               "target": "Package",
               "version": "[6.4.4, )"
             },
-            "Microsoft.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[5.0.4, )"
-            },
             "Microsoft.EntityFrameworkCore.Abstractions": {
               "target": "Package",
               "version": "[5.0.4, )"
@@ -136,6 +132,10 @@
               "version": "[5.0.4, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
               "version": "[5.0.4, )"
             },
@@ -237,16 +237,19 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net5.0"
+          "netcoreapp3.1"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net5.0": {
-            "targetAlias": "net5.0",
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
+              "C:\\Users\\Choche\\OneDrive\\Escritorio\\Semestre 6\\Diseño de aplicaciones 2\\Obligatorio\\Poittevin-169766--Cecilia-233552-\\BetterCalm\\MSP.BetterCalm.BusinessLogic\\MSP.BetterCalm.BusinessLogic.csproj": {
+                "projectPath": "C:\\Users\\Choche\\OneDrive\\Escritorio\\Semestre 6\\Diseño de aplicaciones 2\\Obligatorio\\Poittevin-169766--Cecilia-233552-\\BetterCalm\\MSP.BetterCalm.BusinessLogic\\MSP.BetterCalm.BusinessLogic.csproj"
+              },
               "C:\\Users\\Choche\\OneDrive\\Escritorio\\Semestre 6\\Diseño de aplicaciones 2\\Obligatorio\\Poittevin-169766--Cecilia-233552-\\BetterCalm\\MSP.BetterCalm.DataAccess\\MSP.BetterCalm.DataAccess.csproj": {
                 "projectPath": "C:\\Users\\Choche\\OneDrive\\Escritorio\\Semestre 6\\Diseño de aplicaciones 2\\Obligatorio\\Poittevin-169766--Cecilia-233552-\\BetterCalm\\MSP.BetterCalm.DataAccess\\MSP.BetterCalm.DataAccess.csproj"
               }
@@ -260,8 +263,8 @@
         }
       },
       "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",

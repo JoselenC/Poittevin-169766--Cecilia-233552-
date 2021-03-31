@@ -16,6 +16,7 @@
       <e p="MSP.BetterCalm.BusinessLogic" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="CategoryService.cs" t="Include" />
+        <e p="Class1.cs" t="Include" />
         <e p="Exceptions" t="Include">
           <e p="NoFindCategoryByName.cs" t="Include" />
           <e p="NoFindProblematicByName.cs" t="Include" />
@@ -34,8 +35,11 @@
         <e p="ProblematicService.cs" t="Include" />
       </e>
       <e p="MSP.BetterCalm.DataAccess" t="IncludeRecursive">
+        <e p="App.config" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
+        <e p="Class1.cs" t="Include" />
         <e p="ContextDB.cs" t="Include" />
+        <e p="ContextFactory.cs" t="Include" />
         <e p="DataBaseRepository.cs" t="Include" />
         <e p="DtoObjects" t="Include">
           <e p="CategoryDTO.cs" t="Include" />
@@ -45,11 +49,6 @@
           <e p="CategoryMapper.cs" t="Include" />
           <e p="IMapper.cs" t="Include" />
           <e p="ProblematicMapper.cs" t="Include" />
-        </e>
-        <e p="Migrations" t="Include">
-          <e p="20210330003012_BetterCalmDB.cs" t="Include" />
-          <e p="20210330003012_BetterCalmDB.Designer.cs" t="Include" />
-          <e p="ContextDBModelSnapshot.cs" t="Include" />
         </e>
         <e p="MSP.BetterCalm.DataAccess.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
@@ -63,6 +62,7 @@
       <e p="MSP.BetterCalm.Domain" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="Category.cs" t="Include" />
+        <e p="Class1.cs" t="Include" />
         <e p="MSP.BetterCalm.Domain.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
@@ -82,6 +82,7 @@
         <e p="DataAccess" t="Include">
           <e p="CategoryDTOTest.cs" t="Include" />
           <e p="CategoryMapperTest.cs" t="Include" />
+          <e p="ContextDBTest.cs" t="Include" />
           <e p="DataBaseRepositoryTest.cs" t="Include" />
           <e p="ProblematicDtoTest.cs" t="Include" />
           <e p="ProblematicMapperTest.cs" t="Include" />
@@ -111,7 +112,7 @@
         <e p="MSP.BetterCalm.WebAPI.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
-            <e p="net5.0" t="Include">
+            <e p="netcoreapp3.1" t="Include">
               <e p="MSP.BetterCalm.WebAPI.AssemblyInfo.cs" t="Include" />
             </e>
           </e>

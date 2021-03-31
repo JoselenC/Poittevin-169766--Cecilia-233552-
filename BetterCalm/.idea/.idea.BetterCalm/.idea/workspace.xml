@@ -34,7 +34,6 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/688F111E-2E11-4140-997C-B34B0A1EC82D/58/830e6408/AdapterRunContext.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/31F86FEC-2F3D-4F5F-A4C3-5EC01361289B/ca/a3feef9c/UnitTestRunner.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/F237A55A-B16D-4649-B961-70604924F6B9/bf/ba5589be/DbContext.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/688F111E-2E11-4140-997C-B34B0A1EC82D/ae/9140f23a/AdapterDiscoveryContext.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/54494287-9CC1-4DEE-B61C-0F4FB47AF640/f6/d3b3106d/DbUpdateException.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/31F86FEC-2F3D-4F5F-A4C3-5EC01361289B/60/71a4e0cd/TestExecutionManager.cs" root0="SKIP_HIGHLIGHTING" />
@@ -42,7 +41,6 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/15F97ED3-31A8-477F-B6B6-19FBAFEA2F52/f0/28612901/RunSettingsUtilities.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/31F86FEC-2F3D-4F5F-A4C3-5EC01361289B/a2/087cb70a/MSTestExecutor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1BA52DC0-B103-422E-BA91-AD87A1AA9FE3/33/9c755385/ServiceProviderServiceExtensions.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
@@ -63,7 +61,6 @@
       <option value="$PROJECT_DIR$/MSP.BetterCalm.DataAccess/IMapper.cs" />
       <option value="$PROJECT_DIR$/MSP.BetterCalm.DataAccess/ProblematicMapper.cs" />
       <option value="$PROJECT_DIR$/MSP.BetterCalm.DataAccess/CategoryMapper.cs" />
-      <option value="$PROJECT_DIR$/MSP.BetterCalm.WebAPI/Program.cs" />
       <option value="$PROJECT_DIR$/MSP.BetterCalm.WebAPI/Controllers/CategoryController.cs" />
       <option value="$PROJECT_DIR$/MSP.BetterCalm.WebAPI/Controllers/ProblematicController.cs" />
       <option value="$PROJECT_DIR$/MSP.BetterCalm.BusinessLogic/Exceptions/NoAsignCategoryName.cs" />
@@ -71,14 +68,11 @@
       <option value="$PROJECT_DIR$/MSP.BetterCalm.BusinessLogic/Exceptions/NoFindProblematicByName.cs" />
       <option value="$PROJECT_DIR$/MSP.BetterCalm.BusinessLogic/ManagerRepository.cs" />
       <option value="$PROJECT_DIR$/MSP.BetterCalm.BusinessLogic/IRepository.cs" />
-      <option value="$PROJECT_DIR$/MSP.BetterCalm.WebAPI/Startup.cs" />
-      <option value="$PROJECT_DIR$/MSP.BetterCalm.WebAPI/appsettings.json" />
       <option value="$PROJECT_DIR$/MSP.BetterCalm.DataAccess/DtoObjects/CategoryDto.cs" />
       <option value="$PROJECT_DIR$/MSP.BetterCalm.BusinessLogic/Exceptions/ValueNotFound.cs" />
       <option value="$PROJECT_DIR$/MSP.BetterCalm.DataAccess/Mappers/CategoryMapper.cs" />
       <option value="$PROJECT_DIR$/MSP.BetterCalm.DataAccess/DataBaseRepository.cs" />
       <option value="$PROJECT_DIR$/MSP.BetterCalm.DataAccess/Mappers/ProblematicMapper.cs" />
-      <option value="$PROJECT_DIR$/MSP.BetterCalm.DataAccess/ContextDB.cs" />
       <option value="$PROJECT_DIR$/MSP.BetterCalm.Test/CategoryMapperTest.cs" />
       <option value="$PROJECT_DIR$/MSP.BetterCalm.Domain/Problematic.cs" />
       <option value="$PROJECT_DIR$/MSP.BetterCalm.Test/ProblematicServiceTest.cs" />
@@ -91,6 +85,10 @@
       <option value="$PROJECT_DIR$/MSP.BetterCalm.Test/ProblematicMapperTest.cs" />
       <option value="$PROJECT_DIR$/MSP.BetterCalm.Test/ContextDBTest.cs" />
       <option value="$PROJECT_DIR$/MSP.BetterCalm.Test/DataBaseRepositoryTest.cs" />
+      <option value="$PROJECT_DIR$/MSP.BetterCalm.WebAPI/Program.cs" />
+      <option value="$PROJECT_DIR$/MSP.BetterCalm.WebAPI/Startup.cs" />
+      <option value="$PROJECT_DIR$/MSP.BetterCalm.WebAPI/appsettings.json" />
+      <option value="$PROJECT_DIR$/MSP.BetterCalm.DataAccess/ContextDB.cs" />
       <option value="$PROJECT_DIR$/MSP.BetterCalm.Test/DataAccess/ContextDBTest.cs" />
     </changedPaths>
   </component>
@@ -155,7 +153,10 @@
       <workItem from="1616701312565" duration="14038000" />
       <workItem from="1616799592613" duration="14876000" />
       <workItem from="1616976516806" duration="11056000" />
-      <workItem from="1617051901807" duration="27599000" />
+      <workItem from="1617051901807" duration="29965000" />
+      <workItem from="1617146762153" duration="4544000" />
+      <workItem from="1617154428446" duration="31000" />
+      <workItem from="1617204316113" duration="2288000" />
     </task>
     <servers />
   </component>
@@ -166,7 +167,7 @@
     <option name="coveragePercentColumnWidth" value="82" />
     <option name="sortOrder" value="ASCENDING" />
     <option name="sortedColumn" value="1" />
-    <option name="symbolColumnWidth" value="98" />
+    <option name="symbolColumnWidth" value="157" />
     <coverage-tree-state>
       <expand>
         <path>
@@ -200,14 +201,7 @@
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/MSP.BetterCalm.Test/DataAccess/DataBaseRepositoryTest.cs</url>
           <line>61</line>
-          <properties documentPath="C:\Users\Choche\OneDrive\Escritorio\Semestre 6\Diseño de aplicaciones 2\Obligatorio\Poittevin-169766--Cecilia-233552-\BetterCalm\MSP.BetterCalm.Test\DataBaseRepositoryTest.cs" initialLine="39" containingFunctionPresentation="method 'FindTest'">
-            <startOffsets>
-              <option value="1743" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1744" />
-            </endOffsets>
-          </properties>
+          <properties documentPath="C:\Users\Choche\OneDrive\Escritorio\Semestre 6\Diseño de aplicaciones 2\Obligatorio\Poittevin-169766--Cecilia-233552-\BetterCalm\MSP.BetterCalm.Test\DataBaseRepositoryTest.cs" initialLine="39" containingFunctionPresentation="method 'FindTest'" />
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">

@@ -13,6 +13,8 @@ namespace MSP.BetterCalm.DataAccess
 
         public ContextDB() { }
 
+        public  ContextDB(DbContextOptions  options) : base(options) { }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             
@@ -26,6 +28,8 @@ namespace MSP.BetterCalm.DataAccess
                     .UseSqlServer(@"Server=localhost\SQLEXPRESS;Database=BetterCalmDB;Trusted_Connection=True;MultipleActiveResultSets=True;")
                     .UseLazyLoadingProxies();
             }
+            
+          
             
         }
     }
