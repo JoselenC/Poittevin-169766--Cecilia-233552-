@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.DataAccess;
@@ -10,35 +12,29 @@ namespace MSP.BetterCalm.Test
     [TestClass]
     public class ProblematicServiceTest
     {
-        public  DataBaseRepository<Problematic, ProblematicDto> Problematics;
+        private Mock<ManagerRepository> repoMock;
+        private Mock<IRepository<Problematic>> problematicMock;
+        
         public  Problematic problematicTest;
 
-        private ManagerRepository repo;
         private ProblematicService service;
 
         [TestInitialize]
         public  void TestFixtureSetup()
         {
-            repo = new ManagerRepository();
-            service = new ProblematicService(repo);
-            repo.Problematics = new DataBaseRepository<Problematic, ProblematicDto>(new ProblematicMapper());
-            CleanData();
+            repoMock = new Mock<ManagerRepository>();
+            problematicMock = new Mock<IRepository<Problematic>>();
+            repoMock.Object.Problematics = problematicMock.Object;
+            service = new ProblematicService(repoMock.Object);
         }
 
-        [TestCleanup]
-        public void CleanData()
-        {
-            foreach (Problematic problematic in repo.Problematics.Get())
-            {
-                repo.Problematics.Delete(problematic);
-            }
-        }
-        
         [TestMethod]
         public void FindProblematicByName()
         {
             Problematic problematic1 = new Problematic { Name = "Estres"};
-            service.SetProblematic(problematic1);
+            problematicMock.Setup(
+                x => x.Find(It.IsAny<Predicate<Problematic>>())
+            ).Returns(problematic1);
             Problematic problematic2 = service.GetProblematicByName("Estres");
             Assert.AreEqual(problematic1, problematic2);
         }
@@ -46,14 +42,11 @@ namespace MSP.BetterCalm.Test
         [TestMethod]
         [ExpectedException(typeof(NoFindProblematicByName), "")]
         public void FindProblematicByNameNull()
-        { 
-            Problematic problematic1 = new Problematic { Name = "Estres"};
-            Problematic problematic2 = new Problematic { Name = "Tristesa"};
-            List<Problematic> categoryList = new List<Problematic>();
-            service.SetProblematic(problematic1);
-            service.SetProblematic(problematic2);
-            Problematic problematic3 = service.GetProblematicByName("");
-            Assert.IsNull(problematic3);
+        {
+            problematicMock.Setup(
+                x => x.Find(It.IsAny<Predicate<Problematic>>())
+            ).Throws(new ValueNotFound());
+            service.GetProblematicByName("");
         }
 
         [TestMethod]
@@ -65,6 +58,9 @@ namespace MSP.BetterCalm.Test
                 problematic
             };
             service.SetProblematic(problematic);
+            problematicMock.Setup(
+                x => x.Get()
+            ).Returns(problematics);
             List<Problematic> problematics2 = service.GetProblematics();
             CollectionAssert.AreEqual(problematics, problematics2);
         }

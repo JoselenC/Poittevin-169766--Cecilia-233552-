@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.DataAccess
@@ -7,21 +8,25 @@ namespace MSP.BetterCalm.DataAccess
     public class CategoryMapper: IMapper<Category, CategoryDto>
 
     {
-        public CategoryDto DomainToDto(Category obj, ContextDB context)
+        private DbSet<CategoryDto> categorySet;
+
+        public CategoryMapper(DbSet<CategoryDto> categorySet)
         {
-            Microsoft.EntityFrameworkCore.DbSet<CategoryDto> CategorySet = context.Set<CategoryDto>();
-            CategoryDto categoryDto = CategorySet.FirstOrDefault(x => x.Name == obj.Name);
+            this.categorySet = categorySet;
+        }
+
+        public CategoryDto DomainToDto(Category obj)
+        {
+            CategoryDto categoryDto = categorySet.FirstOrDefault(x => x.Name == obj.Name);
             if (categoryDto is null)
-            categoryDto = new CategoryDto()
+                categoryDto = new CategoryDto()
             {
              Name = obj.Name,
             };
             return categoryDto;
-            
-
         }
 
-        public Category DtoToDomain(CategoryDto obj, ContextDB context)
+        public Category DtoToDomain(CategoryDto obj)
         {
            return new Category()
             {
@@ -29,7 +34,7 @@ namespace MSP.BetterCalm.DataAccess
             };
         }
 
-        public void UpdateDtoObject<T, D>(T objToUpdate, D updatedObject, ContextDB context) where T : class
+        public void UpdateDtoObject<T, D>(T objToUpdate, D updatedObject) where T : class
         {
             throw new NotImplementedException();
         }

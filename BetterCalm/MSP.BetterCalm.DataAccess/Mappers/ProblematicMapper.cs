@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.DataAccess
@@ -8,9 +9,16 @@ namespace MSP.BetterCalm.DataAccess
     public class ProblematicMapper: IMapper<Problematic, ProblematicDto>
 
     {
-        public ProblematicDto DomainToDto(Problematic obj, ContextDB context)
+        private ContextDB context;
+        private DbSet<ProblematicDto> problematicSet;
+
+        public ProblematicMapper(DbSet<ProblematicDto> problematicSet)
         {
-            Microsoft.EntityFrameworkCore.DbSet<ProblematicDto> problematicSet = context.Set<ProblematicDto>();
+            this.problematicSet = problematicSet;
+        }
+
+        public ProblematicDto DomainToDto(Problematic obj)
+        {
             ProblematicDto problematicDto = problematicSet.FirstOrDefault(x => x.Name == obj.Name);
             if (problematicDto is null)
                 problematicDto = new ProblematicDto()
@@ -20,7 +28,7 @@ namespace MSP.BetterCalm.DataAccess
             return problematicDto;
         }
 
-        public Problematic DtoToDomain(ProblematicDto obj, ContextDB context)
+        public Problematic DtoToDomain(ProblematicDto obj)
         {
             return new Problematic()
             {
@@ -28,7 +36,7 @@ namespace MSP.BetterCalm.DataAccess
             };
         }
 
-        public void UpdateDtoObject<T, D>(T objToUpdate, D updatedObject, ContextDB context) where T : class
+        public void UpdateDtoObject<T, D>(T objToUpdate, D updatedObject) where T : class
         {
             throw new NotImplementedException();
         }

@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.DataAccess;
@@ -10,32 +12,28 @@ namespace MSP.BetterCalm.Test
     [TestClass]
     public class CategoryServiceTest
     {
+        private Mock<ManagerRepository> repoMock;
+        private Mock<IRepository<Category>> categoriesMock;
         private ManagerRepository repo;
         private CategoryService service;
 
         [TestInitialize]
-        public  void TestFixtureSetup()
+        public void TestFixtureSetup()
         {
-            repo = new ManagerRepository();
-            service = new CategoryService(repo);
-            repo.Categories = new DataBaseRepository<Category, CategoryDto>(new CategoryMapper());
-            CleanData();
+            repoMock = new Mock<ManagerRepository>();
+            categoriesMock = new Mock<IRepository<Category>>();
+            repoMock.Object.Categories = categoriesMock.Object;
+            service = new CategoryService(repoMock.Object);
         }
         
-        [TestCleanup]
-        public void CleanData()
-        {
-            foreach (Category category in repo.Categories.Get())
-            {
-                repo.Categories.Delete(category);
-            }
-        }
         
         [TestMethod]
         public void FindCategoryByName()
         {
             Category category1 = new Category { Name = "Yoga"};
-            service.SetCategory(category1);
+            categoriesMock.Setup(
+                x => x.Find(It.IsAny<Predicate<Category>>())
+            ).Returns(category1);
             Category category3 = service.GetCategoryByName("Yoga");
             Assert.AreEqual(category1, category3);
         }
@@ -43,10 +41,11 @@ namespace MSP.BetterCalm.Test
         [TestMethod]
         [ExpectedException(typeof(NoFindCategoryByName), "")]
         public void FindCategoryByNameNull()
-        { 
-            Category category1 = new Category { Name = "Yoga"};
-            service.SetCategory(category1);
-            Category category3 = service.GetCategoryByName("Musica");
+        {
+            categoriesMock.Setup(
+                x => x.Find(It.IsAny<Predicate<Category>>())
+            ).Throws( new ValueNotFound());
+            service.GetCategoryByName("Musica");
         }
 
         [TestMethod]
@@ -57,7 +56,9 @@ namespace MSP.BetterCalm.Test
             {
                 category
             };
-            service.SetCategory(category);
+            categoriesMock.Setup(
+                x => x.Get()
+            ).Returns(categories);
             List<Category> categories2 = service.GetCategories();
             CollectionAssert.AreEqual(categories, categories2);
         }

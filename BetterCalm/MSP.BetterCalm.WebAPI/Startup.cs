@@ -34,16 +34,15 @@ namespace MSP.BetterCalm.WebAPI
                 options.AddPolicy("AllowEverything",builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             });
             services.AddControllers();
-            
+
             string directory = System.IO.Directory.GetCurrentDirectory();
             IConfigurationRoot configuration = new ConfigurationBuilder()
                 .SetBasePath(directory)
                 .AddJsonFile("appsettings.json")
                 .Build();
             var connectionString = configuration.GetConnectionString("BetterCalmDB");
-            services.AddDbContext<ContextDB>(options =>
+            services.AddDbContext<DbContext, ContextDB>(options =>
                 options.UseSqlServer(connectionString).UseLazyLoadingProxies());
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

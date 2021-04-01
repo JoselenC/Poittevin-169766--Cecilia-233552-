@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
@@ -10,15 +11,17 @@ namespace MSP.BetterCalm.Test
     [TestClass]
     public class CategoryMapperTest
     {
-       
+        private DbContextOptions<ContextDB> options;
+        private ContextDB context;
         public  DataBaseRepository<Category, CategoryDto> Categories;
         public  Category categoryTest;
 
         [TestInitialize]
         public  void TestFixtureSetup()
         {
-            Categories = new DataBaseRepository<Category, CategoryDto>(new CategoryMapper());
-            CleanData();
+            options = new DbContextOptionsBuilder<ContextDB>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
+            context = new ContextDB(this.options); 
+            Categories = new DataBaseRepository<Category, CategoryDto>(new CategoryMapper(context.Categories), context.Categories, context);
             categoryTest = new Category()
             {
                 Name = "Dormir",
@@ -26,15 +29,13 @@ namespace MSP.BetterCalm.Test
             Categories.Add(categoryTest);
             
         }
-
+        
         [TestCleanup]
-        public void CleanData()
+        public void TestCleanup()
         {
-            foreach (Category category in Categories.Get())
-            {
-                Categories.Delete(category);
-            }
+            context.Database.EnsureDeleted();
         }
+
         
         [TestMethod]
         public void DomainToDtoTest()

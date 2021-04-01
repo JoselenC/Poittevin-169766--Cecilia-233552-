@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.DataAccess;
 using MSP.BetterCalm.Domain;
@@ -8,13 +9,17 @@ namespace MSP.BetterCalm.Test
     [TestClass()]
     public class ProblematicMapperTest
     {
+        private DbContextOptions<ContextDB> options;
+
         public  DataBaseRepository<Problematic, ProblematicDto> Problematics;
         public  Problematic problematicTest;
 
         [TestInitialize]
         public  void TestFixtureSetup()
         {
-            Problematics = new DataBaseRepository<Problematic, ProblematicDto>(new ProblematicMapper());
+            options = new DbContextOptionsBuilder<ContextDB>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
+            ContextDB context = new ContextDB(this.options); 
+            Problematics = new DataBaseRepository<Problematic, ProblematicDto>(new ProblematicMapper(context.Problematics), context.Problematics, context);
             CleanData();
             problematicTest = new Problematic()
             {

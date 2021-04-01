@@ -12,11 +12,21 @@ namespace MSP.BetterCalm.DataAccess
         public DbSet<ProblematicDto> Problematics { get; set; }
 
         public ContextDB() { }
-        public ContextDB(DbContextOptions<ContextDB> options): base(options)
-        { }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        public ContextDB(DbContextOptions<ContextDB> options): base(options) { }
+        
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            
-        }
+            if(!optionsBuilder.IsConfigured)
+            {
+                string directory = Directory.GetCurrentDirectory();
+                IConfigurationRoot configuration = new ConfigurationBuilder()
+                    .SetBasePath(directory)
+                    .AddJsonFile("appsettings.json")
+                    .Build();
+                var connectionString = configuration.GetConnectionString(@"UruguayNaturalDB");
+                optionsBuilder.UseSqlServer(connectionString).UseLazyLoadingProxies();
+        
+            }
+        }        
     }
 }

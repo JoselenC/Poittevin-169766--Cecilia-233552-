@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
 using EntityState = Microsoft.EntityFrameworkCore.EntityState;
@@ -10,34 +11,34 @@ namespace MSP.BetterCalm.DataAccess
     public class DataBaseRepository<D, T>: IRepository<D> where T: class
     {
         private IMapper<D,T> mapper;
-        public DataBaseRepository(IMapper<D,T> mapper)
+        private ContextDB context;
+        private DbSet<T> entity;
+        private bool isDispose = false;
+        
+        public DataBaseRepository(IMapper<D,T> mapper, DbSet<T> entity, ContextDB context)
         {
+            this.entity = entity;
             this.mapper = mapper;
+            this.context = context;
         }
 
         public List<D> Get()
         {
-            using (ContextDB context = new ContextDB())
+            List<D> Dlist = new List<D>();
+            foreach (T item in entity.ToList())
             {
-                Microsoft.EntityFrameworkCore.DbSet<T> entity = context.Set<T>();
-                List<D> Dlist = new List<D>();
-                foreach (T item in entity.ToList())
-                {
-                    var x = mapper.DtoToDomain(item, context);
-                    Dlist.Add(x);
-                }
-                return Dlist;
+                var x = mapper.DtoToDomain(item);
+                Dlist.Add(x);
             }
+            return Dlist;
         }
         
         public D Find(Predicate<D> condition)
         {
-            using ContextDB context = new ContextDB();
-            Microsoft.EntityFrameworkCore.DbSet<T> entity = context.Set<T>();
             List<T> dtos = entity.ToList();
             foreach (var dto in dtos)
             {
-                var dDto = mapper.DtoToDomain(dto, context);
+                var dDto = mapper.DtoToDomain(dto);
                 var condResult = condition(dDto);
                 if (condResult)
                     return dDto;
@@ -49,14 +50,10 @@ namespace MSP.BetterCalm.DataAccess
         {
           //  try
             //{
-                using (ContextDB context = new ContextDB())
-                {
-                    var TDto = mapper.DomainToDto(objectToAdd, context);
-                    var entity = context.Set<T>();
-                    //if (context.Entry(TDto).State == (EntityState) System.Data.Entity.EntityState.Detached)
-                        entity.Add(TDto);
-                    context.SaveChanges();
-                }
+            var TDto = mapper.DomainToDto(objectToAdd);
+            if (context.Entry(TDto).State == (EntityState) EntityState.Detached)
+                entity.Add(TDto);
+            context.SaveChanges();
             //}
            // catch (DbUpdateException)
             //{
@@ -64,13 +61,12 @@ namespace MSP.BetterCalm.DataAccess
             //}
         }
 
-        private T FindDto(Predicate<D> condition, ContextDB context)
+        private T FindDto(Predicate<D> condition)
         {
-            Microsoft.EntityFrameworkCore.DbSet<T> entity = context.Set<T>();
             List<T> TDtos = entity.ToList();
             foreach (var TDto in TDtos)
             {
-                var DDto = mapper.DtoToDomain(TDto, context);
+                var DDto = mapper.DtoToDomain(TDto);
                 var condResult = condition(DDto);
                 if (condResult)
                     return TDto;
@@ -81,13 +77,9 @@ namespace MSP.BetterCalm.DataAccess
 
         public void Delete(D objectToDelete)
         {
-            using (ContextDB context = new ContextDB())
-            {
-                var entity = context.Set<T>();
-                var ObjectToDeleteDto = FindDto(x => x.Equals(objectToDelete), context);
-                entity.Remove(ObjectToDeleteDto);
-                context.SaveChanges();
-            }
+            var ObjectToDeleteDto = FindDto(x => x.Equals(objectToDelete));
+            entity.Remove(ObjectToDeleteDto);
+            context.SaveChanges();
         }
         public void Set(List<D> objectToAdd)
         {
@@ -98,14 +90,11 @@ namespace MSP.BetterCalm.DataAccess
         {
            // try
             //{
-                using (ContextDB context = new ContextDB())
-                {
-                    Microsoft.EntityFrameworkCore.DbSet<T> entity = context.Set<T>();
-                    T objToUpdate = FindDto(x => x.Equals(OldObject), context);
-                    mapper.UpdateDtoObject(objToUpdate, UpdatedObject, context);
-                    context.SaveChanges();
-                    return UpdatedObject;
-                }
+            T objToUpdate = FindDto(x => x.Equals(OldObject));
+            mapper.UpdateDtoObject(objToUpdate, UpdatedObject);
+            context.SaveChanges();
+            return UpdatedObject;
+                
            // }
            // catch (DbUpdateException)
             //{
