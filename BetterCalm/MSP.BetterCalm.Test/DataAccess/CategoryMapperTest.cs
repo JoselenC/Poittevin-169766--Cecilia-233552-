@@ -21,7 +21,7 @@ namespace MSP.BetterCalm.Test
         {
             options = new DbContextOptionsBuilder<ContextDB>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
             context = new ContextDB(this.options); 
-            Categories = new DataBaseRepository<Category, CategoryDto>(new CategoryMapper(context.Categories), context.Categories, context);
+            Categories = new DataBaseRepository<Category, CategoryDto>(new CategoryMapper(), context.Categories, context);
             categoryTest = new Category()
             {
                 Name = "Dormir",

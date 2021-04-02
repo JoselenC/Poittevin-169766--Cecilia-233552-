@@ -7,6 +7,5 @@ namespace MSP.BetterCalm.BusinessLogic
     {
         public IRepository<Category> Categories;
         public IRepository<Problematic> Problematics;
-        
     }
 }

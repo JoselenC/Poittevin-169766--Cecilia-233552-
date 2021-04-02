@@ -22,8 +22,8 @@ namespace MSP.BetterCalm.Test
         {
             options = new DbContextOptionsBuilder<ContextDB>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
             context = new ContextDB(options); 
-            Categories = new DataBaseRepository<Category, CategoryDto>(new CategoryMapper(context.Categories), context.Categories, context);
-            Problematics = new DataBaseRepository<Problematic, ProblematicDto>(new ProblematicMapper(context.Problematics), context.Problematics, context);
+            Categories = new DataBaseRepository<Category, CategoryDto>(new CategoryMapper(), context.Categories, context);
+            Problematics = new DataBaseRepository<Problematic, ProblematicDto>(new ProblematicMapper(), context.Problematics, context);
             AllCategories = new List<Category>();
             Category category = new Category {Name = "Dormir"};
             Categories.Add(category);
