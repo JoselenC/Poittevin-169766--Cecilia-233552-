@@ -18,9 +18,10 @@ namespace MSP.BetterCalm.DataAccess
         
         public void AddScopped()
         {
-            services.AddScoped<CategoryRepository>();
-            services.AddScoped<ProblematicRepository>();
-            services.AddScoped<ManagerRepository>();
+            services.AddScoped<ICategoryLogic,CategoryLogic>();
+            services.AddScoped<IProblematicLogic,ProblematicLogic>();
+            services.AddScoped<ManagerProblematicRepository,ProblematicRepository>();
+            services.AddScoped<ManagerCategoryRepository,CategoryRepository>();
             services.AddScoped<IMapper<Category, CategoryDto>,CategoryMapper>();
             services.AddScoped<IMapper<Problematic, ProblematicDto>,ProblematicMapper>();
         }

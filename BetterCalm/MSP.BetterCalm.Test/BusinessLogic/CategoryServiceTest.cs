@@ -12,18 +12,18 @@ namespace MSP.BetterCalm.Test
     [TestClass]
     public class CategoryServiceTest
     {
-        private Mock<ManagerRepository> repoMock;
+        private Mock<ManagerCategoryRepository> repoMock;
         private Mock<IRepository<Category>> categoriesMock;
-        private ManagerRepository repo;
-        private CategoryService service;
+        private ManagerCategoryRepository repo;
+        private CategoryLogic _logic;
 
         [TestInitialize]
         public void TestFixtureSetup()
         {
-            repoMock = new Mock<ManagerRepository>();
+            repoMock = new Mock<ManagerCategoryRepository>();
             categoriesMock = new Mock<IRepository<Category>>();
             repoMock.Object.Categories = categoriesMock.Object;
-            service = new CategoryService(repoMock.Object);
+            _logic = new CategoryLogic(repoMock.Object);
         }
         
         
@@ -34,7 +34,7 @@ namespace MSP.BetterCalm.Test
             categoriesMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Category>>())
             ).Returns(category1);
-            Category category3 = service.GetCategoryByName("Yoga");
+            Category category3 = _logic.GetCategoryByName("Yoga");
             Assert.AreEqual(category1, category3);
         }
 
@@ -45,7 +45,7 @@ namespace MSP.BetterCalm.Test
             categoriesMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Category>>())
             ).Throws( new ValueNotFound());
-            service.GetCategoryByName("Musica");
+            _logic.GetCategoryByName("Musica");
         }
 
         [TestMethod]
@@ -59,7 +59,7 @@ namespace MSP.BetterCalm.Test
             categoriesMock.Setup(
                 x => x.Get()
             ).Returns(categories);
-            List<Category> categories2 = service.GetCategories();
+            List<Category> categories2 = _logic.GetCategories();
             CollectionAssert.AreEqual(categories, categories2);
         }
 
