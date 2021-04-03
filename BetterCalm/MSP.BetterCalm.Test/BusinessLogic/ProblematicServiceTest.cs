@@ -12,20 +12,20 @@ namespace MSP.BetterCalm.Test
     [TestClass]
     public class ProblematicServiceTest
     {
-        private Mock<ManagerRepository> repoMock;
+        private Mock<ManagerProblematicRepository> repoMock;
         private Mock<IRepository<Problematic>> problematicMock;
         
         public  Problematic problematicTest;
 
-        private ProblematicService service;
+        private ProblematicLogic _logic;
 
         [TestInitialize]
         public  void TestFixtureSetup()
         {
-            repoMock = new Mock<ManagerRepository>();
+            repoMock = new Mock<ManagerProblematicRepository>();
             problematicMock = new Mock<IRepository<Problematic>>();
             repoMock.Object.Problematics = problematicMock.Object;
-            service = new ProblematicService(repoMock.Object);
+            _logic = new ProblematicLogic(repoMock.Object);
         }
 
         [TestMethod]
@@ -35,7 +35,7 @@ namespace MSP.BetterCalm.Test
             problematicMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Problematic>>())
             ).Returns(problematic1);
-            Problematic problematic2 = service.GetProblematicByName("Estres");
+            Problematic problematic2 = _logic.GetProblematicByName("Estres");
             Assert.AreEqual(problematic1, problematic2);
         }
 
@@ -46,7 +46,7 @@ namespace MSP.BetterCalm.Test
             problematicMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Problematic>>())
             ).Throws(new ValueNotFound());
-            service.GetProblematicByName("");
+            _logic.GetProblematicByName("");
         }
 
         [TestMethod]
@@ -57,11 +57,11 @@ namespace MSP.BetterCalm.Test
             {
                 problematic
             };
-            service.SetProblematic(problematic);
+            _logic.SetProblematic(problematic);
             problematicMock.Setup(
                 x => x.Get()
             ).Returns(problematics);
-            List<Problematic> problematics2 = service.GetProblematics();
+            List<Problematic> problematics2 = _logic.GetProblematics();
             CollectionAssert.AreEqual(problematics, problematics2);
         }
         

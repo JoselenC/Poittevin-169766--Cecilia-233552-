@@ -13,7 +13,6 @@ namespace MSP.BetterCalm.DataAccess
         private IMapper<D,T> mapper;
         private ContextDB context;
         private DbSet<T> entity;
-        private bool isDispose = false;
         
         public DataBaseRepository(IMapper<D,T> mapper, DbSet<T> entity, ContextDB context)
         {
@@ -27,7 +26,7 @@ namespace MSP.BetterCalm.DataAccess
             List<D> Dlist = new List<D>();
             foreach (T item in entity.ToList())
             {
-                var x = mapper.DtoToDomain(item);
+                var x = mapper.DtoToDomain(item,entity);
                 Dlist.Add(x);
             }
             return Dlist;
@@ -38,7 +37,7 @@ namespace MSP.BetterCalm.DataAccess
             List<T> dtos = entity.ToList();
             foreach (var dto in dtos)
             {
-                var dDto = mapper.DtoToDomain(dto);
+                var dDto = mapper.DtoToDomain(dto,entity);
                 var condResult = condition(dDto);
                 if (condResult)
                     return dDto;
@@ -50,7 +49,7 @@ namespace MSP.BetterCalm.DataAccess
         {
           //  try
             //{
-            var TDto = mapper.DomainToDto(objectToAdd);
+            var TDto = mapper.DomainToDto(objectToAdd,entity);
             if (context.Entry(TDto).State == (EntityState) EntityState.Detached)
                 entity.Add(TDto);
             context.SaveChanges();
@@ -66,7 +65,7 @@ namespace MSP.BetterCalm.DataAccess
             List<T> TDtos = entity.ToList();
             foreach (var TDto in TDtos)
             {
-                var DDto = mapper.DtoToDomain(TDto);
+                var DDto = mapper.DtoToDomain(TDto,entity);
                 var condResult = condition(DDto);
                 if (condResult)
                     return TDto;
@@ -91,7 +90,7 @@ namespace MSP.BetterCalm.DataAccess
            // try
             //{
             T objToUpdate = FindDto(x => x.Equals(OldObject));
-            mapper.UpdateDtoObject(objToUpdate, UpdatedObject);
+            mapper.UpdateDtoObject(objToUpdate, UpdatedObject,entity);
             context.SaveChanges();
             return UpdatedObject;
                 

@@ -8,14 +8,7 @@ namespace MSP.BetterCalm.DataAccess
     public class CategoryMapper: IMapper<Category, CategoryDto>
 
     {
-        private DbSet<CategoryDto> categorySet;
-
-        public CategoryMapper(DbSet<CategoryDto> categorySet)
-        {
-            this.categorySet = categorySet;
-        }
-
-        public CategoryDto DomainToDto(Category obj)
+        public CategoryDto DomainToDto(Category obj,DbSet<CategoryDto> categorySet)
         {
             CategoryDto categoryDto = categorySet.FirstOrDefault(x => x.Name == obj.Name);
             if (categoryDto is null)
@@ -26,7 +19,7 @@ namespace MSP.BetterCalm.DataAccess
             return categoryDto;
         }
 
-        public Category DtoToDomain(CategoryDto obj)
+        public Category DtoToDomain(CategoryDto obj,DbSet<CategoryDto> categorySet)
         {
            return new Category()
             {
@@ -34,9 +27,10 @@ namespace MSP.BetterCalm.DataAccess
             };
         }
 
-        public void UpdateDtoObject<T, D>(T objToUpdate, D updatedObject) where T : class
+        public void UpdateDtoObject(CategoryDto objToUpdate, Category updatedObject, DbSet<CategoryDto> entity)
         {
             throw new NotImplementedException();
         }
+
     }
 }

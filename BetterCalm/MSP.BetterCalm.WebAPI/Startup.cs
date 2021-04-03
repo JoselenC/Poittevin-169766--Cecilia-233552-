@@ -27,21 +27,22 @@ namespace MSP.BetterCalm.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-            
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowEverything",builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             });
+            InjectionManagement injectionManagement = new InjectionManagement(services);
             services.AddControllers();
-
+            injectionManagement.AddScopped();
+            injectionManagement.AddDbContext();
+            
             string directory = System.IO.Directory.GetCurrentDirectory();
             IConfigurationRoot configuration = new ConfigurationBuilder()
                 .SetBasePath(directory)
                 .AddJsonFile("appsettings.json")
                 .Build();
-            var connectionString = configuration.GetConnectionString("BetterCalmDB");
-            services.AddDbContext<DbContext, ContextDB>(options =>
+            var connectionString = configuration.GetConnectionString("@BetterCalmDB");
+            services.AddDbContext<ContextDB>(options =>
                 options.UseSqlServer(connectionString).UseLazyLoadingProxies());
         }
 

@@ -9,15 +9,7 @@ namespace MSP.BetterCalm.DataAccess
     public class ProblematicMapper: IMapper<Problematic, ProblematicDto>
 
     {
-        private ContextDB context;
-        private DbSet<ProblematicDto> problematicSet;
-
-        public ProblematicMapper(DbSet<ProblematicDto> problematicSet)
-        {
-            this.problematicSet = problematicSet;
-        }
-
-        public ProblematicDto DomainToDto(Problematic obj)
+        public ProblematicDto DomainToDto(Problematic obj,DbSet<ProblematicDto> problematicSet)
         {
             ProblematicDto problematicDto = problematicSet.FirstOrDefault(x => x.Name == obj.Name);
             if (problematicDto is null)
@@ -28,7 +20,7 @@ namespace MSP.BetterCalm.DataAccess
             return problematicDto;
         }
 
-        public Problematic DtoToDomain(ProblematicDto obj)
+        public Problematic DtoToDomain(ProblematicDto obj,DbSet<ProblematicDto> problematicSet)
         {
             return new Problematic()
             {
@@ -36,9 +28,10 @@ namespace MSP.BetterCalm.DataAccess
             };
         }
 
-        public void UpdateDtoObject<T, D>(T objToUpdate, D updatedObject) where T : class
+        public void UpdateDtoObject(ProblematicDto objToUpdate, Problematic updatedObject, DbSet<ProblematicDto> entity)
         {
             throw new NotImplementedException();
         }
+
     }
 }

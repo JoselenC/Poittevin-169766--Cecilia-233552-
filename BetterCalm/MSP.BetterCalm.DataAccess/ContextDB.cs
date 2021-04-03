@@ -23,7 +23,7 @@ namespace MSP.BetterCalm.DataAccess
                     .SetBasePath(directory)
                     .AddJsonFile("appsettings.json")
                     .Build();
-                var connectionString = configuration.GetConnectionString(@"UruguayNaturalDB");
+                var connectionString = configuration.GetConnectionString(@"BetterCalmDB");
                 optionsBuilder.UseSqlServer(connectionString).UseLazyLoadingProxies();
         
             }

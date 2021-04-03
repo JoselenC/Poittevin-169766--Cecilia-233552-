@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.Linq.Expressions;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.BusinessLogic
 {
-    public class CategoryService
+    public class CategoryLogic : ICategoryLogic
     {
-        private ManagerRepository repository;
+        private ManagerCategoryRepository repository;
 
-        public CategoryService(ManagerRepository vRepository)
+        public CategoryLogic(ManagerCategoryRepository vRepository)
         {
             repository = vRepository;
         }

@@ -18,8 +18,8 @@ namespace MSP.BetterCalm.Test
         public  void TestFixtureSetup()
         {
             options = new DbContextOptionsBuilder<ContextDB>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
-            ContextDB context = new ContextDB(this.options); 
-            Problematics = new DataBaseRepository<Problematic, ProblematicDto>(new ProblematicMapper(context.Problematics), context.Problematics, context);
+            ContextDB context = new ContextDB(this.options);
+            Problematics = new DataBaseRepository<Problematic, ProblematicDto>(new ProblematicMapper(), context.Problematics, context);
             CleanData();
             problematicTest = new Problematic()
             {
