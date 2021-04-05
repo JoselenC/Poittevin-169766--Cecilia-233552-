@@ -10,7 +10,7 @@ using MSP.BetterCalm.Domain;
 namespace MSP.BetterCalm.Test
 {
     [TestClass]
-    public class ProblematicServiceTest
+    public class ProblematicLogicTest
     {
         private Mock<ManagerProblematicRepository> repoMock;
         private Mock<IRepository<Problematic>> problematicMock;
@@ -50,20 +50,18 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
-        public void GetAllProblematics()
+        public void GetProblematics()
         {
-            Problematic problematic = new Problematic { Name = "estres" };
+            Problematic problematic = new Problematic { Name = "Estres" };
             List<Problematic> problematics = new List<Problematic>
             {
                 problematic
             };
-            _logic.SetProblematic(problematic);
             problematicMock.Setup(
                 x => x.Get()
             ).Returns(problematics);
             List<Problematic> problematics2 = _logic.GetProblematics();
             CollectionAssert.AreEqual(problematics, problematics2);
         }
-        
     }
 }

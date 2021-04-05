@@ -10,11 +10,10 @@ using MSP.BetterCalm.Domain;
 namespace MSP.BetterCalm.Test
 {
     [TestClass]
-    public class CategoryServiceTest
+    public class CategoryLogicTest
     {
         private Mock<ManagerCategoryRepository> repoMock;
         private Mock<IRepository<Category>> categoriesMock;
-        private ManagerCategoryRepository repo;
         private CategoryLogic _logic;
 
         [TestInitialize]

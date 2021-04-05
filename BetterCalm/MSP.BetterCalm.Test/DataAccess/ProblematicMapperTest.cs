@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.DataAccess;
@@ -56,5 +57,12 @@ namespace MSP.BetterCalm.Test
             Assert.AreEqual(problematicTest, realProblematic);
         }
      
+        [TestMethod]
+        [ExpectedException(typeof(NotImplementedException), "")]
+        public void UpdateTest()
+        {
+            ProblematicMapper problematicMapper = new ProblematicMapper();
+            problematicMapper.UpdateDtoObject(new ProblematicDto(), new Problematic(), new ContextDB());
+        }
     }
 }

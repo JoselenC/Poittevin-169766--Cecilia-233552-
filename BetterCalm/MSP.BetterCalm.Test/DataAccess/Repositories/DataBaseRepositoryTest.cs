@@ -107,17 +107,6 @@ namespace MSP.BetterCalm.Test
             Categories.Update(categoryDormirUpdated, category);
         }
         
-        // [TestMethod]
-        // [ExpectedException(typeof(NotImplementedException), "")]
-        // public void UpdateProblematicTest()
-        // {
-        //     Problematic problematic = new Problematic();
-        //     problematic.Name = "Estres";
-        //     Problematic problematicUpdated = new Problematic()
-        //     {
-        //         Name = "Angustia",
-        //     };
-        //     Problematics.Update(problematic, problematicUpdated);
-        // }
+      
     }
 }
