@@ -20,10 +20,15 @@ namespace MSP.BetterCalm.DataAccess
         {
             services.AddScoped<ICategoryLogic,CategoryLogic>();
             services.AddScoped<IProblematicLogic,ProblematicLogic>();
+            services.AddScoped<ISongLogic,SongLogic>();
+            
             services.AddScoped<ManagerProblematicRepository,ProblematicRepository>();
             services.AddScoped<ManagerCategoryRepository,CategoryRepository>();
+            services.AddScoped<ManagerSongRepository,SongRepository>();
+            
             services.AddScoped<IMapper<Category, CategoryDto>,CategoryMapper>();
             services.AddScoped<IMapper<Problematic, ProblematicDto>,ProblematicMapper>();
+            services.AddScoped<IMapper<Song, SongDto>,SongMapper>();
         }
         
         public void AddDbContext()

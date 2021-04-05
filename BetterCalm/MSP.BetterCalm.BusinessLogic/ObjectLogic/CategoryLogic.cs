@@ -31,9 +31,6 @@ namespace MSP.BetterCalm.BusinessLogic
 
         }
 
-        public void SetCategory(Category category)
-        {
-            repository.Categories.Add(category);
-        }
+      
     }
 }

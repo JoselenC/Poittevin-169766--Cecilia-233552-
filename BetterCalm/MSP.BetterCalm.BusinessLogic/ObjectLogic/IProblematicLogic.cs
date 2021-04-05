@@ -7,6 +7,6 @@ namespace MSP.BetterCalm.BusinessLogic
     {
         public List<Problematic> GetProblematics();
         public Problematic GetProblematicByName(string name);
-        public void SetProblematic(Problematic problematic);
+        
     }
 }

@@ -9,6 +9,5 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public Category GetCategoryByName(string name);
 
-        public void SetCategory(Category category);
     }
 }

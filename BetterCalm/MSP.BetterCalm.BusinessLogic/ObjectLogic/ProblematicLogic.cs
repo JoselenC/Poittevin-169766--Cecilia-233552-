@@ -30,9 +30,5 @@ namespace MSP.BetterCalm.BusinessLogic
             }
         }
 
-        public void SetProblematic(Problematic problematic)
-        {
-            repository.Problematics.Add(problematic);
-        }
     }
 }
