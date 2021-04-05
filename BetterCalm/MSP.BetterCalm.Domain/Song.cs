@@ -37,5 +37,15 @@ namespace MSP.BetterCalm.Domain
                 && UrlAudio==((Song)obj).UrlAudio && UrlImage==((Song)obj).UrlImage
                 && Duration==((Song)obj).Duration;
         }
+
+        public bool IsSameCategoryName(string categroyName)
+        {
+            foreach (var category in Categories)
+            {
+                if (category.IsSameCategoryName(categroyName))
+                    return true;
+            }
+            return false;
+        }
     }
 }

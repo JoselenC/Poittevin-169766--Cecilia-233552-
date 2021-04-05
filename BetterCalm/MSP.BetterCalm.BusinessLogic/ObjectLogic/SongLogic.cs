@@ -49,6 +49,17 @@ namespace MSP.BetterCalm.BusinessLogic
                 throw new NoFindSongByAuthor();
             }
         }
+
+        public List<Song> GetSongsByCategoryName(string categroyName)
+        {
+            List<Song> songs = new List<Song>();
+            foreach (Song song in repository.Songs.Get())
+            {
+                if(song.IsSameCategoryName(categroyName))
+                    songs.Add(song);
+            }
+            return songs;
+        }
     }
 }
     

@@ -13,5 +13,7 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public Song GetSongByName(string songName);
         public Song GetSongByAuthor(string authorName);
+        
+        List<Song> GetSongsByCategoryName(string categoryName);
     }
 }

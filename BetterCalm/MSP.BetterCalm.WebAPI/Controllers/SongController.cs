@@ -28,14 +28,21 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         [HttpGet("{Name}")]
         public IActionResult GetSongByName([FromRoute]string Name)
         {
-            Song songs = this.songLogic.GetSongByName(Name);
-            return Ok(songs);
+            Song song = this.songLogic.GetSongByName(Name);
+            return Ok(song);
         }
         
         [HttpGet("{authorName}")]
         public IActionResult GetSongByAuthor([FromRoute]string authorName)
         {
-            Song songs = this.songLogic.GetSongByAuthor(authorName);
+            Song song = this.songLogic.GetSongByAuthor(authorName);
+            return Ok(song);
+        }
+        
+        [HttpGet("{categoryName}")]
+        public IActionResult GetSongByCategoryName([FromRoute]string categoryName)
+        {
+            List<Song> songs = this.songLogic.GetSongsByCategoryName(categoryName);
             return Ok(songs);
         }
         
