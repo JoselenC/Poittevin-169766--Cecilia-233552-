@@ -27,9 +27,16 @@ namespace MSP.BetterCalm.Test
         [TestMethod]
         public void FindSongByName()
         {
+            Category category = new Category()
+            {
+                Name = "Dormir"
+            };
             Song song1 = new Song()
             {
-                Categories = new List<Category>(),
+                Categories = new List<Category>()
+                {
+                    category
+                },
                 Name = "Stand by me",
                 AuthorName = "John Lennon",
                 Duration = 12,
@@ -46,9 +53,16 @@ namespace MSP.BetterCalm.Test
         [TestMethod]
         public void FindSongByAuthor()
         {
+            Category category = new Category()
+            {
+                Name = "Dormir"
+            };
             Song song1 = new Song()
             {
-                Categories = new List<Category>(),
+                Categories = new List<Category>()
+                {
+                    category
+                },
                 Name = "Stand by me",
                 AuthorName = "John Lennon",
                 Duration = 12,
@@ -85,9 +99,16 @@ namespace MSP.BetterCalm.Test
         [TestMethod]
         public void GetSongs()
         {
+            Category category = new Category()
+            {
+                Name = "Dormir"
+            };
             Song song = new Song()
             {
-                Categories = new List<Category>(),
+                Categories = new List<Category>()
+                {
+                    category
+                },
                 Name = "Stand by me",
                 AuthorName = "John Lennon",
                 Duration = 12,
@@ -107,10 +128,17 @@ namespace MSP.BetterCalm.Test
 
         [TestMethod]
         public void SetSongs()
-        {
+        {     
+            Category category = new Category()
+            {
+                Name = "Dormir"
+            };
             Song song = new Song()
             {
-                Categories = new List<Category>(),
+                Categories = new List<Category>()
+                {
+                    category
+                },
                 Name = "Stand by me",
                 AuthorName = "John Lennon",
                 Duration = 12,
@@ -135,10 +163,16 @@ namespace MSP.BetterCalm.Test
 
         [TestMethod]
         public void UpdateSong()
-        {
+        {     Category category = new Category()
+            {
+                Name = "Dormir"
+            };
             Song song = new Song()
             {
-                Categories = new List<Category>(),
+                Categories = new List<Category>()
+                {
+                    category
+                },
                 Name = "Stand by me",
                 AuthorName = "John Lennon",
                 Duration = 12,
@@ -147,7 +181,7 @@ namespace MSP.BetterCalm.Test
             };
             Song song2 = new Song()
             {
-                Categories = new List<Category>(),
+                Categories = new List<Category>(){category},
                 Name = "Stand by me",
                 AuthorName = "The beatles",
                 Duration = 12,
@@ -169,6 +203,43 @@ namespace MSP.BetterCalm.Test
             ).Returns(songs1);
             List<Song> songs2 = songLogic.GetSongs();
             CollectionAssert.AreEqual(songs1, songs2);
+        }
+        
+        [TestMethod]
+        public void FindSongByCategoryName()
+        {
+            Category category = new Category()
+            {
+                Name = "Dormir"
+            };
+            Song song1 = new Song()
+            {
+                Categories = new List<Category>()
+                {
+                    category
+                },
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = 12,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            List<Song> songs = new List<Song>()
+            {
+                song1,
+                song1,
+                song1,
+                song1
+            };
+            songsMock.Setup(
+                x => x.Set(songs)
+            );
+            songLogic.SetSong(song1);
+            songsMock.Setup(
+                x => x.Get()
+            ).Returns(songs);
+            List<Song> song3 = songLogic.GetSongsByCategoryName("Dormir");
+            Assert.AreEqual(songs.Count, song3.Count);
         }
     }
 }

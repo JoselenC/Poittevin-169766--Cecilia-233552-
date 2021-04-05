@@ -75,5 +75,33 @@ namespace MSP.BetterCalm.Test.WebAPI
             var songsValue = okResult.Value;
             Assert.AreEqual(songs,songsValue);
         }
+        
+        [TestMethod]
+        public void TestGetSongByCategoryNAme()
+        {
+            Category category = new Category()
+            {
+                Name = "Dormir"
+            };
+            Song songToAdd = new Song()
+            {
+                Categories = new List<Category>()
+                {
+                    category
+                },
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = 12,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            mockSongService.Setup(m => m.SetSong(songToAdd));
+            songController.CreateSong(songToAdd);
+            mockSongService.Setup(m => m.GetSongsByCategoryName("Dormir")).Returns(songs);
+            var result = songController.GetSongByCategoryName("Dormir");
+            var okResult = result as OkObjectResult;
+            var songsValue = okResult.Value;
+            Assert.AreEqual(songs,songsValue);
+        }
     }
 }

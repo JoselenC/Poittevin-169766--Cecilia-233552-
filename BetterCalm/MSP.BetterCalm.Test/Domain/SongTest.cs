@@ -77,7 +77,7 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        public void IsDifferentCategoryName()
+        public void IsDifferentSongName()
         {
             Song song = new Song();
             song.Name = "Something";
@@ -100,7 +100,39 @@ namespace MSP.BetterCalm.Test
             Song song = new Song();
             song.AuthorName =  "Ringo Starr";
             string authorName = "John Lennon";
-            Assert.IsFalse(song.IsSameSongName(authorName));
+            Assert.IsFalse(song.IsSameAuthorName(authorName));
         }
+        
+        [TestMethod]
+        public void IsSameCategoryName()
+        {
+            Song song = new Song();
+            song.Categories = new List<Category>()
+            {
+                new Category()
+                {
+                    Name="Dormir"
+                }
+            };
+            string categoryName =  "Dormir";
+            Assert.IsTrue(song.IsSameCategoryName(categoryName));
+        }
+        
+        [TestMethod]
+        public void IsDifferentCategoryName()
+        {
+            Song song = new Song();
+            song.Categories = new List<Category>()
+            {
+                new Category()
+                {
+                    Name="Dormir"
+                }
+            };
+            string categoryName =  "Musica";
+            Assert.IsFalse(song.IsSameCategoryName(categoryName));
+        }
+        
+       
     }
 }
