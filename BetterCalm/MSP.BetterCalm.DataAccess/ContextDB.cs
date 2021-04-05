@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MSP.BetterCalm.Domain;
@@ -10,10 +11,12 @@ namespace MSP.BetterCalm.DataAccess
     { 
         public DbSet<CategoryDto> Categories { get; set; }
         public DbSet<ProblematicDto> Problematics { get; set; }
+        public DbSet<SongDto> Songs { get; set; }
 
         public ContextDB() { }
         public ContextDB(DbContextOptions<ContextDB> options): base(options) { }
         
+        [ExcludeFromCodeCoverage]
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if(!optionsBuilder.IsConfigured)

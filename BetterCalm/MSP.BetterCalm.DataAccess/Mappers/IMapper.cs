@@ -5,10 +5,10 @@ namespace MSP.BetterCalm.DataAccess
 {
     public interface IMapper<D,T> where T: class 
     {
-        T DomainToDto(D obj,DbSet<T> entity);
+        T DomainToDto(D obj,ContextDB context);
 
-        D DtoToDomain(T obj,DbSet<T> entity);
+        D DtoToDomain(T obj,ContextDB context);
 
-        void UpdateDtoObject(T objToUpdate, D updatedObject, DbSet<T> entity);
+        T UpdateDtoObject (T objToUpdate, D updatedObject,ContextDB context);
     }
 }
