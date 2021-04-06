@@ -12,6 +12,8 @@ namespace MSP.BetterCalm.DataAccess
         public DbSet<CategoryDto> Categories { get; set; }
         public DbSet<ProblematicDto> Problematics { get; set; }
         public DbSet<SongDto> Songs { get; set; }
+        public DbSet<PatientDto> Patients { get; set; }
+        public DbSet<PsychologistDto> Psychologists { get; set; }
 
         public ContextDB() { }
         public ContextDB(DbContextOptions<ContextDB> options): base(options) { }
