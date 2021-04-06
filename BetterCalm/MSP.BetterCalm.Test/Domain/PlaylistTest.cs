@@ -8,7 +8,7 @@ namespace MSP.BetterCalm.Test
     public class PlaylistTest
     {
         [TestMethod]
-        public void GetSetSongName()
+        public void GetSetPlaylistName()
         {
             string playlistName = "Entrena tu mente";
             Playlist playlist = new Playlist();
@@ -18,7 +18,7 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
-        public void GetSetSongUrlAudio()
+        public void GetSetPlaylistUrlAudio()
         {
             string description = "urlAudioName";
             Playlist playlist = new Playlist();
@@ -28,7 +28,7 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
-        public void GetSetSongUrlImage()
+        public void GetSetPlaylistUrlImage()
         {
             string playlistUrlImage = "UrlImage";
             Playlist playlist = new Playlist();
@@ -38,7 +38,7 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
-        public void GetSetSongCategories()
+        public void GetSetPlaylistCategories()
         {
             List<Category> categories = new List<Category>();
             Playlist playlist = new Playlist();
