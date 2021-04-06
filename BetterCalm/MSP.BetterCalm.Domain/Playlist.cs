@@ -39,6 +39,13 @@ namespace MSP.BetterCalm.Domain
             return false;
         }
         
-        
+        public override bool Equals(object obj)
+        {
+            if (obj==null) return false;
+            if (obj.GetType() != GetType()) return false;
+            return Name == ((Playlist) obj).Name 
+                   && Description == ((Playlist) obj).Description
+                   && UrlImage == ((Playlist) obj).UrlImage;
+        }
     }
 }
