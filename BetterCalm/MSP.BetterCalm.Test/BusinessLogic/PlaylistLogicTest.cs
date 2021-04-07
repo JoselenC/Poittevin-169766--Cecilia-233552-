@@ -63,22 +63,15 @@ namespace MSP.BetterCalm.Test
                 playlist
             };
             playlisMock.Setup(
-                x => x.Find(It.IsAny<Predicate<Playlist>>())
-            ).Returns(playlist);
-            Playlist playlist2 = playlistLogic.GetPlaylistByName("Entrena tu mente");
-            Assert.AreEqual(playlist, playlist2);
-        }
-        
-        [TestMethod]
-        [ExpectedException(typeof(NoFindPlaylistByName), "")]
-        public void NoFindPlaylistByName()
-        {
+                x => x.Get()
+            ).Returns(playlists);
             playlisMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Playlist>>())
-            ).Throws( new ValueNotFound());
-            playlistLogic.GetPlaylistByName("Let it be");
+            ).Returns(playlist);
+            List<Playlist> playlist2 = playlistLogic.GetPlaylistByName("Entrena tu mente");
+            CollectionAssert.AreEqual(playlist2, playlists);
         }
-
+      
          [TestMethod]
         public void FindPlaylistByCategoryName()
         {
@@ -296,7 +289,86 @@ namespace MSP.BetterCalm.Test
             List<Playlist> playlists2 = playlistLogic.GetPlaylist();
             CollectionAssert.AreEqual(playlists, playlists2);
         }
+        
+        [TestMethod]
+        public void DeletePlaylistByName()
+        {
+            Category category = new Category()
+            {
+                Name = "Dormir"
+            };
+            Song song1 = new Song()
+            {
+                Categories = new List<Category>()
+                {
+                    category
+                },
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = 12,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            Playlist playlist = new Playlist()
+            {
+                Songs = new List<Song>() {song1},
+                Categories = new List<Category>() {category},
+                Name = "Entrena tu mente",
+                UrlImage = "urlImage",
+                Description = "descrption"
+            };
+            List<Playlist> playlists = new List<Playlist>();
+            playlisMock.Setup(
+                x => x.Set(playlists)
+            );
+            playlistLogic.AddPlaylist(playlist)
+                ;
+            playlisMock.Setup(
+                x => x.Get()
+            ).Returns(playlists);
+            playlistLogic.DeletePlaylistByName("Entrena tu mente");
+            CollectionAssert.AreEqual(playlists, playlistLogic.GetPlaylist());
+        }
 
+        [TestMethod]
+        public void DeletePlaylistTest()
+        {
+            Category category = new Category()
+            {
+                Name = "Dormir"
+            };
+            Song song1 = new Song()
+            {
+                Categories = new List<Category>()
+                {
+                    category
+                },
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = 12,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            Playlist playlist = new Playlist()
+            {
+                Songs = new List<Song>() {song1},
+                Categories = new List<Category>() {category},
+                Name = "Entrena tu mente",
+                UrlImage = "urlImage",
+                Description = "descrption"
+            };
+            List<Playlist> playlists = new List<Playlist>();
+            playlisMock.Setup(
+                x => x.Set(playlists)
+            );
+            playlistLogic.AddPlaylist(playlist)
+                ;
+            playlisMock.Setup(
+                x => x.Get()
+            ).Returns(playlists);
+            playlistLogic.DeletePlaylist(playlist);
+            CollectionAssert.AreEqual(playlists, playlistLogic.GetPlaylist());
+        }
       
     }
 }

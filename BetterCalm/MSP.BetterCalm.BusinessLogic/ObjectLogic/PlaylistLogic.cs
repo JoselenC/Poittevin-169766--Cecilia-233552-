@@ -23,16 +23,15 @@ namespace MSP.BetterCalm.BusinessLogic
            repository.Playlists.Add(playlist);
         }
 
-        public Playlist GetPlaylistByName(string playlistName)
+        public List<Playlist> GetPlaylistByName(string playlistName)
         {
-            try
+            List<Playlist> playlists = new List<Playlist>();
+            foreach (var playlist in repository.Playlists.Get())
             {
-                return repository.Playlists.Find(x => x.IsSamePlaylistName(playlistName));
+                if(playlist.IsSamePlaylistName(playlistName))
+                    playlists.Add(playlist);
             }
-            catch (ValueNotFound)
-            {
-                throw new NoFindPlaylistByName();
-            }
+            return playlists;
         }
 
         public List<Playlist> GetPlaylistBySongName(string songName)
@@ -60,6 +59,17 @@ namespace MSP.BetterCalm.BusinessLogic
         public void UpdatePlaylist(Playlist playlistToUpdate, Playlist newPlaylist)
         {
             repository.Playlists.Update(playlistToUpdate, newPlaylist);
+        }
+        
+        public void DeletePlaylistByName(string name)
+        {
+            Playlist playlistToDelete=repository.Playlists.Find(x => x.IsSamePlaylistName(name));
+            repository.Playlists.Delete(playlistToDelete);
+        }
+        
+        public void DeletePlaylist(Playlist playlistToDelete)
+        {
+            repository.Playlists.Delete(playlistToDelete);
         }
     }
 }
