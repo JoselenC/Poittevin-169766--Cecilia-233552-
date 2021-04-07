@@ -27,8 +27,8 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         [HttpGet("{Name}")]
         public IActionResult GetPlaylistByName([FromRoute]string Name)
         {
-            Playlist playlist = this.playlistLogic.GetPlaylistByName(Name);
-            return Ok(playlist);
+            List<Playlist> playlists = this.playlistLogic.GetPlaylistByName(Name);
+            return Ok(playlists);
         }
         
         [HttpGet("{categoryName}")]
@@ -51,5 +51,27 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             playlistLogic.AddPlaylist(playlist);
             return Ok();
         }
+        
+        [HttpDelete()]
+        public IActionResult DeletePlaylist([FromBody] Playlist playlist)
+        {
+            playlistLogic.DeletePlaylist(playlist);
+            return Ok("Element removed");
+        }
+
+        //TODO: hacerla por ID
+       // [HttpDelete("{name}")]
+        //public IActionResult DeletePlaylistByName([FromRoute] string name)
+        //{
+          //  playlistLogic.DeletePlaylistByName(name);
+           // return Ok("Element removed");
+        //}
+        
+        //[HttpPut]
+        //public IActionResult UpdatePlaylist()
+        //{
+            //TODO: hacerla por ID
+          //  return Ok("Element Updated");
+        //}
     }
 }
