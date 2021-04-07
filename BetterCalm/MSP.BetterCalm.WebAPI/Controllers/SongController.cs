@@ -28,14 +28,21 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         [HttpGet("{Name}")]
         public IActionResult GetSongByName([FromRoute]string Name)
         {
-            Song song = this.songLogic.GetSongByName(Name);
-            return Ok(song);
+            List<Song> songs = this.songLogic.GetSongsByName(Name);
+            return Ok(songs);
         }
         
         [HttpGet("{authorName}")]
         public IActionResult GetSongByAuthor([FromRoute]string authorName)
         {
-            Song song = this.songLogic.GetSongByAuthor(authorName);
+            List<Song> songs = this.songLogic.GetSongsByAuthor(authorName);
+            return Ok(songs);
+        }
+        
+        [HttpGet("{Name}{authorName}")]
+        public IActionResult GetSongByAuthorAndName([FromRoute]string name,string authorName)
+        {
+            Song song = this.songLogic.GetSongByNameAndAuthor(name,authorName);
             return Ok(song);
         }
         
@@ -51,6 +58,28 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         {
             songLogic.SetSong(song);
             return Ok();
+        }
+          
+        [HttpDelete()]
+        public IActionResult DeleteSong([FromBody] Song song)
+        {
+            songLogic.DeleteSong(song);
+            return Ok("Element removed");
+        }
+
+        [HttpDelete("{name}{author}")]
+        public IActionResult DeleteSongByNameAndAuthor([FromRoute] string name,string author)
+        {
+            songLogic.DeleteSongByNameAndAuthor(name,author);
+            return Ok("Element removed");
+        }
+
+        [HttpPut("{name}{author}")]
+        public IActionResult UpdateSong([FromRoute] string name,string author,[FromBody] Song songUpdated)
+        {
+            Song songToUpdate = songLogic.GetSongByNameAndAuthor(name, author);
+            songLogic.UpdateSong(songToUpdate,songUpdated);
+            return Ok("Element Updated");
         }
         
     }
