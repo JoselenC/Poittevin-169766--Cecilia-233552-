@@ -38,11 +38,11 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestGetPlaylistByName()
         {
-            mockPlaylistService.Setup(m => m.GetPlaylistByName("Stand by me")).Returns(playlist);
+            mockPlaylistService.Setup(m => m.GetPlaylistByName("Stand by me")).Returns(playlists);
             var result = playlistController.GetPlaylistByName("Stand by me");
             var okResult = result as OkObjectResult;
             var playlistValue = okResult.Value;
-            Assert.AreEqual(playlist,playlistValue);
+            Assert.AreEqual(playlists,playlistValue);
         }
         
         [TestMethod]
@@ -82,6 +82,16 @@ namespace MSP.BetterCalm.Test.WebAPI
             var okResult = result as OkObjectResult;
             var playlistsValue = okResult.Value;
             Assert.AreEqual(playlists,playlistsValue);
+        }
+        
+        [TestMethod]
+        public void TestDeletePlaylist()
+        {   
+            mockPlaylistService.Setup(m => m.DeletePlaylist(playlist));
+            var result = playlistController.DeletePlaylist(playlist);
+            var okResult = result as OkObjectResult;
+            var value = okResult.Value;
+            Assert.AreEqual("Element removed",value);
         }
         
       }
