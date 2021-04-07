@@ -239,7 +239,7 @@ namespace MSP.BetterCalm.Test
                 x => x.Get()
             ).Returns(songs);
             List<Song> song3 = songLogic.GetSongsByCategoryName("Dormir");
-            Assert.AreEqual(songs.Count, song3.Count);
+            CollectionAssert.AreEqual(songs, song3);
         }
     }
 }

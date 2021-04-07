@@ -1,4 +1,6 @@
-﻿namespace MSP.BetterCalm.DataAccess
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace MSP.BetterCalm.DataAccess
 {
     public class CategoryDto
     {

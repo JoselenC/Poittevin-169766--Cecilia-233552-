@@ -29,15 +29,6 @@ namespace MSP.BetterCalm.Test
             Categories.Add(category);
             AllCategories.Add(category);
         }
-        //
-        // [TestCleanup]
-        // public void CleanAllData()
-        // {
-        //     foreach (Category category in Categories.Get())
-        //     {
-        //         Categories.Delete(category);
-        //     }
-        // }
         
         [TestMethod]
         public void AddSuccessCaseTest()
@@ -93,8 +84,7 @@ namespace MSP.BetterCalm.Test
         [ExpectedException(typeof(NotImplementedException), "")]
         public void UpdateTest()
         {
-            Category category = new Category();
-            category.Name = "Dormir";
+            Category category = new Category() {Name = "Dormir"};
             Category categoryDormirUpdated = new Category()
             {
                 Name = "Yoga",
