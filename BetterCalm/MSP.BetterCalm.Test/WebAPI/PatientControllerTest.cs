@@ -38,5 +38,15 @@ namespace MSP.BetterCalm.Test.WebAPI
             var realPatients = okResult.Value;
             Assert.AreEqual(realPatients, patients);
         }
+
+        [TestMethod]
+        public void TestAddPatient()
+        {
+            mockPatientService.Setup(x => x.AddPatient(patient));
+            var result = patientController.AddPatient(patient);
+            var createdResult = result as CreatedResult;
+            var realPatients = createdResult.Value;
+            Assert.AreEqual(realPatients, patient);
+        }
     }
 }
