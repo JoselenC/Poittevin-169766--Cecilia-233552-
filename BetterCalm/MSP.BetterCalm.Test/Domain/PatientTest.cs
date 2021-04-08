@@ -47,25 +47,5 @@ namespace MSP.BetterCalm.Test
             };
             Assert.AreEqual("Rodriguez", patient.LastName);
         }
-        
-        [TestMethod]
-        public void GetSetEmail()
-        {
-            Patient patient = new Patient
-            {
-                Email = "my.email@gmail.com"
-            };
-            Assert.AreEqual("my.email@gmail.com", patient.Email);
-        }
-        
-        [TestMethod]
-        public void GetSetPassword()
-        {
-            Patient patient = new Patient
-            {
-                Password = "StrongHashedPass"
-            };
-            Assert.AreEqual("StrongHashedPass", patient.Password);
-        }
     }
 }
