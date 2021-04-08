@@ -19,9 +19,15 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            IEnumerable<Patient> patientes = this.patientService.GetPatients();
+            IEnumerable<Patient> patientes = patientService.GetPatients();
             return Ok(patientes);
         }
-        
+
+        [HttpPost]
+        public IActionResult AddPatient(Patient patient)
+        {
+            patientService.AddPatient(patient);
+            return Created($"/patient/{patient.Name}", patient);
+        }
     }
 }
