@@ -24,24 +24,24 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             return Ok(songs);
         }
         
-        [HttpGet("{Name}")]
+        [HttpGet("playListName/{Name}")]
         public IActionResult GetPlaylistByName([FromRoute]string Name)
         {
             List<Playlist> playlists = this.playlistLogic.GetPlaylistByName(Name);
             return Ok(playlists);
         }
         
-        [HttpGet("{categoryName}")]
-        public IActionResult GetPlaylistByCategoryName([FromRoute]string categoryName)
+        [HttpGet("categoryName/{Name}")]
+        public IActionResult GetPlaylistByCategoryName([FromRoute]string Name)
         {
-            List<Playlist> playlists = this.playlistLogic.GetPlaylistByCategoryName(categoryName);
+            List<Playlist> playlists = this.playlistLogic.GetPlaylistByCategoryName(Name);
             return Ok(playlists);
         }
         
-        [HttpGet("{categoryName}")]
-        public IActionResult GetPlaylistBySongName([FromRoute]string songName)
+        [HttpGet("songName/{Name}")]
+        public IActionResult GetPlaylistBySongName([FromRoute]string Name)
         {
-            List<Playlist> playlists = this.playlistLogic.GetPlaylistBySongName(songName);
+            List<Playlist> playlists = this.playlistLogic.GetPlaylistBySongName(Name);
             return Ok(playlists);
         }
         
@@ -49,7 +49,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         public IActionResult CreatePlaylist([FromBody] Playlist playlist)
         {
             playlistLogic.AddPlaylist(playlist);
-            return Ok();
+            return Ok("Playlist created");
         }
         
         [HttpDelete()]
@@ -59,19 +59,6 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             return Ok("Element removed");
         }
 
-        //TODO: hacerla por ID
-       // [HttpDelete("{name}")]
-        //public IActionResult DeletePlaylistByName([FromRoute] string name)
-        //{
-          //  playlistLogic.DeletePlaylistByName(name);
-           // return Ok("Element removed");
-        //}
-        
-        //[HttpPut]
-        //public IActionResult UpdatePlaylist()
-        //{
-            //TODO: hacerla por ID
-          //  return Ok("Element Updated");
-        //}
+       
     }
 }
