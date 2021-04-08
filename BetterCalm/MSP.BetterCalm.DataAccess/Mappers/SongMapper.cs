@@ -15,9 +15,7 @@ namespace MSP.BetterCalm.DataAccess
             {
                 foreach (Category category in categories)
                 {
-                    CategoryDto categoriesDto = CategoriesSet.FirstOrDefault(x => x.Name == category.Name);
-                    if (categoriesDto is null)
-                        categoriesDto = new CategoryDto()
+                    CategoryDto categoriesDto = new CategoryDto()
                         {
                             Name = category.Name
                         };
@@ -44,6 +42,7 @@ namespace MSP.BetterCalm.DataAccess
                     AuthorName = obj.AuthorName,
                     UrlAudio = obj.UrlAudio,
                     UrlImage = obj.UrlImage
+                    
                 };
             }
             else
@@ -53,7 +52,7 @@ namespace MSP.BetterCalm.DataAccess
             }
 
             songDto.Categories = createCategories(obj.Categories, context);
-
+             
             return songDto;
         }
 

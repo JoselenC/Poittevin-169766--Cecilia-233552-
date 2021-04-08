@@ -6,5 +6,11 @@ namespace MSP.BetterCalm.DataAccess
     {
         public int CategoryDtoID { get; set; } 
         public string Name { get; set; }
+        
+        public int? SongDtoID { get; set; }
+        public virtual SongDto SongDto { get; set; }
+        
+        public int? PlaylistDtoID { get; set; }
+        public virtual PlaylistDto PlaylistDto { get; set; }
     }
 }

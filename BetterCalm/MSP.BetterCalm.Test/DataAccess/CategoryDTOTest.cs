@@ -23,6 +23,35 @@ namespace MSP.BetterCalm.Test
             Assert.AreEqual("food", categoryDto.Name);
         }
 
+        [TestMethod]
+        public void SetGetSongDtoId()
+        {
+            CategoryDto categoryDto = new CategoryDto();
+            categoryDto.SongDtoID = 1;
+            Assert.AreEqual(1, categoryDto.SongDtoID);
+        }
+        [TestMethod]
+        public void SetGePlaylistDtoId()
+        {
+            CategoryDto categoryDto = new CategoryDto();
+            categoryDto.PlaylistDtoID = 1;
+            Assert.AreEqual(1, categoryDto.PlaylistDtoID);
+        }
         
+        [TestMethod]
+        public void SetGetSongDto()
+        {
+            CategoryDto categoryDto = new CategoryDto();
+            categoryDto.SongDto = new SongDto();
+            Assert.AreEqual(new SongDto(), categoryDto.SongDto);
+        }
+        
+        [TestMethod]
+        public void SetGetPlaylistDtoDto()
+        {
+            CategoryDto categoryDto = new CategoryDto();
+            categoryDto.PlaylistDto = new PlaylistDto();
+            Assert.AreEqual(new PlaylistDto(), categoryDto.PlaylistDto);
+        }
     }
 }

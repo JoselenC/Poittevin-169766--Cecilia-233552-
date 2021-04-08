@@ -55,7 +55,7 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                         column: x => x.PlaylistDtoID,
                         principalTable: "Playlists",
                         principalColumn: "PlaylistDtoID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -65,8 +65,8 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                     CategoryDtoID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PlaylistDtoID = table.Column<int>(type: "int", nullable: true),
-                    SongDtoID = table.Column<int>(type: "int", nullable: true)
+                    SongDtoID = table.Column<int>(type: "int", nullable: true),
+                    PlaylistDtoID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -76,13 +76,13 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                         column: x => x.PlaylistDtoID,
                         principalTable: "Playlists",
                         principalColumn: "PlaylistDtoID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_Categories_Songs_SongDtoID",
                         column: x => x.SongDtoID,
                         principalTable: "Songs",
                         principalColumn: "SongDtoID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateIndex(

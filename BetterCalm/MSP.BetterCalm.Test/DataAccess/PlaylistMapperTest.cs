@@ -20,17 +20,9 @@ namespace MSP.BetterCalm.Test
             ContextDB context = new ContextDB(this.options);
             PlaylistMapper songMapper = new PlaylistMapper();
             Playlists = new DataBaseRepository<Playlist, PlaylistDto>(songMapper, context.Playlists, context);
-            playlistTest = new Playlist()
-            {
-                Songs= new List<Song>(),
-                Categories = new List<Category>(),
-                Name = "Entrenamiento",
-                Description = "description",
-                UrlImage = ""
-            };
-            Playlists.Add(playlistTest);
-        
         }
+
+     
         
       [TestMethod]
         public void UpdateTest()

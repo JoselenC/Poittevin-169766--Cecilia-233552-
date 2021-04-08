@@ -114,20 +114,29 @@ namespace MSP.BetterCalm.DataAccess.Migrations
 
             modelBuilder.Entity("MSP.BetterCalm.DataAccess.CategoryDto", b =>
                 {
-                    b.HasOne("MSP.BetterCalm.DataAccess.PlaylistDto", null)
+                    b.HasOne("MSP.BetterCalm.DataAccess.PlaylistDto", "PlaylistDto")
                         .WithMany("Categories")
-                        .HasForeignKey("PlaylistDtoID");
+                        .HasForeignKey("PlaylistDtoID")
+                        .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("MSP.BetterCalm.DataAccess.SongDto", null)
+                    b.HasOne("MSP.BetterCalm.DataAccess.SongDto", "SongDto")
                         .WithMany("Categories")
-                        .HasForeignKey("SongDtoID");
+                        .HasForeignKey("SongDtoID")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("PlaylistDto");
+
+                    b.Navigation("SongDto");
                 });
 
             modelBuilder.Entity("MSP.BetterCalm.DataAccess.SongDto", b =>
                 {
-                    b.HasOne("MSP.BetterCalm.DataAccess.PlaylistDto", null)
+                    b.HasOne("MSP.BetterCalm.DataAccess.PlaylistDto", "PlaylistDto")
                         .WithMany("Songs")
-                        .HasForeignKey("PlaylistDtoID");
+                        .HasForeignKey("PlaylistDtoID")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("PlaylistDto");
                 });
 
             modelBuilder.Entity("MSP.BetterCalm.DataAccess.PlaylistDto", b =>

@@ -24,7 +24,7 @@ namespace MSP.BetterCalm.DataAccess
            return new Category()
             {
                 Name = obj.Name
-            };
+           };
         }
 
         public CategoryDto UpdateDtoObject(CategoryDto objToUpdate, Category updatedObject,ContextDB context)
