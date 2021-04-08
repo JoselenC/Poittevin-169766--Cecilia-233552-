@@ -6,5 +6,7 @@ namespace MSP.BetterCalm.BusinessLogic
     public interface IPatientService
     {
         List<Patient> GetPatients();
+
+        void AddPatient(Patient patient);
     }
 }
