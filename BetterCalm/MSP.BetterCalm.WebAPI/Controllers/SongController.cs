@@ -32,24 +32,24 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             return Ok(songs);
         }
         
-        [HttpGet("{authorName}")]
-        public IActionResult GetSongByAuthor([FromRoute]string authorName)
+        [HttpGet("authorName/{author}")]
+        public IActionResult GetSongByAuthor([FromRoute]string author)
         {
-            List<Song> songs = this.songLogic.GetSongsByAuthor(authorName);
+            List<Song> songs = this.songLogic.GetSongsByAuthor(author);
             return Ok(songs);
         }
         
-        [HttpGet("{Name}{authorName}")]
-        public IActionResult GetSongByAuthorAndName([FromRoute]string name,string authorName)
+        [HttpGet("authorName/{author}/songName/{name}")]
+        public IActionResult GetSongByAuthorAndName([FromRoute]string name,string author)
         {
-            Song song = this.songLogic.GetSongByNameAndAuthor(name,authorName);
+            Song song = this.songLogic.GetSongByNameAndAuthor(name,author);
             return Ok(song);
         }
         
-        [HttpGet("{categoryName}")]
-        public IActionResult GetSongByCategoryName([FromRoute]string categoryName)
+        [HttpGet("categoryName/{name}")]
+        public IActionResult GetSongByCategoryName([FromRoute]string name)
         {
-            List<Song> songs = this.songLogic.GetSongsByCategoryName(categoryName);
+            List<Song> songs = this.songLogic.GetSongsByCategoryName(name);
             return Ok(songs);
         }
         
@@ -57,29 +57,29 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         public IActionResult CreateSong([FromBody] Song song)
         {
             songLogic.SetSong(song);
-            return Ok();
+            return Ok("Song created");
         }
           
         [HttpDelete()]
         public IActionResult DeleteSong([FromBody] Song song)
         {
             songLogic.DeleteSong(song);
-            return Ok("Element removed");
+            return Ok("Song removed");
         }
 
-        [HttpDelete("{name}{author}")]
+        [HttpGet("song/{name}/author/{author}")]
         public IActionResult DeleteSongByNameAndAuthor([FromRoute] string name,string author)
         {
             songLogic.DeleteSongByNameAndAuthor(name,author);
-            return Ok("Element removed");
+            return Ok("Song removed");
         }
 
-        [HttpPut("{name}{author}")]
+        [HttpGet("songName/{name}/authorName/{author}")]
         public IActionResult UpdateSong([FromRoute] string name,string author,[FromBody] Song songUpdated)
         {
             Song songToUpdate = songLogic.GetSongByNameAndAuthor(name, author);
             songLogic.UpdateSong(songToUpdate,songUpdated);
-            return Ok("Element Updated");
+            return Ok("Song Updated");
         }
         
     }
