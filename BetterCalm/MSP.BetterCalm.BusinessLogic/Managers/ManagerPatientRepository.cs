@@ -4,6 +4,6 @@ namespace MSP.BetterCalm.BusinessLogic
 {
     public class ManagerPatientRepository
     {
-        public IRepository<Patient> Patientes;
+        public IRepository<Patient> Patients;
     }
 }

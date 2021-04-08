@@ -12,7 +12,7 @@ namespace MSP.BetterCalm.Test
         {
            
             PatientRepository patientRepository = new PatientRepository( new PatientMapper(),new ContextDB());
-            Assert.IsInstanceOfType(patientRepository.Patientes, typeof(DataBaseRepository<Patient, PatientDto>));
+            Assert.IsInstanceOfType(patientRepository.Patients, typeof(DataBaseRepository<Patient, PatientDto>));
         }
         
     }

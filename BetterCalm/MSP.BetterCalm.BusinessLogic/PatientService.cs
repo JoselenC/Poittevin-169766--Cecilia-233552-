@@ -14,12 +14,12 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public List<Patient> GetPatients()
         {
-            return repository.Patientes.Get();
+            return repository.Patients.Get();
         }
 
         public void AddPatient(Patient patient)
         {
-            repository.Patientes.Add(patient);
+            repository.Patients.Add(patient);
         }
     }
 }
