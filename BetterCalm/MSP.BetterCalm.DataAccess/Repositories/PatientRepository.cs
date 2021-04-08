@@ -7,7 +7,7 @@ namespace MSP.BetterCalm.DataAccess
     {
         public PatientRepository(IMapper<Patient, PatientDto> mapper, ContextDB context)
         {
-            Patientes = new DataBaseRepository<Patient, PatientDto>(mapper, context.Patients, context);
+            Patients = new DataBaseRepository<Patient, PatientDto>(mapper, context.Patients, context);
         }
     }
 }

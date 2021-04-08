@@ -18,7 +18,7 @@ namespace MSP.BetterCalm.Test
         {
             repoMock = new Mock<ManagerPatientRepository>();
             patientMock = new Mock<IRepository<Patient>>();
-            repoMock.Object.Patientes = patientMock.Object;
+            repoMock.Object.Patients = patientMock.Object;
             service = new PatientService(repoMock.Object);
         }
 
