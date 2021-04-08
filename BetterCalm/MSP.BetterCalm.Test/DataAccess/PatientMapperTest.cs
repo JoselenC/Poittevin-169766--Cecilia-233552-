@@ -24,9 +24,7 @@ namespace MSP.BetterCalm.Test
                 Name = "Juan",
                 LastName = "Poittevin",
                 BirthDay = new DateTime(1993,7,15),
-                Cellphone = "09524123",
-                Email = "miemail@email.com",
-                Password = "StrongHashedPass"
+                Cellphone = "09524123"
             };
             RepoPatients.Add(patientTest);
         }
