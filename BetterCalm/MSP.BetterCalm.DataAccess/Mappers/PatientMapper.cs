@@ -13,10 +13,8 @@ namespace MSP.BetterCalm.DataAccess
                 {
                     Name = obj.Name,
                     LastName = obj.LastName,
-                    Password = obj.Password,
                     BirthDay = obj.BirthDay,
                     Cellphone = obj.Cellphone,
-                    Email = obj.Email,
                     
                 };
             return patientDto;
@@ -30,8 +28,6 @@ namespace MSP.BetterCalm.DataAccess
                 LastName = obj.LastName,
                 BirthDay = obj.BirthDay,
                 Cellphone = obj.Cellphone,
-                Email = obj.Email,
-                Password = obj.Password
             };
         }
 
@@ -40,9 +36,7 @@ namespace MSP.BetterCalm.DataAccess
             objToUpdate.Name = updatedObject.Name;
             objToUpdate.LastName = updatedObject.LastName;
             objToUpdate.Cellphone = updatedObject.Cellphone;
-            objToUpdate.Email = objToUpdate.Email;
-            objToUpdate.Password = objToUpdate.Password;
-            objToUpdate.BirthDay = objToUpdate.BirthDay;
+            objToUpdate.BirthDay = updatedObject.BirthDay;
             return objToUpdate;
         }
     }
