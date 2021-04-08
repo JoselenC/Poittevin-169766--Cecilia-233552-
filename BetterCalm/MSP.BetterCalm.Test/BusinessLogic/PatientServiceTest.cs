@@ -40,6 +40,20 @@ namespace MSP.BetterCalm.Test
             CollectionAssert.AreEqual(patients, actualPatients);
             patientMock.VerifyAll();
         }
+        
+        [TestMethod]
+        public void TestAddPatient()
+        {
+            Patient patient = new Patient()
+            {
+                Name = "Patient1"
+            };
+            patientMock.Setup(
+                x => x.Add(patient)
+            );
+            service.AddPatient(patient);
+            patientMock.VerifyAll();
+        }
 
     }
 }
