@@ -15,9 +15,7 @@ namespace MSP.BetterCalm.DataAccess
             {
                 foreach (Category category in categories)
                 {
-                    CategoryDto categoriesDto = CategoriesSet.FirstOrDefault(x => x.Name == category.Name);
-                    if (categoriesDto is null)
-                        categoriesDto = new CategoryDto()
+                    CategoryDto categoriesDto = new CategoryDto()
                         {
                             Name = category.Name
                         };
@@ -44,6 +42,7 @@ namespace MSP.BetterCalm.DataAccess
                     AuthorName = obj.AuthorName,
                     UrlAudio = obj.UrlAudio,
                     UrlImage = obj.UrlImage
+                    
                 };
             }
             else
@@ -53,7 +52,7 @@ namespace MSP.BetterCalm.DataAccess
             }
 
             songDto.Categories = createCategories(obj.Categories, context);
-
+             
             return songDto;
         }
 
@@ -90,19 +89,24 @@ namespace MSP.BetterCalm.DataAccess
             if (objToUpdate.Categories == null)
             {
                 objToUpdate.Categories = new List<CategoryDto>();
-                List<CategoryDto> diffListOldValues =
-                    objToUpdate.Categories.Where(x => objToUpdate.Categories.Contains(x)).ToList();
-                List<Category> diffListNewValues = updatedObject.Categories
-                    .Where(x => !objToUpdate.Categories.Contains(new CategoryDto() {Name = x.Name})).ToList();
-                diffListOldValues.AddRange(diffListNewValues.Select(x => new CategoryDto() {Name = x.Name}));
-                List<CategoryDto> categoryoDelete =
-                    objToUpdate.Categories.Where(x => !diffListOldValues.Contains(x)).ToList();
+            }
+
+            List<CategoryDto> diffListOldValues =
+                objToUpdate.Categories.Where(x => updatedObject.Categories.Contains(new Category() { Name=x.Name})).ToList();
+            List<Category> diffListNewValues = updatedObject.Categories
+                    .Where(x => !objToUpdate.Categories.Contains(new CategoryDto() {Name = x.Name })).ToList();
+            diffListOldValues.AddRange(diffListNewValues.Select(x => new CategoryDto() {Name = x.Name}));
+            List<CategoryDto> categoryoDelete =
+                objToUpdate.Categories.Where(x => !diffListOldValues.Contains(x)).ToList();
+            if (categoryoDelete != null)
+            {
                 foreach (CategoryDto categoryDto in categoryoDelete)
                 {
                     context.Entry(categoryDto).State = EntityState.Deleted;
                 }
-                objToUpdate.Categories = diffListOldValues;
             }
+
+            objToUpdate.Categories = diffListOldValues;
             return objToUpdate;
         }
     }

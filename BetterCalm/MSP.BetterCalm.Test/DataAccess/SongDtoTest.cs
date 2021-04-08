@@ -77,6 +77,23 @@ namespace MSP.BetterCalm.Test
             Assert.AreEqual(categories, getsongCategories);
         }
      
+        [TestMethod]
+        public void GetSetPlayListDtoId()
+        {
+            SongDto song = new SongDto();
+            song.PlaylistDtoID = 1;
+            Assert.AreEqual(1, song.PlaylistDtoID);
+        }
+        
+        [TestMethod]
+        public void GetSetPlayListDto()
+        {
+            SongDto song = new SongDto();
+            song.PlaylistDto = new PlaylistDto();
+            Assert.AreEqual(new PlaylistDto(), song.PlaylistDto);
+        }
+        
+        
         
     }
 }

@@ -46,8 +46,12 @@ namespace MSP.BetterCalm.Test
             songsMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Song>>())
             ).Returns(song1);
-            Song song3 = songLogic.GetSongByName("Stand by me");
-            Assert.AreEqual(song1, song3);
+            List<Song> songs = new List<Song>() {song1};
+            songsMock.Setup(
+                x => x.Get()
+            ).Returns(songs);
+            List<Song> songs3 = songLogic.GetSongsByName("Stand by me");
+            CollectionAssert.AreEqual(songs, songs3);
         }
         
         [TestMethod]
@@ -72,30 +76,94 @@ namespace MSP.BetterCalm.Test
             songsMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Song>>())
             ).Returns(song1);
-            Song song3 = songLogic.GetSongByAuthor("John Lennon");
-            Assert.AreEqual(song1, song3);
+            
+            List<Song> songs = new List<Song>() {song1};
+            songsMock.Setup(
+                x => x.Get()
+            ).Returns(songs);
+            List<Song> songs3 = songLogic.GetSongsByAuthor("John Lennon");
+            CollectionAssert.AreEqual(songs, songs3);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NoFindSongByName), "")]
-        public void FindSongByNameNull()
+        public void FindSongByAuthorAndName()
         {
+            Category category = new Category()
+            {
+                Name = "Dormir"
+            };
+            Song song1 = new Song()
+            {
+                Categories = new List<Category>()
+                {
+                    category
+                },
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = 12,
+                UrlAudio = "",
+                UrlImage = ""
+            };
             songsMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Song>>())
-            ).Throws( new ValueNotFound());
-            songLogic.GetSongByName("Let it be");
+            ).Returns(song1);
+            Song song3 = songLogic.GetSongByNameAndAuthor("Stand by me","John Lennon");
+            Assert.AreEqual(song1, song3);
         }
         
         [TestMethod]
-        [ExpectedException(typeof(NoFindSongByAuthor), "")]
-        public void FindSongByAuthorNull()
+        [ExpectedException(typeof(NoFindSongByNameAndAuthor), "")]
+        public void NoFindSongDiffAuthor()
         {
+            Category category = new Category()
+            {
+                Name = "Dormir"
+            };
+            Song song1 = new Song()
+            {
+                Categories = new List<Category>()
+                {
+                    category
+                },
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = 12,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            songLogic.SetSong(song1);
             songsMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Song>>())
-            ).Throws( new ValueNotFound());
-            songLogic.GetSongByAuthor("Ringo Starr");
+            ).Throws(new ValueNotFound());
+            songLogic.GetSongByNameAndAuthor("Let it be","John Lennon");
         }
-
+        
+        [TestMethod]
+        [ExpectedException(typeof(NoFindSongByNameAndAuthor), "")]
+        public void NoFindSongDiffName()
+        {
+            Category category = new Category()
+            {
+                Name = "Dormir"
+            };
+            Song song1 = new Song()
+            {
+                Categories = new List<Category>()
+                {
+                    category
+                },
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = 12,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            songsMock.Setup(
+                x => x.Find(It.IsAny<Predicate<Song>>())
+            ).Throws(new ValueNotFound());
+            songLogic.GetSongByNameAndAuthor("Stand by me","Ringo Starr");
+        }
+        
         [TestMethod]
         public void GetSongs()
         {
@@ -239,7 +307,103 @@ namespace MSP.BetterCalm.Test
                 x => x.Get()
             ).Returns(songs);
             List<Song> song3 = songLogic.GetSongsByCategoryName("Dormir");
-            Assert.AreEqual(songs.Count, song3.Count);
+            CollectionAssert.AreEqual(songs, song3);
+        }
+        
+        
+        [TestMethod]
+        public void DeleteSongByAuthorAndName()
+        {
+            Category category = new Category()
+            {
+                Name = "Dormir"
+            };
+            Song song1 = new Song()
+            {
+                Categories = new List<Category>()
+                {
+                    category
+                },
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = 12,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            Song song2 = new Song()
+            {
+                Categories = new List<Category>()
+                {
+                    category
+                },
+                Name = "Let it be",
+                AuthorName = "John Lennon",
+                Duration = 12,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            List<Song> songs = new List<Song>(){song1,song2};
+            songsMock.Setup(
+                x => x.Find(It.IsAny<Predicate<Song>>())
+            ).Returns(song1);
+            songsMock.Setup(
+                x => x.Get()
+            ).Returns(songs);
+            songsMock.Setup(
+                x => x.Set(songs)
+            );
+            songLogic.SetSong(song1);
+            songLogic.SetSong(song2);
+            songLogic.DeleteSongByNameAndAuthor("Stand by me","John Lennon");
+            List<Song> songPostDelete = songLogic.GetSongs();
+            CollectionAssert.AreEqual(songPostDelete, songs);
+        }
+
+        [TestMethod]
+        public void DeleteSong()
+        {
+            Category category = new Category()
+            {
+                Name = "Dormir"
+            };
+            Song song1 = new Song()
+            {
+                Categories = new List<Category>()
+                {
+                    category
+                },
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = 12,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            Song song2 = new Song()
+            {
+                Categories = new List<Category>()
+                {
+                    category
+                },
+                Name = "Let it be",
+                AuthorName = "John Lennon",
+                Duration = 12,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            List<Song> songs = new List<Song>(){song1,song2};
+            songsMock.Setup(
+                x => x.Delete(song1));
+            songsMock.Setup(
+                x => x.Get()
+            ).Returns(songs);
+            songsMock.Setup(
+                x => x.Set(songs)
+            );
+            songLogic.SetSong(song1);
+            songLogic.SetSong(song2);
+            songLogic.DeleteSong(song1);
+            List<Song> songPostDelete = songLogic.GetSongs();
+            CollectionAssert.AreEqual(songPostDelete, songs);
         }
     }
 }

@@ -6,14 +6,13 @@ namespace MSP.BetterCalm.BusinessLogic
     public interface ISongLogic
     {
         public List<Song> GetSongs();
-
         public void SetSong(Song song);
-        
-        public void UpdateSong(Song oldSong, Song newSong);
-
-        public Song GetSongByName(string songName);
-        public Song GetSongByAuthor(string authorName);
-        
-        List<Song> GetSongsByCategoryName(string categoryName);
+        public List<Song> GetSongsByName(string songName);
+        public List<Song> GetSongsByAuthor(string authorName);
+        public List<Song> GetSongsByCategoryName(string categoryName);
+        public void DeleteSong(Song song);
+        public void DeleteSongByNameAndAuthor(string name,string authorName);
+        public Song GetSongByNameAndAuthor(string name, string author);
+        public void UpdateSong(Song songToUpdate, Song songUpdated);
     }
 }

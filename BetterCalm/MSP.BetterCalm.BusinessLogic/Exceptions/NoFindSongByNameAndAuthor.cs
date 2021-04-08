@@ -2,9 +2,9 @@
 
 namespace MSP.BetterCalm.BusinessLogic.Exceptions
 {
-    public class NoFindSongByName: Exception
+    public class NoFindSongByNameAndAuthor: Exception
     {
-        public NoFindSongByName() :
+        public NoFindSongByNameAndAuthor() :
             base("No find song by name")
         { }
     }

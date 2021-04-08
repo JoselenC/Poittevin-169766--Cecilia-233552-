@@ -47,17 +47,10 @@ namespace MSP.BetterCalm.DataAccess
 
        public void Add(D objectToAdd)
         {
-          //  try
-            //{
             var TDto = mapper.DomainToDto(objectToAdd,context);
             if (context.Entry(TDto).State == (EntityState) EntityState.Detached)
                 entity.Add(TDto);
             context.SaveChanges();
-            //}
-           // catch (DbUpdateException)
-            //{
-              //  throw new ExceptionUnableToSaveData();
-            //}
         }
 
         private T FindDto(Predicate<D> condition)
@@ -71,7 +64,6 @@ namespace MSP.BetterCalm.DataAccess
                     return TDto;
             };
             return null;
-            // throw new ValueNotFound();
         }
 
         public void Delete(D objectToDelete)
@@ -87,18 +79,10 @@ namespace MSP.BetterCalm.DataAccess
 
         public D Update(D OldObject, D UpdatedObject)
         {
-           // try
-            //{
             T objToUpdate = FindDto(x => x.Equals(OldObject));
             mapper.UpdateDtoObject(objToUpdate, UpdatedObject,context);
             context.SaveChanges();
-            return UpdatedObject;
-                
-           // }
-           // catch (DbUpdateException)
-            //{
-              //  throw new ExceptionUnableToSaveData();
-            //}
+            return UpdatedObject; 
         }
     }
 }

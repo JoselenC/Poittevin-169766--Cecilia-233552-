@@ -17,5 +17,9 @@ namespace MSP.BetterCalm.DataAccess
         public string UrlImage {get; set; }
         
         public string UrlAudio {get; set; }
+     
+        public int? PlaylistDtoID { get; set; }
+        
+        public virtual PlaylistDto PlaylistDto { get; set; }
     }
 }

@@ -24,13 +24,16 @@ namespace MSP.BetterCalm.Test
             Songs = new DataBaseRepository<Song, SongDto>(songMapper, context.Songs, context);
         
         }
-        
+
         [TestMethod]
         public void DomainToDtoTest()
         {
             Song songTest = new Song()
             {
-                Categories = new List<Category>(),
+                Categories = new List<Category>()
+                {
+                    new Category(){Name = "Musica"},
+                },
                 Name = "Stand by me",
                 AuthorName = "John Lennon",
                 Duration = 12,
@@ -40,6 +43,23 @@ namespace MSP.BetterCalm.Test
             Songs.Add(songTest);
             Song song = Songs.Find(x => x.Name == "Stand by me");
             Assert.AreEqual(songTest, song);
+        }
+
+        [TestMethod]
+            public void DomainToDtoTestCategoryNull()
+            {
+                Song songTest = new Song()
+                {
+                    Categories = null,
+                    Name = "Stand by me",
+                    AuthorName = "John Lennon",
+                    Duration = 12,
+                    UrlAudio = "",
+                    UrlImage = ""
+                };
+                Songs.Add(songTest);
+                Song song = Songs.Find(x => x.Name == "Stand by me");
+                Assert.AreEqual(songTest, song);
         }
 
         [TestMethod]
@@ -106,11 +126,15 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        public void UpdateTestCategoryNull()
+        public void UpdateTestDiffCategory()
         {
             Song songTest = new Song()
             {
-                Categories = null,
+                Categories = new List<Category>()
+                {
+                    new Category(){Name = "Dormir"},
+                    new Category(){Name = "Musica"}
+                },
                 Name = "Stand by me",
                 AuthorName = "John Lennon",
                 Duration = 12,
@@ -120,7 +144,40 @@ namespace MSP.BetterCalm.Test
             SongDto songDtoTest = new SongDto()
             {
                 SongDtoID = 1,
-                Categories = new List<CategoryDto>(),
+                Categories = new List<CategoryDto>()
+                {
+                    new CategoryDto(){Name = "Musica",CategoryDtoID = 2},
+                    new CategoryDto(){Name = "Yoga",CategoryDtoID = 3}
+                },
+                Name = "Stand by me",
+                AuthorName = "The beatles",
+                Duration = 12,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            SongMapper songMapper = new SongMapper();
+            ContextDB context = new ContextDB();
+            context.Songs.Add(songDtoTest);
+            songMapper.UpdateDtoObject(songDtoTest, songTest, context);
+            Assert.AreEqual(context.Songs.Find(1),songDtoTest);
+        }
+        
+        [TestMethod]
+        public void UpdateTestCategoryNull()
+        {
+            Song songTest = new Song()
+            {
+                Categories = new List<Category>(),
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = 12,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            SongDto songDtoTest = new SongDto()
+            {
+                SongDtoID = 1,
+                Categories = null,
                 Name = "Stand by me",
                 AuthorName = "The beatles",
                 Duration = 12,
