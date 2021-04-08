@@ -13,6 +13,11 @@ namespace MSP.BetterCalm.DataAccess
         public DbSet<CategoryDto> Categories { get; set; }
         public DbSet<ProblematicDto> Problematics { get; set; }
         public DbSet<SongDto> Songs { get; set; }
+        public DbSet<PatientDto> Patients { get; set; }
+        public DbSet<PsychologistDto> Psychologists { get; set; }
+        public DbSet<AdministratorDto> Administrators { get; set; }
+
+
         public DbSet<PlaylistDto> Playlists { get; set; }
         
         public ContextDB() { }
