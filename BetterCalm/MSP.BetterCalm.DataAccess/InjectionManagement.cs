@@ -22,6 +22,7 @@ namespace MSP.BetterCalm.DataAccess
             services.AddScoped<IProblematicLogic,ProblematicLogic>();
             services.AddScoped<ISongLogic,SongLogic>();
             services.AddScoped<IPatientService,PatientService>();
+            services.AddScoped<IPsychologistService,PsychologistService>();
             services.AddScoped<IAdministratorService,AdministratorService>();
             
             services.AddScoped<ManagerProblematicRepository,ProblematicRepository>();
