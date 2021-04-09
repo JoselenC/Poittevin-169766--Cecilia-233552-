@@ -38,6 +38,7 @@ namespace MSP.BetterCalm.DataAccess
             services.AddScoped<IMapper<Song, SongDto>,SongMapper>();
             services.AddScoped<IMapper<Playlist, PlaylistDto>,PlaylistMapper>();
             services.AddScoped<IMapper<Patient, PatientDto>, PatientMapper>();
+            services.AddScoped<IMapper<Psychologist, PsychologistDto>, PsychologistMapper>();
             services.AddScoped<IMapper<Administrator, AdministratorDto>, AdministratorMapper>();
         }
         
