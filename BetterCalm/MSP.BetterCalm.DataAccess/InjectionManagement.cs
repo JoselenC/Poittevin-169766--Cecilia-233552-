@@ -35,6 +35,7 @@ namespace MSP.BetterCalm.DataAccess
             services.AddScoped<IMapper<Problematic, ProblematicDto>,ProblematicMapper>();
             services.AddScoped<IMapper<Song, SongDto>,SongMapper>();
             services.AddScoped<IMapper<Patient, PatientDto>, PatientMapper>();
+            services.AddScoped<IMapper<Psychologist, PsychologistDto>, PsychologistMapper>();
             services.AddScoped<IMapper<Administrator, AdministratorDto>, AdministratorMapper>();
         }
         
