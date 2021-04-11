@@ -3,12 +3,14 @@ namespace MSP.BetterCalm.Domain
     public class Psychologist: User
     {
         public string Address { get; set; }
+        public bool WorksOnline { get; set; }
         protected bool Equals(Psychologist other)
         {
             return
                 Address == other.Address &&
                 Name == other.Name &&
-                LastName == other.LastName;
+                LastName == other.LastName &&
+                WorksOnline == other.WorksOnline;
         }
 
         public override bool Equals(object obj)
