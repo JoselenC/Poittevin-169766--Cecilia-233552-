@@ -13,7 +13,8 @@ namespace MSP.BetterCalm.DataAccess
                 {
                     Name = obj.Name,
                     LastName = obj.LastName,
-                    Address = obj.Address
+                    Address = obj.Address,
+                    WorksOnline = obj.WorksOnline
                     
                 };
             return psychologistDto;
@@ -25,7 +26,8 @@ namespace MSP.BetterCalm.DataAccess
             {
                 Name = obj.Name,
                 LastName = obj.LastName,
-                Address = obj.Address
+                Address = obj.Address,
+                WorksOnline = obj.WorksOnline
             };
         }
 
@@ -34,6 +36,7 @@ namespace MSP.BetterCalm.DataAccess
             objToUpdate.Name = updatedObject.Name;
             objToUpdate.LastName = updatedObject.LastName;
             objToUpdate.Address = updatedObject.Address;
+            objToUpdate.WorksOnline = updatedObject.WorksOnline;
             return objToUpdate;
         }
     }
