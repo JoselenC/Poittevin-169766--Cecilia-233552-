@@ -39,5 +39,19 @@ namespace MSP.BetterCalm.Test
             CollectionAssert.AreEqual(administrators, actualAdministrators);
             administratorMock.VerifyAll();
         }
+        
+        [TestMethod]
+        public void TestAddPatient()
+        {
+            Administrator admin = new Administrator()
+            {
+                Name = "Patient1"
+            };
+            administratorMock.Setup(
+                x => x.Add(admin)
+            );
+            service.AddAdministrator(admin);
+            administratorMock.VerifyAll();
+        }
     }
 }
