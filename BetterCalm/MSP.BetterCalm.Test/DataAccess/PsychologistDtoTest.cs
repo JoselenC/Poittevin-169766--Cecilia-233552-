@@ -55,5 +55,15 @@ namespace MSP.BetterCalm.Test
             };
             Assert.AreEqual("Rodriguez", psychologist.LastName);
         }
+        
+        [TestMethod]
+        public void GetSetWorksOnline()
+        {
+            PsychologistDto psychologist = new PsychologistDto
+            {
+                WorksOnline = true
+            };
+            Assert.IsTrue(psychologist.WorksOnline);
+        }
     }
 }
