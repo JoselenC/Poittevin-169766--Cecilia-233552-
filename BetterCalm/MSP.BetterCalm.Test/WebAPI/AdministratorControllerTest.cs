@@ -38,6 +38,16 @@ namespace MSP.BetterCalm.Test.WebAPI
             var realAdministrators = okResult.Value;
             Assert.AreEqual(realAdministrators, administrators);
         }
+        
+        [TestMethod]
+        public void TestAddAdminstrator()
+        {
+            mockAdministratorService.Setup(x => x.AddAdministrator(administrator));
+            var result = administratorController.AddAdministrator(administrator);
+            var createdResult = result as CreatedResult;
+            var realAdmin = createdResult.Value;
+            Assert.AreEqual(realAdmin, administrator);
+        }
 
     }
 }
