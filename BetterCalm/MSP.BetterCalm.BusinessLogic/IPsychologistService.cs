@@ -6,5 +6,6 @@ namespace MSP.BetterCalm.BusinessLogic
     public interface IPsychologistService
     {
         List<Psychologist> GetPsychologists();
+        void AddPsychologist(Psychologist psychologist);
     }
 }
