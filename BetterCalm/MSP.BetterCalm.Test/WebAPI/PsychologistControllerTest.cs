@@ -38,5 +38,15 @@ namespace MSP.BetterCalm.Test.WebAPI
             var realPsychologists = okResult.Value;
             Assert.AreEqual(realPsychologists, psychologists);
         }
+        
+        [TestMethod]
+        public void TestAddPsychologist()
+        {
+            mockPsychologistService.Setup(x => x.AddPsychologist(psychologist));
+            var result = psychologistController.AddPsychologist(psychologist);
+            var createdResult = result as CreatedResult;
+            var realPsycho = createdResult.Value;
+            Assert.AreEqual(realPsycho, psychologist);
+        }
     }
 }

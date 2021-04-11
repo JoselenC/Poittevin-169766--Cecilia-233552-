@@ -41,6 +41,20 @@ namespace MSP.BetterCalm.Test
             CollectionAssert.AreEqual(psychologists, actualPsychologists);
             psychologistMock.VerifyAll();
         }
+        
+        [TestMethod]
+        public void TestAddPsychologist()
+        {
+            Psychologist psychologist = new Psychologist()
+            {
+                Name = "psychologist1"
+            };
+            psychologistMock.Setup(
+                x => x.Add(psychologist)
+            );
+            service.AddPsychologist(psychologist);
+            psychologistMock.VerifyAll();
+        }
 
         
     }
