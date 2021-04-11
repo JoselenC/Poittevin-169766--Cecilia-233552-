@@ -127,6 +127,9 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                     b.Property<int>("UserDtoId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("WorksOnline")
+                        .HasColumnType("bit");
+
                     b.HasKey("PsychologistDtoId");
 
                     b.ToTable("Psychologists");

@@ -24,5 +24,11 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             IEnumerable<Psychologist> patientes = psychologistService.GetPsychologists();
             return Ok(patientes);
         }
+
+        public IActionResult AddPsychologist(Psychologist psychologist)
+        {
+            psychologistService.AddPsychologist(psychologist);
+            return Created($"api/psychologist/{psychologist.Name}", psychologist);
+        }
     }
 }

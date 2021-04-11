@@ -27,7 +27,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         public IActionResult AddPatient(Patient patient)
         {
             patientService.AddPatient(patient);
-            return Created($"/patient/{patient.Name}", patient);
+            return Created($"api/patient/{patient.Name}", patient);
         }
     }
 }
