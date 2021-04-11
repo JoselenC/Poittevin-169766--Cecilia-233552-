@@ -3,6 +3,7 @@ using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.Test
 {
+    [TestClass]
     public class PsychologistTest
     {
 
@@ -35,6 +36,15 @@ namespace MSP.BetterCalm.Test
             };
             Assert.AreEqual("Rodriguez", psychologist.LastName);
         }
-
+        
+        [TestMethod]
+        public void GetSetWorksOnline()
+        {
+            Psychologist psychologist = new Psychologist
+            {
+                WorksOnline = true
+            };
+            Assert.IsTrue(psychologist.WorksOnline);
+        }
     }
 }

@@ -23,7 +23,8 @@ namespace MSP.BetterCalm.Test
             {
                 Name = "Roberto",
                 LastName = "Alex",
-                Address = "PsyAddress"
+                Address = "PsyAddress",
+                WorksOnline = true
             };
             RepoPsychologists.Add(psychologistTest);
         }
