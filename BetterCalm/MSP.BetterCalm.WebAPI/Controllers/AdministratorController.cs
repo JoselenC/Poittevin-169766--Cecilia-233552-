@@ -21,5 +21,11 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             IEnumerable<Administrator> administratores = administratorService.GetAdministrators();
             return Ok(administratores);
         }
+
+        public CreatedResult AddAdministrator(Administrator administrator)
+        {
+            administratorService.AddAdministrator(administrator);
+            return Created($"api/Administrator/{administrator.Name}", administrator);
+        }
     }
 }
