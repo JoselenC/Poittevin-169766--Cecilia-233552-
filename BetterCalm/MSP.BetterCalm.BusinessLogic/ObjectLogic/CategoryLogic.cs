@@ -15,7 +15,15 @@ namespace MSP.BetterCalm.BusinessLogic
         
         public List<Category> GetCategories()
         {
-            return repository.Categories.Get();
+            List<Category> categories= repository.Categories.Get();
+            List<Category> getCategories = new List<Category>();
+            foreach (var category in categories)
+            {
+                if(!getCategories.Contains(category))
+                    getCategories.Add(category);
+            }
+
+            return getCategories;
         }            
 
         public Category GetCategoryByName(string name)
