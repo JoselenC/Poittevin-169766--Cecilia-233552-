@@ -20,7 +20,43 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public void AddPlaylist(Playlist playlist)
         {
-           repository.Playlists.Add(playlist);
+            try
+            {
+                try
+                {
+                    Playlist newPlaylist = playlist;
+                    if (playlist.Songs != null)
+                    {
+                        AddSongCategories(playlist.Songs, newPlaylist);
+                    }
+
+                    repository.Playlists.Add(newPlaylist);
+                }
+                catch (InvalidNameLength)
+                {
+                    throw new InvalidNameLength();
+                }
+            }
+            catch (InvalidDescriptionLength)
+            {
+                throw new InvalidDescriptionLength();
+            }
+        }
+
+        private void AddSongCategories(List<Song> playlistSongs,Playlist newPlaylist)
+        {
+            foreach (var song in playlistSongs)
+            {
+                
+                if (song.Categories != null)
+                {
+                    foreach (var category in song.Categories)
+                    {
+                        if (newPlaylist.Categories.Contains(category))
+                            newPlaylist.Categories.Add(category);
+                    }
+                }
+            }
         }
 
         public List<Playlist> GetPlaylistByName(string playlistName)
@@ -31,6 +67,9 @@ namespace MSP.BetterCalm.BusinessLogic
                 if(playlist.IsSamePlaylistName(playlistName))
                     playlists.Add(playlist);
             }
+
+            if (playlists.Count == 0)
+                throw new ValueNotFound();
             return playlists;
         }
 
@@ -42,6 +81,8 @@ namespace MSP.BetterCalm.BusinessLogic
                 if(playlist.IsSameSongName(songName))
                     playlists.Add(playlist);
             }
+            if (playlists.Count == 0)
+                throw new ValueNotFound();
             return playlists;
         }
 
@@ -53,6 +94,9 @@ namespace MSP.BetterCalm.BusinessLogic
                 if(playlist.IsSameCategoryName(categoryName))
                     playlists.Add(playlist);
             }
+
+            if (playlists.Count == 0)
+                throw new ValueNotFound();
             return playlists;
         }
 
@@ -64,12 +108,20 @@ namespace MSP.BetterCalm.BusinessLogic
         public void DeletePlaylistByName(string name)
         {
             Playlist playlistToDelete=repository.Playlists.Find(x => x.IsSamePlaylistName(name));
-            repository.Playlists.Delete(playlistToDelete);
+            DeletePlaylist(playlistToDelete);
         }
         
         public void DeletePlaylist(Playlist playlistToDelete)
         {
-            repository.Playlists.Delete(playlistToDelete);
+            try
+            {
+                repository.Playlists.Delete(playlistToDelete);
+            }
+            catch (ValueNotFound)
+            {
+                throw new ValueNotFound();
+            }
         }
+
     }
 }

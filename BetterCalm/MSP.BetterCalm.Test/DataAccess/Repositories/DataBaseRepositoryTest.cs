@@ -14,6 +14,7 @@ namespace MSP.BetterCalm.Test
         private DbContextOptions<ContextDB> options;
         private ContextDB context;
         public DataBaseRepository<Category, CategoryDto> Categories;
+        public DataBaseRepository<Song, SongDto> Songs;
         private DataBaseRepository<Problematic, ProblematicDto> Problematics;
         public List<Category> AllCategories;
 
@@ -28,6 +29,9 @@ namespace MSP.BetterCalm.Test
             Category category = new Category {Name = "Dormir"};
             Categories.Add(category);
             AllCategories.Add(category);
+            Songs=new DataBaseRepository<Song, SongDto>(new SongMapper(), context.Songs, context);
+            Song song = new Song() {Name = "Let it be"};
+            Songs.Add(song);
         }
         
         [TestMethod]
@@ -57,11 +61,32 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ValueNotFound), "")]
+        public void NoDeleteTest()
+        {
+            Category category = new Category();
+            category.Name = "Dormir";
+            Categories.Add(category);
+            Category testCategory = new Category()
+            {
+                Name = "Musica"
+            };
+            Categories.Delete(testCategory);
+        }
+
+        [TestMethod]
         public void FindTest()
         {
             Category category = new Category {Name = "Dormir"};
             Category actualCategory = Categories.Find(x => x.Name == "Dormir");
             Assert.AreEqual(category, actualCategory);
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(ValueNotFound), "")]
+        public void NoFindTestt()
+        {
+            Categories.Find(x => x.Name == "Musica");
         }
 
         [TestMethod]
@@ -81,22 +106,35 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NotImplementedException), "")]
         public void UpdateTest()
         {
-            Category category = new Category() {Name = "Dormir"};
-            Category categoryDormirUpdated = new Category()
+            Song song = new Song() {Name = "Let it be"};
+            Song songToUdated = new Song()
             {
-                Name = "Yoga",
+                Name = "Musica",
+                Duration = 120,
+                UrlImage = "urlImage",
+                Categories = new List<Category>()
             };
-            Categories.Update(category, categoryDormirUpdated);
+            Songs.Update(song, songToUdated);
 
-            Category realCategoryUpdated = Categories.Find(x => x.Name == "Yoga");
+            Song realSongUpdated = Songs.Find(x => x.Name == "Musica");
 
-            Assert.AreEqual(categoryDormirUpdated, realCategoryUpdated);
-            Categories.Update(categoryDormirUpdated, category);
+            Assert.AreEqual(songToUdated, realSongUpdated);
         }
         
+        
+        [TestMethod]
+        [ExpectedException(typeof(ValueNotFound), "")]
+        public void NoUpdateTest()
+        {
+            Song song = new Song() {Name = "Muscia2"};
+            Song songToUdated = new Song()
+            {
+                Name = "Musica",
+            };
+            Songs.Update(song, songToUdated);
+        }
       
     }
 }

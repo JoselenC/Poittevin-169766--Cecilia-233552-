@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.DataAccess;
+using MSP.BetterCalm.Domain;
 
 
 namespace MSP.BetterCalm.Test
@@ -42,16 +43,18 @@ namespace MSP.BetterCalm.Test
         public void SetGetSongDto()
         {
             CategoryDto categoryDto = new CategoryDto();
-            categoryDto.SongDto = new SongDto();
-            Assert.AreEqual(new SongDto(), categoryDto.SongDto);
+            SongDto songDto = new SongDto();
+            categoryDto.SongDto = songDto;
+            Assert.AreEqual(songDto, categoryDto.SongDto);
         }
         
         [TestMethod]
         public void SetGetPlaylistDtoDto()
         {
             CategoryDto categoryDto = new CategoryDto();
-            categoryDto.PlaylistDto = new PlaylistDto();
-            Assert.AreEqual(new PlaylistDto(), categoryDto.PlaylistDto);
+            PlaylistDto playlistDto = new PlaylistDto();
+            categoryDto.PlaylistDto = playlistDto;
+            Assert.AreEqual(playlistDto, categoryDto.PlaylistDto);
         }
     }
 }

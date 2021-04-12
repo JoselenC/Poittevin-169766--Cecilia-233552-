@@ -26,7 +26,7 @@ namespace MSP.BetterCalm.BusinessLogic
             }
             catch (ValueNotFound)
             {
-                throw new NoFindCategoryByName();
+                throw new ValueNotFound();
             }
 
         }

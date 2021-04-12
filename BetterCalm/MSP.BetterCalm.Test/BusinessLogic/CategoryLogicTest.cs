@@ -38,7 +38,7 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NoFindCategoryByName), "")]
+        [ExpectedException(typeof(ValueNotFound), "")]
         public void FindCategoryByNameNull()
         {
             categoriesMock.Setup(

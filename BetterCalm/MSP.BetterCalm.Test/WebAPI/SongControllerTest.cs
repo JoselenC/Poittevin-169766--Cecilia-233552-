@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using MSP.BetterCalm.BusinessLogic;
+using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.WebAPI.Controllers;
 
@@ -39,20 +40,36 @@ namespace MSP.BetterCalm.Test.WebAPI
         public void TestGetSongByName()
         {
             mockSongService.Setup(m => m.GetSongsByName("Stand by me")).Returns(songs);
-            var result = songController.GetSongByName("Stand by me");
+            var result = songController.GetSongsByName("Stand by me");
             var okResult = result as OkObjectResult;
             var songsValue = okResult.Value;
             Assert.AreEqual(songs,songsValue);
         }
         
         [TestMethod]
+        public void TestNoGetSongByName()
+        {
+            mockSongService.Setup(m => m.GetSongsByName("Stand by me")).Throws(new ValueNotFound());
+            var result = songController.GetSongsByName("Stand by me") as NotFoundObjectResult;
+            Assert.IsNotNull(result);
+        }
+        
+        [TestMethod]
         public void TestGetSongByAuthorName()
         {
             mockSongService.Setup(m => m.GetSongsByAuthor("John Lennon")).Returns(songs);
-            var result = songController.GetSongByAuthor("John Lennon");
+            var result = songController.GetSongsByAuthor("John Lennon");
             var okResult = result as OkObjectResult;
             var songsValue = okResult.Value;
             Assert.AreEqual(songs,songsValue);
+        }
+        
+        [TestMethod]
+        public void TestNoGetSongByAuthorName()
+        {
+            mockSongService.Setup(m => m.GetSongsByAuthor("John Lennon")).Throws(new ValueNotFound());
+            var result = songController.GetSongsByAuthor("John Lennon")as NotFoundObjectResult;
+            Assert.IsNotNull(result);
         }
         
         [TestMethod]
@@ -77,6 +94,22 @@ namespace MSP.BetterCalm.Test.WebAPI
         }
         
         [TestMethod]
+        public void TestNoCreateSongEmptyName()
+        {
+            mockSongService.Setup(m => m.SetSong(song)).Throws(new InvalidNameLength());
+            var result = songController.CreateSong(song) as ConflictObjectResult;
+            Assert.IsNotNull(result);
+        }
+        
+        [TestMethod]
+        public void TestNoCreateSong()
+        {
+            mockSongService.Setup(m => m.SetSong(song)).Throws(new AlreadyExistThisSong());
+            var result = songController.CreateSong(song) as ConflictObjectResult;
+            Assert.IsNotNull(result);
+        }
+        
+        [TestMethod]
         public void TestGetSongByCategoryNAme()
         {
             Category category = new Category()
@@ -98,10 +131,18 @@ namespace MSP.BetterCalm.Test.WebAPI
             mockSongService.Setup(m => m.SetSong(songToAdd));
             songController.CreateSong(songToAdd);
             mockSongService.Setup(m => m.GetSongsByCategoryName("Dormir")).Returns(songs);
-            var result = songController.GetSongByCategoryName("Dormir");
+            var result = songController.GetSongsByCategoryName("Dormir");
             var okResult = result as OkObjectResult;
             var songsValue = okResult.Value;
             Assert.AreEqual(songs,songsValue);
+        }
+        
+        [TestMethod]
+        public void TestNoGetSongByCategoryNAme()
+        {
+            mockSongService.Setup(m => m.GetSongsByCategoryName("Dormir")).Throws(new ValueNotFound());
+            var result = songController.GetSongsByCategoryName("Dormir") as NotFoundObjectResult;
+            Assert.IsNotNull(result);
         }
         
         [TestMethod]
@@ -133,6 +174,14 @@ namespace MSP.BetterCalm.Test.WebAPI
         }
         
         [TestMethod]
+        public void TestNoGetSongByNAmeAndAuthor()
+        {
+            mockSongService.Setup(m => m.GetSongByNameAndAuthor("Stand by me","John Lennon")).Throws(new ValueNotFound());
+            var result = songController.GetSongByAuthorAndName("Stand by me", "John Lennon") as NotFoundObjectResult;
+            Assert.IsNotNull(result);
+        }
+        
+        [TestMethod]
         public void TestDeleteSong()
         {
             Category category = new Category()
@@ -157,7 +206,15 @@ namespace MSP.BetterCalm.Test.WebAPI
             var result = songController.DeleteSong(song);
             var okResult = result as OkObjectResult;
             var value = okResult.Value;
-            Assert.AreEqual("Element removed",value);
+            Assert.AreEqual("Song removed",value);
+        }
+        
+        [TestMethod]
+        public void TestNoDeleteSong()
+        {
+            mockSongService.Setup(m => m.DeleteSong(song)).Throws(new ValueNotFound());
+            var result = songController.DeleteSong(song) as ConflictObjectResult;
+            Assert.IsNotNull(result);
         }
         
         [TestMethod]
@@ -185,11 +242,19 @@ namespace MSP.BetterCalm.Test.WebAPI
             var result = songController.DeleteSongByNameAndAuthor("Stand by me","John Lennon");
             var okResult = result as OkObjectResult;
             var value = okResult.Value;
-            Assert.AreEqual("Element removed",value);
+            Assert.AreEqual("Song removed",value);
         }
         
         [TestMethod]
-        public void TestUpdateSong()
+        public void TestNoDeleteSongByNameAndAuthor()
+        {
+            mockSongService.Setup(m => m.DeleteSongByNameAndAuthor("Stand by me","John Lennon")).Throws(new ValueNotFound());
+            var result = songController.DeleteSongByNameAndAuthor("Stand by me","John Lennon") as ConflictObjectResult;
+            Assert.IsNotNull(result);
+        }
+        
+        [TestMethod]
+        public void TestUpdateSongByNameAndAuthor()
         {
             Category category = new Category()
             {
@@ -211,11 +276,20 @@ namespace MSP.BetterCalm.Test.WebAPI
             mockSongService.Setup(m => m.GetSongByNameAndAuthor("Stand by me","John Lennon")).Returns(song);
             songController.CreateSong(songToAdd);
             mockSongService.Setup(m => m.UpdateSong(song,song));
-            var result = songController.UpdateSong("Stand by me","John Lennon",song);
+            var result = songController.UpdateSongByNameAndAuthor("Stand by me","John Lennon",song);
             var okResult = result as OkObjectResult;
             var value = okResult.Value;
-            Assert.AreEqual("Element Updated",value);
+            Assert.AreEqual("Song Updated",value);
         }
         
+        [TestMethod]
+        public void TestNoUpdateSongByNameAndAuthor()
+        {
+            mockSongService.Setup(m => m.GetSongByNameAndAuthor("Stand by me","John Lennon")).Throws(new ValueNotFound());
+            mockSongService.Setup(m => m.UpdateSong(song,song)).Throws(new ValueNotFound());
+            var result = songController.UpdateSongByNameAndAuthor("Stand by me","John Lennon",song) as ConflictObjectResult;
+            Assert.IsNotNull(result);
+        }
+       
     }
 }

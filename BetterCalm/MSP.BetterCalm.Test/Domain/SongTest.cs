@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.Test
@@ -15,6 +16,14 @@ namespace MSP.BetterCalm.Test
             song.Name = "Let it be";
             string getsongName = song.Name;
             Assert.AreEqual(songName, getsongName);
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(InvalidNameLength), "")]
+        public void SetSongEmptyName()
+        {
+            Song song = new Song();
+            song.Name = "";
         }
         
         [TestMethod]
@@ -43,6 +52,16 @@ namespace MSP.BetterCalm.Test
             int duration = 23 ;
             Song song = new Song();
             song.Duration = 23;
+            int getsongDuration = song.Duration;
+            Assert.AreEqual(duration, getsongDuration);
+        }
+        
+        [TestMethod]
+        public void GetSetSongDurationHour()
+        {
+            int duration = 2 ;
+            Song song = new Song();
+            song.Duration = 120;
             int getsongDuration = song.Duration;
             Assert.AreEqual(duration, getsongDuration);
         }

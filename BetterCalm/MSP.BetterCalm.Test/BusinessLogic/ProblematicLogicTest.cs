@@ -40,7 +40,7 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NoFindProblematicByName), "")]
+        [ExpectedException(typeof(ValueNotFound), "")]
         public void FindProblematicByNameNull()
         {
             problematicMock.Setup(

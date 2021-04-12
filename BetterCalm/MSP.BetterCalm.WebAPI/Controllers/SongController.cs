@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using MSP.BetterCalm.BusinessLogic;
+using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.DataAccess;
 using MSP.BetterCalm.Domain;
 
@@ -21,66 +22,129 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            IEnumerable<Song> songs = this.songLogic.GetSongs();
+            List<Song> songs = songLogic.GetSongs();
             return Ok(songs);
         }
         
-        [HttpGet("{Name}")]
-        public IActionResult GetSongByName([FromRoute]string Name)
+        [HttpGet("songName/{name}")]
+        public IActionResult GetSongsByName([FromRoute]string name)
         {
-            List<Song> songs = this.songLogic.GetSongsByName(Name);
-            return Ok(songs);
+            try
+            {
+                List<Song> songs = songLogic.GetSongsByName(name);
+                return Ok(songs);
+            }
+            catch (ValueNotFound)
+            {
+                return NotFound("Not found songs by this name");
+            }
         }
         
         [HttpGet("authorName/{author}")]
-        public IActionResult GetSongByAuthor([FromRoute]string author)
+        public IActionResult GetSongsByAuthor([FromRoute]string author)
         {
-            List<Song> songs = this.songLogic.GetSongsByAuthor(author);
-            return Ok(songs);
+            try
+            {
+                List<Song> songs = songLogic.GetSongsByAuthor(author);
+                return Ok(songs);
+            }
+            catch (ValueNotFound)
+            {
+                return NotFound("Not found songs by this author name");
+            }
         }
         
         [HttpGet("authorName/{author}/songName/{name}")]
         public IActionResult GetSongByAuthorAndName([FromRoute]string name,string author)
         {
-            Song song = this.songLogic.GetSongByNameAndAuthor(name,author);
-            return Ok(song);
+            try
+            {
+                Song song = songLogic.GetSongByNameAndAuthor(name, author);
+                return Ok(song);
+            }
+            catch (ValueNotFound)
+            {
+                return NotFound("Not found song by name and author name");
+            }
         }
         
         [HttpGet("categoryName/{name}")]
-        public IActionResult GetSongByCategoryName([FromRoute]string name)
+        public IActionResult GetSongsByCategoryName([FromRoute]string name)
         {
-            List<Song> songs = this.songLogic.GetSongsByCategoryName(name);
-            return Ok(songs);
+            try
+            {
+                List<Song> songs = songLogic.GetSongsByCategoryName(name);
+                return Ok(songs);
+            }
+            catch (ValueNotFound)
+            {
+                return NotFound("Not found song by category name");
+            }
         }
         
         [HttpPost]
         public IActionResult CreateSong([FromBody] Song song)
         {
-            songLogic.SetSong(song);
-            return Ok("Song created");
+            try
+            {
+                try
+                {
+                    songLogic.SetSong(song);
+                    return Ok("Song created");
+                }
+                catch (AlreadyExistThisSong)
+                {
+                    return Conflict("This song is already registered in the system");
+                }
+            }
+            catch (InvalidNameLength)
+            {
+                return Conflict("Cannot add a song with an empty name ");
+            }
         }
           
         [HttpDelete()]
         public IActionResult DeleteSong([FromBody] Song song)
         {
-            songLogic.DeleteSong(song);
-            return Ok("Song removed");
+            try
+            {
+                
+                songLogic.DeleteSong(song);
+                return Ok("Song removed");
+            }
+            catch (ValueNotFound)
+            {
+                return Conflict("This song not registered in the system");
+            }
         }
 
-        [HttpGet("song/{name}/author/{author}")]
+        [HttpDelete("song/{name}/author/{author}")]
         public IActionResult DeleteSongByNameAndAuthor([FromRoute] string name,string author)
         {
-            songLogic.DeleteSongByNameAndAuthor(name,author);
-            return Ok("Song removed");
+            try
+            {
+                songLogic.DeleteSongByNameAndAuthor(name, author);
+                return Ok("Song removed");
+            }
+            catch (ValueNotFound)
+            {
+                return Conflict("This song not registered in the system");
+            }
         }
 
-        [HttpGet("songName/{name}/authorName/{author}")]
-        public IActionResult UpdateSong([FromRoute] string name,string author,[FromBody] Song songUpdated)
+        [HttpPut("songName/{name}/authorName/{author}")]
+        public IActionResult UpdateSongByNameAndAuthor([FromRoute] string name,string author,[FromBody] Song songUpdated)
         {
-            Song songToUpdate = songLogic.GetSongByNameAndAuthor(name, author);
-            songLogic.UpdateSong(songToUpdate,songUpdated);
-            return Ok("Song Updated");
+            try
+            {
+                Song songToUpdate = songLogic.GetSongByNameAndAuthor(name, author);
+                songLogic.UpdateSong(songToUpdate, songUpdated);
+                return Ok("Song Updated");
+            }
+            catch (ValueNotFound)
+            {
+                return Conflict("This song not registered in the system");
+            }
         }
-        
     }
 }

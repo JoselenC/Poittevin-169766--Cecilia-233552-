@@ -31,8 +31,8 @@ namespace MSP.BetterCalm.DataAccess
             }
             return Dlist;
         }
-        
-        public D Find(Predicate<D> condition)
+
+       public D Find(Predicate<D> condition)
         {
             List<T> dtos = entity.ToList();
             foreach (var dto in dtos)
@@ -63,14 +63,21 @@ namespace MSP.BetterCalm.DataAccess
                 if (condResult)
                     return TDto;
             };
-            return null;
+            throw new ValueNotFound();
         }
 
         public void Delete(D objectToDelete)
         {
-            var ObjectToDeleteDto = FindDto(x => x.Equals(objectToDelete));
-            entity.Remove(ObjectToDeleteDto);
-            context.SaveChanges();
+            try
+            {
+                var ObjectToDeleteDto = FindDto(x => x.Equals(objectToDelete));
+                entity.Remove(ObjectToDeleteDto);
+                context.SaveChanges();
+            }
+            catch (ValueNotFound)
+            {
+                throw new ValueNotFound();
+            }
         }
         public void Set(List<D> objectToAdd)
         {
@@ -79,10 +86,17 @@ namespace MSP.BetterCalm.DataAccess
 
         public D Update(D OldObject, D UpdatedObject)
         {
-            T objToUpdate = FindDto(x => x.Equals(OldObject));
-            mapper.UpdateDtoObject(objToUpdate, UpdatedObject,context);
-            context.SaveChanges();
-            return UpdatedObject; 
+            try
+            {
+                T objToUpdate = FindDto(x => x.Equals(OldObject));
+                mapper.UpdateDtoObject(objToUpdate, UpdatedObject, context);
+                context.SaveChanges();
+                return UpdatedObject;
+            }
+            catch (ValueNotFound)
+            {
+                throw new ValueNotFound();
+            }
         }
     }
 }
