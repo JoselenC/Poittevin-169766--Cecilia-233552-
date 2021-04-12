@@ -89,8 +89,9 @@ namespace MSP.BetterCalm.Test
         public void GetSetPlayListDto()
         {
             SongDto song = new SongDto();
-            song.PlaylistDto = new PlaylistDto();
-            Assert.AreEqual(new PlaylistDto(), song.PlaylistDto);
+            PlaylistDto playlistDto= new PlaylistDto();
+            song.PlaylistDto = playlistDto;
+            Assert.AreEqual(playlistDto, song.PlaylistDto);
         }
         
         

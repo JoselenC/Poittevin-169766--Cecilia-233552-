@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MSP.BetterCalm.BusinessLogic.Exceptions;
 
 namespace MSP.BetterCalm.Domain
 {
@@ -8,17 +9,32 @@ namespace MSP.BetterCalm.Domain
 
         public List<Category> Categories {get; set; }
 
-        public string Name {get; set; }
+        private string name;
+        public string Name {get=>name; set=>SetName(value); }
         
-        public int Duration {get; set; }
+        private void SetName(string vName)
+        {
+            if (vName.Length>0)
+                name=vName;
+            else
+                throw new InvalidNameLength();
+        }
         
+        private int duration;
+        public int Duration {get=>duration; set=>SetDuration(value); }
+        private void SetDuration(int vDuration)
+        {
+            if (vDuration>= 60)
+                duration=vDuration/60;
+            else
+                duration = vDuration;
+        }
         public string AuthorName {get; set; }
         
         public string UrlImage {get; set; }
         
         public string UrlAudio {get; set; }
-
-
+        
         public bool IsSameSongName(string songName)
         {
             return Name == songName;

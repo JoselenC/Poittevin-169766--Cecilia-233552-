@@ -43,10 +43,7 @@ namespace MSP.BetterCalm.DataAccess
             {
                 foreach (Category category in categories)
                 {
-                    CategoryDto categoriesDto = new CategoryDto()
-                        {
-                            Name = category.Name
-                        };
+                    CategoryDto categoriesDto=new CategoryDto(){Name = category.Name};
                     CategoriesDto.Add(categoriesDto);
                 }
             }

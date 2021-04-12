@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.BusinessLogic
 {
@@ -14,7 +15,6 @@ namespace MSP.BetterCalm.BusinessLogic
         T Find(Predicate<T> condition);
 
         List<T> Get();
-
         void Set(List<T> objectToAdd);
 
         T Update(T OldObject, T UpdatedObject);

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using MSP.BetterCalm.BusinessLogic;
+using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.WebAPI.Controllers;
 
@@ -12,6 +13,7 @@ namespace MSP.BetterCalm.Test.WebAPI
     public class PlaylistControllerTest
     {
         private Mock<IPlaylistLogic> mockPlaylistService;
+        private Mock<ISongLogic> mocksongService;
         private PlaylistController playlistController ;
         private List<Playlist> playlists;
         private Playlist playlist;
@@ -20,7 +22,8 @@ namespace MSP.BetterCalm.Test.WebAPI
         public void InitializeTest()
         {
             mockPlaylistService=new Mock<IPlaylistLogic>(MockBehavior.Strict);
-            playlistController = new PlaylistController(mockPlaylistService.Object);
+            mocksongService = new Mock<ISongLogic>(MockBehavior.Strict);
+            playlistController = new PlaylistController(mockPlaylistService.Object,mocksongService.Object);
             playlists = new List<Playlist>();
             playlist = new Playlist();
         }
@@ -46,6 +49,14 @@ namespace MSP.BetterCalm.Test.WebAPI
         }
         
         [TestMethod]
+        public void TestGetPlaylistByInvalidName()
+        {
+            mockPlaylistService.Setup(m => m.GetPlaylistByName("Stand by me")).Throws(new ValueNotFound());
+            var result = playlistController.GetPlaylistByName("Stand by me") as NotFoundObjectResult;
+            Assert.IsNotNull(result);
+        }
+        
+        [TestMethod]
         public void TestGetPlaylistByCategoryName()
         {   
             mockPlaylistService.Setup(m => m.GetPlaylistByCategoryName("John Lennon")).Returns(playlists);
@@ -54,6 +65,15 @@ namespace MSP.BetterCalm.Test.WebAPI
             var playlistValue = okResult.Value;
             Assert.AreEqual(playlists,playlistValue);
         }
+        
+        [TestMethod]
+        public void TestGetPlaylistByInvalidCategoryName()
+        {   
+            mockPlaylistService.Setup(m => m.GetPlaylistByCategoryName("John Lennon")).Throws(new ValueNotFound());
+            var result = playlistController.GetPlaylistByCategoryName("John Lennon") as NotFoundObjectResult;
+            Assert.IsNotNull(result);
+        }
+        
         [TestMethod]
         public void TestGetPlaylistBySongName()
         {   
@@ -62,6 +82,14 @@ namespace MSP.BetterCalm.Test.WebAPI
             var okResult = result as OkObjectResult;
             var playlistValue = okResult.Value;
             Assert.AreEqual(playlists,playlistValue);
+        }
+        
+        [TestMethod]
+        public void TestGetPlaylistByInvalidSongName()
+        {   
+            mockPlaylistService.Setup(m => m.GetPlaylistBySongName("John Lennon")).Throws(new ValueNotFound());
+            var result = playlistController.GetPlaylistBySongName("John Lennon") as NotFoundObjectResult;
+            Assert.IsNotNull(result);
         }
         
         [TestMethod]
@@ -76,12 +104,33 @@ namespace MSP.BetterCalm.Test.WebAPI
                 UrlImage = ""
             };
             mockPlaylistService.Setup(m => m.AddPlaylist(playlistTest));
+            mocksongService.Setup(m => m.DeleteSongs(playlistTest.Songs));
             playlistController.CreatePlaylist(playlistTest);
             mockPlaylistService.Setup(m => m.GetPlaylist()).Returns(playlists);
             var result = playlistController.GetAll();
             var okResult = result as OkObjectResult;
             var playlistsValue = okResult.Value;
             Assert.AreEqual(playlists,playlistsValue);
+        }
+        
+        [TestMethod]
+        public void TestCreateInvalidNamePlaylist()
+        {
+            mockPlaylistService.Setup(m => m.AddPlaylist(playlist)).Throws(new InvalidNameLength());
+            mocksongService.Setup(m => m.DeleteSongs(playlist.Songs));
+            var result=playlistController.CreatePlaylist(playlist) as ConflictObjectResult;
+             Assert.IsNotNull(result);
+        }
+        
+        [TestMethod]
+        public void TestCreateInvalidDescriptionPlaylist()
+        {
+            List<Song> songs = new List<Song>();
+         
+            mockPlaylistService.Setup(m => m.AddPlaylist(playlist)).Throws(new InvalidDescriptionLength());
+            mocksongService.Setup(m => m.DeleteSongs(playlist.Songs));
+            var result=playlistController.CreatePlaylist(playlist) as ConflictObjectResult;
+            Assert.IsNotNull(result);
         }
         
         [TestMethod]
@@ -94,5 +143,26 @@ namespace MSP.BetterCalm.Test.WebAPI
             Assert.AreEqual("Element removed",value);
         }
         
+        [TestMethod]
+        public void TestNoDeletePlaylist()
+        {   
+            mockPlaylistService.Setup(m => m.DeletePlaylist(playlist)).Throws(new ValueNotFound());
+            var result = playlistController.DeletePlaylist(playlist) as NotFoundObjectResult;
+            Assert.IsNotNull(result);
+        }
+        
+        [TestMethod]
+        public void AddSongToPlaylistTest()
+        {
+            playlist.Songs = new List<Song>();
+            mockPlaylistService.Setup(m => m.UpdatePlaylist(playlist,playlist));
+            mockPlaylistService.Setup(m => m.GetPlaylistByName("playlist")).Returns(playlists);
+            playlistController.AddSongToPlaylist(new Song(){Name="Let it be"},"playlist");
+            mockPlaylistService.Setup(m => m.GetPlaylist()).Returns(playlists);
+            var result = playlistController.GetAll();
+            var okResult = result as OkObjectResult;
+            var playlistsValue = okResult.Value;
+            Assert.AreEqual(playlists,playlistsValue);
+        }
       }
 }

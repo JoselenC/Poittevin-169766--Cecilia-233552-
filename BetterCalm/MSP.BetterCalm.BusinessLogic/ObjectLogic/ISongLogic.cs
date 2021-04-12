@@ -14,5 +14,6 @@ namespace MSP.BetterCalm.BusinessLogic
         public void DeleteSongByNameAndAuthor(string name,string authorName);
         public Song GetSongByNameAndAuthor(string name, string author);
         public void UpdateSong(Song songToUpdate, Song songUpdated);
+        void DeleteSongs(List<Song> playlistSongs);
     }
 }

@@ -26,7 +26,7 @@ namespace MSP.BetterCalm.BusinessLogic
             }
             catch (ValueNotFound)
             {
-                throw new NoFindProblematicByName();
+                throw new ValueNotFound();
             }
         }
 

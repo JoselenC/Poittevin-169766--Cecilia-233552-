@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -55,6 +56,14 @@ namespace MSP.BetterCalm.Test
         {
             Category realCategory = Categories.Find(x => x.Name == "Dormir");
             Assert.AreEqual(categoryTest, realCategory);
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(NotImplementedException), "")]
+        public void UpdateTest()
+        {
+            CategoryMapper categoryMapper = new CategoryMapper();
+            categoryMapper.UpdateDtoObject(new CategoryDto(), new Category(),new ContextDB());
         }
         
         

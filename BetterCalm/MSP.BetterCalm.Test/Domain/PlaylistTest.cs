@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.Test
@@ -15,6 +16,35 @@ namespace MSP.BetterCalm.Test
             playlist.Name = "Entrena tu mente";
             string getPlaylistName = playlist.Name;
             Assert.AreEqual(playlistName, getPlaylistName);
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(InvalidNameLength), "")]
+        public void GetSetPlaylistNameInvalidLength()
+        {
+            Playlist playlist = new Playlist();
+            playlist.Name = "";
+        }
+        
+        [TestMethod]
+        public void GetSetPlaylistDescriptionValidLength()
+        {
+            string playlistDescription = "Entrena tu mente";
+            Playlist playlist = new Playlist();
+            playlist.Description = "Entrena tu mente";
+            string getDescription = playlist.Description;
+            Assert.AreEqual(playlistDescription, getDescription);
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(InvalidDescriptionLength), "")]
+        public void GetSetPlaylistDescriptionInvalidLength()
+        {
+            Playlist playlist = new Playlist();
+            playlist.Description = "12312321231231231232131231231231231231" +
+                                   "12333333333333333333333333333333333123333333333" +
+                                   "1233333333333333333333333123333333333331322222" +
+                                   "1233123111111111123";
         }
 
         [TestMethod]
@@ -144,6 +174,76 @@ namespace MSP.BetterCalm.Test
             string categoryName = "Let it be";
             Assert.IsFalse(playlist.IsSameSongName(categoryName));
         }
-
+        
+        [TestMethod]
+        public void EqualsPlaylist()
+        {
+            Playlist playlist = new Playlist()
+            {
+              Name  = "Entrena tu mente",
+              Description = "para despejar",
+              UrlImage="url"
+            };
+            Assert.AreEqual(playlist, playlist);
+        }
+        
+        [TestMethod]
+        public void NotEqualsPlaylistNull()
+        {
+            Playlist playlist = new Playlist()
+            {
+                Name  = "Entrena tu mente",
+                Description = "para despejar",
+                UrlImage="url"
+            };
+            Assert.AreNotEqual(playlist, null);
+        }
+        
+        [TestMethod]
+        public void PlaylistNull()
+        {
+            Playlist playlist=null;
+            Assert.IsNull(playlist);
+        }
+        
+        [TestMethod]
+        public void NotCategoryNull()
+        {
+            Playlist playlist = new Playlist();
+            Assert.IsNotNull(playlist);
+        }
+        
+        [TestMethod]
+        public void NotEqualsPlaylistName()
+        {
+            Playlist playlist = new Playlist()
+            {
+                Name  = "Entrena tu mente",
+                Description = "para despejar",
+                UrlImage="url"
+            };
+            Playlist playlistToCompare = new Playlist()
+            {
+                Name  = "Entrena tu mente2",
+                Description = "para despejar",
+                UrlImage="url"
+            };
+            Assert.AreNotEqual(playlist, playlistToCompare);
+        }
+        
+        [TestMethod]
+        public void NotEqualsCategoryType()
+        {
+            Category category = new Category();
+            Playlist playlist = new Playlist()
+            {
+                Name  = "Entrena tu mente",
+                Description = "para despejar",
+                UrlImage="url"
+            };
+            Assert.AreNotEqual(category, playlist);
+        }
+        
+       
     }
 }
