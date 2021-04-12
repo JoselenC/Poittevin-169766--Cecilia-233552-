@@ -156,7 +156,8 @@ namespace MSP.BetterCalm.Test.WebAPI
         {
             playlist.Songs = new List<Song>();
             mockPlaylistService.Setup(m => m.UpdatePlaylist(playlist,playlist));
-            playlistController.AddSongToPlaylist(new Song(){Name="Let it be"},playlist);
+            mockPlaylistService.Setup(m => m.GetPlaylistByName("playlist")).Returns(playlists);
+            playlistController.AddSongToPlaylist(new Song(){Name="Let it be"},"playlist");
             mockPlaylistService.Setup(m => m.GetPlaylist()).Returns(playlists);
             var result = playlistController.GetAll();
             var okResult = result as OkObjectResult;

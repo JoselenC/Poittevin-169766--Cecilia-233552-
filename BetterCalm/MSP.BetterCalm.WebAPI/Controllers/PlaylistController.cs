@@ -109,13 +109,18 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             }
         }
 
-        [HttpPost]
-        public IActionResult AddSongToPlaylist([FromBody] Song song, [FromBody] Playlist playlist)
+        [HttpPost ("playlitName/{name}")]
+        public IActionResult AddSongToPlaylist([FromBody] Song song, [FromRoute] string name)
         {
            
-            Playlist playlistToUpdate = playlist;
-            playlist.Songs.Add(song);
-            playlistLogic.UpdatePlaylist(playlistToUpdate,playlist);
+            List<Playlist> playlistsToUpdate = playlistLogic.GetPlaylistByName(name);
+            foreach (var playlistToUpdate in playlistsToUpdate)
+            {
+                Playlist playlist = playlistToUpdate;
+                playlistToUpdate.Songs.Add(song);
+                playlistLogic.UpdatePlaylist(playlistToUpdate,playlist);
+            }
+          
             return Ok();
         }
        
