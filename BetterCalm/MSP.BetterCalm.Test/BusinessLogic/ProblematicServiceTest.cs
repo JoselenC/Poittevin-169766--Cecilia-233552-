@@ -10,14 +10,14 @@ using MSP.BetterCalm.Domain;
 namespace MSP.BetterCalm.Test
 {
     [TestClass]
-    public class ProblematicLogicTest
+    public class ProblematicServiceTest
     {
         private Mock<ManagerProblematicRepository> repoMock;
         private Mock<IRepository<Problematic>> problematicMock;
         
         public  Problematic problematicTest;
 
-        private ProblematicLogic _logic;
+        private ProblematicService _service;
 
         [TestInitialize]
         public  void TestFixtureSetup()
@@ -25,7 +25,7 @@ namespace MSP.BetterCalm.Test
             repoMock = new Mock<ManagerProblematicRepository>();
             problematicMock = new Mock<IRepository<Problematic>>();
             repoMock.Object.Problematics = problematicMock.Object;
-            _logic = new ProblematicLogic(repoMock.Object);
+            _service = new ProblematicService(repoMock.Object);
         }
 
         [TestMethod]
@@ -35,7 +35,7 @@ namespace MSP.BetterCalm.Test
             problematicMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Problematic>>())
             ).Returns(problematic1);
-            Problematic problematic2 = _logic.GetProblematicByName("Estres");
+            Problematic problematic2 = _service.GetProblematicByName("Estres");
             Assert.AreEqual(problematic1, problematic2);
         }
 
@@ -46,7 +46,7 @@ namespace MSP.BetterCalm.Test
             problematicMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Problematic>>())
             ).Throws(new ValueNotFound());
-            _logic.GetProblematicByName("");
+            _service.GetProblematicByName("");
         }
 
         [TestMethod]
@@ -60,7 +60,7 @@ namespace MSP.BetterCalm.Test
             problematicMock.Setup(
                 x => x.Get()
             ).Returns(problematics);
-            List<Problematic> problematics2 = _logic.GetProblematics();
+            List<Problematic> problematics2 = _service.GetProblematics();
             CollectionAssert.AreEqual(problematics, problematics2);
         }
     }

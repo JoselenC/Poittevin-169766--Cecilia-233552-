@@ -4,11 +4,11 @@ using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.BusinessLogic
 {
-    public class PlaylistLogic:IPlaylistLogic
+    public class PlaylistService:IPlaylistService
     {
         private ManagerPlaylistRepository repository;
 
-        public PlaylistLogic(ManagerPlaylistRepository vRepository)
+        public PlaylistService(ManagerPlaylistRepository vRepository)
         {
             repository = vRepository;
         }

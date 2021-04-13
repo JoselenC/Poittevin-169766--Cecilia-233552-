@@ -4,11 +4,11 @@ using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.BusinessLogic
 {
-    public class CategoryLogic : ICategoryLogic
+    public class CategoryService : ICategoryService
     {
         private ManagerCategoryRepository repository;
 
-        public CategoryLogic(ManagerCategoryRepository vRepository)
+        public CategoryService(ManagerCategoryRepository vRepository)
         {
             repository = vRepository;
         }

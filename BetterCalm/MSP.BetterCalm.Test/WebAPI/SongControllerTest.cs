@@ -12,7 +12,7 @@ namespace MSP.BetterCalm.Test.WebAPI
     [TestClass]
     public class SongControllerTest
     {
-        private Mock<ISongLogic> mockSongService;
+        private Mock<ISongService> mockSongService;
         private SongController songController ;
         private List<Song> songs;
         private Song song;
@@ -20,7 +20,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestInitialize]
         public void InitializeTest()
         {
-            mockSongService=new Mock<ISongLogic>(MockBehavior.Strict);
+            mockSongService=new Mock<ISongService>(MockBehavior.Strict);
             songController = new SongController(mockSongService.Object);
             songs = new List<Song>();
             song = new Song();

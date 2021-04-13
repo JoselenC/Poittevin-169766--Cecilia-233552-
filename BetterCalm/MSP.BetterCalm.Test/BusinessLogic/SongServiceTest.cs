@@ -10,11 +10,11 @@ using MSP.BetterCalm.Domain;
 namespace MSP.BetterCalm.Test
 {
     [TestClass]
-    public class SongLogicTest
+    public class SongServiceTest
     {
         private Mock<ManagerSongRepository> repoMock;
         private Mock<IRepository<Song>> songsMock;
-        private SongLogic songLogic;
+        private SongService _songService;
         private ContextDB context = new ContextDB();
 
         [TestInitialize]
@@ -23,7 +23,7 @@ namespace MSP.BetterCalm.Test
             repoMock = new Mock<ManagerSongRepository>();
             songsMock = new Mock<IRepository<Song>>();
             repoMock.Object.Songs =  songsMock.Object;
-            songLogic = new SongLogic(repoMock.Object);
+            _songService = new SongService(repoMock.Object);
         }
 
         [TestMethod]
@@ -52,7 +52,7 @@ namespace MSP.BetterCalm.Test
             songsMock.Setup(
                 x => x.Get()
             ).Returns(songs);
-            List<Song> songs3 = songLogic.GetSongsByName("Stand by me");
+            List<Song> songs3 = _songService.GetSongsByName("Stand by me");
             CollectionAssert.AreEqual(songs, songs3);
         }
         
@@ -83,7 +83,7 @@ namespace MSP.BetterCalm.Test
             songsMock.Setup(
                 x => x.Get()
             ).Returns(songs);
-            songLogic.GetSongsByName("LetITBE");
+            _songService.GetSongsByName("LetITBE");
         }
         
         [TestMethod]
@@ -113,7 +113,7 @@ namespace MSP.BetterCalm.Test
             songsMock.Setup(
                 x => x.Get()
             ).Returns(songs);
-            List<Song> songs3 = songLogic.GetSongsByAuthor("John Lennon");
+            List<Song> songs3 = _songService.GetSongsByAuthor("John Lennon");
             CollectionAssert.AreEqual(songs, songs3);
         }
         
@@ -145,7 +145,7 @@ namespace MSP.BetterCalm.Test
             songsMock.Setup(
                 x => x.Get()
             ).Returns(songs);
-           songLogic.GetSongsByAuthor("Ringo Starr");
+           _songService.GetSongsByAuthor("Ringo Starr");
         }
 
         [TestMethod]
@@ -170,7 +170,7 @@ namespace MSP.BetterCalm.Test
             songsMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Song>>())
             ).Returns(song1);
-            Song song3 = songLogic.GetSongByNameAndAuthor("Stand by me","John Lennon");
+            Song song3 = _songService.GetSongByNameAndAuthor("Stand by me","John Lennon");
             Assert.AreEqual(song1, song3);
         }
         
@@ -197,7 +197,7 @@ namespace MSP.BetterCalm.Test
             songsMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Song>>())
             ).Throws(new ValueNotFound());
-            songLogic.GetSongByNameAndAuthor("Stand by me","Ringo Starr");
+            _songService.GetSongByNameAndAuthor("Stand by me","Ringo Starr");
         }
         
         [TestMethod]
@@ -223,7 +223,7 @@ namespace MSP.BetterCalm.Test
             songsMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Song>>())
             ).Throws(new ValueNotFound());
-            songLogic.GetSongByNameAndAuthor("Let it be","John Lennon");
+            _songService.GetSongByNameAndAuthor("Let it be","John Lennon");
         }
         
         [TestMethod]
@@ -249,7 +249,7 @@ namespace MSP.BetterCalm.Test
             songsMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Song>>())
             ).Throws(new ValueNotFound());
-            songLogic.GetSongByNameAndAuthor("Stand by me","Ringo Starr");
+            _songService.GetSongByNameAndAuthor("Stand by me","Ringo Starr");
         }
         
         [TestMethod]
@@ -278,7 +278,7 @@ namespace MSP.BetterCalm.Test
             songsMock.Setup(
                 x => x.Get()
             ).Returns(songs1);
-            List<Song> songs2 = songLogic.GetSongs();
+            List<Song> songs2 = _songService.GetSongs();
             CollectionAssert.AreEqual(songs1, songs2);
         }
 
@@ -311,7 +311,7 @@ namespace MSP.BetterCalm.Test
             songsMock.Setup(
                 x => x.Get()
             ).Returns(songs1);
-            List<Song> songs2 = songLogic.GetSongs();
+            List<Song> songs2 = _songService.GetSongs();
             CollectionAssert.AreEqual(songs1, songs2);
         }
 
@@ -350,12 +350,12 @@ namespace MSP.BetterCalm.Test
             songsMock.Setup(
                 x => x.Update(song,song2)
             );
-            songLogic.UpdateSong(song,song2);
+            _songService.UpdateSong(song,song2);
             
             songsMock.Setup(
                 x => x.Get()
             ).Returns(songs1);
-            List<Song> songs2 = songLogic.GetSongs();
+            List<Song> songs2 = _songService.GetSongs();
             CollectionAssert.AreEqual(songs1, songs2);
         }
         
@@ -390,7 +390,7 @@ namespace MSP.BetterCalm.Test
             };
             List<Song> songs1 = new List<Song> {song};
             songsMock.Setup(x => x.Update(song,song2)).Throws(new ValueNotFound());
-            songLogic.UpdateSong(song,song2);
+            _songService.UpdateSong(song,song2);
         }
         
         [TestMethod]
@@ -425,7 +425,7 @@ namespace MSP.BetterCalm.Test
             songsMock.Setup(
                 x => x.Get()
             ).Returns(songs);
-            List<Song> song3 = songLogic.GetSongsByCategoryName("Dormir");
+            List<Song> song3 = _songService.GetSongsByCategoryName("Dormir");
             CollectionAssert.AreEqual(songs, song3);
         }
         
@@ -462,7 +462,7 @@ namespace MSP.BetterCalm.Test
             songsMock.Setup(
                 x => x.Get()
             ).Returns(songs);
-            songLogic.GetSongsByCategoryName("Musica");
+            _songService.GetSongsByCategoryName("Musica");
         }
         
         [TestMethod]
@@ -506,8 +506,8 @@ namespace MSP.BetterCalm.Test
             songsMock.Setup(
                 x => x.Set(songs)
             );
-            songLogic.DeleteSongByNameAndAuthor("Stand by me","John Lennon");
-            List<Song> songPostDelete = songLogic.GetSongs();
+            _songService.DeleteSongByNameAndAuthor("Stand by me","John Lennon");
+            List<Song> songPostDelete = _songService.GetSongs();
             CollectionAssert.AreEqual(songPostDelete, songs);
         }
         
@@ -535,7 +535,7 @@ namespace MSP.BetterCalm.Test
             songsMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Song>>())
             ).Throws(new ValueNotFound());
-            songLogic.DeleteSongByNameAndAuthor("Stand by me","John Lennon");
+            _songService.DeleteSongByNameAndAuthor("Stand by me","John Lennon");
         }
 
         [TestMethod]
@@ -578,8 +578,8 @@ namespace MSP.BetterCalm.Test
             songsMock.Setup(
                 x => x.Set(songs)
             );
-            songLogic.DeleteSong(song1);
-            List<Song> songPostDelete = songLogic.GetSongs();
+            _songService.DeleteSong(song1);
+            List<Song> songPostDelete = _songService.GetSongs();
             CollectionAssert.AreEqual(songPostDelete, songs);
         }
         
@@ -616,7 +616,7 @@ namespace MSP.BetterCalm.Test
                 UrlImage = ""
             };
             songsMock.Setup(x => x.Delete(song1)).Throws(new ValueNotFound());
-            songLogic.DeleteSong(song1);
+            _songService.DeleteSong(song1);
         }
         
         [TestMethod]
@@ -642,8 +642,8 @@ namespace MSP.BetterCalm.Test
             songsMock.Setup(
                 x => x.Get()
             ).Returns(songs);
-            songLogic.SetSong(song1);
-            CollectionAssert.AreEqual(songs, songLogic.GetSongs());
+            _songService.SetSong(song1);
+            CollectionAssert.AreEqual(songs, _songService.GetSongs());
         }
         
         [TestMethod]
@@ -670,7 +670,7 @@ namespace MSP.BetterCalm.Test
             songsMock.Setup(
                 x => x.Get()
             ).Returns(songs);
-            songLogic.SetSong(song1);
+            _songService.SetSong(song1);
         }
         
         [TestMethod]
@@ -697,8 +697,8 @@ namespace MSP.BetterCalm.Test
             songsMock.Setup(
                 x => x.Get()
             ).Returns(songs);
-            songLogic.SetSong(song1);
-            CollectionAssert.AreEqual(songs, songLogic.GetSongs());
+            _songService.SetSong(song1);
+            CollectionAssert.AreEqual(songs, _songService.GetSongs());
         }
         
         [TestMethod]
@@ -725,7 +725,7 @@ namespace MSP.BetterCalm.Test
             songsMock.Setup(
                 x => x.Delete(song1)
             );
-            songLogic.DeleteSongs(songs);
+            _songService.DeleteSongs(songs);
             CollectionAssert.AreEqual(songs, songs);
         }
     }

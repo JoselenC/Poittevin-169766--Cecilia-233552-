@@ -4,11 +4,11 @@ using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.BusinessLogic
 {
-    public class ProblematicLogic : IProblematicLogic
+    public class ProblematicService : IProblematicService
     {
         private ManagerProblematicRepository repository;
 
-        public ProblematicLogic(ManagerProblematicRepository vRepository)
+        public ProblematicService(ManagerProblematicRepository vRepository)
         {
             repository = vRepository;
         }

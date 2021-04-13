@@ -12,17 +12,17 @@ namespace MSP.BetterCalm.WebAPI.Controllers
     public class SongController : ControllerBase
     {
 
-        private ISongLogic songLogic;
+        private ISongService _songService;
 
-        public SongController(ISongLogic songLogic)
+        public SongController(ISongService songService)
         {
-            this.songLogic = songLogic;
+            this._songService = songService;
         }
         
         [HttpGet]
         public IActionResult GetAll()
         {
-            List<Song> songs = songLogic.GetSongs();
+            List<Song> songs = _songService.GetSongs();
             return Ok(songs);
         }
         
@@ -31,7 +31,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         {
             try
             {
-                List<Song> songs = songLogic.GetSongsByName(name);
+                List<Song> songs = _songService.GetSongsByName(name);
                 return Ok(songs);
             }
             catch (ValueNotFound)
@@ -45,7 +45,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         {
             try
             {
-                List<Song> songs = songLogic.GetSongsByAuthor(author);
+                List<Song> songs = _songService.GetSongsByAuthor(author);
                 return Ok(songs);
             }
             catch (ValueNotFound)
@@ -59,7 +59,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         {
             try
             {
-                Song song = songLogic.GetSongByNameAndAuthor(name, author);
+                Song song = _songService.GetSongByNameAndAuthor(name, author);
                 return Ok(song);
             }
             catch (ValueNotFound)
@@ -73,7 +73,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         {
             try
             {
-                List<Song> songs = songLogic.GetSongsByCategoryName(name);
+                List<Song> songs = _songService.GetSongsByCategoryName(name);
                 return Ok(songs);
             }
             catch (ValueNotFound)
@@ -89,7 +89,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             {
                 try
                 {
-                    songLogic.SetSong(song);
+                    _songService.SetSong(song);
                     return Ok("Song created");
                 }
                 catch (AlreadyExistThisSong)
@@ -109,7 +109,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             try
             {
                 
-                songLogic.DeleteSong(song);
+                _songService.DeleteSong(song);
                 return Ok("Song removed");
             }
             catch (ValueNotFound)
@@ -123,7 +123,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         {
             try
             {
-                songLogic.DeleteSongByNameAndAuthor(name, author);
+                _songService.DeleteSongByNameAndAuthor(name, author);
                 return Ok("Song removed");
             }
             catch (ValueNotFound)
@@ -137,8 +137,8 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         {
             try
             {
-                Song songToUpdate = songLogic.GetSongByNameAndAuthor(name, author);
-                songLogic.UpdateSong(songToUpdate, songUpdated);
+                Song songToUpdate = _songService.GetSongByNameAndAuthor(name, author);
+                _songService.UpdateSong(songToUpdate, songUpdated);
                 return Ok("Song Updated");
             }
             catch (ValueNotFound)

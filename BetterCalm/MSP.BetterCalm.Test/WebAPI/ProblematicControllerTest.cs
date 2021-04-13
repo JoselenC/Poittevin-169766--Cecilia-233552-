@@ -14,7 +14,7 @@ namespace MSP.BetterCalm.Test.WebAPI
     public class ProblematicControllerTest
     {
 
-        private Mock<IProblematicLogic> mockProblematicService;
+        private Mock<IProblematicService> mockProblematicService;
         private ProblematicController problematicController ;
         private List<Problematic> problematics;
         private Problematic problematic;
@@ -22,7 +22,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestInitialize]
         public void InitializeTest()
         {
-            mockProblematicService=new Mock<IProblematicLogic>(MockBehavior.Strict);
+            mockProblematicService=new Mock<IProblematicService>(MockBehavior.Strict);
             problematicController = new ProblematicController(mockProblematicService.Object);
             problematics = new List<Problematic>();
             problematic = new Problematic();

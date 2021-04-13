@@ -18,11 +18,11 @@ namespace MSP.BetterCalm.DataAccess
         
         public void AddScopped()
         {
-            services.AddScoped<ICategoryLogic,CategoryLogic>();
-            services.AddScoped<IProblematicLogic,ProblematicLogic>();
-            services.AddScoped<ISongLogic,SongLogic>();
+            services.AddScoped<ICategoryService,CategoryService>();
+            services.AddScoped<IProblematicService,ProblematicService>();
+            services.AddScoped<ISongService,SongService>();
             services.AddScoped<IPatientService,PatientService>();
-            services.AddScoped<IPlaylistLogic,PlaylistLogic>();
+            services.AddScoped<IPlaylistService,PlaylistService>();
             services.AddScoped<IPsychologistService,PsychologistService>();
             services.AddScoped<IAdministratorService,AdministratorService>();
             

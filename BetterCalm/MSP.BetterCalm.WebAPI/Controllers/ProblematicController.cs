@@ -11,24 +11,24 @@ namespace MSP.BetterCalm.WebAPI.Controllers
     public class ProblematicController : ControllerBase
     {
 
-    private IProblematicLogic problematicLogic;
+    private IProblematicService _problematicService;
 
-    public ProblematicController(IProblematicLogic problematicLogic)
+    public ProblematicController(IProblematicService problematicService)
     {
-        this.problematicLogic = problematicLogic;
+        this._problematicService = problematicService;
     }
 
     [HttpGet]
     public IActionResult GetAll()
     {
-        IEnumerable<Problematic> problematics = this.problematicLogic.GetProblematics();
+        IEnumerable<Problematic> problematics = this._problematicService.GetProblematics();
         return Ok(problematics);
     }
 
     [HttpGet("{name}")]
     public IActionResult GetProblematicByName([FromQuery] string problematicName)
     {
-        Problematic problematicByName = problematicLogic.GetProblematicByName(problematicName);
+        Problematic problematicByName = _problematicService.GetProblematicByName(problematicName);
         return Ok(problematicByName);
     }
 

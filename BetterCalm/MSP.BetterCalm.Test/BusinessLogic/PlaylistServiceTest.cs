@@ -9,12 +9,12 @@ using MSP.BetterCalm.Domain;
 namespace MSP.BetterCalm.Test
 {
     [TestClass]
-    public class PlaylistLogicTest
+    public class PlaylistServiceTest
     {
 
         private Mock<ManagerPlaylistRepository> repoMock;
         private Mock<IRepository<Playlist>> playlisMock;
-        private PlaylistLogic playlistLogic;
+        private PlaylistService _playlistService;
 
         [TestInitialize]
         public void TestFixtureSetup()
@@ -22,7 +22,7 @@ namespace MSP.BetterCalm.Test
             repoMock = new Mock<ManagerPlaylistRepository>();
             playlisMock = new Mock<IRepository<Playlist>>();
             repoMock.Object.Playlists = playlisMock.Object;
-            playlistLogic = new PlaylistLogic(repoMock.Object);
+            _playlistService = new PlaylistService(repoMock.Object);
         }
 
         [TestMethod]
@@ -46,7 +46,7 @@ namespace MSP.BetterCalm.Test
             playlisMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Playlist>>())
             ).Returns(playlist);
-            List<Playlist> playlist2 = playlistLogic.GetPlaylistByName("Entrena tu mente");
+            List<Playlist> playlist2 = _playlistService.GetPlaylistByName("Entrena tu mente");
             CollectionAssert.AreEqual(playlist2, playlists);
         }
         
@@ -94,7 +94,7 @@ namespace MSP.BetterCalm.Test
             playlisMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Playlist>>())
             ).Returns(playlist);
-           playlistLogic.GetPlaylistByName("Para correr");
+           _playlistService.GetPlaylistByName("Para correr");
         }
       
          [TestMethod]
@@ -131,12 +131,12 @@ namespace MSP.BetterCalm.Test
             playlisMock.Setup(
                 x => x.Set(playlists)
             );
-            playlistLogic.AddPlaylist(playlist)
+            _playlistService.AddPlaylist(playlist)
                 ;
             playlisMock.Setup(
                 x => x.Get()
             ).Returns(playlists);
-            List<Playlist> playlist2 = playlistLogic.GetPlaylistByCategoryName("Dormir");
+            List<Playlist> playlist2 = _playlistService.GetPlaylistByCategoryName("Dormir");
             CollectionAssert.AreEqual(playlists, playlist2);
         }
         
@@ -175,12 +175,12 @@ namespace MSP.BetterCalm.Test
             playlisMock.Setup(
                 x => x.Set(playlists)
             );
-            playlistLogic.AddPlaylist(playlist)
+            _playlistService.AddPlaylist(playlist)
                 ;
             playlisMock.Setup(
                 x => x.Get()
             ).Returns(playlists);
-            playlistLogic.GetPlaylistByCategoryName("Para correr");
+            _playlistService.GetPlaylistByCategoryName("Para correr");
         }
         
         [TestMethod]
@@ -217,12 +217,12 @@ namespace MSP.BetterCalm.Test
             playlisMock.Setup(
                 x => x.Set(playlists)
             );
-            playlistLogic.AddPlaylist(playlist)
+            _playlistService.AddPlaylist(playlist)
                 ;
             playlisMock.Setup(
                 x => x.Get()
             ).Returns(playlists);
-            List<Playlist> playlist2 = playlistLogic.GetPlaylistBySongName( "Stand by me");
+            List<Playlist> playlist2 = _playlistService.GetPlaylistBySongName( "Stand by me");
             CollectionAssert.AreEqual(playlists, playlist2);
         }
         
@@ -261,12 +261,12 @@ namespace MSP.BetterCalm.Test
             playlisMock.Setup(
                 x => x.Set(playlists)
             );
-            playlistLogic.AddPlaylist(playlist)
+            _playlistService.AddPlaylist(playlist)
                 ;
             playlisMock.Setup(
                 x => x.Get()
             ).Returns(playlists);
-            playlistLogic.GetPlaylistBySongName("Para correr");
+            _playlistService.GetPlaylistBySongName("Para correr");
         }
         
         [TestMethod]
@@ -300,7 +300,7 @@ namespace MSP.BetterCalm.Test
             playlisMock.Setup(
                 x => x.Get()
             ).Returns(playlists);
-            List<Playlist> playlists2 = playlistLogic.GetPlaylist();
+            List<Playlist> playlists2 = _playlistService.GetPlaylist();
             CollectionAssert.AreEqual(playlists, playlists2);
         }
 
@@ -335,12 +335,12 @@ namespace MSP.BetterCalm.Test
             playlisMock.Setup(
                 x => x.Set(playlists)
             );
-            playlistLogic.AddPlaylist(playlist);
+            _playlistService.AddPlaylist(playlist);
 
             playlisMock.Setup(
                 x => x.Get()
             ).Returns(playlists);
-            List<Playlist> playlists2 = playlistLogic.GetPlaylist();
+            List<Playlist> playlists2 = _playlistService.GetPlaylist();
             CollectionAssert.AreEqual(playlists, playlists2);
         }
 
@@ -392,12 +392,12 @@ namespace MSP.BetterCalm.Test
             playlisMock.Setup(
                 x => x.Update(playlist1, playlist2)
             );
-            playlistLogic.UpdatePlaylist(playlist1, playlist2);
+            _playlistService.UpdatePlaylist(playlist1, playlist2);
 
             playlisMock.Setup(
                 x => x.Get()
             ).Returns(playlists);
-            List<Playlist> playlists2 = playlistLogic.GetPlaylist();
+            List<Playlist> playlists2 = _playlistService.GetPlaylist();
             CollectionAssert.AreEqual(playlists, playlists2);
         }
         
@@ -415,11 +415,11 @@ namespace MSP.BetterCalm.Test
             };
             List<Playlist> playlists = new List<Playlist>() {playlist};
             playlisMock.Setup(x => x.Set(playlists));
-            playlistLogic.AddPlaylist(playlist);
+            _playlistService.AddPlaylist(playlist);
             playlisMock.Setup(x => x.Get()).Returns(playlists);
             playlisMock.Setup(x => x.Find(It.IsAny<Predicate<Playlist>>())).Throws(new ValueNotFound());
             playlisMock.Setup(x => x.Delete(playlist)).Throws(new ValueNotFound());
-            playlistLogic.DeletePlaylistByName("Para correr");
+            _playlistService.DeletePlaylistByName("Para correr");
         }
 
         [TestMethod]
@@ -453,13 +453,13 @@ namespace MSP.BetterCalm.Test
             playlisMock.Setup(
                 x => x.Set(playlists)
             );
-            playlistLogic.AddPlaylist(playlist)
+            _playlistService.AddPlaylist(playlist)
                 ;
             playlisMock.Setup(
                 x => x.Get()
             ).Returns(playlists);
-            playlistLogic.DeletePlaylistByName("para correr");
-            CollectionAssert.AreEqual(playlists, playlistLogic.GetPlaylist());
+            _playlistService.DeletePlaylistByName("para correr");
+            CollectionAssert.AreEqual(playlists, _playlistService.GetPlaylist());
         }
 
         [TestMethod]
@@ -493,13 +493,13 @@ namespace MSP.BetterCalm.Test
             playlisMock.Setup(
                 x => x.Set(playlists)
             );
-            playlistLogic.AddPlaylist(playlist)
+            _playlistService.AddPlaylist(playlist)
                 ;
             playlisMock.Setup(
                 x => x.Get()
             ).Returns(playlists);
-            playlistLogic.DeletePlaylist(playlist);
-            CollectionAssert.AreEqual(playlists, playlistLogic.GetPlaylist());
+            _playlistService.DeletePlaylist(playlist);
+            CollectionAssert.AreEqual(playlists, _playlistService.GetPlaylist());
         }
         
         [TestMethod]
@@ -542,13 +542,13 @@ namespace MSP.BetterCalm.Test
             playlisMock.Setup(
                 x => x.Set(playlists)
             );
-            playlistLogic.AddPlaylist(playlist)
+            _playlistService.AddPlaylist(playlist)
                 ;
             playlisMock.Setup(
                 x => x.Get()
             ).Returns(playlists);
             playlisMock.Setup(x => x.Delete(playlist2)).Throws(new ValueNotFound());
-            playlistLogic.DeletePlaylist(playlist2);
+            _playlistService.DeletePlaylist(playlist2);
         }
         
         [TestMethod]
@@ -583,7 +583,7 @@ namespace MSP.BetterCalm.Test
             playlisMock.Setup(
                 x => x.Set(playlists)
             ).Throws(new InvalidNameLength());
-            playlistLogic.AddPlaylist(playlist);
+            _playlistService.AddPlaylist(playlist);
         }
         
         [TestMethod]
@@ -619,7 +619,7 @@ namespace MSP.BetterCalm.Test
             playlisMock.Setup(
                 x => x.Set(playlists)
             ).Throws(new InvalidDescriptionLength());
-            playlistLogic.AddPlaylist(playlist);
+            _playlistService.AddPlaylist(playlist);
         }
         
         [TestMethod]
@@ -655,8 +655,8 @@ namespace MSP.BetterCalm.Test
             playlisMock.Setup(
                 x => x.Set(playlists)
             );
-            playlistLogic.AddPlaylist(playlist);
-            CollectionAssert.AreEqual(playlists, playlistLogic.GetPlaylist());
+            _playlistService.AddPlaylist(playlist);
+            CollectionAssert.AreEqual(playlists, _playlistService.GetPlaylist());
         }
       
     }

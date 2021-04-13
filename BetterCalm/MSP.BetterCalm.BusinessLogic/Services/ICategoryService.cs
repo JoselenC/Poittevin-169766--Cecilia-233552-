@@ -3,7 +3,7 @@ using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.BusinessLogic
 {
-    public interface ICategoryLogic
+    public interface ICategoryService
     {
         public List<Category> GetCategories();
 

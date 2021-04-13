@@ -11,24 +11,24 @@ namespace MSP.BetterCalm.WebAPI.Controllers
     public class CategoryController : ControllerBase
     {
 
-        private ICategoryLogic categoryLogic;
+        private ICategoryService _categoryService;
 
-        public CategoryController(ICategoryLogic categoryLogic)
+        public CategoryController(ICategoryService categoryService)
         {
-            this.categoryLogic = categoryLogic;
+            this._categoryService = categoryService;
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            IEnumerable<Category> categories = this.categoryLogic.GetCategories();
+            IEnumerable<Category> categories = this._categoryService.GetCategories();
             return Ok(categories);
         }
         
         [HttpGet("{Name}")]
         public IActionResult GetCategoryByName([FromRoute]string Name)
         {
-            Category categoryByName=categoryLogic.GetCategoryByName(Name);
+            Category categoryByName=_categoryService.GetCategoryByName(Name);
             return Ok(categoryByName);
         }
 

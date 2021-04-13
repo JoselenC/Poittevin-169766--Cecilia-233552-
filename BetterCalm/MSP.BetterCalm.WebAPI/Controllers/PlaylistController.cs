@@ -12,19 +12,19 @@ namespace MSP.BetterCalm.WebAPI.Controllers
     public class PlaylistController : ControllerBase
     {
 
-        private IPlaylistLogic playlistLogic;
-        private ISongLogic songLogic;
+        private IPlaylistService _playlistService;
+        private ISongService _songService;
 
-        public PlaylistController(IPlaylistLogic playlistLogic,ISongLogic songLogic)
+        public PlaylistController(IPlaylistService playlistService,ISongService songService)
         {
-            this.playlistLogic = playlistLogic;
-            this.songLogic = songLogic;
+            this._playlistService = playlistService;
+            this._songService = songService;
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            IEnumerable<Playlist> songs = playlistLogic.GetPlaylist();
+            IEnumerable<Playlist> songs = _playlistService.GetPlaylist();
             return Ok(songs);
         }
 
@@ -33,7 +33,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         {
             try
             {
-                List<Playlist> playlists = playlistLogic.GetPlaylistByName(name);
+                List<Playlist> playlists = _playlistService.GetPlaylistByName(name);
                 return Ok(playlists);
             }
             catch (ValueNotFound)
@@ -48,7 +48,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         {
             try
             {
-                List<Playlist> playlists = playlistLogic.GetPlaylistByCategoryName(name);
+                List<Playlist> playlists = _playlistService.GetPlaylistByCategoryName(name);
                 return Ok(playlists);
             }
             catch (ValueNotFound)
@@ -63,7 +63,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         {
             try
             {
-                List<Playlist> playlists = playlistLogic.GetPlaylistBySongName(name);
+                List<Playlist> playlists = _playlistService.GetPlaylistBySongName(name);
                 return Ok(playlists);
             }
             catch (ValueNotFound)
@@ -79,8 +79,8 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             {
                 try
                 {
-                    songLogic.DeleteSongs(playlist.Songs);
-                    playlistLogic.AddPlaylist(playlist);
+                    _songService.DeleteSongs(playlist.Songs);
+                    _playlistService.AddPlaylist(playlist);
                     return Ok("Playlist created");
                 }
                 catch (InvalidNameLength)
@@ -100,7 +100,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         {
             try
             {
-                playlistLogic.DeletePlaylist(playlist);
+                _playlistService.DeletePlaylist(playlist);
                 return Ok("Element removed");
             }
             catch (ValueNotFound)
@@ -113,12 +113,12 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         public IActionResult AddSongToPlaylist([FromBody] Song song, [FromRoute] string name)
         {
            
-            List<Playlist> playlistsToUpdate = playlistLogic.GetPlaylistByName(name);
+            List<Playlist> playlistsToUpdate = _playlistService.GetPlaylistByName(name);
             foreach (var playlistToUpdate in playlistsToUpdate)
             {
                 Playlist playlist = playlistToUpdate;
                 playlistToUpdate.Songs.Add(song);
-                playlistLogic.UpdatePlaylist(playlistToUpdate,playlist);
+                _playlistService.UpdatePlaylist(playlistToUpdate,playlist);
             }
           
             return Ok();

@@ -3,7 +3,7 @@ using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.BusinessLogic
 {
-    public interface ISongLogic
+    public interface ISongService
     {
         public List<Song> GetSongs();
         public void SetSong(Song song);

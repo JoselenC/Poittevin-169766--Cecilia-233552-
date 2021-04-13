@@ -14,7 +14,7 @@ namespace MSP.BetterCalm.Test.WebAPI
     public class CategoryControllerTest
     {
 
-        private Mock<ICategoryLogic> mockCategoryService;
+        private Mock<ICategoryService> mockCategoryService;
         private CategoryController categoryController ;
         private List<Category> categories;
         private Category category;
@@ -22,7 +22,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestInitialize]
         public void InitializeTest()
         {
-            mockCategoryService=new Mock<ICategoryLogic>(MockBehavior.Strict);
+            mockCategoryService=new Mock<ICategoryService>(MockBehavior.Strict);
             categoryController = new CategoryController(mockCategoryService.Object);
             categories = new List<Category>();
             category = new Category();

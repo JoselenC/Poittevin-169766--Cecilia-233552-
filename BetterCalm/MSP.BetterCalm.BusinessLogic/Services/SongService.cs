@@ -5,11 +5,11 @@ using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.BusinessLogic
 {
-    public class SongLogic:ISongLogic
+    public class SongService:ISongService
     {
         private ManagerSongRepository repository;
 
-        public SongLogic(ManagerSongRepository vRepository)
+        public SongService(ManagerSongRepository vRepository)
         {
             repository = vRepository;
         }

@@ -3,7 +3,7 @@ using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.BusinessLogic
 {
-    public interface IPlaylistLogic
+    public interface IPlaylistService
     {
         public List<Playlist> GetPlaylist();
         public void AddPlaylist(Playlist playlist);

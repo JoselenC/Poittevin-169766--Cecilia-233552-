@@ -12,8 +12,8 @@ namespace MSP.BetterCalm.Test.WebAPI
     [TestClass]
     public class PlaylistControllerTest
     {
-        private Mock<IPlaylistLogic> mockPlaylistService;
-        private Mock<ISongLogic> mocksongService;
+        private Mock<IPlaylistService> mockPlaylistService;
+        private Mock<ISongService> mocksongService;
         private PlaylistController playlistController ;
         private List<Playlist> playlists;
         private Playlist playlist;
@@ -21,8 +21,8 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestInitialize]
         public void InitializeTest()
         {
-            mockPlaylistService=new Mock<IPlaylistLogic>(MockBehavior.Strict);
-            mocksongService = new Mock<ISongLogic>(MockBehavior.Strict);
+            mockPlaylistService=new Mock<IPlaylistService>(MockBehavior.Strict);
+            mocksongService = new Mock<ISongService>(MockBehavior.Strict);
             playlistController = new PlaylistController(mockPlaylistService.Object,mocksongService.Object);
             playlists = new List<Playlist>();
             playlist = new Playlist();

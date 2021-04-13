@@ -3,7 +3,7 @@ using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.BusinessLogic
 {
-    public interface IProblematicLogic
+    public interface IProblematicService
     {
         public List<Problematic> GetProblematics();
         public Problematic GetProblematicByName(string name);
