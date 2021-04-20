@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace MSP.BetterCalm.DataAccess
 {
     public class PsychologistDto: UserDto
@@ -5,6 +7,7 @@ namespace MSP.BetterCalm.DataAccess
         public int PsychologistDtoId { get; set; }
         public string Address { get; set; }
         public bool WorksOnline { get; set; }
+        public IEnumerable<ProblematicDto> Problematics { get; set; }
 
     }
 }
