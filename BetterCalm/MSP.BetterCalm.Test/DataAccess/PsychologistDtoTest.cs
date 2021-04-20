@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.DataAccess;
 
@@ -64,6 +65,21 @@ namespace MSP.BetterCalm.Test
                 WorksOnline = true
             };
             Assert.IsTrue(psychologist.WorksOnline);
+        }
+                
+        [TestMethod]
+        public void GetSetProblematics()
+        {
+            List<ProblematicDto> problematics = new List<ProblematicDto>()
+            {
+                new ProblematicDto(){Name= "Test1"},
+                new ProblematicDto(){Name= "Test2"}
+            };
+            PsychologistDto psychologist = new PsychologistDto()
+            {
+                Problematics = problematics
+            };
+            Assert.AreEqual(psychologist.Problematics, problematics);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.Domain;
 
@@ -45,6 +46,21 @@ namespace MSP.BetterCalm.Test
                 WorksOnline = true
             };
             Assert.IsTrue(psychologist.WorksOnline);
+        }
+        
+        [TestMethod]
+        public void GetSetProblematics()
+        {
+            List<Problematic> problematics = new List<Problematic>()
+            {
+                new Problematic(){Name= "Test1"},
+                new Problematic(){Name= "Test2"}
+            };
+            Psychologist psychologist = new Psychologist()
+            {
+                Problematics = problematics
+            };
+            CollectionAssert.AreEqual(psychologist.Problematics, problematics);
         }
     }
 }
