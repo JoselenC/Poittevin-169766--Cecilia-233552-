@@ -206,3 +206,5 @@ _NCrunch*
 *.manifest
 
 BetterCalm/.idea/.idea.BetterCalm/.idea/
+
+BetterCalm/MSP.BetterCalm.WebAPI/appsettings.json
