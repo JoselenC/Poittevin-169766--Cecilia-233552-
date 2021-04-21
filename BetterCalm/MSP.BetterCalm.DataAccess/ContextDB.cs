@@ -18,6 +18,8 @@ namespace MSP.BetterCalm.DataAccess
         public DbSet<AdministratorDto> Administrators { get; set; }
         public DbSet<PlaylistDto> Playlists { get; set; }
         public DbSet<PsychologistProblematicDto> PsychologistProblematic { get; set; }
+        public DbSet<MeetingDto> Meeting { get; set; }
+
         public ContextDB() { }
         public ContextDB(DbContextOptions<ContextDB> options): base(options) { }
 
@@ -41,17 +43,27 @@ namespace MSP.BetterCalm.DataAccess
                 .HasForeignKey(x=>x.PlaylistDtoID)
                 .OnDelete(DeleteBehavior.SetNull);
             
-            
             modelBuilder.Entity<PsychologistProblematicDto>()
                 .HasKey(pp => new { pp.PsychologistId, pp.ProblematicId });
             modelBuilder.Entity<PsychologistProblematicDto>()
-                .HasOne(pp => pp.Problematic)
+                .HasOne(pp => pp.Psychologist)
                 .WithMany(p => p.PsychologistProblematic)
                 .HasForeignKey(pp => pp.PsychologistId);
             modelBuilder.Entity<PsychologistProblematicDto>()
-                .HasOne(pp => pp.Psychologist)
+                .HasOne(pp => pp.Problematic)
                 .WithMany(p => p.PsychologistProblematic)
                 .HasForeignKey(pp => pp.ProblematicId);
+            
+            modelBuilder.Entity<MeetingDto>()
+                .HasKey(m => new { m.PsychologistId, m.PatientId });
+            modelBuilder.Entity<MeetingDto>()
+                .HasOne(m => m.Patient)
+                .WithMany(p => p.Meetings)
+                .HasForeignKey(m => m.PatientId);
+            modelBuilder.Entity<MeetingDto>()
+                .HasOne(pp => pp.Psychologist)
+                .WithMany(p => p.Meetings)
+                .HasForeignKey(m => m.PsychologistId);
         }
 
         [ExcludeFromCodeCoverage]
