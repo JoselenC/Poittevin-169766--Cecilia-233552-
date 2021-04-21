@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.DataAccess;
 
@@ -63,6 +64,25 @@ namespace MSP.BetterCalm.Test
                 LastName = "Rodriguez"
             };
             Assert.AreEqual("Rodriguez", patient.LastName);
+        }
+        
+        [TestMethod]
+        public void GetSetMeetingsDto()
+        {
+            ICollection<MeetingDto> meetings = new List<MeetingDto>()
+            {
+                new MeetingDto(){
+                    Patient = new PatientDto(),
+                    PatientId =  1,
+                    Psychologist = new PsychologistDto(),
+                    PsychologistId = 1
+                }
+            };
+            PatientDto psychologist = new PatientDto()
+            {
+                Meetings = meetings
+            };
+            Assert.AreEqual(psychologist.Meetings, meetings);
         }
     }
 }

@@ -85,5 +85,24 @@ namespace MSP.BetterCalm.Test
             };
             Assert.AreEqual(psychologist.PsychologistProblematic, psychologistProblematicDtosproblematics);
         }
+        
+        [TestMethod]
+        public void GetSetMeetingsDto()
+        {
+            ICollection<MeetingDto> meetings = new List<MeetingDto>()
+            {
+                new MeetingDto(){
+                    Patient = new PatientDto(),
+                    PatientId =  1,
+                    Psychologist = new PsychologistDto(),
+                    PsychologistId = 1
+                }
+            };
+            PsychologistDto psychologist = new PsychologistDto()
+            {
+                Meetings = meetings
+            };
+            Assert.AreEqual(psychologist.Meetings, meetings);
+        }
     }
 }
