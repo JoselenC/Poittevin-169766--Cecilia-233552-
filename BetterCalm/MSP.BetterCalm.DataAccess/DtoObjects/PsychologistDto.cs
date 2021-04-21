@@ -7,7 +7,7 @@ namespace MSP.BetterCalm.DataAccess
         public int PsychologistDtoId { get; set; }
         public string Address { get; set; }
         public bool WorksOnline { get; set; }
-        public IEnumerable<ProblematicDto> Problematics { get; set; }
+        public virtual ICollection<PsychologistProblematicDto> PsychologistProblematic { get; set; }
 
     }
 }
