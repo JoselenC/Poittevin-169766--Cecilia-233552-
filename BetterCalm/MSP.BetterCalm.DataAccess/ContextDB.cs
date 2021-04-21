@@ -16,10 +16,8 @@ namespace MSP.BetterCalm.DataAccess
         public DbSet<PatientDto> Patients { get; set; }
         public DbSet<PsychologistDto> Psychologists { get; set; }
         public DbSet<AdministratorDto> Administrators { get; set; }
-
-
         public DbSet<PlaylistDto> Playlists { get; set; }
-        
+        public DbSet<PsychologistProblematicDto> PsychologistProblematic { get; set; }
         public ContextDB() { }
         public ContextDB(DbContextOptions<ContextDB> options): base(options) { }
 
@@ -42,6 +40,18 @@ namespace MSP.BetterCalm.DataAccess
                 .WithMany(g => g.Songs)
                 .HasForeignKey(x=>x.PlaylistDtoID)
                 .OnDelete(DeleteBehavior.SetNull);
+            
+            
+            modelBuilder.Entity<PsychologistProblematicDto>()
+                .HasKey(pp => new { pp.PsychologistId, pp.ProblematicId });
+            modelBuilder.Entity<PsychologistProblematicDto>()
+                .HasOne(pp => pp.Problematic)
+                .WithMany(p => p.PsychologistProblematic)
+                .HasForeignKey(pp => pp.PsychologistId);
+            modelBuilder.Entity<PsychologistProblematicDto>()
+                .HasOne(pp => pp.Psychologist)
+                .WithMany(p => p.PsychologistProblematic)
+                .HasForeignKey(pp => pp.ProblematicId);
         }
 
         [ExcludeFromCodeCoverage]
