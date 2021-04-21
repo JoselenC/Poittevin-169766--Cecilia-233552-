@@ -68,18 +68,22 @@ namespace MSP.BetterCalm.Test
         }
                 
         [TestMethod]
-        public void GetSetProblematics()
+        public void GetSetPsychologistProblematicsDto()
         {
-            List<ProblematicDto> problematics = new List<ProblematicDto>()
+            ICollection<PsychologistProblematicDto> psychologistProblematicDtosproblematics = new List<PsychologistProblematicDto>()
             {
-                new ProblematicDto(){Name= "Test1"},
-                new ProblematicDto(){Name= "Test2"}
+                new PsychologistProblematicDto(){
+                    Problematic = new ProblematicDto(),
+                    ProblematicId = 1,
+                    Psychologist = new PsychologistDto(),
+                    PsychologistId = 1
+                }
             };
             PsychologistDto psychologist = new PsychologistDto()
             {
-                Problematics = problematics
+                PsychologistProblematic = psychologistProblematicDtosproblematics
             };
-            Assert.AreEqual(psychologist.Problematics, problematics);
+            Assert.AreEqual(psychologist.PsychologistProblematic, psychologistProblematicDtosproblematics);
         }
     }
 }
