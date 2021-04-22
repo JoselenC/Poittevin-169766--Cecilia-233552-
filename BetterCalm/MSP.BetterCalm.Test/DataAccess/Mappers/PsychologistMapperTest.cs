@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.DataAccess;
@@ -10,15 +11,30 @@ namespace MSP.BetterCalm.Test
     public class PsychologistMapperTest
     {
         private DbContextOptions<ContextDB> options;
-        public  DataBaseRepository<Psychologist, PsychologistDto> RepoPsychologists;
-        public  Psychologist psychologistTest;
+        private  DataBaseRepository<Psychologist, PsychologistDto> RepoPsychologists;
+        private Psychologist psychologistTest;
+        private Problematic prob1;
+        private Problematic prob2;
 
         [TestInitialize]
         public  void TestFixtureSetup()
         {
             options = new DbContextOptionsBuilder<ContextDB>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
-            ContextDB context = new ContextDB(this.options);
+            ContextDB context = new ContextDB(options);
             RepoPsychologists = new DataBaseRepository<Psychologist, PsychologistDto>(new PsychologistMapper(), context.Psychologists, context);
+            DataBaseRepository<Problematic, ProblematicDto> probRepo =
+                new DataBaseRepository<Problematic, ProblematicDto>(new ProblematicMapper(), context.Problematics,
+                    context);
+            prob1 = new Problematic()
+            {
+                Name = "test1"
+            };
+            probRepo.Add(prob1);
+            prob2 = new Problematic()
+            {
+                Name = "test2"
+            };
+            probRepo.Add(prob2);
             psychologistTest = new Psychologist()
             {
                 Name = "Roberto",
@@ -36,9 +52,33 @@ namespace MSP.BetterCalm.Test
             {
                 Name = "Jose"
             };
+            List<Problematic> problematics = new List<Problematic>()
+            {
+               prob1, prob2
+            };
+            psychologistTest.Problematics = problematics;
             RepoPsychologists.Add(psychologistTest);
             Psychologist actualPsychologist = RepoPsychologists.Find(x => x.Name == "Jose");
             Assert.AreEqual(psychologistTest, actualPsychologist);
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void DomainToDtoWrongProblematiTest()
+        {
+            Psychologist psychologistTest = new Psychologist()
+            {
+                Name = "Jose"
+            };
+            List<Problematic> problematics = new List<Problematic>()
+            {
+                new Problematic()
+                {
+                    Name = "Problematic problematic"
+                }
+            };
+            psychologistTest.Problematics = problematics;
+            RepoPsychologists.Add(psychologistTest);
         }
 
         [TestMethod]
