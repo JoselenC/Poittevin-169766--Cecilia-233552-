@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.Domain;
 
@@ -7,9 +8,10 @@ namespace MSP.BetterCalm.BusinessLogic
     public class PlaylistService:IPlaylistService
     {
         private ManagerPlaylistRepository repository;
-
-        public PlaylistService(ManagerPlaylistRepository vRepository)
+        private ManagerSongRepository repositorySong;
+        public PlaylistService(ManagerPlaylistRepository vRepository,ManagerSongRepository vRepositorySong)
         {
+            repositorySong = vRepositorySong;
             repository = vRepository;
         }
         
@@ -24,13 +26,12 @@ namespace MSP.BetterCalm.BusinessLogic
             {
                 try
                 {
-                    Playlist newPlaylist = playlist;
-                    if (playlist.Songs != null)
+                    for (int i = 0; i < playlist.Songs.Count; i++)
                     {
-                        AddSongCategories(playlist.Songs, newPlaylist);
+                        DeleteSingleSong(playlist, i);
                     }
-
-                    repository.Playlists.Add(newPlaylist);
+                    repository.Playlists.Add(playlist);
+                    
                 }
                 catch (InvalidNameLength)
                 {
@@ -43,22 +44,44 @@ namespace MSP.BetterCalm.BusinessLogic
             }
         }
 
-        private void AddSongCategories(List<Song> playlistSongs,Playlist newPlaylist)
+        private void DeleteSingleSong(Playlist playlist, int i)
         {
-            foreach (var song in playlistSongs)
-            {
-                
-                if (song.Categories != null)
+                Song songToDelete = new Song();
+                Song songBd = repositorySong.Songs.FindById(playlist.Songs[i].Id);
+                if (songBd != null)
                 {
-                    foreach (var category in song.Categories)
+                    songToDelete.Name = songBd.Name;
+                    songToDelete.Duration = songBd.Duration;
+                    songToDelete.UrlAudio = songBd.UrlAudio;
+                    songToDelete.UrlImage = songBd.UrlImage;
+                    songToDelete.AuthorName = songBd.AuthorName;
+                    songToDelete.Categories = new List<Category>();
+                    DeleteSingleSongSameCategoryPlaylist(playlist, i, songBd, songToDelete);
+                }
+            
+        }
+
+        private void DeleteSingleSongSameCategoryPlaylist(Playlist playlist, int i, Song songBd, Song songToDelete)
+        {
+            if (songBd.Categories != null )
+            {
+                foreach (var category in songBd.Categories)
+                {
+                    if (playlist.Categories.Contains(category))
                     {
-                        if (newPlaylist.Categories.Contains(category))
-                            newPlaylist.Categories.Add(category);
+                        repositorySong.Songs.Update(songToDelete,songBd);
+                    }
+                    else
+                    {
+                        playlist.Categories.Add(category);
                     }
                 }
             }
         }
 
+      
+
+        
         public List<Playlist> GetPlaylistByName(string playlistName)
         {
             List<Playlist> playlists = new List<Playlist>();
@@ -105,22 +128,82 @@ namespace MSP.BetterCalm.BusinessLogic
             repository.Playlists.Update(playlistToUpdate, newPlaylist);
         }
         
-        public void DeletePlaylistByName(string name)
-        {
-            Playlist playlistToDelete=repository.Playlists.Find(x => x.IsSamePlaylistName(name));
-            DeletePlaylist(playlistToDelete);
-        }
-        
-        public void DeletePlaylist(Playlist playlistToDelete)
+        public void UpdatePlaylistById(int id, Playlist newPlaylist)
         {
             try
             {
+                Playlist playlistToUpdate = repository.Playlists.FindById(id);
+                repository.Playlists.Update(playlistToUpdate, newPlaylist);
+            }
+            catch(ValueNotFound)
+            {
+                throw new ValueNotFound();
+            }
+        }
+        
+        public void DeletePlaylistByName(string name)
+        {
+            Playlist playlistToDelete=repository.Playlists.Find(x => x.IsSamePlaylistName(name));
+            DeletePlaylist(playlistToDelete.Id);
+        }
+        
+        public void DeletePlaylist(int id)
+        {
+            try
+            {
+                Playlist playlistToDelete =repository.Playlists.FindById(id);
                 repository.Playlists.Delete(playlistToDelete);
             }
             catch (ValueNotFound)
             {
                 throw new ValueNotFound();
             }
+        }
+
+        public void AddNewSongToPlaylist(Song song, int idPlaylist)
+        {
+            Playlist oldPlaylist = repository.Playlists.FindById(idPlaylist);
+            Playlist playlist = repository.Playlists.FindById(idPlaylist);
+            playlist.Songs.Add(song);
+            if (song.Categories != null)
+            {
+                foreach (var category in song.Categories)
+                {
+                    if (!playlist.Categories.Contains(category))
+                        playlist.Categories.Add(category);
+                }
+            }
+
+            repository.Playlists.Update(oldPlaylist, playlist);
+        }
+
+        public void  AssociateSongToPlaylist(int idSong, int idPlaylist)
+        {
+            Playlist oldPlaylist = repository.Playlists.FindById(idPlaylist);
+            Playlist playlist = repository.Playlists.FindById(idPlaylist);
+            Song song = repositorySong.Songs.FindById(idSong);
+            Song songToAdd = new Song();
+            songToAdd.Name = song.Name;
+            songToAdd.Duration = song.Duration;
+            songToAdd.UrlAudio = song.UrlAudio;
+            songToAdd.UrlImage = song.UrlImage;
+            songToAdd.AuthorName = song.AuthorName;
+            repositorySong.Songs.Delete(song);
+            playlist.Songs.Add(songToAdd);
+            repository.Playlists.Update(oldPlaylist, playlist);
+        }
+
+        public Playlist GetPlaylistById(int id)
+        {
+            try
+            {
+                return repository.Playlists.FindById(id);
+            }
+            catch (ValueNotFound)
+            {
+                throw new ValueNotFound();
+            }
+
         }
 
     }
