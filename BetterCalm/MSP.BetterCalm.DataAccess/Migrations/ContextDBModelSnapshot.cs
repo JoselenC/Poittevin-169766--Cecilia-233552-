@@ -271,7 +271,7 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                         .IsRequired();
 
                     b.HasOne("MSP.BetterCalm.DataAccess.PsychologistDto", "Psychologist")
-                        .WithMany("PsychologistProblematic")
+                        .WithMany("Problematics")
                         .HasForeignKey("PsychologistId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -312,7 +312,7 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                 {
                     b.Navigation("Meetings");
 
-                    b.Navigation("PsychologistProblematic");
+                    b.Navigation("Problematics");
                 });
 
             modelBuilder.Entity("MSP.BetterCalm.DataAccess.SongDto", b =>

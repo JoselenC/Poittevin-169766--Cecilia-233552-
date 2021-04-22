@@ -81,9 +81,9 @@ namespace MSP.BetterCalm.Test
             };
             PsychologistDto psychologist = new PsychologistDto()
             {
-                PsychologistProblematic = psychologistProblematicDtosproblematics
+                Problematics = psychologistProblematicDtosproblematics
             };
-            Assert.AreEqual(psychologist.PsychologistProblematic, psychologistProblematicDtosproblematics);
+            Assert.AreEqual(psychologist.Problematics, psychologistProblematicDtosproblematics);
         }
         
         [TestMethod]
