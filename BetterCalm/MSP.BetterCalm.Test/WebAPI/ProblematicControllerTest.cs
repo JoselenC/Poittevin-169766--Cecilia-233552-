@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using MSP.BetterCalm.BusinessLogic;
+using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.DataAccess;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.WebAPI.Controllers;
@@ -29,7 +30,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         }
         
         [TestMethod]
-        public void TestGetAllCategories()
+        public void TestGetAllProblematics()
         {
             mockProblematicService.Setup(m => m.GetProblematics()).Returns(this.problematics);
             var result = problematicController.GetAll();
@@ -39,7 +40,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         }
         
         [TestMethod]
-        public void TestGetCategoryByName()
+        public void TestGetProblematicByName()
         {
             
             mockProblematicService.Setup(m => m.GetProblematicByName("Estres")).Returns(this.problematic);
@@ -47,6 +48,35 @@ namespace MSP.BetterCalm.Test.WebAPI
             var okResult = result as OkObjectResult;
             var problematicValue = okResult.Value;
             Assert.AreEqual(this.problematic,problematicValue);
+        }
+        
+        [TestMethod]
+        public void TestNoGetProblematicByName()
+        {
+            
+            mockProblematicService.Setup(m => m.GetProblematicByName("Estres")).Throws(new ValueNotFound());
+            var result = problematicController.GetProblematicByName("Estres") as NotFoundObjectResult;
+            Assert.IsNotNull(result);
+        }
+        
+        [TestMethod]
+        public void TestGetProblematicById()
+        {
+            
+            mockProblematicService.Setup(m => m.GetProblematicById(1)).Returns(this.problematic);
+            var result = problematicController.GetProblematicById(1);
+            var okResult = result as OkObjectResult;
+            var problematicValue = okResult.Value;
+            Assert.AreEqual(this.problematic,problematicValue);
+        }
+        
+        [TestMethod]
+        public void TestNoGetProblematicById()
+        {
+            
+            mockProblematicService.Setup(m => m.GetProblematicById(1)).Throws(new ValueNotFound());
+            var result = problematicController.GetProblematicById(1) as NotFoundObjectResult;
+            Assert.IsNotNull(result);
         }
     }
 }
