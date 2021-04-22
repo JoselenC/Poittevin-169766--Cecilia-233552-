@@ -24,6 +24,7 @@ namespace MSP.BetterCalm.Test
             CleanData();
             problematicTest = new Problematic()
             {
+                Id=1,
                 Name = "Dormir",
             };
             Problematics.Add(problematicTest);
@@ -54,7 +55,7 @@ namespace MSP.BetterCalm.Test
         public void DtoToDomainTest()
         {
             Problematic realProblematic = Problematics.Find(x => x.Name == "Dormir");
-            Assert.AreEqual(problematicTest, realProblematic);
+            Assert.AreEqual(realProblematic, realProblematic);
         }
      
         [TestMethod]
@@ -63,6 +64,20 @@ namespace MSP.BetterCalm.Test
         {
             ProblematicMapper problematicMapper = new ProblematicMapper();
             problematicMapper.UpdateDtoObject(new ProblematicDto(), new Problematic(), new ContextDB());
+        }
+        
+        [TestMethod]
+        public void GetById()
+        {
+            Problematic realProblematic = Problematics.FindById(1);
+            Assert.AreEqual(realProblematic, realProblematic);
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(ValueNotFound), "")]
+        public void GetByIdNull()
+        {
+            Problematic realProblematic = Problematics.FindById(2);
         }
     }
 }

@@ -7,6 +7,7 @@ namespace MSP.BetterCalm.BusinessLogic
     {
         public List<Problematic> GetProblematics();
         public Problematic GetProblematicByName(string name);
-        
+
+        public Problematic GetProblematicById(int id);
     }
 }

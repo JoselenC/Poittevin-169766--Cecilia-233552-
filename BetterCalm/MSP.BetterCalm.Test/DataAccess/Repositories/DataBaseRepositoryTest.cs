@@ -26,11 +26,12 @@ namespace MSP.BetterCalm.Test
             Categories = new DataBaseRepository<Category, CategoryDto>(new CategoryMapper(), context.Categories, context);
             Problematics = new DataBaseRepository<Problematic, ProblematicDto>(new ProblematicMapper(), context.Problematics, context);
             AllCategories = new List<Category>();
-            Category category = new Category {Name = "Dormir"};
+            Category category = new Category { Id=1,Name = "Dormir"};
+            Category category2 = new Category { Id=2,Name = "Dormir"};
             Categories.Add(category);
-            AllCategories.Add(category);
+            AllCategories.Add(category2);
             Songs=new DataBaseRepository<Song, SongDto>(new SongMapper(), context.Songs, context);
-            Song song = new Song() {Name = "Let it be"};
+            Song song = new Song() { Id=1, Name = "Let it be"};
             Songs.Add(song);
         }
         
@@ -39,6 +40,7 @@ namespace MSP.BetterCalm.Test
         {
             Category categoryTest = new Category()
             {
+                Id = 1,
                 Name = "Dormir",
             };
             Categories.Add(categoryTest);
@@ -56,7 +58,7 @@ namespace MSP.BetterCalm.Test
             {
                 Name = "Dormir"
             };
-            Categories.Delete(testCategory);
+            Categories.Delete(category);
             Category realCategory = Categories.Find(x => x.Name == testCategory.Name);
         }
 
@@ -71,14 +73,14 @@ namespace MSP.BetterCalm.Test
             {
                 Name = "Musica"
             };
-            Categories.Delete(testCategory);
+            Categories.Delete(category);
         }
 
         [TestMethod]
         public void FindTest()
         {
-            Category category = new Category {Name = "Dormir"};
-            Category actualCategory = Categories.Find(x => x.Name == "Dormir");
+            Category category = new Category {Id=2,Name = "Dormir"};
+            Category actualCategory = Categories.Find(x => x.Id == 2);
             Assert.AreEqual(category, actualCategory);
         }
         
@@ -128,12 +130,28 @@ namespace MSP.BetterCalm.Test
         [ExpectedException(typeof(ValueNotFound), "")]
         public void NoUpdateTest()
         {
-            Song song = new Song() {Name = "Muscia2"};
+            Song song = new Song() {Id=1,Name = "Muscia2"};
             Song songToUdated = new Song()
             {
+                Id=1,
                 Name = "Musica",
             };
             Songs.Update(song, songToUdated);
+        }
+        
+        [TestMethod]
+        public void FindByIdTest()
+        {
+            Song realSongUpdated =  Songs.FindById(1);
+            Assert.IsNotNull(realSongUpdated);
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(ValueNotFound), "")]
+        public void NoFindByIdTest()
+        {
+            Song realSongUpdated =  Songs.FindById(33);
+            Assert.IsNotNull(realSongUpdated);
         }
       
     }

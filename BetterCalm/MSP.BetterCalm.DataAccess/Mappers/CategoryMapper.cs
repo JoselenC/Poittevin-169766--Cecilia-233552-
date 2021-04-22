@@ -23,8 +23,17 @@ namespace MSP.BetterCalm.DataAccess
         {
            return new Category()
             {
-                Name = obj.Name
-           };
+                Name = obj.Name,
+                Id = obj.CategoryDtoID
+            };
+        }
+
+        public Category GetById(ContextDB context, int id)
+        {
+            CategoryDto categoryDto = context.Categories.FirstOrDefault(m => m.CategoryDtoID == id);
+            if(categoryDto!=null)
+                return DtoToDomain(categoryDto,context);
+            return null;
         }
 
         public CategoryDto UpdateDtoObject(CategoryDto objToUpdate, Category updatedObject,ContextDB context)

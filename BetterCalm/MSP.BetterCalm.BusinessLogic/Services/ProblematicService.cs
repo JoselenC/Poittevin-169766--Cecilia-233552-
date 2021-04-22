@@ -29,6 +29,19 @@ namespace MSP.BetterCalm.BusinessLogic
                 throw new ValueNotFound();
             }
         }
+        
+        public Problematic GetProblematicById(int id)
+        {
+            try
+            {
+                return repository.Problematics.FindById(id);
+            }
+            catch (ValueNotFound)
+            {
+                throw new ValueNotFound();
+            }
+
+        }
 
     }
 }

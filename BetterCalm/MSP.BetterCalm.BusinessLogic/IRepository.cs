@@ -18,5 +18,7 @@ namespace MSP.BetterCalm.BusinessLogic
         void Set(List<T> objectToAdd);
 
         T Update(T OldObject, T UpdatedObject);
+        
+        T FindById(int id);
     }
 }

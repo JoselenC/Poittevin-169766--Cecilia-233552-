@@ -58,6 +58,16 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
+        public void GetSetPlaylistId()
+        {
+            int id = 1;
+            Playlist playlist = new Playlist();
+            playlist.Id = 1;
+            int getPlaylistId= playlist.Id;
+            Assert.AreEqual(id, getPlaylistId);
+        }
+        
+        [TestMethod]
         public void GetSetPlaylistUrlImage()
         {
             string playlistUrlImage = "UrlImage";
@@ -180,6 +190,7 @@ namespace MSP.BetterCalm.Test
         {
             Playlist playlist = new Playlist()
             {
+                Id=1,
               Name  = "Entrena tu mente",
               Description = "para despejar",
               UrlImage="url"
@@ -192,6 +203,7 @@ namespace MSP.BetterCalm.Test
         {
             Playlist playlist = new Playlist()
             {
+                Id=1,
                 Name  = "Entrena tu mente",
                 Description = "para despejar",
                 UrlImage="url"
@@ -207,23 +219,25 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        public void NotCategoryNull()
+        public void NotPlaylistNull()
         {
             Playlist playlist = new Playlist();
             Assert.IsNotNull(playlist);
         }
         
         [TestMethod]
-        public void NotEqualsPlaylistName()
+        public void NotEqualsPlaylistId()
         {
             Playlist playlist = new Playlist()
             {
+                Id=1,
                 Name  = "Entrena tu mente",
                 Description = "para despejar",
                 UrlImage="url"
             };
             Playlist playlistToCompare = new Playlist()
             {
+                Id=2,
                 Name  = "Entrena tu mente2",
                 Description = "para despejar",
                 UrlImage="url"
@@ -232,11 +246,12 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        public void NotEqualsCategoryType()
+        public void NotEqualsPlaylistType()
         {
             Category category = new Category();
             Playlist playlist = new Playlist()
             {
+                Id=1,
                 Name  = "Entrena tu mente",
                 Description = "para despejar",
                 UrlImage="url"

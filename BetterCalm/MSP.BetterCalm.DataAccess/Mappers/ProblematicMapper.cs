@@ -28,6 +28,15 @@ namespace MSP.BetterCalm.DataAccess
             };
         }
 
+        public Problematic GetById(ContextDB context, int id)
+        {
+            ProblematicDto problematicDto = context.Problematics
+                .FirstOrDefault(m => m.ProblematicDtoID == id);
+            if (problematicDto != null)
+              return DtoToDomain(problematicDto,context);
+            return null;
+        }
+
         public ProblematicDto UpdateDtoObject(ProblematicDto objToUpdate, Problematic updatedObject, ContextDB context)
         {
             throw new NotImplementedException();
