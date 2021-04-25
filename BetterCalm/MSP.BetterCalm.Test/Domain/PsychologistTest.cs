@@ -93,7 +93,7 @@ namespace MSP.BetterCalm.Test
                 Meetings = meetings
             };
             DateTime wednesdayDateTime = new DateTime(1993, 7, 14);
-            DateTime? nextMeetingDayOnWeek = psychologist.NextMeetingDayOnWeek(new DateTime(1993, 7, 14));
+            DateTime? nextMeetingDayOnWeek = psychologist.GetDayForNextMeetingOnWeek(new DateTime(1993, 7, 14));
             Assert.AreEqual(nextMeetingDayOnWeek, wednesdayDateTime);
         }
         
@@ -111,7 +111,7 @@ namespace MSP.BetterCalm.Test
                 Meetings = meetings
             };
             DateTime wendsDayDateTime = new DateTime(1993, 7, 15);
-            DateTime? nextMeetingDayOnWeek = psychologist.NextMeetingDayOnWeek(new DateTime(1993, 7, 15));
+            DateTime? nextMeetingDayOnWeek = psychologist.GetDayForNextMeetingOnWeek(new DateTime(1993, 7, 15));
             Assert.AreEqual(nextMeetingDayOnWeek, wendsDayDateTime);
         }
         
@@ -132,7 +132,7 @@ namespace MSP.BetterCalm.Test
                 Meetings = meetings
             };
             DateTime wendsDayDateTime = new DateTime(1993, 7, 16);
-            DateTime? nextMeetingDayOnWeek = psychologist.NextMeetingDayOnWeek(new DateTime(1993, 7, 15));
+            DateTime? nextMeetingDayOnWeek = psychologist.GetDayForNextMeetingOnWeek(new DateTime(1993, 7, 15));
             Assert.AreEqual(nextMeetingDayOnWeek, wendsDayDateTime);
         }
         
@@ -152,7 +152,7 @@ namespace MSP.BetterCalm.Test
             {
                 Meetings = meetings
             };
-            DateTime? nextMeetingDayOnWeek = psychologist.NextMeetingDayOnWeek(new DateTime(1993, 7, 16));
+            DateTime? nextMeetingDayOnWeek = psychologist.GetDayForNextMeetingOnWeek(new DateTime(1993, 7, 16));
             Assert.IsNull(nextMeetingDayOnWeek);
         }
     }

@@ -34,7 +34,7 @@ namespace MSP.BetterCalm.Domain
         }
 
 
-        public DateTime? NextMeetingDayOnWeek(DateTime week)
+        public DateTime? GetDayForNextMeetingOnWeek(DateTime week)
         {
             int daysBeforeSaturday = (int) DayOfWeek.Saturday - (int) week.DayOfWeek;
             for (int i = 0; i < daysBeforeSaturday; i++)
