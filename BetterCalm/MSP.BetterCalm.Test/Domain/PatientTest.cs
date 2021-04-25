@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.Domain;
 
@@ -46,6 +47,21 @@ namespace MSP.BetterCalm.Test
                 LastName = "Rodriguez"
             };
             Assert.AreEqual("Rodriguez", patient.LastName);
+        }
+        
+        [TestMethod]
+        public void GetSetMeetings()
+        {
+            List<Meeting> meetings = new List<Meeting>()
+            {
+                new Meeting(){Psychologist = new Psychologist(){Name = "Psycho1"}},
+                new Meeting(){Psychologist = new Psychologist(){Name = "Pscho1"}}
+            };
+            Patient patient = new Patient()
+            {
+                Meetings = meetings
+            };
+            CollectionAssert.AreEqual(patient.Meetings, meetings);
         }
     }
 }
