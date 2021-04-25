@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace MSP.BetterCalm.Domain
 {
@@ -7,6 +8,7 @@ namespace MSP.BetterCalm.Domain
         
         public string Cellphone { get; set; }
         public DateTime BirthDay { get; set; }
+        public List<Meeting> Meetings{ get; set; }
         protected bool Equals(Patient other)
         {
             return Cellphone == other.Cellphone && BirthDay.Equals(other.BirthDay);
