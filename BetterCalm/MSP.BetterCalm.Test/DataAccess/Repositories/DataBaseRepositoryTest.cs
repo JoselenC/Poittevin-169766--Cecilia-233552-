@@ -33,6 +33,12 @@ namespace MSP.BetterCalm.Test
             Song song = new Song() {Name = "Let it be"};
             Songs.Add(song);
         }
+
+        [TestCleanup]
+        public void TestCleanUp()
+        {
+            context.Database.EnsureDeleted();
+        }
         
         [TestMethod]
         public void AddSuccessCaseTest()
@@ -64,12 +70,9 @@ namespace MSP.BetterCalm.Test
         [ExpectedException(typeof(ValueNotFound), "")]
         public void NoDeleteTest()
         {
-            Category category = new Category();
-            category.Name = "Dormir";
-            Categories.Add(category);
             Category testCategory = new Category()
             {
-                Name = "Musica"
+                Name = "NoExistenteCategoria"
             };
             Categories.Delete(testCategory);
         }

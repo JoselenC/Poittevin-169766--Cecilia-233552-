@@ -68,16 +68,10 @@ namespace MSP.BetterCalm.DataAccess
 
         public void Delete(D objectToDelete)
         {
-            try
-            {
-                var ObjectToDeleteDto = FindDto(x => x.Equals(objectToDelete));
-                entity.Remove(ObjectToDeleteDto);
-                context.SaveChanges();
-            }
-            catch (ValueNotFound)
-            {
-                throw new ValueNotFound();
-            }
+            var ObjectToDeleteDto = FindDto(x => x.Equals(objectToDelete));
+            entity.Remove(ObjectToDeleteDto);
+            context.SaveChanges();
+
         }
         public void Set(List<D> objectToAdd)
         {

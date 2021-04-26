@@ -12,12 +12,13 @@ namespace MSP.BetterCalm.Test
         private DbContextOptions<ContextDB> options;
         public  DataBaseRepository<Patient, PatientDto> RepoPatients;
         public  Patient patientTest;
+        private ContextDB context;
 
         [TestInitialize]
         public  void TestFixtureSetup()
         {
             options = new DbContextOptionsBuilder<ContextDB>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
-            ContextDB context = new ContextDB(this.options);
+            context = new ContextDB(this.options);
             RepoPatients = new DataBaseRepository<Patient, PatientDto>(new PatientMapper(), context.Patients, context);
             patientTest = new Patient()
             {
@@ -27,6 +28,12 @@ namespace MSP.BetterCalm.Test
                 Cellphone = "09524123"
             };
             RepoPatients.Add(patientTest);
+        }
+        
+        [TestCleanup]
+        public void TestCleanUp()
+        {
+            context.Database.EnsureDeleted();
         }
         
         [TestMethod]

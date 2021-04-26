@@ -81,24 +81,27 @@ namespace MSP.BetterCalm.DataAccess
             objToUpdate.WorksOnline = updatedObject.WorksOnline;
 
             List<PsychologistProblematicDto> problematics = new List<PsychologistProblematicDto>();
-            foreach (Problematic objProblematic in updatedObject.Problematics)
+            if (!(updatedObject.Problematics is null))
             {
-                ProblematicDto problematic = context.Problematics.FirstOrDefault(x => x.Name == objProblematic.Name);
-                if (problematic is null)
-                    throw new ArgumentException("Problematics creation is not allowed");
-                PsychologistProblematicDto psychologistProblematicDto = context.PsychologistProblematic.FirstOrDefault(
-                    x => x.ProblematicId == problematic.ProblematicDtoID &&
-                         x.PsychologistId == objToUpdate.PsychologistDtoId
-                );
-                if (psychologistProblematicDto is null)
+                foreach (Problematic objProblematic in updatedObject.Problematics)
                 {
-                    psychologistProblematicDto = new PsychologistProblematicDto()
+                    ProblematicDto problematic = context.Problematics.FirstOrDefault(x => x.Name == objProblematic.Name);
+                    if (problematic is null)
+                        throw new ArgumentException("Problematics creation is not allowed");
+                    PsychologistProblematicDto psychologistProblematicDto = context.PsychologistProblematic.FirstOrDefault(
+                        x => x.ProblematicId == problematic.ProblematicDtoID &&
+                             x.PsychologistId == objToUpdate.PsychologistDtoId
+                    );
+                    if (psychologistProblematicDto is null)
                     {
-                        Psychologist = objToUpdate,
-                        Problematic = problematic
-                    };
-                    problematics.Add(psychologistProblematicDto);
-                }
+                        psychologistProblematicDto = new PsychologistProblematicDto()
+                        {
+                            Psychologist = objToUpdate,
+                            Problematic = problematic
+                        };
+                        problematics.Add(psychologistProblematicDto);
+                    }
+                }  
             }
             objToUpdate.Problematics = problematics;
             return objToUpdate;

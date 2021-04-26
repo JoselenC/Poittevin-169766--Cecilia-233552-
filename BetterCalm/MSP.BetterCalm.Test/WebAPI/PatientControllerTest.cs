@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -47,6 +48,33 @@ namespace MSP.BetterCalm.Test.WebAPI
             var createdResult = result as CreatedResult;
             var realPatients = createdResult.Value;
             Assert.AreEqual(realPatients, patient);
+        }
+        
+        [TestMethod]
+        public void TestScheduleMeeting()
+        {
+            Problematic problematic = new Problematic()
+            {
+                Name = "prob"
+            };
+            Psychologist psychologist = new Psychologist()
+            {
+                Name = "psyco1"
+            };
+            Meeting expectedMeeting = new Meeting()
+            {
+                DateTime = DateTime.Today,
+                Patient = patient,
+                Psychologist = psychologist
+            };
+            mockPatientService.Setup(
+                x => x.ScheduleNewMeeting(patient, problematic)
+                ).Returns(expectedMeeting);
+
+            var result = patientController.ScheduleMeeting(patient, problematic);
+            var createdResult = result as CreatedResult;
+            var realMeeting = createdResult.Value;
+            Assert.AreEqual(expectedMeeting, realMeeting);
         }
     }
 }

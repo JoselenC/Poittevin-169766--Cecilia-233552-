@@ -14,14 +14,14 @@ namespace MSP.BetterCalm.Test
 
         public  DataBaseRepository<Problematic, ProblematicDto> Problematics;
         public  Problematic problematicTest;
+        private ContextDB context;
 
         [TestInitialize]
         public  void TestFixtureSetup()
         {
             options = new DbContextOptionsBuilder<ContextDB>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
-            ContextDB context = new ContextDB(this.options);
+            context = new ContextDB(this.options);
             Problematics = new DataBaseRepository<Problematic, ProblematicDto>(new ProblematicMapper(), context.Problematics, context);
-            CleanData();
             problematicTest = new Problematic()
             {
                 Name = "Dormir",
@@ -30,12 +30,9 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestCleanup]
-        public void CleanData()
+        public void TestCleanUp()
         {
-            foreach (Problematic problematic in Problematics.Get())
-            {
-                Problematics.Delete(problematic);
-            }
+            context.Database.EnsureDeleted();
         }
         
         [TestMethod]

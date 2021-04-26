@@ -29,5 +29,12 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             patientService.AddPatient(patient);
             return Created($"api/patient/{patient.Name}", patient);
         }
+
+        [HttpPost]
+        public CreatedResult ScheduleMeeting(Patient patient, Problematic problematic)
+        {
+            Meeting meeting = patientService.ScheduleNewMeeting(patient, problematic);
+            return Created($"api/patient/schedule", meeting);
+        }
     }
 }

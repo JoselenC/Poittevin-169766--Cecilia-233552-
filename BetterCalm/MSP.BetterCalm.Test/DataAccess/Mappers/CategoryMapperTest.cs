@@ -36,7 +36,6 @@ namespace MSP.BetterCalm.Test
         {
             context.Database.EnsureDeleted();
         }
-
         
         [TestMethod]
         public void DomainToDtoTest()

@@ -11,7 +11,8 @@ namespace MSP.BetterCalm.Test
     public class PsychologistMapperTest
     {
         private DbContextOptions<ContextDB> options;
-        private  DataBaseRepository<Psychologist, PsychologistDto> RepoPsychologists;
+        private ContextDB context;
+        private DataBaseRepository<Psychologist, PsychologistDto> RepoPsychologists;
         private Psychologist psychologistTest;
         private Problematic prob1;
         private Problematic prob2;
@@ -20,7 +21,7 @@ namespace MSP.BetterCalm.Test
         public  void TestFixtureSetup()
         {
             options = new DbContextOptionsBuilder<ContextDB>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
-            ContextDB context = new ContextDB(options);
+            context = new ContextDB(options);
             RepoPsychologists = new DataBaseRepository<Psychologist, PsychologistDto>(new PsychologistMapper(), context.Psychologists, context);
             DataBaseRepository<Problematic, ProblematicDto> probRepo =
                 new DataBaseRepository<Problematic, ProblematicDto>(new ProblematicMapper(), context.Problematics,
@@ -43,6 +44,12 @@ namespace MSP.BetterCalm.Test
                 WorksOnline = true
             };
             RepoPsychologists.Add(psychologistTest);
+        }
+
+        [TestCleanup]
+        public void TestCleanUp()
+        {
+            context.Database.EnsureDeleted();
         }
         
         [TestMethod]

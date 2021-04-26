@@ -14,15 +14,22 @@ namespace MSP.BetterCalm.Test
 
         public  DataBaseRepository<Song, SongDto> Songs;
         public  Song songTest;
+        private ContextDB context;
 
         [TestInitialize]
         public  void TestFixtureSetup()
         {
             options = new DbContextOptionsBuilder<ContextDB>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
-            ContextDB context = new ContextDB(this.options);
+            context = new ContextDB(this.options);
             SongMapper songMapper = new SongMapper();
             Songs = new DataBaseRepository<Song, SongDto>(songMapper, context.Songs, context);
         
+        }
+        
+        [TestCleanup]
+        public void TestCleanUp()
+        {
+            context.Database.EnsureDeleted();
         }
 
         [TestMethod]

@@ -11,20 +11,26 @@ namespace MSP.BetterCalm.Test
     {
         private DbContextOptions<ContextDB> options;
         public  DataBaseRepository<Playlist, PlaylistDto> Playlists;
+        private ContextDB context;
         public  Playlist playlistTest;
 
         [TestInitialize]
         public  void TestFixtureSetup()
         {
             options = new DbContextOptionsBuilder<ContextDB>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
-            ContextDB context = new ContextDB(this.options);
+            context = new ContextDB(this.options);
             PlaylistMapper songMapper = new PlaylistMapper();
             Playlists = new DataBaseRepository<Playlist, PlaylistDto>(songMapper, context.Playlists, context);
         }
 
      
+        [TestCleanup]
+        public void TestCleanUp()
+        {
+            context.Database.EnsureDeleted();
+        }
         
-      [TestMethod]
+        [TestMethod]
         public void UpdateTest()
         {
             Playlist playlistTest = new Playlist()
