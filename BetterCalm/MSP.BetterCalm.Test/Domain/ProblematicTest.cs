@@ -17,12 +17,21 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
+        public void GetSetProblematicId()
+        {
+            Problematic problematic = new Problematic();
+            problematic.Id = 1;
+            int getproblematicId = problematic.Id;
+            Assert.AreEqual(1, getproblematicId);
+        }
+        
+        [TestMethod]
         public void EqualsProblematic()
         {
             Problematic problematic = new Problematic();
-            problematic.Name="depresión";
+            problematic.Id=1;
             Problematic problematicToCompare = new Problematic();
-            problematicToCompare.Name="depresión";
+            problematicToCompare.Id=1;
             Assert.AreEqual(problematic, problematicToCompare);
         }
         
@@ -49,12 +58,12 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        public void NotEqualsProblematicName()
+        public void NotEqualsProblematicId()
         {
             Problematic problematic = new Problematic();
-            problematic.Name="depresión";
+            problematic.Id=1;
             Problematic problematicToCompare = new Problematic();
-            problematicToCompare.Name="estrés";
+            problematicToCompare.Id=2;
             Assert.AreNotEqual(problematic, problematicToCompare);
         }
         

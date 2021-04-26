@@ -67,6 +67,16 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
+        public void GetSetSongId()
+        {
+            int id = 2 ;
+            Song song = new Song();
+            song.Id = 2;
+            int getsongId = song.Id;
+            Assert.AreEqual(id, getsongId);
+        }
+        
+        [TestMethod]
         public void GetSetSongAuthorName()
         {
             string authorName = "Paul McCartney";

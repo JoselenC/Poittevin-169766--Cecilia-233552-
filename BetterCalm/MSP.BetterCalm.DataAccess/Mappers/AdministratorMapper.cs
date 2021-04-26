@@ -31,6 +31,11 @@ namespace MSP.BetterCalm.DataAccess
             };
         }
 
+        public Administrator GetById(ContextDB context, int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public AdministratorDto UpdateDtoObject(AdministratorDto objToUpdate, Administrator updatedObject, ContextDB context)
         {
             objToUpdate.Name = updatedObject.Name;

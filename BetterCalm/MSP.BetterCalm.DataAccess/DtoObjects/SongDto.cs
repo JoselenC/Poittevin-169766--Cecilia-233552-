@@ -6,8 +6,6 @@ namespace MSP.BetterCalm.DataAccess
     {
         public int SongDtoID { get; set; }
         
-        public virtual List<CategoryDto> Categories {get; set; }
-
         public string Name {get; set; }
         
         public int Duration {get; set; }
@@ -18,8 +16,8 @@ namespace MSP.BetterCalm.DataAccess
         
         public string UrlAudio {get; set; }
      
-        public int? PlaylistDtoID { get; set; }
+        public ICollection<PlaylistSongDto> PlaylistSongsDto { get; set; }
         
-        public virtual PlaylistDto PlaylistDto { get; set; }
+        public ICollection<SongCategoryDto> SongsCategoriesDto { get; set; }
     }
 }

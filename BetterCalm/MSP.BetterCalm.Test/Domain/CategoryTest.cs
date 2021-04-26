@@ -17,12 +17,22 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
+        public void GetSetCategoryId()
+        {
+            int categoryId = 1;
+            Category category = new Category();
+            category.Id = 1;
+            int getCategoryId = category.Id;
+            Assert.AreEqual(categoryId, getCategoryId);
+        }
+        
+        [TestMethod]
         public void EqualsCategory()
         {
             Category category = new Category();
-            category.Name="Dormir";
+            category.Id=1;
             Category categoryToCompare = new Category();
-            categoryToCompare.Name="Dormir";
+            categoryToCompare.Id=1;
             Assert.AreEqual(category, categoryToCompare);
         }
         
@@ -49,12 +59,12 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        public void NotEqualsCategoryName()
+        public void NotEqualsCategoryId()
         {
             Category category = new Category();
-            category.Name="Dormir";
+            category.Id=1;
             Category categoryToCompare = new Category();
-            categoryToCompare.Name="Yoga";
+            categoryToCompare.Id=2;
             Assert.AreNotEqual(category, categoryToCompare);
         }
         

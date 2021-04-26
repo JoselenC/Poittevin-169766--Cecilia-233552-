@@ -62,6 +62,25 @@ namespace MSP.BetterCalm.Test
             CollectionAssert.AreEqual(categories, categories2);
         }
 
+        [TestMethod]
+        public void FindCategoryById()
+        {
+            Category category1 = new Category { Name = "Yoga", Id = 1};
+            categoriesMock.Setup(
+                x => x.FindById(1)
+            ).Returns(category1);
+            Category category3 = _service.GetCategoryById(1);
+            Assert.AreEqual(category1, category3);
+        }
 
+        [TestMethod]
+        [ExpectedException(typeof(ValueNotFound), "")]
+        public void FindCategoryByNotExistId()
+        {
+            categoriesMock.Setup(
+                x => x.FindById(2)
+            ).Throws( new ValueNotFound());
+            _service.GetCategoryById(2);
+        }
     }
 }

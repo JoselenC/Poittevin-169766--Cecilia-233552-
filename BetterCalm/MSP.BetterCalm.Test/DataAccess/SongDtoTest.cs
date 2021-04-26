@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.DataAccess;
 using MSP.BetterCalm.Domain;
@@ -68,33 +69,12 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        public void GetSetSongCategories()
-        {
-            List<CategoryDto> categories = new List<CategoryDto>();
-            SongDto song = new SongDto();
-            song.Categories = categories;
-            List<CategoryDto> getsongCategories = song.Categories;
-            Assert.AreEqual(categories, getsongCategories);
-        }
-     
-        [TestMethod]
-        public void GetSetPlayListDtoId()
+        public void GetSetPlaylistSongDto()
         {
             SongDto song = new SongDto();
-            song.PlaylistDtoID = 1;
-            Assert.AreEqual(1, song.PlaylistDtoID);
+            song.PlaylistSongsDto = new List<PlaylistSongDto>();
+            ICollection<PlaylistSongDto> getPlaylistSong= song.PlaylistSongsDto;
+            CollectionAssert.AreEqual(getPlaylistSong.ToList(), new List<PlaylistSongDto>());
         }
-        
-        [TestMethod]
-        public void GetSetPlayListDto()
-        {
-            SongDto song = new SongDto();
-            PlaylistDto playlistDto= new PlaylistDto();
-            song.PlaylistDto = playlistDto;
-            Assert.AreEqual(playlistDto, song.PlaylistDto);
-        }
-        
-        
-        
     }
 }

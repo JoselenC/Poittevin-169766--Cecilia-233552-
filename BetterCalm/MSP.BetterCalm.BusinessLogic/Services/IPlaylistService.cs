@@ -10,7 +10,11 @@ namespace MSP.BetterCalm.BusinessLogic
         public List<Playlist> GetPlaylistByName(string playlistName);
         public List<Playlist> GetPlaylistBySongName(string songName); 
         public List<Playlist> GetPlaylistByCategoryName(string categoryName);
+        public Playlist GetPlaylistById(int id);
         public void UpdatePlaylist(Playlist playlistToUpdate, Playlist newPlaylist);
-        public void DeletePlaylist(Playlist playlistToDelete);
+        public void UpdatePlaylistById(int id, Playlist newPlaylist);
+        public void DeletePlaylist(int id);
+        void AddNewSongToPlaylist(Song song, int idPlaylist);
+        void AssociateSongToPlaylist(int idSong, int idPlaylist);
     }
 }

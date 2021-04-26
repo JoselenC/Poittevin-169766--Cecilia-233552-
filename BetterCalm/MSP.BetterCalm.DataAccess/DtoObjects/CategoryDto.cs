@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MSP.BetterCalm.DataAccess
 {
@@ -7,10 +8,8 @@ namespace MSP.BetterCalm.DataAccess
         public int CategoryDtoID { get; set; } 
         public string Name { get; set; }
         
-        public int? SongDtoID { get; set; }
-        public virtual SongDto SongDto { get; set; }
+        public ICollection<PlaylistCategoryDto> PlaylistCategoriesDto { get; set; }
         
-        public int? PlaylistDtoID { get; set; }
-        public virtual PlaylistDto PlaylistDto { get; set; }
+        public ICollection<SongCategoryDto> SongsCategoriesDto { get; set; }
     }
 }

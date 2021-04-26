@@ -23,28 +23,43 @@ namespace MSP.BetterCalm.DataAccess
         public ContextDB() { }
         public ContextDB(DbContextOptions<ContextDB> options): base(options) { }
 
-
-        [ExcludeFromCodeCoverage]
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<CategoryDto>()
-                .HasOne<SongDto>(s => s.SongDto)
-                .WithMany(g => g.Categories)
-                .HasForeignKey(x => x.SongDtoID)
-                .OnDelete(DeleteBehavior.SetNull);
-            modelBuilder.Entity<CategoryDto>()
-                .HasOne<PlaylistDto>(s => s.PlaylistDto)
-                .WithMany(g => g.Categories)
-                .HasForeignKey(x => x.PlaylistDtoID)
-                .OnDelete(DeleteBehavior.SetNull);
-            modelBuilder.Entity<SongDto>()
-                .HasOne<PlaylistDto>(s => s.PlaylistDto)
-                .WithMany(g => g.Songs)
-                .HasForeignKey(x=>x.PlaylistDtoID)
-                .OnDelete(DeleteBehavior.SetNull);
+           modelBuilder.Entity<PlaylistSongDto>()
+                .HasKey(mc => new { mc.PlaylistID, mc.SongID });
+            modelBuilder.Entity<PlaylistSongDto>()
+                .HasOne(mc => mc.PlaylistDto)
+                .WithMany(m => m.PlaylistSongsDto)
+                .HasForeignKey(mc => mc.PlaylistID);
+            modelBuilder.Entity<PlaylistSongDto>()
+                .HasOne(mc => mc.SongDto)
+                .WithMany(c => c.PlaylistSongsDto)
+                .HasForeignKey(mc => mc.SongID);
+            
+            modelBuilder.Entity<PlaylistCategoryDto>()
+                .HasKey(mc => new { mc.PlaylistID, mc.CategoryID });
+            modelBuilder.Entity<PlaylistCategoryDto>()
+                .HasOne(mc => mc.PlaylistDto)
+                .WithMany(m => m.PlaylistCategoriesDto)
+                .HasForeignKey(mc => mc.PlaylistID);
+            modelBuilder.Entity<PlaylistCategoryDto>()
+                .HasOne(mc => mc.CategoryDto)
+                .WithMany(c => c.PlaylistCategoriesDto)
+                .HasForeignKey(mc => mc.CategoryID);
+            
+            modelBuilder.Entity<SongCategoryDto>()
+                .HasKey(mc => new { mc.SongID, mc.CategoryID });
+            modelBuilder.Entity<SongCategoryDto>()
+                .HasOne(mc => mc.CategoryDto)
+                .WithMany(m => m.SongsCategoriesDto)
+                .HasForeignKey(mc => mc.CategoryID);
+            modelBuilder.Entity<SongCategoryDto>()
+                .HasOne(mc => mc.SongDto)
+                .WithMany(c => c.SongsCategoriesDto)
+                .HasForeignKey(mc => mc.SongID);
         }
 
-        [ExcludeFromCodeCoverage]
+       [ExcludeFromCodeCoverage]
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if(!optionsBuilder.IsConfigured)
@@ -55,7 +70,7 @@ namespace MSP.BetterCalm.DataAccess
                     .AddJsonFile("appsettings.json")
                     .Build();
                 var connectionString = configuration.GetConnectionString(@"BetterCalmDB");
-                optionsBuilder.UseSqlServer(connectionString).UseLazyLoadingProxies();
+                optionsBuilder.UseSqlServer(connectionString);
         
             }
         }        

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.DataAccess;
 using MSP.BetterCalm.Domain;
 
@@ -26,13 +27,14 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
+        [ExpectedException(typeof(InvalidCategory), "")]
         public void DomainToDtoTest()
         {
             Song songTest = new Song()
             {
                 Categories = new List<Category>()
                 {
-                    new Category(){Name = "Musica"},
+                    new Category(){Id=1,Name = "Musica"},
                 },
                 Name = "Stand by me",
                 AuthorName = "John Lennon",
@@ -48,6 +50,7 @@ namespace MSP.BetterCalm.Test
         [TestMethod]
             public void DomainToDtoTestCategoryNull()
             {
+                
                 Song songTest = new Song()
                 {
                     Categories = null,
@@ -58,6 +61,7 @@ namespace MSP.BetterCalm.Test
                     UrlImage = ""
                 };
                 Songs.Add(songTest);
+                Songs.Add(songTest);
                 Song song = Songs.Find(x => x.Name == "Stand by me");
                 Assert.AreEqual(songTest, song);
         }
@@ -67,6 +71,7 @@ namespace MSP.BetterCalm.Test
         {
             Song songTest = new Song()
             {
+                Id=0,
                 Categories = new List<Category>(),
                 Name = "Stand by me",
                 AuthorName = "John Lennon",
@@ -84,6 +89,7 @@ namespace MSP.BetterCalm.Test
         {
             Song songTest = new Song()
             {
+                Id=0,
                 Categories = null,
                 Name = "Stand by me",
                 AuthorName = "John Lennon",
@@ -111,7 +117,7 @@ namespace MSP.BetterCalm.Test
             SongDto songDtoTest = new SongDto()
             {
                 SongDtoID = 1,
-                Categories = new List<CategoryDto>(),
+                PlaylistSongsDto = new List<PlaylistSongDto>(),
                 Name = "Stand by me",
                 AuthorName = "The beatles",
                 Duration = 12,
@@ -144,11 +150,7 @@ namespace MSP.BetterCalm.Test
             SongDto songDtoTest = new SongDto()
             {
                 SongDtoID = 1,
-                Categories = new List<CategoryDto>()
-                {
-                    new CategoryDto(){Name = "Musica",CategoryDtoID = 2},
-                    new CategoryDto(){Name = "Yoga",CategoryDtoID = 3}
-                },
+                PlaylistSongsDto = new List<PlaylistSongDto>(),
                 Name = "Stand by me",
                 AuthorName = "The beatles",
                 Duration = 12,
@@ -177,7 +179,7 @@ namespace MSP.BetterCalm.Test
             SongDto songDtoTest = new SongDto()
             {
                 SongDtoID = 1,
-                Categories = null,
+                PlaylistSongsDto = new List<PlaylistSongDto>(),
                 Name = "Stand by me",
                 AuthorName = "The beatles",
                 Duration = 12,

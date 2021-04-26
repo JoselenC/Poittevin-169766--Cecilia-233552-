@@ -63,5 +63,24 @@ namespace MSP.BetterCalm.Test
             List<Problematic> problematics2 = _service.GetProblematics();
             CollectionAssert.AreEqual(problematics, problematics2);
         }
+        
+        [TestMethod]
+        public void FindCategoryById()
+        {
+            Problematic problematic = new Problematic() { Name = "Yoga", Id = 1};
+            problematicMock.Setup(x => x.FindById(1)).Returns(problematic);
+            Problematic problematic2 = _service.GetProblematicById(1);
+            Assert.AreEqual(problematic, problematic2);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ValueNotFound), "")]
+        public void FindCategoryByNotExistId()
+        {
+            problematicMock.Setup(
+                x => x.FindById(2)
+            ).Throws( new ValueNotFound());
+            _service.GetProblematicById(2);
+        }
     }
 }

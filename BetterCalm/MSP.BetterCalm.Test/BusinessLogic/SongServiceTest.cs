@@ -283,7 +283,39 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
+        [ExpectedException(typeof(AlreadyExistThisSong), "")]
         public void SetSongs()
+        {     
+            Category category = new Category()
+            {
+                Name = "Dormir"
+            };
+            Song song = new Song()
+            {
+                Id=4,
+                Categories = new List<Category>()
+                {
+                    category
+                },
+                Name = "Let it be",
+                AuthorName = "John Lennon",
+                Duration = 12,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            List<Song> songs1 = new List<Song>
+            {
+                song
+            };
+            songsMock.Setup(
+                x => x.FindById(3)
+            ).Throws(new ValueNotFound());
+            _songService.SetSong(song);
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(InvalidNameLength), "")]
+        public void SetSongsInvalidName()
         {     
             Category category = new Category()
             {
@@ -295,7 +327,7 @@ namespace MSP.BetterCalm.Test
                 {
                     category
                 },
-                Name = "Stand by me",
+                Name = "",
                 AuthorName = "John Lennon",
                 Duration = 12,
                 UrlAudio = "",
@@ -308,60 +340,11 @@ namespace MSP.BetterCalm.Test
             songsMock.Setup(
                 x => x.Set(songs1)
             );
-            songsMock.Setup(
-                x => x.Get()
-            ).Returns(songs1);
-            List<Song> songs2 = _songService.GetSongs();
-            CollectionAssert.AreEqual(songs1, songs2);
-        }
-
-        [TestMethod]
-        public void UpdateSong()
-        {     Category category = new Category()
-            {
-                Name = "Dormir"
-            };
-            Song song = new Song()
-            {
-                Categories = new List<Category>()
-                {
-                    category
-                },
-                Name = "Stand by me",
-                AuthorName = "John Lennon",
-                Duration = 12,
-                UrlAudio = "",
-                UrlImage = ""
-            };
-            Song song2 = new Song()
-            {
-                Categories = new List<Category>(){category},
-                Name = "Stand by me",
-                AuthorName = "The beatles",
-                Duration = 12,
-                UrlAudio = "",
-                UrlImage = ""
-            };
-            List<Song> songs1 = new List<Song>
-            {
-                song,
-                song2
-            };
-            songsMock.Setup(
-                x => x.Update(song,song2)
-            );
-            _songService.UpdateSong(song,song2);
-            
-            songsMock.Setup(
-                x => x.Get()
-            ).Returns(songs1);
-            List<Song> songs2 = _songService.GetSongs();
-            CollectionAssert.AreEqual(songs1, songs2);
         }
         
         [TestMethod]
-        [ExpectedException(typeof(ValueNotFound), "")]
-        public void NoUpdateSong()
+        [ExpectedException(typeof(AlreadyExistThisSong), "")]
+        public void SetSongRepeted()
         {     
             Category category = new Category()
             {
@@ -373,26 +356,24 @@ namespace MSP.BetterCalm.Test
                 {
                     category
                 },
-                Name = "Stand by me",
+                Name = "Let it be",
                 AuthorName = "John Lennon",
                 Duration = 12,
                 UrlAudio = "",
                 UrlImage = ""
             };
-            Song song2 = new Song()
+            List<Song> songs1 = new List<Song>
             {
-                Categories = new List<Category>(){category},
-                Name = "LetItBe",
-                AuthorName = "The beatles",
-                Duration = 12,
-                UrlAudio = "",
-                UrlImage = ""
+                song
             };
-            List<Song> songs1 = new List<Song> {song};
-            songsMock.Setup(x => x.Update(song,song2)).Throws(new ValueNotFound());
-            _songService.UpdateSong(song,song2);
+            songsMock.Setup(
+                x => x.Set(songs1)
+            );
+            _songService.SetSong(song);
+            _songService.SetSong(song);
         }
-        
+
+       
         [TestMethod]
         public void FindSongByCategoryName()
         {
@@ -465,80 +446,7 @@ namespace MSP.BetterCalm.Test
             _songService.GetSongsByCategoryName("Musica");
         }
         
-        [TestMethod]
-        public void DeleteSongByAuthorAndName()
-        {
-            Category category = new Category()
-            {
-                Name = "Dormir"
-            };
-            Song song1 = new Song()
-            {
-                Categories = new List<Category>()
-                {
-                    category
-                },
-                Name = "Stand by me",
-                AuthorName = "John Lennon",
-                Duration = 12,
-                UrlAudio = "",
-                UrlImage = ""
-            };
-            Song song2 = new Song()
-            {
-                Categories = new List<Category>()
-                {
-                    category
-                },
-                Name = "Let it be",
-                AuthorName = "John Lennon",
-                Duration = 12,
-                UrlAudio = "",
-                UrlImage = ""
-            };
-            List<Song> songs = new List<Song>(){song1,song2};
-            songsMock.Setup(
-                x => x.Find(It.IsAny<Predicate<Song>>())
-            ).Returns(song1);
-            songsMock.Setup(
-                x => x.Get()
-            ).Returns(songs);
-            songsMock.Setup(
-                x => x.Set(songs)
-            );
-            _songService.DeleteSongByNameAndAuthor("Stand by me","John Lennon");
-            List<Song> songPostDelete = _songService.GetSongs();
-            CollectionAssert.AreEqual(songPostDelete, songs);
-        }
-        
-        [TestMethod]
-        [ExpectedException(typeof(ValueNotFound), "")]
-        public void NoDeleteSongByAuthorAndName()
-        {
-            Category category = new Category()
-            {
-                Name = "Dormir"
-            };
-            Song song2 = new Song()
-            {
-                Categories = new List<Category>()
-                {
-                    category
-                },
-                Name = "Let it be",
-                AuthorName = "John Lennon",
-                Duration = 12,
-                UrlAudio = "",
-                UrlImage = ""
-            };
-            List<Song> songs = new List<Song>(){song2};
-            songsMock.Setup(
-                x => x.Find(It.IsAny<Predicate<Song>>())
-            ).Throws(new ValueNotFound());
-            _songService.DeleteSongByNameAndAuthor("Stand by me","John Lennon");
-        }
-
-        [TestMethod]
+      [TestMethod]
         public void DeleteSong()
         {
             Category category = new Category()
@@ -547,6 +455,7 @@ namespace MSP.BetterCalm.Test
             };
             Song song1 = new Song()
             {
+                Id = 1,
                 Categories = new List<Category>()
                 {
                     category
@@ -559,6 +468,7 @@ namespace MSP.BetterCalm.Test
             };
             Song song2 = new Song()
             {
+                Id = 1,
                 Categories = new List<Category>()
                 {
                     category
@@ -578,7 +488,7 @@ namespace MSP.BetterCalm.Test
             songsMock.Setup(
                 x => x.Set(songs)
             );
-            _songService.DeleteSong(song1);
+            _songService.DeleteSong(song1.Id);
             List<Song> songPostDelete = _songService.GetSongs();
             CollectionAssert.AreEqual(songPostDelete, songs);
         }
@@ -593,6 +503,7 @@ namespace MSP.BetterCalm.Test
             };
             Song song1 = new Song()
             {
+                Id=3,
                 Categories = new List<Category>()
                 {
                     category
@@ -603,47 +514,9 @@ namespace MSP.BetterCalm.Test
                 UrlAudio = "",
                 UrlImage = ""
             };
-            Song song2 = new Song()
-            {
-                Categories = new List<Category>()
-                {
-                    category
-                },
-                Name = "Let it be",
-                AuthorName = "John Lennon",
-                Duration = 12,
-                UrlAudio = "",
-                UrlImage = ""
-            };
+            songsMock.Setup(x => x.FindById(song1.Id)).Throws(new ValueNotFound());
             songsMock.Setup(x => x.Delete(song1)).Throws(new ValueNotFound());
-            _songService.DeleteSong(song1);
-        }
-        
-        [TestMethod]
-        public void SetSong()
-        {
-            Category category = new Category()
-            {
-                Name = "Dormir"
-            };
-            Song song1 = new Song()
-            {
-                Categories = new List<Category>()
-                {
-                    category
-                },
-                Name = "Stand by me",
-                AuthorName = "John Lennon",
-                Duration = 12,
-                UrlAudio = "",
-                UrlImage = ""
-            };
-            List<Song> songs = new List<Song>();
-            songsMock.Setup(
-                x => x.Get()
-            ).Returns(songs);
-            _songService.SetSong(song1);
-            CollectionAssert.AreEqual(songs, _songService.GetSongs());
+            _songService.DeleteSong(song1.Id);
         }
         
         [TestMethod]
@@ -668,8 +541,8 @@ namespace MSP.BetterCalm.Test
             };
             List<Song> songs = new List<Song>(){song1};
             songsMock.Setup(
-                x => x.Get()
-            ).Returns(songs);
+                x => x.Add(song1)
+            ).Throws(new AlreadyExistThisSong());
             _songService.SetSong(song1);
         }
         
@@ -695,10 +568,9 @@ namespace MSP.BetterCalm.Test
             };
             List<Song> songs = new List<Song>(){song1};
             songsMock.Setup(
-                x => x.Get()
-            ).Returns(songs);
+                x => x.Add(song1)
+            ).Throws(new InvalidNameLength());
             _songService.SetSong(song1);
-            CollectionAssert.AreEqual(songs, _songService.GetSongs());
         }
         
         [TestMethod]
@@ -721,12 +593,144 @@ namespace MSP.BetterCalm.Test
                 UrlImage = ""
             };
             List<Song> songs = new List<Song>(){song1};
-            List<Song> songs2 = new List<Song>();
             songsMock.Setup(
                 x => x.Delete(song1)
-            );
+            ).Throws(new ValueNotFound());
             _songService.DeleteSongs(songs);
             CollectionAssert.AreEqual(songs, songs);
+        }
+        
+        [TestMethod]
+        public void UpdateSongTest()
+        {     
+            Category category = new Category()
+            {
+                Name = "Dormir"
+            };
+            Song song = new Song()
+            {
+                Id=2,
+                Categories = new List<Category>()
+                {
+                    category
+                },
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = 12,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            List<Song> songs1 = new List<Song>
+            {
+                song
+            };
+            songsMock.Setup(
+                x => x.Update(song,song)
+            );
+            songsMock.Setup(
+                x => x.Get()
+            ).Returns(songs1);
+            _songService.UpdateSongById(2,song);
+            List<Song> songs2 = _songService.GetSongs();
+            CollectionAssert.AreEqual(songs1, songs2);
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(ValueNotFound), "")]
+        public void NoUpdateSongTest()
+        {     
+            Category category = new Category()
+            {
+                Name = "Dormir"
+            };
+            Song song = new Song()
+            {
+                Categories = new List<Category>()
+                {
+                    category
+                },
+                Name = "Let it be",
+                AuthorName = "John Lennon",
+                Duration = 12,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            List<Song> songs1 = new List<Song>
+            {
+                song
+            };
+            songsMock.Setup(
+                x => x.FindById(7)
+            ).Throws(new ValueNotFound());
+            songsMock.Setup(
+                x => x.Update(song,song)
+            ).Throws(new ValueNotFound());
+            _songService.UpdateSongById(7,song);
+        }
+        
+        [TestMethod]
+        public void GetSongByIDTest()
+        {     
+            Category category = new Category()
+            {
+                Name = "Dormir"
+            };
+            Song song = new Song()
+            {
+                Id=2,
+                Categories = new List<Category>()
+                {
+                    category
+                },
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = 12,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            List<Song> songs1 = new List<Song>
+            {
+                song
+            };
+            songsMock.Setup(
+                x => x.FindById(2)
+            ).Returns(song);
+            songsMock.Setup(
+                x => x.Get()
+            ).Returns(songs1);
+            _songService.GetSongById(2);
+            List<Song> songs2 = _songService.GetSongs();
+            CollectionAssert.AreEqual(songs1, songs2);
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(ValueNotFound), "")]
+        public void NoGetSongByIDTest()
+        {     
+            Category category = new Category()
+            {
+                Name = "Dormir"
+            };
+            Song song = new Song()
+            {
+                Categories = new List<Category>()
+                {
+                    category
+                },
+                Name = "Let it e",
+                AuthorName = "John Lennon",
+                Duration = 12,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            List<Song> songs1 = new List<Song>
+            {
+                song
+            };
+            songsMock.Setup(
+                x => x.FindById(3)
+            ).Throws(new ValueNotFound());
+            _songService.GetSongById(3);
         }
     }
 }

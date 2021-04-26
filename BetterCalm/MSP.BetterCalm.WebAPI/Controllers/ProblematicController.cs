@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using MSP.BetterCalm.BusinessLogic;
+using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.DataAccess;
 using MSP.BetterCalm.Domain;
 
@@ -25,11 +26,31 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         return Ok(problematics);
     }
 
-    [HttpGet("{name}")]
-    public IActionResult GetProblematicByName([FromQuery] string problematicName)
+    [HttpGet("name")]
+    public IActionResult GetProblematicByName([FromQuery] string name)
     {
-        Problematic problematicByName = _problematicService.GetProblematicByName(problematicName);
+        try{
+        Problematic problematicByName = _problematicService.GetProblematicByName(name);
         return Ok(problematicByName);
+        }
+        catch (ValueNotFound)
+        {
+            return NotFound("Not found problematic by this name");
+        }
+    }
+    
+    [HttpGet("{id}")]
+    public IActionResult GetProblematicById([FromRoute] int id)
+    {
+        try
+        {
+            Problematic problematicById = _problematicService.GetProblematicById(id);
+            return Ok(problematicById);
+        }
+        catch (ValueNotFound)
+        {
+            return NotFound("Not found problematic by this id");
+        }
     }
 
     }
