@@ -20,14 +20,7 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public Problematic GetProblematicByName(string name)
         {
-            try
-            {
-                return repository.Problematics.Find(x => x.IsSameProblematicName(name));
-            }
-            catch (ValueNotFound)
-            {
-                throw new ValueNotFound();
-            }
+            return repository.Problematics.Find(x => x.IsSameProblematicName(name));
         }
 
     }

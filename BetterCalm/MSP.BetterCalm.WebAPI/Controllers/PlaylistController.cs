@@ -36,7 +36,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
                 List<Playlist> playlists = _playlistService.GetPlaylistByName(name);
                 return Ok(playlists);
             }
-            catch (ValueNotFound)
+            catch (KeyNotFoundException)
             {
                 return NotFound("Not found playlist by this name");
             }
@@ -51,7 +51,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
                 List<Playlist> playlists = _playlistService.GetPlaylistByCategoryName(name);
                 return Ok(playlists);
             }
-            catch (ValueNotFound)
+            catch (KeyNotFoundException)
             {
                 return NotFound("Not found playlist by this category name");
             }
@@ -66,7 +66,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
                 List<Playlist> playlists = _playlistService.GetPlaylistBySongName(name);
                 return Ok(playlists);
             }
-            catch (ValueNotFound)
+            catch (KeyNotFoundException)
             {
                 return NotFound("Not found playlist by this song name");
             }
@@ -103,7 +103,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
                 _playlistService.DeletePlaylist(playlist);
                 return Ok("Element removed");
             }
-            catch (ValueNotFound)
+            catch (KeyNotFoundException)
             {
                 return NotFound("This playlist not registered in the system");
             }

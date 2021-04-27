@@ -51,7 +51,7 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        [ExpectedException(typeof(ValueNotFound), "")]
+        [ExpectedException(typeof(KeyNotFoundException), "")]
         public void NoFindPlaylistByName()
         {
             Category category = new Category()
@@ -141,7 +141,7 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        [ExpectedException(typeof(ValueNotFound), "")]
+        [ExpectedException(typeof(KeyNotFoundException), "")]
         public void NoFindPlaylistByCategoryName()
         {
             Category category = new Category()
@@ -227,7 +227,7 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        [ExpectedException(typeof(ValueNotFound), "")]
+        [ExpectedException(typeof(KeyNotFoundException), "")]
         public void NoFindPlaylistBySongName()
         {
             Category category = new Category()
@@ -402,7 +402,7 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        [ExpectedException(typeof(ValueNotFound), "")]
+        [ExpectedException(typeof(KeyNotFoundException), "")]
         public void NoDeletePlaylistByName()
         {
             Playlist playlist = new Playlist()
@@ -417,8 +417,8 @@ namespace MSP.BetterCalm.Test
             playlisMock.Setup(x => x.Set(playlists));
             _playlistService.AddPlaylist(playlist);
             playlisMock.Setup(x => x.Get()).Returns(playlists);
-            playlisMock.Setup(x => x.Find(It.IsAny<Predicate<Playlist>>())).Throws(new ValueNotFound());
-            playlisMock.Setup(x => x.Delete(playlist)).Throws(new ValueNotFound());
+            playlisMock.Setup(x => x.Find(It.IsAny<Predicate<Playlist>>())).Throws(new KeyNotFoundException());
+            playlisMock.Setup(x => x.Delete(playlist)).Throws(new KeyNotFoundException());
             _playlistService.DeletePlaylistByName("Para correr");
         }
 
@@ -503,7 +503,7 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        [ExpectedException(typeof(ValueNotFound), "")]
+        [ExpectedException(typeof(KeyNotFoundException), "")]
         public void NoDeletePlaylistTest()
         {
             Category category = new Category()
@@ -547,7 +547,7 @@ namespace MSP.BetterCalm.Test
             playlisMock.Setup(
                 x => x.Get()
             ).Returns(playlists);
-            playlisMock.Setup(x => x.Delete(playlist2)).Throws(new ValueNotFound());
+            playlisMock.Setup(x => x.Delete(playlist2)).Throws(new KeyNotFoundException());
             _playlistService.DeletePlaylist(playlist2);
         }
         

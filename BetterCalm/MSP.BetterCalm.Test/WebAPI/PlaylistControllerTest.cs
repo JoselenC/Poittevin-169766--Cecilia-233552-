@@ -51,7 +51,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestGetPlaylistByInvalidName()
         {
-            mockPlaylistService.Setup(m => m.GetPlaylistByName("Stand by me")).Throws(new ValueNotFound());
+            mockPlaylistService.Setup(m => m.GetPlaylistByName("Stand by me")).Throws(new KeyNotFoundException());
             var result = playlistController.GetPlaylistByName("Stand by me") as NotFoundObjectResult;
             Assert.IsNotNull(result);
         }
@@ -69,7 +69,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestGetPlaylistByInvalidCategoryName()
         {   
-            mockPlaylistService.Setup(m => m.GetPlaylistByCategoryName("John Lennon")).Throws(new ValueNotFound());
+            mockPlaylistService.Setup(m => m.GetPlaylistByCategoryName("John Lennon")).Throws(new KeyNotFoundException());
             var result = playlistController.GetPlaylistByCategoryName("John Lennon") as NotFoundObjectResult;
             Assert.IsNotNull(result);
         }
@@ -87,7 +87,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestGetPlaylistByInvalidSongName()
         {   
-            mockPlaylistService.Setup(m => m.GetPlaylistBySongName("John Lennon")).Throws(new ValueNotFound());
+            mockPlaylistService.Setup(m => m.GetPlaylistBySongName("John Lennon")).Throws(new KeyNotFoundException());
             var result = playlistController.GetPlaylistBySongName("John Lennon") as NotFoundObjectResult;
             Assert.IsNotNull(result);
         }
@@ -146,7 +146,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestNoDeletePlaylist()
         {   
-            mockPlaylistService.Setup(m => m.DeletePlaylist(playlist)).Throws(new ValueNotFound());
+            mockPlaylistService.Setup(m => m.DeletePlaylist(playlist)).Throws(new KeyNotFoundException());
             var result = playlistController.DeletePlaylist(playlist) as NotFoundObjectResult;
             Assert.IsNotNull(result);
         }

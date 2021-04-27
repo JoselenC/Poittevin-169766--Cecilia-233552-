@@ -69,7 +69,7 @@ namespace MSP.BetterCalm.BusinessLogic
             }
 
             if (playlists.Count == 0)
-                throw new ValueNotFound();
+                throw new KeyNotFoundException();
             return playlists;
         }
 
@@ -82,7 +82,7 @@ namespace MSP.BetterCalm.BusinessLogic
                     playlists.Add(playlist);
             }
             if (playlists.Count == 0)
-                throw new ValueNotFound();
+                throw new KeyNotFoundException();
             return playlists;
         }
 
@@ -96,7 +96,7 @@ namespace MSP.BetterCalm.BusinessLogic
             }
 
             if (playlists.Count == 0)
-                throw new ValueNotFound();
+                throw new KeyNotFoundException();
             return playlists;
         }
 
@@ -113,15 +113,7 @@ namespace MSP.BetterCalm.BusinessLogic
         
         public void DeletePlaylist(Playlist playlistToDelete)
         {
-            try
-            {
-                repository.Playlists.Delete(playlistToDelete);
-            }
-            catch (ValueNotFound)
-            {
-                throw new ValueNotFound();
-            }
+            repository.Playlists.Delete(playlistToDelete);
         }
-
     }
 }

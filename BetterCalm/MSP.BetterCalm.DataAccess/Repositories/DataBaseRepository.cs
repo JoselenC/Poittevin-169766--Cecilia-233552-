@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using MSP.BetterCalm.BusinessLogic;
-using MSP.BetterCalm.BusinessLogic.Exceptions;
 using EntityState = Microsoft.EntityFrameworkCore.EntityState;
 
 namespace MSP.BetterCalm.DataAccess
 {
-    public class DataBaseRepository<D, T>: IRepository<D> where T: class
+    public class DataBaseRepository<D, T> : IRepository<D> where T : class
     {
-        private IMapper<D,T> mapper;
+        private IMapper<D, T> mapper;
         private ContextDB context;
         private DbSet<T> entity;
-        
-        public DataBaseRepository(IMapper<D,T> mapper, DbSet<T> entity, ContextDB context)
+
+        public DataBaseRepository(IMapper<D, T> mapper, DbSet<T> entity, ContextDB context)
         {
             this.entity = entity;
             this.mapper = mapper;
@@ -26,28 +25,29 @@ namespace MSP.BetterCalm.DataAccess
             List<D> Dlist = new List<D>();
             foreach (T item in entity.ToList())
             {
-                var x = mapper.DtoToDomain(item,context);
+                var x = mapper.DtoToDomain(item, context);
                 Dlist.Add(x);
             }
+
             return Dlist;
         }
 
-       public D Find(Predicate<D> condition)
+        public D Find(Predicate<D> condition)
         {
             List<T> dtos = entity.ToList();
             foreach (var dto in dtos)
             {
-                var dDto = mapper.DtoToDomain(dto,context);
+                var dDto = mapper.DtoToDomain(dto, context);
                 var condResult = condition(dDto);
                 if (condResult)
                     return dDto;
-            };
-            throw new ValueNotFound();
+            }
+            throw new KeyNotFoundException();
         }
 
-       public void Add(D objectToAdd)
+        public void Add(D objectToAdd)
         {
-            var TDto = mapper.DomainToDto(objectToAdd,context);
+            var TDto = mapper.DomainToDto(objectToAdd, context);
             if (context.Entry(TDto).State == (EntityState) EntityState.Detached)
                 entity.Add(TDto);
             context.SaveChanges();
@@ -58,12 +58,12 @@ namespace MSP.BetterCalm.DataAccess
             List<T> TDtos = entity.ToList();
             foreach (var TDto in TDtos)
             {
-                var DDto = mapper.DtoToDomain(TDto,context);
+                var DDto = mapper.DtoToDomain(TDto, context);
                 var condResult = condition(DDto);
                 if (condResult)
                     return TDto;
-            };
-            throw new ValueNotFound();
+            }
+            throw new KeyNotFoundException();
         }
 
         public void Delete(D objectToDelete)
@@ -73,6 +73,7 @@ namespace MSP.BetterCalm.DataAccess
             context.SaveChanges();
 
         }
+
         public void Set(List<D> objectToAdd)
         {
             throw new NotImplementedException();
@@ -80,17 +81,10 @@ namespace MSP.BetterCalm.DataAccess
 
         public D Update(D OldObject, D UpdatedObject)
         {
-            try
-            {
-                T objToUpdate = FindDto(x => x.Equals(OldObject));
-                mapper.UpdateDtoObject(objToUpdate, UpdatedObject, context);
-                context.SaveChanges();
-                return UpdatedObject;
-            }
-            catch (ValueNotFound)
-            {
-                throw new ValueNotFound();
-            }
+            T objToUpdate = FindDto(x => x.Equals(OldObject));
+            mapper.UpdateDtoObject(objToUpdate, UpdatedObject, context);
+            context.SaveChanges();
+            return UpdatedObject;
         }
     }
 }

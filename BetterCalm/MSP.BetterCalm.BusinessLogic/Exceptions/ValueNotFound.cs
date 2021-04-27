@@ -2,9 +2,9 @@
 
 namespace MSP.BetterCalm.BusinessLogic.Exceptions
 {
-    public class ValueNotFound: Exception
+    public class CategoryNotFound: Exception
     {
-        public ValueNotFound() :
+        public CategoryNotFound() :
             base("No find category by name")
         { }
     }

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using MSP.BetterCalm.BusinessLogic;
-using MSP.BetterCalm.BusinessLogic.Exceptions;
-using MSP.BetterCalm.DataAccess;
 using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.Test
@@ -38,12 +36,12 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ValueNotFound), "")]
+        [ExpectedException(typeof(KeyNotFoundException), "")]
         public void FindCategoryByNameNull()
         {
             categoriesMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Category>>())
-            ).Throws( new ValueNotFound());
+            ).Throws( new KeyNotFoundException());
             _service.GetCategoryByName("Musica");
         }
 

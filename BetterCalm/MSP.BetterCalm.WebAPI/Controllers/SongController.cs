@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
-using MSP.BetterCalm.DataAccess;
 using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.WebAPI.Controllers
@@ -34,7 +33,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
                 List<Song> songs = _songService.GetSongsByName(name);
                 return Ok(songs);
             }
-            catch (ValueNotFound)
+            catch (KeyNotFoundException)
             {
                 return NotFound("Not found songs by this name");
             }
@@ -48,7 +47,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
                 List<Song> songs = _songService.GetSongsByAuthor(author);
                 return Ok(songs);
             }
-            catch (ValueNotFound)
+            catch (KeyNotFoundException)
             {
                 return NotFound("Not found songs by this author name");
             }
@@ -62,7 +61,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
                 Song song = _songService.GetSongByNameAndAuthor(name, author);
                 return Ok(song);
             }
-            catch (ValueNotFound)
+            catch (KeyNotFoundException)
             {
                 return NotFound("Not found song by name and author name");
             }
@@ -76,7 +75,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
                 List<Song> songs = _songService.GetSongsByCategoryName(name);
                 return Ok(songs);
             }
-            catch (ValueNotFound)
+            catch (KeyNotFoundException)
             {
                 return NotFound("Not found song by category name");
             }
@@ -112,7 +111,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
                 _songService.DeleteSong(song);
                 return Ok("Song removed");
             }
-            catch (ValueNotFound)
+            catch (KeyNotFoundException)
             {
                 return Conflict("This song not registered in the system");
             }
@@ -126,7 +125,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
                 _songService.DeleteSongByNameAndAuthor(name, author);
                 return Ok("Song removed");
             }
-            catch (ValueNotFound)
+            catch (KeyNotFoundException)
             {
                 return Conflict("This song not registered in the system");
             }
@@ -141,7 +140,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
                 _songService.UpdateSong(songToUpdate, songUpdated);
                 return Ok("Song Updated");
             }
-            catch (ValueNotFound)
+            catch (KeyNotFoundException)
             {
                 return Conflict("This song not registered in the system");
             }

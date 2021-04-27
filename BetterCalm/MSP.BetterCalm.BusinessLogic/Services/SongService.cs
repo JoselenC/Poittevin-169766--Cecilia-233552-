@@ -55,7 +55,7 @@ namespace MSP.BetterCalm.BusinessLogic
             }
 
             if (songs.Count == 0)
-                throw new ValueNotFound();
+                throw new KeyNotFoundException();
             return songs;
         }
 
@@ -68,7 +68,7 @@ namespace MSP.BetterCalm.BusinessLogic
                     songs.Add(song);
             }
             if (songs.Count == 0)
-                throw new ValueNotFound();
+                throw new KeyNotFoundException();
             return songs;
         }
 
@@ -81,32 +81,18 @@ namespace MSP.BetterCalm.BusinessLogic
                     songs.Add(song);
             }
             if (songs.Count == 0)
-                throw new ValueNotFound();
+                throw new KeyNotFoundException();
             return songs;
         }
 
         public Song GetSongByNameAndAuthor(string name, string author)
         {
-            try
-            {
-                return repository.Songs.Find(x => x.IsSameSongName(name) && x.IsSameAuthorName(author));
-            }
-            catch (ValueNotFound)
-            {
-                throw new ValueNotFound();
-            }
+            return repository.Songs.Find(x => x.IsSameSongName(name) && x.IsSameAuthorName(author));
         }
 
         public void UpdateSong(Song songToUpdate, Song songUpdated)
         {
-            try
-            {
-                repository.Songs.Update(songToUpdate, songUpdated);
-            }
-            catch (ValueNotFound)
-            {
-                throw new ValueNotFound();
-            }
+            repository.Songs.Update(songToUpdate, songUpdated);
         }
 
         public void DeleteSongs(List<Song> playlistSongs)
@@ -122,28 +108,14 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public void DeleteSong(Song song)
         {
-            try
-            {
-                repository.Songs.Delete(song);
-            }
-            catch (ValueNotFound)
-            {
-                throw new ValueNotFound();
-            }
+            repository.Songs.Delete(song);
         }
 
         public void DeleteSongByNameAndAuthor(string name,string authorName)
         {
-            try
-            {
-                Song song = repository.Songs.Find(x => x.IsSameSongName(name) &&
-                                                       x.IsSameAuthorName(authorName));
-                repository.Songs.Delete(song);
-            }
-            catch (ValueNotFound)
-            {
-                throw new ValueNotFound();
-            }
+            Song song = repository.Songs.Find(x => x.IsSameSongName(name) &&
+                                                   x.IsSameAuthorName(authorName));
+            repository.Songs.Delete(song);
         }
     }
 }

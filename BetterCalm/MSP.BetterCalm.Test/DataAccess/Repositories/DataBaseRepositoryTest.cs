@@ -52,7 +52,7 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ValueNotFound), "")]
+        [ExpectedException(typeof(KeyNotFoundException), "")]
         public void DeleteTest()
         {
             Category category = new Category();
@@ -67,7 +67,7 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ValueNotFound), "")]
+        [ExpectedException(typeof(KeyNotFoundException), "")]
         public void NoDeleteTest()
         {
             Category testCategory = new Category()
@@ -86,7 +86,7 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        [ExpectedException(typeof(ValueNotFound), "")]
+        [ExpectedException(typeof(KeyNotFoundException), "")]
         public void NoFindTestt()
         {
             Categories.Find(x => x.Name == "Musica");
@@ -128,7 +128,7 @@ namespace MSP.BetterCalm.Test
         
         
         [TestMethod]
-        [ExpectedException(typeof(ValueNotFound), "")]
+        [ExpectedException(typeof(KeyNotFoundException), "")]
         public void NoUpdateTest()
         {
             Song song = new Song() {Name = "Muscia2"};

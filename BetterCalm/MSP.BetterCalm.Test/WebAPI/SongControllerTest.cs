@@ -49,7 +49,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestNoGetSongByName()
         {
-            mockSongService.Setup(m => m.GetSongsByName("Stand by me")).Throws(new ValueNotFound());
+            mockSongService.Setup(m => m.GetSongsByName("Stand by me")).Throws(new KeyNotFoundException());
             var result = songController.GetSongsByName("Stand by me") as NotFoundObjectResult;
             Assert.IsNotNull(result);
         }
@@ -67,7 +67,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestNoGetSongByAuthorName()
         {
-            mockSongService.Setup(m => m.GetSongsByAuthor("John Lennon")).Throws(new ValueNotFound());
+            mockSongService.Setup(m => m.GetSongsByAuthor("John Lennon")).Throws(new KeyNotFoundException());
             var result = songController.GetSongsByAuthor("John Lennon")as NotFoundObjectResult;
             Assert.IsNotNull(result);
         }
@@ -140,7 +140,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestNoGetSongByCategoryNAme()
         {
-            mockSongService.Setup(m => m.GetSongsByCategoryName("Dormir")).Throws(new ValueNotFound());
+            mockSongService.Setup(m => m.GetSongsByCategoryName("Dormir")).Throws(new KeyNotFoundException());
             var result = songController.GetSongsByCategoryName("Dormir") as NotFoundObjectResult;
             Assert.IsNotNull(result);
         }
@@ -176,7 +176,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestNoGetSongByNAmeAndAuthor()
         {
-            mockSongService.Setup(m => m.GetSongByNameAndAuthor("Stand by me","John Lennon")).Throws(new ValueNotFound());
+            mockSongService.Setup(m => m.GetSongByNameAndAuthor("Stand by me","John Lennon")).Throws(new KeyNotFoundException());
             var result = songController.GetSongByAuthorAndName("Stand by me", "John Lennon") as NotFoundObjectResult;
             Assert.IsNotNull(result);
         }
@@ -212,7 +212,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestNoDeleteSong()
         {
-            mockSongService.Setup(m => m.DeleteSong(song)).Throws(new ValueNotFound());
+            mockSongService.Setup(m => m.DeleteSong(song)).Throws(new KeyNotFoundException());
             var result = songController.DeleteSong(song) as ConflictObjectResult;
             Assert.IsNotNull(result);
         }
@@ -248,7 +248,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestNoDeleteSongByNameAndAuthor()
         {
-            mockSongService.Setup(m => m.DeleteSongByNameAndAuthor("Stand by me","John Lennon")).Throws(new ValueNotFound());
+            mockSongService.Setup(m => m.DeleteSongByNameAndAuthor("Stand by me","John Lennon")).Throws(new KeyNotFoundException());
             var result = songController.DeleteSongByNameAndAuthor("Stand by me","John Lennon") as ConflictObjectResult;
             Assert.IsNotNull(result);
         }
@@ -285,8 +285,8 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestNoUpdateSongByNameAndAuthor()
         {
-            mockSongService.Setup(m => m.GetSongByNameAndAuthor("Stand by me","John Lennon")).Throws(new ValueNotFound());
-            mockSongService.Setup(m => m.UpdateSong(song,song)).Throws(new ValueNotFound());
+            mockSongService.Setup(m => m.GetSongByNameAndAuthor("Stand by me","John Lennon")).Throws(new KeyNotFoundException());
+            mockSongService.Setup(m => m.UpdateSong(song,song)).Throws(new KeyNotFoundException());
             var result = songController.UpdateSongByNameAndAuthor("Stand by me","John Lennon",song) as ConflictObjectResult;
             Assert.IsNotNull(result);
         }

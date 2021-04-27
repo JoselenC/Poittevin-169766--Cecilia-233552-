@@ -57,7 +57,7 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        [ExpectedException(typeof(ValueNotFound), "")]
+        [ExpectedException(typeof(KeyNotFoundException), "")]
         public void NoFindSongByName()
         {
             Category category = new Category()
@@ -118,7 +118,7 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        [ExpectedException(typeof(ValueNotFound), "")]
+        [ExpectedException(typeof(KeyNotFoundException), "")]
         public void NoFindSongByAuthor()
         {
             Category category = new Category()
@@ -175,7 +175,7 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        [ExpectedException(typeof(ValueNotFound), "")]
+        [ExpectedException(typeof(KeyNotFoundException), "")]
         public void NoFindSongByAuthorAndName()
         {
             Category category = new Category()
@@ -196,12 +196,12 @@ namespace MSP.BetterCalm.Test
             };
             songsMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Song>>())
-            ).Throws(new ValueNotFound());
+            ).Throws(new KeyNotFoundException());
             _songService.GetSongByNameAndAuthor("Stand by me","Ringo Starr");
         }
         
         [TestMethod]
-        [ExpectedException(typeof(ValueNotFound), "")]
+        [ExpectedException(typeof(KeyNotFoundException), "")]
         public void NoFindSongDiffAuthor()
         {
             Category category = new Category()
@@ -222,12 +222,12 @@ namespace MSP.BetterCalm.Test
             };
             songsMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Song>>())
-            ).Throws(new ValueNotFound());
+            ).Throws(new KeyNotFoundException());
             _songService.GetSongByNameAndAuthor("Let it be","John Lennon");
         }
         
         [TestMethod]
-        [ExpectedException(typeof(ValueNotFound), "")]
+        [ExpectedException(typeof(KeyNotFoundException), "")]
         public void NoFindSongDiffName()
         {
             Category category = new Category()
@@ -248,7 +248,7 @@ namespace MSP.BetterCalm.Test
             };
             songsMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Song>>())
-            ).Throws(new ValueNotFound());
+            ).Throws(new KeyNotFoundException());
             _songService.GetSongByNameAndAuthor("Stand by me","Ringo Starr");
         }
         
@@ -360,7 +360,7 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        [ExpectedException(typeof(ValueNotFound), "")]
+        [ExpectedException(typeof(KeyNotFoundException), "")]
         public void NoUpdateSong()
         {     
             Category category = new Category()
@@ -389,7 +389,7 @@ namespace MSP.BetterCalm.Test
                 UrlImage = ""
             };
             List<Song> songs1 = new List<Song> {song};
-            songsMock.Setup(x => x.Update(song,song2)).Throws(new ValueNotFound());
+            songsMock.Setup(x => x.Update(song,song2)).Throws(new KeyNotFoundException());
             _songService.UpdateSong(song,song2);
         }
         
@@ -430,7 +430,7 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        [ExpectedException(typeof(ValueNotFound), "")]
+        [ExpectedException(typeof(KeyNotFoundException), "")]
         public void NoFindSongByCategoryName()
         {
             Category category = new Category()
@@ -512,7 +512,7 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        [ExpectedException(typeof(ValueNotFound), "")]
+        [ExpectedException(typeof(KeyNotFoundException), "")]
         public void NoDeleteSongByAuthorAndName()
         {
             Category category = new Category()
@@ -534,7 +534,7 @@ namespace MSP.BetterCalm.Test
             List<Song> songs = new List<Song>(){song2};
             songsMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Song>>())
-            ).Throws(new ValueNotFound());
+            ).Throws(new KeyNotFoundException());
             _songService.DeleteSongByNameAndAuthor("Stand by me","John Lennon");
         }
 
@@ -584,7 +584,7 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        [ExpectedException(typeof(ValueNotFound), "")]
+        [ExpectedException(typeof(KeyNotFoundException), "")]
         public void NoDeleteSong()
         {
             Category category = new Category()
@@ -615,7 +615,7 @@ namespace MSP.BetterCalm.Test
                 UrlAudio = "",
                 UrlImage = ""
             };
-            songsMock.Setup(x => x.Delete(song1)).Throws(new ValueNotFound());
+            songsMock.Setup(x => x.Delete(song1)).Throws(new KeyNotFoundException());
             _songService.DeleteSong(song1);
         }
         
