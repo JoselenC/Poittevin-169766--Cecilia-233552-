@@ -6,6 +6,7 @@ namespace MSP.BetterCalm.Domain
 {
     public class Psychologist: User
     {
+        public int PsychologistId { get; set; }
         public string Address { get; set; }
         public bool WorksOnline { get; set; }
 
@@ -13,11 +14,10 @@ namespace MSP.BetterCalm.Domain
         public List<Meeting> Meetings{ get; set; }
         protected bool Equals(Psychologist other)
         {
-            return
-                Address == other.Address &&
-                Name == other.Name &&
-                LastName == other.LastName &&
-                WorksOnline == other.WorksOnline;
+            return Address == other.Address &&
+                   Name == other.Name &&
+                   LastName == other.LastName &&
+                   WorksOnline == other.WorksOnline;
         }
 
         public override bool Equals(object obj)

@@ -8,7 +8,7 @@ namespace MSP.BetterCalm.BusinessLogic
 {
     public interface IRepository<T>
     {
-        void Add(T objectToAdd);
+        T Add(T objectToAdd);
 
         void Delete(T objectToDelete);
 

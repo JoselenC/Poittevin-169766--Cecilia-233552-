@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.DataAccess;
@@ -10,8 +11,9 @@ namespace MSP.BetterCalm.Test
     public class PatientMapperTest
     {
         private DbContextOptions<ContextDB> options;
-        public  DataBaseRepository<Patient, PatientDto> RepoPatients;
-        public  Patient patientTest;
+        private  DataBaseRepository<Patient, PatientDto> RepoPatients;
+        private DataBaseRepository<Meeting, MeetingDto> RepoMeetings;
+        private  Patient patientTest;
         private ContextDB context;
 
         [TestInitialize]
@@ -20,6 +22,7 @@ namespace MSP.BetterCalm.Test
             options = new DbContextOptionsBuilder<ContextDB>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
             context = new ContextDB(this.options);
             RepoPatients = new DataBaseRepository<Patient, PatientDto>(new PatientMapper(), context.Patients, context);
+            RepoMeetings = new DataBaseRepository<Meeting, MeetingDto>(new MeetingMapper(), context.Meeting, context);
             patientTest = new Patient()
             {
                 Name = "Juan",
@@ -27,6 +30,14 @@ namespace MSP.BetterCalm.Test
                 BirthDay = new DateTime(1993,7,15),
                 Cellphone = "09524123"
             };
+            Meeting meeting = new Meeting()
+            {
+                DateTime = new DateTime(2011, 07, 15),
+                Patient = patientTest,
+                Psychologist = new Psychologist() {Name = "psyco1"}
+            };
+            patientTest.Meetings = new List<Meeting>(){meeting};
+            RepoMeetings.Add(meeting);
             RepoPatients.Add(patientTest);
         }
         
@@ -41,7 +52,10 @@ namespace MSP.BetterCalm.Test
         {
             Patient patientTest = new Patient()
             {
-                Name = "Jose"
+                Name = "Jose",
+                LastName = "Perez",
+                Cellphone="092319124",
+                BirthDay = new DateTime(1993,07,12),
             };
             RepoPatients.Add(patientTest);
             Patient actualPatient = RepoPatients.Find(x => x.Name == "Jose");

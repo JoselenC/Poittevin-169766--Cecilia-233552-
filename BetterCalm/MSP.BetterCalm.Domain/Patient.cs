@@ -5,6 +5,7 @@ namespace MSP.BetterCalm.Domain
 {
     public class Patient: User
     {
+        public int PatientId { get; set; }
         public string Cellphone { get; set; }
         public DateTime BirthDay { get; set; }
         public List<Meeting> Meetings{ get; set; }
@@ -14,7 +15,10 @@ namespace MSP.BetterCalm.Domain
         }
         protected bool Equals(Patient other)
         {
-            return Cellphone == other.Cellphone && BirthDay.Equals(other.BirthDay);
+            return Name == other.Name &&
+                   LastName == other.LastName &&
+                   Cellphone == other.Cellphone &&
+                   BirthDay.Equals(other.BirthDay);
         }
 
         public override bool Equals(object obj)
@@ -27,8 +31,9 @@ namespace MSP.BetterCalm.Domain
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Cellphone, BirthDay);
+            return HashCode.Combine(Cellphone, BirthDay, Meetings);
         }
+
 
     }
 }

@@ -16,6 +16,9 @@ namespace MSP.BetterCalm.Test
         
         private Mock<ManagerPsychologistRepository> psyRepoMock;
         private Mock<IRepository<Psychologist>> psychologistMock;
+        
+        private Mock<IRepository<Meeting>> meetingMock;
+        private Mock<ManagerMeetingRepository> meetingRepoMock;
 
         [TestInitialize]
         public void TestFixtureSetup()
@@ -28,7 +31,11 @@ namespace MSP.BetterCalm.Test
             psychologistMock = new Mock<IRepository<Psychologist>>();
             psyRepoMock.Object.Psychologists = psychologistMock.Object;
             
-            service = new PatientService(repoMock.Object, psyRepoMock.Object);
+            meetingRepoMock = new Mock<ManagerMeetingRepository>();
+            meetingMock = new Mock<IRepository<Meeting>>();
+            meetingRepoMock.Object.Meetings = meetingMock.Object;
+            
+            service = new PatientService(repoMock.Object, psyRepoMock.Object, meetingRepoMock.Object);
 
         }
 
