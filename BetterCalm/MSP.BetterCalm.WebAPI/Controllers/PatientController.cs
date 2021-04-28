@@ -2,11 +2,12 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.Domain;
+using MSP.BetterCalm.WebAPI.Dtos;
 
 namespace MSP.BetterCalm.WebAPI.Controllers
 {
     [ApiController]
-    [Route("api/Patient")]
+    [Route("api/[controller]")]
     public class PatientController: ControllerBase
     {
         private IPatientService patientService;
@@ -23,6 +24,15 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             return Ok(patientes);
         }
 
+        
+        [HttpPost("schedule")]
+        public IActionResult ScheduleMeeting([FromBody] ScheduleMeetingDto scheduleMeetingDto)
+        {
+            Meeting meeting = patientService.ScheduleNewMeeting(scheduleMeetingDto.Patient, 
+                scheduleMeetingDto.Problematic);
+            return Created($"api/patient/schedule", meeting);
+        }
+        
         [HttpPost]
         public IActionResult AddPatient(Patient patient)
         {
@@ -30,11 +40,5 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             return Created($"api/patient/{patient.Name}", patient);
         }
 
-        [HttpPost]
-        public CreatedResult ScheduleMeeting(Patient patient, Problematic problematic)
-        {
-            Meeting meeting = patientService.ScheduleNewMeeting(patient, problematic);
-            return Created($"api/patient/schedule", meeting);
-        }
     }
 }

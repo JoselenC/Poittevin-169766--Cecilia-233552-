@@ -6,6 +6,7 @@ using Moq;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.WebAPI.Controllers;
+using MSP.BetterCalm.WebAPI.Dtos;
 
 namespace MSP.BetterCalm.Test.WebAPI
 {
@@ -61,6 +62,11 @@ namespace MSP.BetterCalm.Test.WebAPI
             {
                 Name = "psyco1"
             };
+            ScheduleMeetingDto scheduleMeetingDto = new ScheduleMeetingDto()
+            {
+                Patient = patient,
+                Problematic = problematic
+            };
             Meeting expectedMeeting = new Meeting()
             {
                 DateTime = DateTime.Today,
@@ -71,7 +77,7 @@ namespace MSP.BetterCalm.Test.WebAPI
                 x => x.ScheduleNewMeeting(patient, problematic)
                 ).Returns(expectedMeeting);
 
-            var result = patientController.ScheduleMeeting(patient, problematic);
+            var result = patientController.ScheduleMeeting(scheduleMeetingDto);
             var createdResult = result as CreatedResult;
             var realMeeting = createdResult.Value;
             Assert.AreEqual(expectedMeeting, realMeeting);

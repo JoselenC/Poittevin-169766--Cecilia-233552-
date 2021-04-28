@@ -34,7 +34,9 @@ namespace MSP.BetterCalm.WebAPI
                 options.AddPolicy("AllowEverything",builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             });
             InjectionManagement injectionManagement = new InjectionManagement(services);
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
             injectionManagement.AddScopped();
             injectionManagement.AddDbContext();
             

@@ -4,9 +4,15 @@ namespace MSP.BetterCalm.Domain
 {
     public class Meeting
     {
+        
+        public Psychologist Psychologist { get; set; }
+        public Patient Patient { get; set; }
+        public DateTime DateTime { get; set; }
         protected bool Equals(Meeting other)
         {
-            return Equals(Psychologist, other.Psychologist) && Equals(Patient, other.Patient) && DateTime.Equals(other.DateTime);
+            return Equals(Psychologist, other.Psychologist) && 
+                   Equals(Patient, other.Patient) && 
+                   DateTime.Equals(other.DateTime);
         }
 
         public override bool Equals(object obj)
@@ -22,8 +28,5 @@ namespace MSP.BetterCalm.Domain
             return HashCode.Combine(Psychologist, Patient, DateTime);
         }
 
-        public Psychologist Psychologist { get; set; }
-        public Patient Patient { get; set; }
-        public DateTime DateTime { get; set; }
     }
 }
