@@ -86,6 +86,11 @@ namespace MSP.BetterCalm.DataAccess
             };
         }
 
+        public Meeting GetById(ContextDB context, int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public MeetingDto UpdateDtoObject(MeetingDto objToUpdate, Meeting updatedObject, ContextDB context)
         {
             throw new System.NotImplementedException();

@@ -57,21 +57,6 @@ namespace MSP.BetterCalm.DataAccess
                 .HasOne(mc => mc.SongDto)
                 .WithMany(c => c.SongsCategoriesDto)
                 .HasForeignKey(mc => mc.SongID);
-            modelBuilder.Entity<CategoryDto>()
-                .HasOne<SongDto>(s => s.SongDto)
-                .WithMany(g => g.Categories)
-                .HasForeignKey(x => x.SongDtoID)
-                .OnDelete(DeleteBehavior.SetNull);
-            modelBuilder.Entity<CategoryDto>()
-                .HasOne<PlaylistDto>(s => s.PlaylistDto)
-                .WithMany(g => g.Categories)
-                .HasForeignKey(x => x.PlaylistDtoID)
-                .OnDelete(DeleteBehavior.SetNull);
-            modelBuilder.Entity<SongDto>()
-                .HasOne<PlaylistDto>(s => s.PlaylistDto)
-                .WithMany(g => g.Songs)
-                .HasForeignKey(x=>x.PlaylistDtoID)
-                .OnDelete(DeleteBehavior.SetNull);
             
             modelBuilder.Entity<PsychologistProblematicDto>()
                 .HasKey(pp => new { pp.PsychologistId, pp.ProblematicId });

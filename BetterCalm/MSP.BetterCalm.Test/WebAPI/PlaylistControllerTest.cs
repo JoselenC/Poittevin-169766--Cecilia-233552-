@@ -180,7 +180,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestNoGetPlaylistBySongId()
         {   
-            mockPlaylistService.Setup(m => m.GetPlaylistById(1)).Throws(new ValueNotFound());
+            mockPlaylistService.Setup(m => m.GetPlaylistById(1)).Throws(new KeyNotFoundException());
             var result = playlistController.GetPlaylistById(1) as NotFoundObjectResult;
             Assert.IsNotNull(result);
         }
@@ -197,7 +197,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestNoUpdatePlaylist()
         {   
-            mockPlaylistService.Setup(m => m.UpdatePlaylistById(1,playlist)).Throws(new ValueNotFound());
+            mockPlaylistService.Setup(m => m.UpdatePlaylistById(1,playlist)).Throws(new KeyNotFoundException());
             var result = playlistController.UpdatePlaylist(1,playlist) as NotFoundObjectResult;
             Assert.IsNotNull(result);
         }

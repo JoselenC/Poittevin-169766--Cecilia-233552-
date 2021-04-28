@@ -27,7 +27,7 @@ namespace MSP.BetterCalm.Test
             songMock = new Mock<IRepository<Song>>();
             repoMock.Object.Playlists = playlisMock.Object;
             repoSongMock.Object.Songs = songMock.Object;
-            _playlistService = new PlaylistService(repoMock.Object,repoSongMock.Object);
+            _playlistService = new PlaylistService(repoMock.Object, repoSongMock.Object);
         }
 
         [TestMethod]
@@ -547,9 +547,10 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        [ExpectedException(typeof(ValueNotFound), "")]
+        [ExpectedException(typeof(KeyNotFoundException), "")]
         public void NoDeletePlaylistTest()
         {
+            // TODO: avoid to create all objects just for a error test
             Category category = new Category()
             {
                 Name = "Dormir"
@@ -571,24 +572,13 @@ namespace MSP.BetterCalm.Test
                 Id = 1,
                 Songs = new List<Song>() {song1},
                 Categories = new List<Category>() {category},
-                Name = "Entrena tu mente",
-                UrlImage = "urlImage",
-                Description = "descrption"
-            };
-            Playlist playlist2 = new Playlist()
-            {
-                Id = 1,
-                Songs = new List<Song>() {song1},
-                Categories = new List<Category>() {category},
                 Name = "Para correr",
                 UrlImage = "urlImage",
                 Description = "descrption"
             };
-            List<Playlist> playlists = new List<Playlist>(){playlist2};
-            playlisMock.Setup(x => x.Set(playlists));
-            playlisMock.Setup(x => x.Get()).Returns(playlists);
-            playlisMock.Setup(x => x.Delete(playlist2)).Throws(new ValueNotFound());
-            _playlistService.AddPlaylist(playlist2);
+
+            playlisMock.Setup(x => x.FindById(3)).Returns(playlist);
+            playlisMock.Setup(x => x.Delete(playlist)).Throws(new KeyNotFoundException());
             _playlistService.DeletePlaylist(3);
         }
         
@@ -712,12 +702,12 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ValueNotFound), "")]
+        [ExpectedException(typeof(KeyNotFoundException), "")]
         public void FindPlaylistByNotExistId()
         {
             playlisMock.Setup(
                 x => x.FindById(2)
-            ).Throws( new ValueNotFound());
+            ).Throws( new KeyNotFoundException());
             _playlistService.GetPlaylistById(2);
         }
       
@@ -733,14 +723,14 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ValueNotFound), "")]
+        [ExpectedException(typeof(KeyNotFoundException), "")]
         public void UpdatePlaylistByNotExistId()
         {
             Playlist playlist = new Playlist() { Name = "Yoga", Id = 1};
             playlisMock.Setup(
                 x => x.FindById(2)
-            ).Throws( new ValueNotFound());
-            playlisMock.Setup(x => x.Update(playlist, playlist)).Throws(new ValueNotFound());
+            ).Throws( new KeyNotFoundException());
+            playlisMock.Setup(x => x.Update(playlist, playlist)).Throws(new KeyNotFoundException());
             _playlistService.UpdatePlaylistById(2,playlist);
         }
         
@@ -756,14 +746,14 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ValueNotFound), "")]
+        [ExpectedException(typeof(KeyNotFoundException), "")]
         public void NoUpdatePlaylist()
         {
             Playlist playlist = new Playlist() { Name = "Yoga", Id = 2};
             playlisMock.Setup(
                 x => x.FindById(2)
-            ).Throws( new ValueNotFound());
-            playlisMock.Setup(x => x.Update(playlist, playlist)).Throws(new ValueNotFound());
+            ).Throws( new KeyNotFoundException());
+            playlisMock.Setup(x => x.Update(playlist, playlist)).Throws(new KeyNotFoundException());
             _playlistService.UpdatePlaylist(playlist,playlist);
         }
         

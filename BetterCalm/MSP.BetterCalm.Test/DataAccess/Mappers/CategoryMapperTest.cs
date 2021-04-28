@@ -67,10 +67,10 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        [ExpectedException(typeof(ValueNotFound), "")]
+        [ExpectedException(typeof(KeyNotFoundException), "")]
         public void GetByIdNull()
         {
-            Category realCategory = Categories.FindById(2);
+            Categories.FindById(2);
         }
         
         [TestMethod]

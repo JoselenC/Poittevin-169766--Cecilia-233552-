@@ -52,7 +52,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestNoGetCategoryByName()
         {
-            mockCategoryService.Setup(m => m.GetCategoryByName("Dormir")).Throws(new ValueNotFound());
+            mockCategoryService.Setup(m => m.GetCategoryByName("Dormir")).Throws(new KeyNotFoundException());
             var result = categoryController.GetCategoryByName("Dormir") as NotFoundObjectResult;
             Assert.IsNotNull(result);
         }
@@ -70,7 +70,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestNoGetCategoryById()
         {
-            mockCategoryService.Setup(m => m.GetCategoryById(1)).Throws(new ValueNotFound());
+            mockCategoryService.Setup(m => m.GetCategoryById(1)).Throws(new KeyNotFoundException());
             var result = categoryController.GetCategoryById(1) as NotFoundObjectResult;
             Assert.IsNotNull(result);
         }

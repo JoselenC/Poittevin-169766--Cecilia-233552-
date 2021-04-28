@@ -33,7 +33,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         Problematic problematicByName = _problematicService.GetProblematicByName(name);
         return Ok(problematicByName);
         }
-        catch (ValueNotFound)
+        catch (KeyNotFoundException)
         {
             return NotFound("Not found problematic by this name");
         }
@@ -47,7 +47,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             Problematic problematicById = _problematicService.GetProblematicById(id);
             return Ok(problematicById);
         }
-        catch (ValueNotFound)
+        catch (KeyNotFoundException)
         {
             return NotFound("Not found problematic by this id");
         }

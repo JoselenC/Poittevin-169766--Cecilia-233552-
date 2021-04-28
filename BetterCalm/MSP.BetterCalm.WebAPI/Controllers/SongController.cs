@@ -109,7 +109,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             try
             {
                 
-                _songService.DeleteSong(song);
+                _songService.DeleteSong(song.Id);
                 return Ok("Song removed");
             }
             catch (KeyNotFoundException)

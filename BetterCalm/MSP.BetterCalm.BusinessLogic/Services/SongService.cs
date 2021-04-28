@@ -26,7 +26,7 @@ namespace MSP.BetterCalm.BusinessLogic
                 repository.Songs.FindById(song.Id);
                 return true;
             }
-            catch (ValueNotFound)
+            catch (KeyNotFoundException)
             {
                 return false;
             }

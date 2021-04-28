@@ -33,7 +33,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             Category categoryByName=_categoryService.GetCategoryByName(name);
             return Ok(categoryByName);
             }
-            catch (ValueNotFound)
+            catch (KeyNotFoundException)
             {
                 return NotFound("Not found playlist by this name");
             }
@@ -47,7 +47,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
                 Category categoryById = _categoryService.GetCategoryById(id);
                 return Ok(categoryById);
             }
-            catch (ValueNotFound)
+            catch (KeyNotFoundException)
             {
                 return NotFound("Not found playlist by this id");
             }

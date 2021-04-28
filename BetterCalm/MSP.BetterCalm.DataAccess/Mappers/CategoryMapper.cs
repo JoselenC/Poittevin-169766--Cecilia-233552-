@@ -14,7 +14,7 @@ namespace MSP.BetterCalm.DataAccess
             if (categoryDto is null)
                 categoryDto = new CategoryDto()
             {
-             Name = obj.Name,
+                Name = obj.Name,
             };
             return categoryDto;
         }

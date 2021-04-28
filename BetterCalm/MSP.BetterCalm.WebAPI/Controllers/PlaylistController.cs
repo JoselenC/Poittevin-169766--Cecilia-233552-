@@ -49,7 +49,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
                 Playlist playlists = _playlistService.GetPlaylistById(id);
                 return Ok(playlists);
             }
-            catch (ValueNotFound)
+            catch (KeyNotFoundException)
             {
                 return NotFound("Not found playlist by this id");
             }

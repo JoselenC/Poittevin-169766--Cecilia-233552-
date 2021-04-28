@@ -60,7 +60,7 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        public void UpdateTestDiffCategoryySong()
+        public void UpdateTestDiffCategorySong()
         {
             Playlist playlistTest = new Playlist()
             {
@@ -111,10 +111,12 @@ namespace MSP.BetterCalm.Test
                 }
             };
             PlaylistMapper playlistMapper = new PlaylistMapper();
-            ContextDB context = new ContextDB();
+            // TODO: why create here a context?
+            // ContextDB context = new ContextDB();
             context.Playlists.Add(playlistTestDto);
             playlistMapper.UpdateDtoObject(playlistTestDto, playlistTest, context);
-            Assert.AreEqual(context.Playlists.Find(1),playlistTestDto);
+            PlaylistDto expectedPlaylist = context.Playlists.Find(1);
+            Assert.AreEqual(expectedPlaylist,playlistTestDto);
         }
 
         [TestMethod]

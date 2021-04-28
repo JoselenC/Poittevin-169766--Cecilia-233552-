@@ -22,6 +22,7 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public void AddPlaylist(Playlist playlist)
         {
+            // TODO: Change this try/catch
             try
             {
                 try
@@ -130,15 +131,10 @@ namespace MSP.BetterCalm.BusinessLogic
         
         public void UpdatePlaylistById(int id, Playlist newPlaylist)
         {
-            try
-            {
-                Playlist playlistToUpdate = repository.Playlists.FindById(id);
-                repository.Playlists.Update(playlistToUpdate, newPlaylist);
-            }
-            catch(ValueNotFound)
-            {
-                throw new ValueNotFound();
-            }
+  
+            Playlist playlistToUpdate = repository.Playlists.FindById(id);
+            repository.Playlists.Update(playlistToUpdate, newPlaylist);
+
         }
         
         public void DeletePlaylistByName(string name)
@@ -190,15 +186,7 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public Playlist GetPlaylistById(int id)
         {
-            try
-            {
-                return repository.Playlists.FindById(id);
-            }
-            catch (ValueNotFound)
-            {
-                throw new ValueNotFound();
-            }
-
+            return repository.Playlists.FindById(id);
         }
 
     }
