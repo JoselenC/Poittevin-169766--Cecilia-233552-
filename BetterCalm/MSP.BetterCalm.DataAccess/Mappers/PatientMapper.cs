@@ -48,6 +48,11 @@ namespace MSP.BetterCalm.DataAccess
             };
         }
 
+        public Patient GetById(ContextDB context, int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public PatientDto UpdateDtoObject(PatientDto objToUpdate, Patient updatedObject, ContextDB context)
         {
             objToUpdate.Name = updatedObject.Name;

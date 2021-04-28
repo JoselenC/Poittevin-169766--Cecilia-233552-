@@ -13,16 +13,21 @@ namespace MSP.BetterCalm.Test
     {
 
         private Mock<ManagerPlaylistRepository> repoMock;
+        private Mock<ManagerSongRepository> repoSongMock;
         private Mock<IRepository<Playlist>> playlisMock;
+        private Mock<IRepository<Song>> songMock;
         private PlaylistService _playlistService;
 
         [TestInitialize]
         public void TestFixtureSetup()
         {
+            repoSongMock=new Mock<ManagerSongRepository>();
             repoMock = new Mock<ManagerPlaylistRepository>();
             playlisMock = new Mock<IRepository<Playlist>>();
+            songMock = new Mock<IRepository<Song>>();
             repoMock.Object.Playlists = playlisMock.Object;
-            _playlistService = new PlaylistService(repoMock.Object);
+            repoSongMock.Object.Songs = songMock.Object;
+            _playlistService = new PlaylistService(repoMock.Object,repoSongMock.Object);
         }
 
         [TestMethod]
@@ -343,7 +348,48 @@ namespace MSP.BetterCalm.Test
             List<Playlist> playlists2 = _playlistService.GetPlaylist();
             CollectionAssert.AreEqual(playlists, playlists2);
         }
+        
+        [TestMethod]
+        public void SetPlaylistId()
+        {
+            Category category = new Category()
+            {
+                Name = "Dormir"
+            };
+            Song song = new Song()
+            {
+                Categories = new List<Category>()
+                {
+                    category
+                },
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = 12,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            Playlist playlist = new Playlist()
+            {
+                Id=1,
+                Songs = new List<Song>() {song},
+                Categories = new List<Category>() {category},
+                Name = "Entrena tu mente",
+                UrlImage = "urlImage",
+                Description = "descrption"
+            };
+            List<Playlist> playlists = new List<Playlist>(){playlist};
+            playlisMock.Setup(
+                x => x.Set(playlists)
+            );
+            _playlistService.AddPlaylist(playlist);
 
+            playlisMock.Setup(
+                x => x.Get()
+            ).Returns(playlists);
+            List<Playlist> playlists2 = _playlistService.GetPlaylist();
+            CollectionAssert.AreEqual(playlists, playlists2);
+        }
+        
         [TestMethod]
         public void UpdatPlaylist()
         {
@@ -423,7 +469,7 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
-        public void DeletePlaylistByName()
+        public void DeletePlaylistByID()
         {
             Category category = new Category()
             {
@@ -443,22 +489,19 @@ namespace MSP.BetterCalm.Test
             };
             Playlist playlist = new Playlist()
             {
+                Id=1,
                 Songs = new List<Song>() {song1},
                 Categories = new List<Category>() {category},
                 Name = "Entrena tu mente",
                 UrlImage = "urlImage",
                 Description = "descrption"
             };
-            List<Playlist> playlists = new List<Playlist>();
-            playlisMock.Setup(
-                x => x.Set(playlists)
-            );
-            _playlistService.AddPlaylist(playlist)
-                ;
-            playlisMock.Setup(
-                x => x.Get()
-            ).Returns(playlists);
-            _playlistService.DeletePlaylistByName("para correr");
+            List<Playlist> playlists = new List<Playlist>(){playlist};
+            playlisMock.Setup(x => x.Delete(playlist));
+            playlisMock.Setup(x => x.Add(playlist));
+            playlisMock.Setup(x => x.Get()).Returns(playlists);
+            _playlistService.AddPlaylist(playlist);
+            _playlistService.DeletePlaylist(1);
             CollectionAssert.AreEqual(playlists, _playlistService.GetPlaylist());
         }
 
@@ -483,6 +526,7 @@ namespace MSP.BetterCalm.Test
             };
             Playlist playlist = new Playlist()
             {
+                Id = 1,
                 Songs = new List<Song>() {song1},
                 Categories = new List<Category>() {category},
                 Name = "Entrena tu mente",
@@ -491,19 +535,19 @@ namespace MSP.BetterCalm.Test
             };
             List<Playlist> playlists = new List<Playlist>();
             playlisMock.Setup(
-                x => x.Set(playlists)
+                x => x.Delete(playlist)
             );
             _playlistService.AddPlaylist(playlist)
                 ;
             playlisMock.Setup(
                 x => x.Get()
             ).Returns(playlists);
-            _playlistService.DeletePlaylist(playlist);
+            _playlistService.DeletePlaylist(playlist.Id);
             CollectionAssert.AreEqual(playlists, _playlistService.GetPlaylist());
         }
         
         [TestMethod]
-        [ExpectedException(typeof(KeyNotFoundException), "")]
+        [ExpectedException(typeof(ValueNotFound), "")]
         public void NoDeletePlaylistTest()
         {
             Category category = new Category()
@@ -524,6 +568,7 @@ namespace MSP.BetterCalm.Test
             };
             Playlist playlist = new Playlist()
             {
+                Id = 1,
                 Songs = new List<Song>() {song1},
                 Categories = new List<Category>() {category},
                 Name = "Entrena tu mente",
@@ -532,23 +577,19 @@ namespace MSP.BetterCalm.Test
             };
             Playlist playlist2 = new Playlist()
             {
+                Id = 1,
                 Songs = new List<Song>() {song1},
                 Categories = new List<Category>() {category},
                 Name = "Para correr",
                 UrlImage = "urlImage",
                 Description = "descrption"
             };
-            List<Playlist> playlists = new List<Playlist>();
-            playlisMock.Setup(
-                x => x.Set(playlists)
-            );
-            _playlistService.AddPlaylist(playlist)
-                ;
-            playlisMock.Setup(
-                x => x.Get()
-            ).Returns(playlists);
-            playlisMock.Setup(x => x.Delete(playlist2)).Throws(new KeyNotFoundException());
-            _playlistService.DeletePlaylist(playlist2);
+            List<Playlist> playlists = new List<Playlist>(){playlist2};
+            playlisMock.Setup(x => x.Set(playlists));
+            playlisMock.Setup(x => x.Get()).Returns(playlists);
+            playlisMock.Setup(x => x.Delete(playlist2)).Throws(new ValueNotFound());
+            _playlistService.AddPlaylist(playlist2);
+            _playlistService.DeletePlaylist(3);
         }
         
         [TestMethod]
@@ -658,6 +699,75 @@ namespace MSP.BetterCalm.Test
             _playlistService.AddPlaylist(playlist);
             CollectionAssert.AreEqual(playlists, _playlistService.GetPlaylist());
         }
+        
+        [TestMethod]
+        public void FindPlaylistById()
+        {
+            Playlist playlist = new Playlist() { Name = "Yoga", Id = 1};
+            playlisMock.Setup(
+                x => x.FindById(1)
+            ).Returns(playlist);
+            Playlist playlist3 = _playlistService.GetPlaylistById(1);
+            Assert.AreEqual(playlist, playlist3);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ValueNotFound), "")]
+        public void FindPlaylistByNotExistId()
+        {
+            playlisMock.Setup(
+                x => x.FindById(2)
+            ).Throws( new ValueNotFound());
+            _playlistService.GetPlaylistById(2);
+        }
       
+        [TestMethod]
+        public void UpdatePlaylistById()
+        {
+            Playlist playlist = new Playlist() { Name = "Yoga", Id = 1};
+            playlisMock.Setup(
+                x => x.FindById(1)
+            ).Returns(playlist);
+            _playlistService.UpdatePlaylistById(1,playlist);
+            Assert.AreEqual(_playlistService.GetPlaylist(), _playlistService.GetPlaylist());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ValueNotFound), "")]
+        public void UpdatePlaylistByNotExistId()
+        {
+            Playlist playlist = new Playlist() { Name = "Yoga", Id = 1};
+            playlisMock.Setup(
+                x => x.FindById(2)
+            ).Throws( new ValueNotFound());
+            playlisMock.Setup(x => x.Update(playlist, playlist)).Throws(new ValueNotFound());
+            _playlistService.UpdatePlaylistById(2,playlist);
+        }
+        
+        [TestMethod]
+        public void UpdatePlaylist()
+        {
+            Playlist playlist = new Playlist() { Name = "Yoga", Id = 1};
+            playlisMock.Setup(
+                x => x.FindById(1)
+            ).Returns(playlist);
+            _playlistService.UpdatePlaylist(playlist,playlist);
+            Assert.AreEqual(_playlistService.GetPlaylist(), _playlistService.GetPlaylist());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ValueNotFound), "")]
+        public void NoUpdatePlaylist()
+        {
+            Playlist playlist = new Playlist() { Name = "Yoga", Id = 2};
+            playlisMock.Setup(
+                x => x.FindById(2)
+            ).Throws( new ValueNotFound());
+            playlisMock.Setup(x => x.Update(playlist, playlist)).Throws(new ValueNotFound());
+            _playlistService.UpdatePlaylist(playlist,playlist);
+        }
+        
+        
+        
     }
 }

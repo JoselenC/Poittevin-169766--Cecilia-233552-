@@ -6,7 +6,7 @@ namespace MSP.BetterCalm.Domain
 {
     public class Song
     {
-
+        public int Id { get; set; }
         public List<Category> Categories {get; set; }
 
         private string name;
@@ -49,9 +49,7 @@ namespace MSP.BetterCalm.Domain
         {
             if (obj==null) return false;
             if (obj.GetType() != GetType()) return false;
-            return Name == ((Song)obj).Name && AuthorName==((Song)obj).AuthorName
-                && UrlAudio==((Song)obj).UrlAudio && UrlImage==((Song)obj).UrlImage
-                && Duration==((Song)obj).Duration;
+            return Id == ((Song) obj).Id;
         }
 
         public bool IsSameCategoryName(string categroyName)

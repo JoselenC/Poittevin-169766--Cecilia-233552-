@@ -60,9 +60,7 @@ namespace MSP.BetterCalm.Domain
         {
             if (obj==null) return false;
             if (obj.GetType() != GetType()) return false;
-            return Name == ((Playlist) obj).Name 
-                   && Description == ((Playlist) obj).Description
-                   && UrlImage == ((Playlist) obj).UrlImage;
+            return Id == ((Playlist) obj).Id;
         }
     }
 }

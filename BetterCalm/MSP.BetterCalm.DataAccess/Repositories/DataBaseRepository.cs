@@ -45,6 +45,14 @@ namespace MSP.BetterCalm.DataAccess
             throw new KeyNotFoundException();
         }
 
+        public D FindById(int id)
+        {
+           var dDto = mapper.GetById(context,id);
+           if (dDto!=null)
+                 return dDto;
+           throw new ValueNotFound();
+        }
+       
         public D Add(D objectToAdd)
         {
             var TDto = mapper.DomainToDto(objectToAdd, context);

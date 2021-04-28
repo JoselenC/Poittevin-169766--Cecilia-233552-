@@ -25,8 +25,8 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             return Ok(songs);
         }
         
-        [HttpGet("songName/{name}")]
-        public IActionResult GetSongsByName([FromRoute]string name)
+        [HttpGet("name")]
+        public IActionResult GetSongsByName([FromQuery]string name)
         {
             try
             {
@@ -39,8 +39,8 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             }
         }
         
-        [HttpGet("authorName/{author}")]
-        public IActionResult GetSongsByAuthor([FromRoute]string author)
+        [HttpGet("author")]
+        public IActionResult GetSongsByAuthor([FromQuery]string author)
         {
             try
             {
@@ -53,22 +53,9 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             }
         }
         
-        [HttpGet("authorName/{author}/songName/{name}")]
-        public IActionResult GetSongByAuthorAndName([FromRoute]string name,string author)
-        {
-            try
-            {
-                Song song = _songService.GetSongByNameAndAuthor(name, author);
-                return Ok(song);
-            }
-            catch (KeyNotFoundException)
-            {
-                return NotFound("Not found song by name and author name");
-            }
-        }
         
-        [HttpGet("categoryName/{name}")]
-        public IActionResult GetSongsByCategoryName([FromRoute]string name)
+        [HttpGet("category/name")]
+        public IActionResult GetSongsByCategoryName([FromQuery]string name)
         {
             try
             {
@@ -78,6 +65,20 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             catch (KeyNotFoundException)
             {
                 return NotFound("Not found song by category name");
+            }
+        }
+        
+        [HttpGet("{id}")]
+        public IActionResult GetSongById([FromRoute] int id)
+        {
+            try
+            {
+                Song songById = _songService.GetSongById(id);
+                return Ok(songById);
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound("Not found song by this id");
             }
         }
         
@@ -117,12 +118,13 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             }
         }
 
-        [HttpDelete("song/{name}/author/{author}")]
-        public IActionResult DeleteSongByNameAndAuthor([FromRoute] string name,string author)
+        [HttpDelete("{id}")]
+
+        public IActionResult DeleteSong([FromRoute] int id)
         {
             try
             {
-                _songService.DeleteSongByNameAndAuthor(name, author);
+                _songService.DeleteSong(id);
                 return Ok("Song removed");
             }
             catch (KeyNotFoundException)
@@ -131,18 +133,17 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             }
         }
 
-        [HttpPut("songName/{name}/authorName/{author}")]
-        public IActionResult UpdateSongByNameAndAuthor([FromRoute] string name,string author,[FromBody] Song songUpdated)
+        [HttpPut("{id}")]
+        public IActionResult UpdateSong([FromRoute] int id,[FromBody] Song songUpdated)
         {
             try
             {
-                Song songToUpdate = _songService.GetSongByNameAndAuthor(name, author);
-                _songService.UpdateSong(songToUpdate, songUpdated);
+                _songService.UpdateSongById(id,songUpdated);
                 return Ok("Song Updated");
             }
             catch (KeyNotFoundException)
             {
-                return Conflict("This song not registered in the system");
+                return NotFound("This song not registered in the system");
             }
         }
     }

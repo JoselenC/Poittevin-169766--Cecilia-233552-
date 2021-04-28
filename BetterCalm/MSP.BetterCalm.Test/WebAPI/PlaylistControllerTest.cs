@@ -23,9 +23,9 @@ namespace MSP.BetterCalm.Test.WebAPI
         {
             mockPlaylistService=new Mock<IPlaylistService>(MockBehavior.Strict);
             mocksongService = new Mock<ISongService>(MockBehavior.Strict);
-            playlistController = new PlaylistController(mockPlaylistService.Object,mocksongService.Object);
+            playlistController = new PlaylistController(mockPlaylistService.Object);
             playlists = new List<Playlist>();
-            playlist = new Playlist();
+            playlist = new Playlist(){ Id = 1};
         }
         
         [TestMethod]
@@ -136,8 +136,8 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestDeletePlaylist()
         {   
-            mockPlaylistService.Setup(m => m.DeletePlaylist(playlist));
-            var result = playlistController.DeletePlaylist(playlist);
+            mockPlaylistService.Setup(m => m.DeletePlaylist(playlist.Id));
+            var result = playlistController.DeletePlaylist(playlist.Id);
             var okResult = result as OkObjectResult;
             var value = okResult.Value;
             Assert.AreEqual("Element removed",value);
@@ -146,8 +146,8 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestNoDeletePlaylist()
         {   
-            mockPlaylistService.Setup(m => m.DeletePlaylist(playlist)).Throws(new KeyNotFoundException());
-            var result = playlistController.DeletePlaylist(playlist) as NotFoundObjectResult;
+            mockPlaylistService.Setup(m => m.DeletePlaylist(playlist.Id)).Throws(new KeyNotFoundException());
+            var result = playlistController.DeletePlaylist(playlist.Id) as NotFoundObjectResult;
             Assert.IsNotNull(result);
         }
         
@@ -155,14 +155,51 @@ namespace MSP.BetterCalm.Test.WebAPI
         public void AddSongToPlaylistTest()
         {
             playlist.Songs = new List<Song>();
-            mockPlaylistService.Setup(m => m.UpdatePlaylist(playlist,playlist));
-            mockPlaylistService.Setup(m => m.GetPlaylistByName("playlist")).Returns(playlists);
-            playlistController.AddSongToPlaylist(new Song(){Name="Let it be"},"playlist");
+            Song song = new Song() {Id = 1, Name = "Let it be"};
+            mockPlaylistService.Setup(m => m.AssociateSongToPlaylist(1,1));
+            mockPlaylistService.Setup(m => m.DeletePlaylist(1));
+            mockPlaylistService.Setup(m => m.GetPlaylistById(1)).Returns(playlist);
             mockPlaylistService.Setup(m => m.GetPlaylist()).Returns(playlists);
+            playlistController.AssociateSongToPlaylist(1,1);
             var result = playlistController.GetAll();
             var okResult = result as OkObjectResult;
             var playlistsValue = okResult.Value;
             Assert.AreEqual(playlists,playlistsValue);
+        }
+        
+        [TestMethod]
+        public void TestGetPlaylistBySongId()
+        {   
+            mockPlaylistService.Setup(m => m.GetPlaylistById(1)).Returns(playlist);
+            var result = playlistController.GetPlaylistById(1);
+            var okResult = result as OkObjectResult;
+            var playlistValue = okResult.Value;
+            Assert.AreEqual(playlist,playlistValue);
+        }
+        
+        [TestMethod]
+        public void TestNoGetPlaylistBySongId()
+        {   
+            mockPlaylistService.Setup(m => m.GetPlaylistById(1)).Throws(new ValueNotFound());
+            var result = playlistController.GetPlaylistById(1) as NotFoundObjectResult;
+            Assert.IsNotNull(result);
+        }
+        
+        [TestMethod]
+        public void TestUpdatePlaylist()
+        {   
+            mockPlaylistService.Setup(m => m.UpdatePlaylistById(1,playlist));
+            var result = playlistController.UpdatePlaylist(1,playlist);
+            var okResult = result as OkObjectResult;
+            Assert.IsNotNull(okResult);
+        }
+        
+        [TestMethod]
+        public void TestNoUpdatePlaylist()
+        {   
+            mockPlaylistService.Setup(m => m.UpdatePlaylistById(1,playlist)).Throws(new ValueNotFound());
+            var result = playlistController.UpdatePlaylist(1,playlist) as NotFoundObjectResult;
+            Assert.IsNotNull(result);
         }
       }
 }

@@ -3,13 +3,14 @@
     public class Problematic
     
     {
+        public int Id { get; set; }
         public string Name { get; set; }
 
         public override bool Equals(object obj)
         {
             if (obj==null) return false;
             if (obj.GetType() != GetType()) return false;
-            return Name == ((Problematic)obj).Name;
+            return Id == ((Problematic)obj).Id;
         }
 
         public bool IsSameProblematicName(string problematicName)

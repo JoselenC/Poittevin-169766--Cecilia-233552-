@@ -8,6 +8,8 @@ namespace MSP.BetterCalm.DataAccess
         T DomainToDto(D obj,ContextDB context);
 
         D DtoToDomain(T obj,ContextDB context);
+        
+        D GetById(ContextDB context, int id);
 
         T UpdateDtoObject (T objToUpdate, D updatedObject,ContextDB context);
     }

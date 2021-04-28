@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using MSP.BetterCalm.BusinessLogic;
+using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.DataAccess;
 using MSP.BetterCalm.Domain;
 
@@ -25,11 +26,31 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             return Ok(categories);
         }
         
-        [HttpGet("{Name}")]
-        public IActionResult GetCategoryByName([FromRoute]string Name)
+        [HttpGet("name")]
+        public IActionResult GetCategoryByName([FromQuery]string name)
         {
-            Category categoryByName=_categoryService.GetCategoryByName(Name);
+            try{
+            Category categoryByName=_categoryService.GetCategoryByName(name);
             return Ok(categoryByName);
+            }
+            catch (ValueNotFound)
+            {
+                return NotFound("Not found playlist by this name");
+            }
+        }
+        
+        [HttpGet("{id}")]
+        public IActionResult GetCategoryById([FromRoute] int id)
+        {
+            try
+            {
+                Category categoryById = _categoryService.GetCategoryById(id);
+                return Ok(categoryById);
+            }
+            catch (ValueNotFound)
+            {
+                return NotFound("Not found playlist by this id");
+            }
         }
 
     }

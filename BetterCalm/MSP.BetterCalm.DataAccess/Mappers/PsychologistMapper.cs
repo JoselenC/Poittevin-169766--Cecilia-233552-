@@ -71,6 +71,11 @@ namespace MSP.BetterCalm.DataAccess
             return psychologist;
         }
 
+        public Psychologist GetById(ContextDB context, int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public PsychologistDto UpdateDtoObject(PsychologistDto objToUpdate, Psychologist updatedObject, ContextDB context)
         {
 

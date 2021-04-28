@@ -25,6 +25,7 @@ namespace MSP.BetterCalm.Test
             Categories = new DataBaseRepository<Category, CategoryDto>(new CategoryMapper(), context.Categories, context);
             categoryTest = new Category()
             {
+                Id=1,
                 Name = "Dormir",
             };
             Categories.Add(categoryTest);
@@ -42,6 +43,7 @@ namespace MSP.BetterCalm.Test
         {
             Category categoryTest = new Category()
             {
+                Id=2,
                 Name = "Yoga"
             };
             Categories.Add(categoryTest);
@@ -55,6 +57,20 @@ namespace MSP.BetterCalm.Test
         {
             Category realCategory = Categories.Find(x => x.Name == "Dormir");
             Assert.AreEqual(categoryTest, realCategory);
+        }
+        
+        [TestMethod]
+        public void GetById()
+        {
+            Category realCategory = Categories.FindById(1);
+            Assert.AreEqual(categoryTest, realCategory);
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(ValueNotFound), "")]
+        public void GetByIdNull()
+        {
+            Category realCategory = Categories.FindById(2);
         }
         
         [TestMethod]

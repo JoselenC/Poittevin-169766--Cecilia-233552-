@@ -22,6 +22,19 @@ namespace MSP.BetterCalm.BusinessLogic
         {
             return repository.Problematics.Find(x => x.IsSameProblematicName(name));
         }
+        
+        public Problematic GetProblematicById(int id)
+        {
+            try
+            {
+                return repository.Problematics.FindById(id);
+            }
+            catch (ValueNotFound)
+            {
+                throw new ValueNotFound();
+            }
+
+        }
 
     }
 }

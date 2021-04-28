@@ -21,14 +21,16 @@ namespace MSP.BetterCalm.BusinessLogic
 
         private bool AlreadyExistThisSong(Song song)
         {
-            foreach (var songGet in repository.Songs.Get())
+            try
             {
-                if (songGet.IsSameSongName(song.Name) && 
-                    songGet.IsSameAuthorName(song.AuthorName))
-                    return true;
+                repository.Songs.FindById(song.Id);
+                return true;
             }
-
-            return false;
+            catch (ValueNotFound)
+            {
+                return false;
+            }
+                
         }
         public void SetSong(Song song)
         {
@@ -89,7 +91,15 @@ namespace MSP.BetterCalm.BusinessLogic
         {
             return repository.Songs.Find(x => x.IsSameSongName(name) && x.IsSameAuthorName(author));
         }
+        
+        public void UpdateSongById(int id, Song songUpdated)
+        {
 
+            Song songToUpdate = repository.Songs.FindById(id);
+            repository.Songs.Update(songToUpdate, songUpdated);
+
+        }
+        
         public void UpdateSong(Song songToUpdate, Song songUpdated)
         {
             repository.Songs.Update(songToUpdate, songUpdated);
@@ -101,21 +111,23 @@ namespace MSP.BetterCalm.BusinessLogic
             {
                 foreach (var song in playlistSongs)
                 {
-                    DeleteSong(song);
+                    DeleteSong(song.Id);
                 }
             }
         }
 
-        public void DeleteSong(Song song)
+       public void DeleteSong(int id)
         {
-            repository.Songs.Delete(song);
-        }
 
-        public void DeleteSongByNameAndAuthor(string name,string authorName)
+            Song songToDelete = repository.Songs.FindById(id);
+            repository.Songs.Delete(songToDelete);
+
+        }
+       
+        public Song GetSongById(int id)
         {
-            Song song = repository.Songs.Find(x => x.IsSameSongName(name) &&
-                                                   x.IsSameAuthorName(authorName));
-            repository.Songs.Delete(song);
+
+            return repository.Songs.FindById(id);
         }
     }
 }

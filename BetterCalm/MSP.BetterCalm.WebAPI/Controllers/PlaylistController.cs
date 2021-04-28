@@ -13,12 +13,10 @@ namespace MSP.BetterCalm.WebAPI.Controllers
     {
 
         private IPlaylistService _playlistService;
-        private ISongService _songService;
 
-        public PlaylistController(IPlaylistService playlistService,ISongService songService)
+        public PlaylistController(IPlaylistService playlistService)
         {
-            this._playlistService = playlistService;
-            this._songService = songService;
+            _playlistService = playlistService;
         }
 
         [HttpGet]
@@ -28,8 +26,8 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             return Ok(songs);
         }
 
-        [HttpGet("playListName/{name}")]
-        public IActionResult GetPlaylistByName([FromRoute] string name)
+        [HttpGet("name")]
+        public IActionResult GetPlaylistByName([FromQuery] string name)
         {
             try
             {
@@ -42,9 +40,24 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             }
 
         }
+        
+        [HttpGet("{id}")]
+        public IActionResult GetPlaylistById([FromRoute] int id)
+        {
+            try
+            {
+                Playlist playlists = _playlistService.GetPlaylistById(id);
+                return Ok(playlists);
+            }
+            catch (ValueNotFound)
+            {
+                return NotFound("Not found playlist by this id");
+            }
 
-        [HttpGet("categoryName/{name}")]
-        public IActionResult GetPlaylistByCategoryName([FromRoute] string name)
+        }
+
+        [HttpGet("category/name")]
+        public IActionResult GetPlaylistByCategoryName([FromQuery] string name)
         {
             try
             {
@@ -58,8 +71,8 @@ namespace MSP.BetterCalm.WebAPI.Controllers
 
         }
 
-        [HttpGet("songName/{name}")]
-        public IActionResult GetPlaylistBySongName([FromRoute] string name)
+        [HttpGet("song/name")]
+        public IActionResult GetPlaylistBySongName([FromQuery] string name)
         {
             try
             {
@@ -78,8 +91,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             try
             {
                 try
-                {
-                    _songService.DeleteSongs(playlist.Songs);
+                { 
                     _playlistService.AddPlaylist(playlist);
                     return Ok("Playlist created");
                 }
@@ -94,13 +106,12 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             }
         }
 
-
-        [HttpDelete()]
-        public IActionResult DeletePlaylist([FromBody] Playlist playlist)
+        [HttpDelete("{id}")]
+        public IActionResult DeletePlaylist([FromRoute] int id)
         {
             try
             {
-                _playlistService.DeletePlaylist(playlist);
+                _playlistService.DeletePlaylist(id);
                 return Ok("Element removed");
             }
             catch (KeyNotFoundException)
@@ -109,19 +120,35 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             }
         }
 
-        [HttpPost ("playlitName/{name}")]
-        public IActionResult AddSongToPlaylist([FromBody] Song song, [FromRoute] string name)
+        [HttpPost ("{id}")]
+        public IActionResult AddNewSongToPlaylist([FromBody] Song song, [FromRoute] int id)
+        {
+
+            _playlistService.AddNewSongToPlaylist(song, id);
+            return Ok("New song was added to the playlist");
+        }
+        
+        [HttpPost ("{idPlaylist}/Songs/{id}")]
+        public IActionResult AssociateSongToPlaylist([FromRoute] int id,int idPlaylist)
         {
            
-            List<Playlist> playlistsToUpdate = _playlistService.GetPlaylistByName(name);
-            foreach (var playlistToUpdate in playlistsToUpdate)
+            _playlistService.AssociateSongToPlaylist(id,idPlaylist);
+            return Ok("The song was added to the playlist");
+        }
+        
+        [HttpPut ("{id}")]
+        public IActionResult UpdatePlaylist([FromRoute] int id, [FromBody] Playlist newPlaylist)
+        {
+            try
             {
-                Playlist playlist = playlistToUpdate;
-                playlistToUpdate.Songs.Add(song);
-                _playlistService.UpdatePlaylist(playlistToUpdate,playlist);
+                _playlistService.UpdatePlaylistById(id,newPlaylist);
+                return Ok("The song was updated");
             }
-          
-            return Ok();
+            catch (Exception e)
+            {
+                return NotFound("This playlist not registered in the system");
+            }
+            
         }
        
     }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using MSP.BetterCalm.BusinessLogic;
+using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.DataAccess;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.WebAPI.Controllers;
@@ -46,6 +47,32 @@ namespace MSP.BetterCalm.Test.WebAPI
             var okResult = result as OkObjectResult;
             var categoryValue = okResult.Value;
             Assert.AreEqual(this.category,categoryValue);
+        }
+        
+        [TestMethod]
+        public void TestNoGetCategoryByName()
+        {
+            mockCategoryService.Setup(m => m.GetCategoryByName("Dormir")).Throws(new ValueNotFound());
+            var result = categoryController.GetCategoryByName("Dormir") as NotFoundObjectResult;
+            Assert.IsNotNull(result);
+        }
+        
+        [TestMethod]
+        public void TestGetCategoryById()
+        {
+            mockCategoryService.Setup(m => m.GetCategoryById(1)).Returns(this.category);
+            var result = categoryController.GetCategoryById(1);
+            var okResult = result as OkObjectResult;
+            var categoryValue = okResult.Value;
+            Assert.AreEqual(this.category,categoryValue);
+        }
+        
+        [TestMethod]
+        public void TestNoGetCategoryById()
+        {
+            mockCategoryService.Setup(m => m.GetCategoryById(1)).Throws(new ValueNotFound());
+            var result = categoryController.GetCategoryById(1) as NotFoundObjectResult;
+            Assert.IsNotNull(result);
         }
     }
 }
