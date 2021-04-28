@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using MSP.BetterCalm.Domain;
 
@@ -11,6 +12,7 @@ namespace MSP.BetterCalm.DataAccess
             if (patientDto is null)
                 patientDto = new PatientDto()
                 {
+                    PatientDtoId = obj.PatientId,
                     Name = obj.Name,
                     LastName = obj.LastName,
                     BirthDay = obj.BirthDay,
@@ -22,12 +24,27 @@ namespace MSP.BetterCalm.DataAccess
 
         public Patient DtoToDomain(PatientDto obj, ContextDB context)
         {
+            PsychologistMapper psychologistMapper = new PsychologistMapper();
+            List<MeetingDto> meetings = context.Meeting.ToList().FindAll(x => x.Patient == obj);
+            List<Meeting> domainMeetings = new List<Meeting>();
+            foreach (MeetingDto meeting in meetings)
+            {
+                domainMeetings.Add(
+                    new Meeting()
+                    {
+                        DateTime = meeting.DateTime,
+                        Psychologist = psychologistMapper.DtoToDomain(meeting.Psychologist, context)
+                    }
+                    );
+            }
             return new Patient()
             {
+                PatientId = obj.PatientDtoId,
                 Name = obj.Name,
                 LastName = obj.LastName,
                 BirthDay = obj.BirthDay,
                 Cellphone = obj.Cellphone,
+                Meetings = domainMeetings
             };
         }
 

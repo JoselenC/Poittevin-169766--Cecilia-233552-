@@ -4,15 +4,16 @@ namespace MSP.BetterCalm.Domain
 {
     public class Administrator: User
     {
+        public int AdministratorId { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
         protected bool Equals(Administrator other)
         {
-            return 
-                Email == other.Email && 
-                Password == other.Password &&
-                Name == other.Name &&
-                LastName == other.LastName;
+            return Email == other.Email && 
+                   Password == other.Password &&
+                   Name == other.Name &&
+                   LastName == other.LastName;
         }
-
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -26,7 +27,5 @@ namespace MSP.BetterCalm.Domain
             return HashCode.Combine(Email, Password);
         }
 
-        public string Email { get; set; }
-        public string Password { get; set; }
     }
 }

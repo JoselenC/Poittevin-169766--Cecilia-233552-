@@ -16,16 +16,14 @@ namespace MSP.BetterCalm.DataAccess
                      x.Address == obj.Address &&
                      x.WorksOnline == obj.WorksOnline
                 );
-            if (psychologistDto != null)
-                throw new PsychologistAlreadyExistException();
-            
-            psychologistDto = new PsychologistDto()
-            {
-                Name = obj.Name,
-                LastName = obj.LastName,
-                Address = obj.Address,
-                WorksOnline = obj.WorksOnline,
-            };
+            if (psychologistDto == null)
+                psychologistDto = new PsychologistDto() 
+                {
+                    Name = obj.Name,
+                    LastName = obj.LastName,
+                    Address = obj.Address,
+                    WorksOnline = obj.WorksOnline,
+                };
             List<PsychologistProblematicDto> problematics = new List<PsychologistProblematicDto>();
             if(obj.Problematics != null){
                 foreach (Problematic objProblematic in obj.Problematics)
@@ -50,6 +48,7 @@ namespace MSP.BetterCalm.DataAccess
         {
             Psychologist psychologist = new Psychologist()
             {
+                PsychologistId = obj.PsychologistDtoId,
                 Name = obj.Name,
                 LastName = obj.LastName,
                 Address = obj.Address,

@@ -45,12 +45,14 @@ namespace MSP.BetterCalm.DataAccess
             throw new KeyNotFoundException();
         }
 
-        public void Add(D objectToAdd)
+        public D Add(D objectToAdd)
         {
             var TDto = mapper.DomainToDto(objectToAdd, context);
             if (context.Entry(TDto).State == (EntityState) EntityState.Detached)
                 entity.Add(TDto);
             context.SaveChanges();
+            var domainObj = mapper.DtoToDomain(TDto, context);
+            return domainObj;
         }
 
         private T FindDto(Predicate<D> condition)

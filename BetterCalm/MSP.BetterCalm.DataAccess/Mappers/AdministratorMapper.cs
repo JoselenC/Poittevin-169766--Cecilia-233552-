@@ -11,6 +11,7 @@ namespace MSP.BetterCalm.DataAccess
             if (administratorDto is null)
                 administratorDto = new AdministratorDto()
                 {
+                    AdministratorDtoId = obj.AdministratorId,
                     Name = obj.Name,
                     LastName = obj.LastName,
                     Email = obj.Email,
@@ -24,6 +25,7 @@ namespace MSP.BetterCalm.DataAccess
         {
             return new Administrator()
             {
+                AdministratorId = obj.AdministratorDtoId,
                 Name = obj.Name,
                 LastName = obj.LastName,
                 Email = obj.Email,

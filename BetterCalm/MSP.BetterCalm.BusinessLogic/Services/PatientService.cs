@@ -9,11 +9,17 @@ namespace MSP.BetterCalm.BusinessLogic
     {
         private ManagerPatientRepository patientRepository;
         private ManagerPsychologistRepository psychologistRepository;
+        private ManagerMeetingRepository meetingRepository;
 
-        public PatientService(ManagerPatientRepository vRepository, ManagerPsychologistRepository vPsyRepo)
+        public PatientService(
+            ManagerPatientRepository vRepository, 
+            ManagerPsychologistRepository vPsyRepo,
+            ManagerMeetingRepository vMeetingRepo
+            )
         {
             patientRepository = vRepository;
             psychologistRepository = vPsyRepo;
+            meetingRepository = vMeetingRepo;
         }
 
         public List<Patient> GetPatients()
@@ -28,14 +34,14 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public Meeting ScheduleNewMeeting(Patient patient, Problematic problematic)
         {
-            Psychologist psychologist =
-                psychologistRepository.Psychologists.Find(
-                    x => x.Problematics.Contains(problematic) && x.GetDayForNextMeetingOnWeek(DateTime.Now) != null
-                );
-            
-            // TODO: ver si no se puede evitar hacer este if
-            if (!(psychologist is null))
+            try
             {
+                Psychologist psychologist =
+                    psychologistRepository.Psychologists.Find(
+                        x => x.Problematics.Contains(problematic)
+                             && x.GetDayForNextMeetingOnWeek(DateTime.Now) != null
+                    );
+
                 DateTime auxDate = (DateTime) psychologist.GetDayForNextMeetingOnWeek(DateTime.Now);
                 DateTime date = new DateTime(auxDate.Year, auxDate.Month, auxDate.Day, 0, 0, 0);
                 Meeting meeting = new Meeting()
@@ -44,12 +50,13 @@ namespace MSP.BetterCalm.BusinessLogic
                     Patient = patient,
                     Psychologist = psychologist
                 };
-                patient.Meetings.Add(meeting);
-                patientRepository.Patients.Update(patient, patient);
+                meetingRepository.Meetings.Add(meeting);
                 return meeting;
             }
-            throw new PsychologistNotFound();
-            
+            catch (KeyNotFoundException)
+            {
+                throw new PsychologistNotFound();
+            }
         }
     }
 }
