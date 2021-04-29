@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.Domain;
+using MSP.BetterCalm.WebAPI.Dtos;
 
 namespace MSP.BetterCalm.WebAPI.Controllers
 {
@@ -74,7 +75,8 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             try
             {
                 Song songById = _songService.GetSongById(id);
-                return Ok(songById);
+                SongDto song = new SongDto().CreateSongDto(songById);
+                return Ok(song);
             }
             catch (KeyNotFoundException)
             {
@@ -83,11 +85,11 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateSong([FromBody] Song song)
+        public IActionResult CreateSong([FromBody] SongDto song)
         {
             try
             {
-                _songService.AddSong(song);
+                _songService.AddSong(song.CreateSong());
                 return Ok("Song created");
             }
             catch (AlreadyExistThisSong)

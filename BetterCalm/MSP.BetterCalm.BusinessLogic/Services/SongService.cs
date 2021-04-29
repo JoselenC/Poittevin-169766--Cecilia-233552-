@@ -93,12 +93,6 @@ namespace MSP.BetterCalm.BusinessLogic
             repository.Songs.Update(songToUpdate, songUpdated);
 
         }
-        
-        public void UpdateSong(Song songToUpdate, Song songUpdated)
-        {
-            repository.Songs.Update(songToUpdate, songUpdated);
-        }
-
         public void DeleteSongs(List<Song> playlistSongs)
         {
             if (playlistSongs != null)

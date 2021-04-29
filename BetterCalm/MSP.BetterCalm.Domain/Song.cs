@@ -20,20 +20,22 @@ namespace MSP.BetterCalm.Domain
                 throw new InvalidNameLength();
         }
         
-        private int duration;
-        public string VDuration { get; set; }
-        public int Duration {get=>duration; set=>SetDuration(VDuration); }
-        private void SetDuration(string vDuration)
+        private double duration;
+        public double Duration { get=>GetDuration(); set=>SetDuration(value); }
+
+        private void SetDuration(double value)
         {
-            if (vDuration.Contains('h'))
-                duration = Int32.Parse(vDuration.Split('h')[0])*60*60;
-            else if (vDuration.Contains('m'))
-                duration= Int32.Parse(vDuration.Split('m')[0])*60;
-            else if (vDuration.Contains('s'))
-                duration = Int32.Parse(vDuration.Split('s')[0]);
-            else
-                throw new InvalidDurationFormat();
+            duration = value;
         }
+
+        private double GetDuration()
+        {
+            if ((duration / 60) > 60)
+                return (duration / 60) / 60;
+            else
+                return duration / 60;
+        }
+        
         public string AuthorName {get; set; }
         
         public string UrlImage {get; set; }

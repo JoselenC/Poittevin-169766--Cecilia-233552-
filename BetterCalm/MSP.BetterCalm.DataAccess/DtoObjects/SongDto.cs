@@ -8,7 +8,7 @@ namespace MSP.BetterCalm.DataAccess
         
         public string Name {get; set; }
         
-        public int Duration {get; set; }
+        public double Duration {get; set; }
         
         public string AuthorName {get; set; }
         

@@ -4,8 +4,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
+using MSP.BetterCalm.DataAccess;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.WebAPI.Controllers;
+using MSP.BetterCalm.WebAPI.Dtos;
 
 namespace MSP.BetterCalm.Test.WebAPI
 {
@@ -16,7 +18,8 @@ namespace MSP.BetterCalm.Test.WebAPI
         private SongController songController ;
         private List<Song> songs;
         private Song song;
-        
+        private BetterCalm.WebAPI.Dtos.SongDto songDto;
+            
         [TestInitialize]
         public void InitializeTest()
         {
@@ -24,6 +27,15 @@ namespace MSP.BetterCalm.Test.WebAPI
             songController = new SongController(mockSongService.Object);
             songs = new List<Song>();
             song = new Song(){ Id = 1};
+           songDto = new BetterCalm.WebAPI.Dtos.SongDto()
+            {
+                Categories = new List<Category>(),
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = "12s",
+                UrlAudio = "",
+                UrlImage = ""
+            };
         }
         
         [TestMethod]
@@ -75,7 +87,16 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestCreateSong()
         {
-            Song songToAdd = new Song()
+            BetterCalm.WebAPI.Dtos.SongDto songToAdd = new BetterCalm.WebAPI.Dtos.SongDto()
+            {
+                Categories = new List<Category>(),
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = "12s",
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            Song song = new Song()
             {
                 Categories = new List<Category>(),
                 Name = "Stand by me",
@@ -84,7 +105,7 @@ namespace MSP.BetterCalm.Test.WebAPI
                 UrlAudio = "",
                 UrlImage = ""
             };
-            mockSongService.Setup(m => m.AddSong(songToAdd));
+            mockSongService.Setup(m => m.AddSong(song));
             songController.CreateSong(songToAdd);
             mockSongService.Setup(m => m.GetSongs()).Returns(songs);
             var result = songController.GetAll();
@@ -97,7 +118,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         public void TestNoCreateSongEmptyName()
         {
             mockSongService.Setup(m => m.AddSong(song)).Throws(new InvalidNameLength());
-            var result = songController.CreateSong(song) as ConflictObjectResult;
+            var result = songController.CreateSong(songDto) as ConflictObjectResult;
             Assert.IsNotNull(result);
         }
         
@@ -105,7 +126,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         public void TestNoCreateSong()
         {
             mockSongService.Setup(m => m.AddSong(song)).Throws(new AlreadyExistThisSong());
-            var result = songController.CreateSong(song) as ConflictObjectResult;
+            var result = songController.CreateSong(songDto) as ConflictObjectResult;
             Assert.IsNotNull(result);
         }
         
@@ -122,7 +143,7 @@ namespace MSP.BetterCalm.Test.WebAPI
                 UrlImage = ""
             };
             mockSongService.Setup(m => m.AddSong(songToAdd));
-            songController.CreateSong(songToAdd);
+            songController.CreateSong(songDto);
             mockSongService.Setup(m => m.GetSongsByCategoryName("Dormir")).Returns(songs);
             var result = songController.GetSongsByCategoryName("Dormir");
             var okResult = result as OkObjectResult;
@@ -151,7 +172,7 @@ namespace MSP.BetterCalm.Test.WebAPI
                 UrlImage = ""
             };
             mockSongService.Setup(m => m.AddSong(songToAdd));
-            songController.CreateSong(songToAdd);
+            songController.CreateSong(songDto);
             mockSongService.Setup(m => m.DeleteSong(song.Id));
             var result = songController.DeleteSong(song.Id);
             var okResult = result as OkObjectResult;
