@@ -22,9 +22,6 @@ namespace MSP.BetterCalm.WebAPI.Dtos
             else
                 throw new InvalidNameLength();
         }
-        
-        private int duration { get; set; }
-
         public string Duration { get; set; }
         
         public string AuthorName {get; set; }
@@ -58,18 +55,31 @@ namespace MSP.BetterCalm.WebAPI.Dtos
         
         public SongDto CreateSongDto(Song song)
         {
-            double duration = (song.Duration / 60) / 60;
+            double duration = (song.Duration / 60);
             string durationFormat = "";
-            if (duration < 60)
-                durationFormat = duration.ToString() + "m";
+            if (duration <= 60)
+            {
+              durationFormat = duration.ToString() + "m";
+            }
             else
+            {
+                duration = (song.Duration / 60)/60;
                 durationFormat = duration.ToString() + "h";
+            }
+
             SongDto songReturn = new SongDto()
             {
                 Name = song.Name, Categories = song.Categories, Duration = durationFormat, AuthorName = song.AuthorName,
                 UrlAudio = song.UrlAudio, UrlImage = song.UrlImage
             };
             return songReturn;
+        }
+        
+        public override bool Equals(object obj)
+        {
+            if (obj==null) return false;
+            if (obj.GetType() != GetType()) return false;
+            return Id == ((SongDto) obj).Id;
         }
     }
 }
