@@ -58,9 +58,15 @@ namespace MSP.BetterCalm.WebAPI.Dtos
         
         public SongDto CreateSongDto(Song song)
         {
+            double duration = (song.Duration / 60) / 60;
+            string durationFormat = "";
+            if (duration < 60)
+                durationFormat = duration.ToString() + "m";
+            else
+                durationFormat = duration.ToString() + "h";
             SongDto songReturn = new SongDto()
             {
-                Name = song.Name, Categories = song.Categories, Duration = song.Duration.ToString()+"h", AuthorName = song.AuthorName,
+                Name = song.Name, Categories = song.Categories, Duration = durationFormat, AuthorName = song.AuthorName,
                 UrlAudio = song.UrlAudio, UrlImage = song.UrlImage
             };
             return songReturn;
