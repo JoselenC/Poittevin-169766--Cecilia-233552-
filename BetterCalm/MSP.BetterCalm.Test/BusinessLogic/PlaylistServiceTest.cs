@@ -550,28 +550,11 @@ namespace MSP.BetterCalm.Test
         [ExpectedException(typeof(KeyNotFoundException), "")]
         public void NoDeletePlaylistTest()
         {
-            // TODO: avoid to create all objects just for a error test
-            Category category = new Category()
-            {
-                Name = "Dormir"
-            };
-            Song song1 = new Song()
-            {
-                Categories = new List<Category>()
-                {
-                    category
-                },
-                Name = "Stand by me",
-                AuthorName = "John Lennon",
-                Duration = 12,
-                UrlAudio = "",
-                UrlImage = ""
-            };
             Playlist playlist = new Playlist()
             {
                 Id = 1,
-                Songs = new List<Song>() {song1},
-                Categories = new List<Category>() {category},
+                Songs = new List<Song>(),
+                Categories = new List<Category>(),
                 Name = "Para correr",
                 UrlImage = "urlImage",
                 Description = "descrption"

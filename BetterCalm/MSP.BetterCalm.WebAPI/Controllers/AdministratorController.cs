@@ -22,6 +22,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             return Ok(administratores);
         }
 
+        [HttpPost]
         public CreatedResult AddAdministrator(Administrator administrator)
         {
             administratorService.AddAdministrator(administrator);

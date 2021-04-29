@@ -129,7 +129,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         }
         
         [HttpPost ("{idPlaylist}/Songs/{id}")]
-        public IActionResult AssociateSongToPlaylist([FromRoute] int id,int idPlaylist)
+        public IActionResult AssociateSongToPlaylist([FromRoute] int id, int idPlaylist)
         {
            
             _playlistService.AssociateSongToPlaylist(id,idPlaylist);

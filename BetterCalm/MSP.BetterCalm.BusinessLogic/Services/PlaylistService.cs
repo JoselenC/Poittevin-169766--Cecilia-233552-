@@ -22,27 +22,24 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public void AddPlaylist(Playlist playlist)
         {
-            // TODO: Change this try/catch
             try
             {
-                try
+                for (int i = 0; i < playlist.Songs.Count; i++)
                 {
-                    for (int i = 0; i < playlist.Songs.Count; i++)
-                    {
-                        DeleteSingleSong(playlist, i);
-                    }
-                    repository.Playlists.Add(playlist);
-                    
+                    DeleteSingleSong(playlist, i);
                 }
-                catch (InvalidNameLength)
-                {
-                    throw new InvalidNameLength();
-                }
+
+                repository.Playlists.Add(playlist);
+            }
+            catch (InvalidNameLength)
+            {
+                throw new InvalidNameLength();
             }
             catch (InvalidDescriptionLength)
             {
                 throw new InvalidDescriptionLength();
             }
+         
         }
 
         private void DeleteSingleSong(Playlist playlist, int i)
