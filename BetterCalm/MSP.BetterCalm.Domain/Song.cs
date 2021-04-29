@@ -21,13 +21,18 @@ namespace MSP.BetterCalm.Domain
         }
         
         private int duration;
-        public int Duration {get=>duration; set=>SetDuration(value); }
-        private void SetDuration(int vDuration)
+        public string VDuration { get; set; }
+        public int Duration {get=>duration; set=>SetDuration(VDuration); }
+        private void SetDuration(string vDuration)
         {
-            if (vDuration>= 60)
-                duration=vDuration/60;
+            if (vDuration.Contains('h'))
+                duration = Int32.Parse(vDuration.Split('h')[0])*60*60;
+            else if (vDuration.Contains('m'))
+                duration= Int32.Parse(vDuration.Split('m')[0])*60;
+            else if (vDuration.Contains('s'))
+                duration = Int32.Parse(vDuration.Split('s')[0]);
             else
-                duration = vDuration;
+                throw new InvalidDurationFormat();
         }
         public string AuthorName {get; set; }
         
