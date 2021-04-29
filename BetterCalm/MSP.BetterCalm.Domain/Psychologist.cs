@@ -9,7 +9,6 @@ namespace MSP.BetterCalm.Domain
         public int PsychologistId { get; set; }
         public string Address { get; set; }
         public bool WorksOnline { get; set; }
-
         public List<Problematic> Problematics{ get; set; }
         public List<Meeting> Meetings{ get; set; }
         protected bool Equals(Psychologist other)
@@ -44,10 +43,10 @@ namespace MSP.BetterCalm.Domain
                 DateTime weekDay = week.AddDays(i);
                 IEnumerable<Meeting> meetings =
                     Meetings.Where(
-                        x => x.DateTime.DayOfYear == weekDay.DayOfYear && x.DateTime.Year == x.DateTime.Year
+                        x => x.DateTime.DayOfYear == weekDay.DayOfYear && x.DateTime.Year == weekDay.Year
                     );
                 if (meetings.Count() < 5)
-                    return week.AddDays(i);
+                    return weekDay;
             }
 
             return null;
