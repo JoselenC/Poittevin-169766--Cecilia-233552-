@@ -22,6 +22,8 @@ namespace MSP.BetterCalm.Test
             context = new ContextDB(this.options);
             PlaylistMapper songMapper = new PlaylistMapper();
             Playlists = new DataBaseRepository<Playlist, PlaylistDto>(songMapper, context.Playlists, context);
+
+
         }
 
      
@@ -52,7 +54,6 @@ namespace MSP.BetterCalm.Test
                 UrlImage = ""
             };
             PlaylistMapper playlistMapper = new PlaylistMapper();
-            ContextDB context = new ContextDB();
             context.Playlists.Add(playlistTestDto);
             playlistMapper.UpdateDtoObject(playlistTestDto, playlistTest, context);
             Assert.AreEqual(context.Playlists.Find(1),playlistTestDto);
@@ -62,21 +63,23 @@ namespace MSP.BetterCalm.Test
         [TestMethod]
         public void UpdateTestDiffCategorySong()
         {
-            Playlist playlistTest = new Playlist()
+            Playlist NewPlaylistTest = new Playlist()
             {
-                Songs= new List<Song>(){ new Song()
-                {
-                    Categories = new List<Category>()
+                Songs= new List<Song>(){ 
+                    new Song()
                     {
-                        new Category(){Name = "Dormir"},
-                        new Category(){Name = "Musica"}
-                    },
-                    Name = "Let it be",
-                    AuthorName = "John Lennon",
-                    Duration = 12,
-                    UrlAudio = "",
-                    UrlImage = ""
-                }},
+                        Categories = new List<Category>()
+                        {
+                            new Category(){Name = "Dormir"},
+                            new Category(){Name = "Musica"}
+                        },
+                        Name = "Let it be",
+                        AuthorName = "John Lennon",
+                        Duration = 12,
+                        UrlAudio = "",
+                        UrlImage = ""
+                    }
+                },
                 Categories = new List<Category>()
                 {
                     new Category(){Name = "Dormir"},
@@ -86,17 +89,17 @@ namespace MSP.BetterCalm.Test
                 Description = "description",
                 UrlImage = ""
             };
-            PlaylistDto playlistTestDto = new PlaylistDto()
+            PlaylistDto OldPlaylistTestDto = new PlaylistDto()
             {
                 PlaylistDtoID = 1,
                 PlaylistCategoriesDto= new List<PlaylistCategoryDto>()
                 {
                     new PlaylistCategoryDto()
                     {
-                        PlaylistID = 1,
                         CategoryDto = new CategoryDto(){Name = "Musica",CategoryDtoID = 8},
                         CategoryID = 1,
-                        PlaylistDto = new PlaylistDto(){Name = "Musicas", Description = "Lo mas escuchado"}
+                        PlaylistDto = new PlaylistDto(){Name = "Musicas", Description = "Lo mas escuchado"},
+                        PlaylistID = 1
                     }
                 },
                 PlaylistSongsDto = new List<PlaylistSongDto>()
@@ -111,12 +114,10 @@ namespace MSP.BetterCalm.Test
                 }
             };
             PlaylistMapper playlistMapper = new PlaylistMapper();
-            // TODO: why create here a context?
-            // ContextDB context = new ContextDB();
-            context.Playlists.Add(playlistTestDto);
-            playlistMapper.UpdateDtoObject(playlistTestDto, playlistTest, context);
+            context.Playlists.Add(OldPlaylistTestDto);
+            playlistMapper.UpdateDtoObject(OldPlaylistTestDto, NewPlaylistTest, context);
             PlaylistDto expectedPlaylist = context.Playlists.Find(1);
-            Assert.AreEqual(expectedPlaylist,playlistTestDto);
+            Assert.AreEqual(expectedPlaylist,OldPlaylistTestDto);
         }
 
         [TestMethod]
@@ -140,7 +141,6 @@ namespace MSP.BetterCalm.Test
                 UrlImage = ""
             };
             PlaylistMapper playlistMapper = new PlaylistMapper();
-            ContextDB context = new ContextDB();
             context.Playlists.Add(playlistTestDto);
             playlistMapper.UpdateDtoObject(playlistTestDto, playlistTest, context);
             Assert.AreEqual(context.Playlists.Find(1),playlistTestDto);
@@ -167,7 +167,6 @@ namespace MSP.BetterCalm.Test
                 UrlImage = ""
             };
             PlaylistMapper playlistMapper = new PlaylistMapper();
-            ContextDB context = new ContextDB();
             context.Playlists.Add(playlistTestDto);
             playlistMapper.DomainToDto(playlistTest, context);
             Assert.AreEqual(context.Playlists.Find(1),playlistTestDto);
@@ -226,7 +225,6 @@ namespace MSP.BetterCalm.Test
                 }
             };
             PlaylistMapper playlistMapper = new PlaylistMapper();
-            ContextDB context = new ContextDB();
             context.Playlists.Add(playlistTestDto);
             playlistMapper.DomainToDto(playlistTest, context);
             Assert.AreEqual(context.Playlists.Find(1),playlistTestDto);
@@ -253,7 +251,6 @@ namespace MSP.BetterCalm.Test
                 UrlImage = ""
             };
             PlaylistMapper playlistMapper = new PlaylistMapper();
-            ContextDB context = new ContextDB();
             context.Playlists.Add(playlistTestDto);
             playlistMapper.DomainToDto(playlistTest, context);
             Assert.AreEqual(context.Playlists.Find(1),playlistTestDto);
@@ -280,7 +277,6 @@ namespace MSP.BetterCalm.Test
                 UrlImage = ""
             };
             PlaylistMapper playlistMapper = new PlaylistMapper();
-            ContextDB context = new ContextDB();
             context.Playlists.Add(playlistTestDto);
             Playlist playlists = playlistMapper.DtoToDomain(playlistTestDto, context);
             Assert.AreEqual(playlists, playlistTest);
@@ -343,13 +339,11 @@ namespace MSP.BetterCalm.Test
                 }
             };
             PlaylistMapper playlistMapper = new PlaylistMapper();
-            ContextDB context = new ContextDB();
             context.Playlists.Add(playlistTestDto);
             playlistMapper.DomainToDto(playlistTest, context);
             Playlist playlists = playlistMapper.DtoToDomain(playlistTestDto, context);
             Assert.AreEqual(playlists, playlistTest);
-        
-    }
+        }
 
         [TestMethod]
         public void DtoToDomainTestNull()
@@ -372,7 +366,6 @@ namespace MSP.BetterCalm.Test
                 UrlImage = ""
             };
             PlaylistMapper playlistMapper = new PlaylistMapper();
-            ContextDB context = new ContextDB();
             context.Playlists.Add(playlistTestDto);
             Playlist playlists= playlistMapper.DtoToDomain(playlistTestDto, context);
             Assert.AreEqual(playlists,playlistTest);

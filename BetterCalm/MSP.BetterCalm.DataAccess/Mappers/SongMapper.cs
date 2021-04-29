@@ -17,7 +17,9 @@ namespace MSP.BetterCalm.DataAccess
             {
                 foreach (Category category in categories)
                 {
-                    CategoryDto categoryDto= CategoriesSet.FirstOrDefault(x => x.CategoryDtoID == category.Id || x.Name==category.Name);
+                    CategoryDto categoryDto= CategoriesSet.FirstOrDefault(
+                        x => x.CategoryDtoID == category.Id || x.Name==category.Name
+                        );
                     if (categoryDto == null)
                     {
                         throw new InvalidCategory();

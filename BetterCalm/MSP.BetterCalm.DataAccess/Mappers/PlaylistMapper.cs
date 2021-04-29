@@ -169,13 +169,22 @@ namespace MSP.BetterCalm.DataAccess
         {
             List<PlaylistSongDto> diffListOldValuesSong =
                 objToUpdate.PlaylistSongsDto
-                    .Where(x => updatedObject.Songs.Contains(songMapper.DtoToDomain(x.SongDto, context))).ToList();
+                    .Where(
+                        x => updatedObject.Songs.Contains(songMapper.DtoToDomain(x.SongDto, context))
+                    ).ToList();
+            
             IEnumerable<Song> diffListNewValuesSong = updatedObject.Songs
-                .Where(x => !objToUpdate.PlaylistSongsDto.Contains(new PlaylistSongDto()
-                    {SongDto = songMapper.DomainToDto(x, context)}));
+                .Where(
+                    x => !objToUpdate.PlaylistSongsDto.Contains(
+                        new PlaylistSongDto() {SongDto = songMapper.DomainToDto(x, context)}
+                        )
+                    );
+
             diffListOldValuesSong.AddRange(diffListNewValuesSong.Select(x => new PlaylistSongDto()
                 {SongDto = songMapper.DomainToDto(x, context)}));
+            
             List<SongDto> songToDelete = new List<SongDto>();
+            
             objToUpdate.PlaylistSongsDto.Where(x => !diffListOldValuesSong.Contains(x)).ToList();
             if (songToDelete != null)
             {

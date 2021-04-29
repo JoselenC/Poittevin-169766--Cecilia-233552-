@@ -139,7 +139,6 @@ namespace MSP.BetterCalm.Test
         [TestMethod]
         public void NextMeetingDayOnWeekWithoutFreeTime()
         {
-            
             List<Meeting> meetings = new List<Meeting>()
             {
                 new Meeting(){DateTime = new DateTime(1993,7,16)},
@@ -153,7 +152,9 @@ namespace MSP.BetterCalm.Test
                 Meetings = meetings
             };
             DateTime? nextMeetingDayOnWeek = psychologist.GetDayForNextMeetingOnWeek(new DateTime(1993, 7, 16));
-            Assert.IsNull(nextMeetingDayOnWeek);
+
+            DateTime expectedMeetingDayOnWeek = new DateTime(1993,7,19);
+            Assert.AreEqual(expectedMeetingDayOnWeek, nextMeetingDayOnWeek);
         }
     }
 }
