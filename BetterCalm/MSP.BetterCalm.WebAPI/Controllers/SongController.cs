@@ -81,34 +81,34 @@ namespace MSP.BetterCalm.WebAPI.Controllers
                 return NotFound("Not found song by this id");
             }
         }
-        
+
         [HttpPost]
         public IActionResult CreateSong([FromBody] Song song)
         {
             try
             {
-                try
-                {
-                    _songService.SetSong(song);
-                    return Ok("Song created");
-                }
-                catch (AlreadyExistThisSong)
-                {
-                    return Conflict("This song is already registered in the system");
-                }
+                _songService.AddSong(song);
+                return Ok("Song created");
+            }
+            catch (AlreadyExistThisSong)
+            {
+                return Conflict("This song is already registered in the system");
             }
             catch (InvalidNameLength)
             {
                 return Conflict("Cannot add a song with an empty name ");
             }
+            catch (InvalidDurationFormat)
+            {
+                return Conflict("Invalid duration format");
+            }
         }
-          
+
         [HttpDelete()]
         public IActionResult DeleteSong([FromBody] Song song)
         {
             try
             {
-                
                 _songService.DeleteSong(song.Id);
                 return Ok("Song removed");
             }
