@@ -84,7 +84,7 @@ namespace MSP.BetterCalm.Test.WebAPI
                 UrlAudio = "",
                 UrlImage = ""
             };
-            mockSongService.Setup(m => m.SetSong(songToAdd));
+            mockSongService.Setup(m => m.AddSong(songToAdd));
             songController.CreateSong(songToAdd);
             mockSongService.Setup(m => m.GetSongs()).Returns(songs);
             var result = songController.GetAll();
@@ -96,7 +96,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestNoCreateSongEmptyName()
         {
-            mockSongService.Setup(m => m.SetSong(song)).Throws(new InvalidNameLength());
+            mockSongService.Setup(m => m.AddSong(song)).Throws(new InvalidNameLength());
             var result = songController.CreateSong(song) as ConflictObjectResult;
             Assert.IsNotNull(result);
         }
@@ -104,7 +104,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestNoCreateSong()
         {
-            mockSongService.Setup(m => m.SetSong(song)).Throws(new AlreadyExistThisSong());
+            mockSongService.Setup(m => m.AddSong(song)).Throws(new AlreadyExistThisSong());
             var result = songController.CreateSong(song) as ConflictObjectResult;
             Assert.IsNotNull(result);
         }
@@ -112,23 +112,16 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestGetSongByCategoryNAme()
         {
-            Category category = new Category()
-            {
-                Name = "Dormir"
-            };
             Song songToAdd = new Song()
             {
-                Categories = new List<Category>()
-                {
-                    category
-                },
+                Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
                 AuthorName = "John Lennon",
                 Duration = 12,
                 UrlAudio = "",
                 UrlImage = ""
             };
-            mockSongService.Setup(m => m.SetSong(songToAdd));
+            mockSongService.Setup(m => m.AddSong(songToAdd));
             songController.CreateSong(songToAdd);
             mockSongService.Setup(m => m.GetSongsByCategoryName("Dormir")).Returns(songs);
             var result = songController.GetSongsByCategoryName("Dormir");
@@ -148,23 +141,16 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestDeleteSong()
         {
-            Category category = new Category()
-            {
-                Name = "Dormir"
-            };
             Song songToAdd = new Song()
             {
-                Categories = new List<Category>()
-                {
-                    category
-                },
+                Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
                 AuthorName = "John Lennon",
                 Duration = 12,
                 UrlAudio = "",
                 UrlImage = ""
             };
-            mockSongService.Setup(m => m.SetSong(songToAdd));
+            mockSongService.Setup(m => m.AddSong(songToAdd));
             songController.CreateSong(songToAdd);
             mockSongService.Setup(m => m.DeleteSong(song.Id));
             var result = songController.DeleteSong(song.Id);

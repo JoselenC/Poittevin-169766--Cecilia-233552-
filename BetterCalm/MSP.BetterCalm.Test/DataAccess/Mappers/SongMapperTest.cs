@@ -39,15 +39,8 @@ namespace MSP.BetterCalm.Test
         {
             Song songTest = new Song()
             {
-                Categories = new List<Category>()
-                {
-                    new Category(){Id=1,Name = "Musica"},
-                },
-                Name = "Stand by me",
-                AuthorName = "John Lennon",
-                Duration = 12,
-                UrlAudio = "",
-                UrlImage = ""
+                Categories = new List<Category>() {new Category(){Id=1,Name = "Musica"},},
+                Name = "Stand by me"
             };
             Songs.Add(songTest);
             Song song = Songs.Find(x => x.Name == "Stand by me");
@@ -55,22 +48,21 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
-            public void DomainToDtoTestCategoryNull()
+        public void DomainToDtoTestCategoryNull()
+        {
+            Song songTest = new Song()
             {
-                
-                Song songTest = new Song()
-                {
-                    Categories = null,
-                    Name = "Stand by me",
-                    AuthorName = "John Lennon",
-                    Duration = 12,
-                    UrlAudio = "",
-                    UrlImage = ""
-                };
-                Songs.Add(songTest);
-                Songs.Add(songTest);
-                Song song = Songs.Find(x => x.Name == "Stand by me");
-                Assert.AreEqual(songTest, song);
+                Categories = null,
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = 12,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            Songs.Add(songTest);
+            Songs.Add(songTest);
+            Song song = Songs.Find(x => x.Name == "Stand by me");
+            Assert.AreEqual(songTest, song);
         }
 
         [TestMethod]
