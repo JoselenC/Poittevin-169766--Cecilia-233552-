@@ -47,7 +47,7 @@ namespace MSP.BetterCalm.WebAPI.Dtos
         {
             Song song = new Song()
             {
-                Name = Name, Categories = Categories, Duration = SetDuration(Duration), AuthorName = AuthorName,
+                Id=Id,Name = Name, Categories = Categories, Duration = SetDuration(Duration), AuthorName = AuthorName,
                 UrlAudio = UrlAudio, UrlImage = UrlImage
             };
             return song;

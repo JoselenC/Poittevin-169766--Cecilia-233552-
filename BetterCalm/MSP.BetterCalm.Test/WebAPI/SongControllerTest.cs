@@ -26,13 +26,23 @@ namespace MSP.BetterCalm.Test.WebAPI
             mockSongService=new Mock<ISongService>(MockBehavior.Strict);
             songController = new SongController(mockSongService.Object);
             songs = new List<Song>();
-            song = new Song(){ Id = 1};
-           songDto = new BetterCalm.WebAPI.Dtos.SongDto()
+            song = new Song()
             {
+                Id = 1,
                 Categories = new List<Category>(),
                 Name = "Stand by me",
                 AuthorName = "John Lennon",
-                Duration = "12s",
+                Duration = 12,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            songDto = new BetterCalm.WebAPI.Dtos.SongDto()
+            {
+                Id = 0,
+                Categories = new List<Category>(),
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = "0,2m",
                 UrlAudio = "",
                 UrlImage = ""
             };
@@ -195,7 +205,7 @@ namespace MSP.BetterCalm.Test.WebAPI
             var result = songController.GetSongById(1);
             var okResult = result as OkObjectResult;
             var categoryValue = okResult.Value;
-            Assert.AreEqual(this.song,categoryValue);
+            Assert.AreEqual(songDto,categoryValue);
         }
         
        

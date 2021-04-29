@@ -22,29 +22,10 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public void AddPlaylist(Playlist playlist)
         {
-            AddCategoryToPlaylist(playlist);
-
             repository.Playlists.Add(playlist);
         }
 
-        private static void AddCategoryToPlaylist(Playlist playlist)
-        {
-            for (int i = 0; i < playlist.Songs.Count; i++)
-            {
-                if (playlist.Songs[i].Categories != null)
-                {
-                    foreach (var category in playlist.Songs[i].Categories)
-                    {
-                        if (!playlist.Categories.Contains(category))
-                        {
-                            playlist.Categories.Add(category);
-                        }
-                    }
-                }
-            }
-        }
-
-        public List<Playlist> GetPlaylistByName(string playlistName)
+      public List<Playlist> GetPlaylistByName(string playlistName)
         {
             List<Playlist> playlists = new List<Playlist>();
             foreach (var playlist in repository.Playlists.Get())
@@ -114,17 +95,9 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public void AddNewSongToPlaylist(Song song, int idPlaylist)
         {
-            Playlist oldPlaylist = repository.Playlists.FindById(idPlaylist);
             Playlist playlist = repository.Playlists.FindById(idPlaylist);
+            Playlist oldPlaylist = repository.Playlists.FindById(idPlaylist);
             playlist.Songs.Add(song);
-            if (song.Categories != null)
-            {
-                foreach (var category in song.Categories)
-                {
-                    if (!playlist.Categories.Contains(category))
-                        playlist.Categories.Add(category);
-                }
-            }
             repository.Playlists.Update(oldPlaylist, playlist);
         }
 
