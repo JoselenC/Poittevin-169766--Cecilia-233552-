@@ -6,7 +6,7 @@ namespace MSP.BetterCalm.BusinessLogic
     public interface ISongService
     {
         public List<Song> GetSongs();
-        public void SetSong(Song song);
+        public void AddSong(Song song);
         public List<Song> GetSongsByName(string songName);
         public List<Song> GetSongsByAuthor(string authorName);
         public List<Song> GetSongsByCategoryName(string categoryName);

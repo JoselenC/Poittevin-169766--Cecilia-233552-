@@ -22,64 +22,28 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public void AddPlaylist(Playlist playlist)
         {
-            try
-            {
-                for (int i = 0; i < playlist.Songs.Count; i++)
-                {
-                    DeleteSingleSong(playlist, i);
-                }
+            AddCategoryToPlaylist(playlist);
 
-                repository.Playlists.Add(playlist);
-            }
-            catch (InvalidNameLength)
-            {
-                throw new InvalidNameLength();
-            }
-            catch (InvalidDescriptionLength)
-            {
-                throw new InvalidDescriptionLength();
-            }
-         
+            repository.Playlists.Add(playlist);
         }
 
-        private void DeleteSingleSong(Playlist playlist, int i)
+        private static void AddCategoryToPlaylist(Playlist playlist)
         {
-                Song songToDelete = new Song();
-                Song songBd = repositorySong.Songs.FindById(playlist.Songs[i].Id);
-                if (songBd != null)
-                {
-                    songToDelete.Name = songBd.Name;
-                    songToDelete.Duration = songBd.Duration;
-                    songToDelete.UrlAudio = songBd.UrlAudio;
-                    songToDelete.UrlImage = songBd.UrlImage;
-                    songToDelete.AuthorName = songBd.AuthorName;
-                    songToDelete.Categories = new List<Category>();
-                    DeleteSingleSongSameCategoryPlaylist(playlist, i, songBd, songToDelete);
-                }
-            
-        }
-
-        private void DeleteSingleSongSameCategoryPlaylist(Playlist playlist, int i, Song songBd, Song songToDelete)
-        {
-            if (songBd.Categories != null )
+            for (int i = 0; i < playlist.Songs.Count; i++)
             {
-                foreach (var category in songBd.Categories)
+                if (playlist.Songs[i].Categories != null)
                 {
-                    if (playlist.Categories.Contains(category))
+                    foreach (var category in playlist.Songs[i].Categories)
                     {
-                        repositorySong.Songs.Update(songToDelete,songBd);
-                    }
-                    else
-                    {
-                        playlist.Categories.Add(category);
+                        if (!playlist.Categories.Contains(category))
+                        {
+                            playlist.Categories.Add(category);
+                        }
                     }
                 }
             }
         }
 
-      
-
-        
         public List<Playlist> GetPlaylistByName(string playlistName)
         {
             List<Playlist> playlists = new List<Playlist>();
@@ -161,7 +125,6 @@ namespace MSP.BetterCalm.BusinessLogic
                         playlist.Categories.Add(category);
                 }
             }
-
             repository.Playlists.Update(oldPlaylist, playlist);
         }
 
@@ -170,14 +133,7 @@ namespace MSP.BetterCalm.BusinessLogic
             Playlist oldPlaylist = repository.Playlists.FindById(idPlaylist);
             Playlist playlist = repository.Playlists.FindById(idPlaylist);
             Song song = repositorySong.Songs.FindById(idSong);
-            Song songToAdd = new Song();
-            songToAdd.Name = song.Name;
-            songToAdd.Duration = song.Duration;
-            songToAdd.UrlAudio = song.UrlAudio;
-            songToAdd.UrlImage = song.UrlImage;
-            songToAdd.AuthorName = song.AuthorName;
-            repositorySong.Songs.Delete(song);
-            playlist.Songs.Add(songToAdd);
+            playlist.Songs.Add(song);
             repository.Playlists.Update(oldPlaylist, playlist);
         }
 
