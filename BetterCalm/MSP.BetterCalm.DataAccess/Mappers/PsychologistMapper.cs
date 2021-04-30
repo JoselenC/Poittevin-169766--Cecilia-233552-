@@ -30,7 +30,7 @@ namespace MSP.BetterCalm.DataAccess
                 {
                     ProblematicDto problematic = context.Problematics.FirstOrDefault(x => x.Name == objProblematic.Name);
                     if (problematic is null)
-                        throw new ArgumentException("Problematics creation is not allowed");
+                        throw new InvalidProblematic();
 
                     PsychologistProblematicDto psychologistProblematicDto = new PsychologistProblematicDto()
                     {

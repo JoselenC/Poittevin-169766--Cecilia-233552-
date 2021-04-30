@@ -36,6 +36,16 @@ namespace MSP.BetterCalm.WebAPI.Filters
                 response.Content = context.Exception.Message;
                 response.Code = 409;
             }
+            if (context.Exception is InvalidCategory)
+            {
+                response.Content = context.Exception.Message;
+                response.Code = 404;
+            }
+            if (context.Exception is InvalidProblematic)
+            {
+                response.Content = context.Exception.Message;
+                response.Code = 404;
+            }
             if (context.Exception is ObjectWasNotDeleted)
             {
                 response.Content = context.Exception.Message;
