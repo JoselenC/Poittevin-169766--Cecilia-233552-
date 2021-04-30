@@ -52,6 +52,7 @@ namespace MSP.BetterCalm.Test
         {
             Song songTest = new Song()
             {
+                Id=1,
                 Categories = null,
                 Name = "Stand by me",
                 AuthorName = "John Lennon",
@@ -59,7 +60,6 @@ namespace MSP.BetterCalm.Test
                 UrlAudio = "",
                 UrlImage = ""
             };
-            Songs.Add(songTest);
             Songs.Add(songTest);
             Song song = Songs.Find(x => x.Name == "Stand by me");
             Assert.AreEqual(songTest, song);
@@ -70,7 +70,7 @@ namespace MSP.BetterCalm.Test
         {
             Song songTest = new Song()
             {
-                Id=0,
+                Id=1,
                 Categories = new List<Category>(),
                 Name = "Stand by me",
                 AuthorName = "John Lennon",
@@ -88,16 +88,16 @@ namespace MSP.BetterCalm.Test
         {
             Song songTest = new Song()
             {
-                Id=0,
+                Id=1,
                 Categories = null,
-                Name = "Stand by me",
+                Name = "a",
                 AuthorName = "John Lennon",
                 Duration = 12,
                 UrlAudio = "",
                 UrlImage = ""
             };
             Songs.Add(songTest);
-            Song realSong = Songs.Find(x => x.Name == "Stand by me");
+            Song realSong = Songs.Find(x => x.Name == "a");
             Assert.AreEqual(songTest, realSong);
         }
      

@@ -18,15 +18,7 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
             string getsongName = song.Name;
             Assert.AreEqual(songName, getsongName);
         }
-        
-        
-        [TestMethod]
-        [ExpectedException(typeof(InvalidNameLength), "")]
-        public void SetSongEmptyName()
-        {
-            SongDto song = new SongDto();
-            song.Name = "";
-        }
+      
         
         [TestMethod]
         public void GetSetSongUrlAudio()

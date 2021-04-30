@@ -151,9 +151,9 @@ namespace MSP.BetterCalm.Test
             {
                 Meetings = meetings
             };
-            DateTime? nextMeetingDayOnWeek = psychologist.GetDayForNextMeetingOnWeek(new DateTime(1993, 7, 16));
+            DateTime nextMeetingDayOnWeek = psychologist.GetDayForNextMeetingOnWeek(new DateTime(1993, 7, 16));
 
-            DateTime expectedMeetingDayOnWeek = new DateTime(1993,7,19);
+            DateTime expectedMeetingDayOnWeek = new DateTime(1993,7,16);
             Assert.AreEqual(expectedMeetingDayOnWeek, nextMeetingDayOnWeek);
         }
     }
