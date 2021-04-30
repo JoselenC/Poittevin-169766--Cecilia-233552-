@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.Domain;
+using MSP.BetterCalm.WebAPI.Dtos;
 
 namespace MSP.BetterCalm.WebAPI.Controllers
 {
@@ -74,41 +75,42 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             try
             {
                 Song songById = _songService.GetSongById(id);
-                return Ok(songById);
+                SongDto song = new SongDto().CreateSongDto(songById);
+                return Ok(song);
             }
             catch (KeyNotFoundException)
             {
                 return NotFound("Not found song by this id");
             }
         }
-        
+
         [HttpPost]
-        public IActionResult CreateSong([FromBody] Song song)
+        public IActionResult CreateSong([FromBody] SongDto song)
         {
             try
             {
-                try
-                {
-                    _songService.SetSong(song);
-                    return Ok("Song created");
-                }
-                catch (AlreadyExistThisSong)
-                {
-                    return Conflict("This song is already registered in the system");
-                }
+                _songService.AddSong(song.CreateSong());
+                return Ok("Song created");
+            }
+            catch (AlreadyExistThisSong)
+            {
+                return Conflict("This song is already registered in the system");
             }
             catch (InvalidNameLength)
             {
                 return Conflict("Cannot add a song with an empty name ");
             }
+            catch (InvalidDurationFormat)
+            {
+                return Conflict("Invalid duration format");
+            }
         }
-          
+
         [HttpDelete()]
         public IActionResult DeleteSong([FromBody] Song song)
         {
             try
             {
-                
                 _songService.DeleteSong(song.Id);
                 return Ok("Song removed");
             }

@@ -23,11 +23,7 @@ namespace MSP.BetterCalm.Test
             options = new DbContextOptionsBuilder<ContextDB>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
             context = new ContextDB(this.options);
             Problematics = new DataBaseRepository<Problematic, ProblematicDto>(new ProblematicMapper(), context.Problematics, context);
-            problematicTest = new Problematic()
-            {
-                Id=1,
-                Name = "Dormir",
-            };
+            problematicTest = new Problematic() {Id=1, Name = "Dormir"};
             Problematics.Add(problematicTest);
         }
 
@@ -40,10 +36,7 @@ namespace MSP.BetterCalm.Test
         [TestMethod]
         public void DomainToDtoTest()
         {
-            Problematic problematicTest = new Problematic()
-            {
-                Name = "Estres"
-            };
+            Problematic problematicTest = new Problematic() {Name = "Estres"};
             Problematics.Add(problematicTest);
             Problematic realProblematic = Problematics.Find(x => x.Name == "Estres");
             Assert.AreEqual(problematicTest, realProblematic);

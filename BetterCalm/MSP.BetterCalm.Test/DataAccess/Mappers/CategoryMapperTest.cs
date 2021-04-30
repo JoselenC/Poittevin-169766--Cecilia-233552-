@@ -23,11 +23,7 @@ namespace MSP.BetterCalm.Test
             options = new DbContextOptionsBuilder<ContextDB>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
             context = new ContextDB(this.options); 
             Categories = new DataBaseRepository<Category, CategoryDto>(new CategoryMapper(), context.Categories, context);
-            categoryTest = new Category()
-            {
-                Id=1,
-                Name = "Dormir",
-            };
+            categoryTest = new Category() {Id=1, Name = "Dormir",};
             Categories.Add(categoryTest);
             
         }
@@ -41,11 +37,7 @@ namespace MSP.BetterCalm.Test
         [TestMethod]
         public void DomainToDtoTest()
         {
-            Category categoryTest = new Category()
-            {
-                Id=2,
-                Name = "Yoga"
-            };
+            Category categoryTest = new Category() {Id=2, Name = "Yoga"};
             Categories.Add(categoryTest);
             Category realCategory = Categories.Find(x => x.Name == "Yoga");
             Assert.AreEqual(categoryTest, realCategory);

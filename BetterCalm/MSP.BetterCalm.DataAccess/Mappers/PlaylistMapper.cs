@@ -29,7 +29,7 @@ namespace MSP.BetterCalm.DataAccess
             return CategoriesDto;
         }
         
-        private List<SongDto> createSongs(List<Song> songs, ContextDB context)
+        private List<SongDto> createSongs(List<Song> songs,  List<Category> categories,ContextDB context)
         {
               
             List<SongDto> songsDto = new List<SongDto>();
@@ -41,14 +41,27 @@ namespace MSP.BetterCalm.DataAccess
                     SongDto songDto= songsSet.FirstOrDefault(x => x.SongDtoID == song.Id || (x.Name==song.Name && x.AuthorName==song.AuthorName ));
                     if (songDto == null)
                     {
-                        songDto = new SongDto()
-                        {
+                        List<SongCategoryDto> songCategoryDtos = new List<SongCategoryDto>();
+                       
+                        songDto = new SongDto(){
                             AuthorName = song.AuthorName,
                             Name = song.Name,
                             Duration = song.Duration,
                             UrlAudio = song.UrlAudio,
-                            UrlImage = song.UrlImage
+                            UrlImage = song.UrlImage        
                         };
+                        foreach (var categorySong in song.Categories)
+                        {
+                            songCategoryDtos.Add(new SongCategoryDto(){SongDto = songDto, 
+                                CategoryDto = new CategoryMapper().DomainToDto(categorySong,context)});
+                        }
+                        foreach (var category in categories)
+                        {
+                            songCategoryDtos.Add(new SongCategoryDto(){SongDto = songDto, 
+                                CategoryDto = new CategoryMapper().DomainToDto(category,context)});
+                        }
+
+                        songDto.SongsCategoriesDto = songCategoryDtos;
                     }
                     songsDto.Add(songDto);
                 }
@@ -79,7 +92,7 @@ namespace MSP.BetterCalm.DataAccess
                 context.Entry(playlistDto).State = EntityState.Modified;
             }
             
-            List<SongDto> songs= createSongs(obj.Songs, context);
+            List<SongDto> songs= createSongs(obj.Songs, obj.Categories, context);
             playlistDto.PlaylistSongsDto = new List<PlaylistSongDto>();
             foreach (var songDto in songs)
             {

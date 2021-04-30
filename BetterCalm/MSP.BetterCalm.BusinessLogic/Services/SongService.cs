@@ -32,21 +32,15 @@ namespace MSP.BetterCalm.BusinessLogic
             }
                 
         }
-        public void SetSong(Song song)
-        {
-            try
-            {
-                if (!AlreadyExistThisSong(song))
-                    repository.Songs.Add(song);
-                else
-                    throw new AlreadyExistThisSong();
-            }
-            catch (InvalidNameLength)
-            {
-                throw new InvalidNameLength();
-            }
 
+        public void AddSong(Song song)
+        {
+            if (!AlreadyExistThisSong(song))
+                repository.Songs.Add(song);
+            else
+                throw new AlreadyExistThisSong();
         }
+
         public List<Song> GetSongsByName(string songName)
         {
             List<Song> songs = new List<Song>();
@@ -99,12 +93,6 @@ namespace MSP.BetterCalm.BusinessLogic
             repository.Songs.Update(songToUpdate, songUpdated);
 
         }
-        
-        public void UpdateSong(Song songToUpdate, Song songUpdated)
-        {
-            repository.Songs.Update(songToUpdate, songUpdated);
-        }
-
         public void DeleteSongs(List<Song> playlistSongs)
         {
             if (playlistSongs != null)
@@ -126,7 +114,6 @@ namespace MSP.BetterCalm.BusinessLogic
        
         public Song GetSongById(int id)
         {
-
             return repository.Songs.FindById(id);
         }
     }

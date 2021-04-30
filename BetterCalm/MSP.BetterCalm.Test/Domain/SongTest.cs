@@ -49,20 +49,20 @@ namespace MSP.BetterCalm.Test
         [TestMethod]
         public void GetSetSongDuration()
         {
-            int duration = 23 ;
+            double duration = 23 ;
             Song song = new Song();
             song.Duration = 23;
-            int getsongDuration = song.Duration;
+            double getsongDuration = song.Duration;
             Assert.AreEqual(duration, getsongDuration);
         }
         
         [TestMethod]
         public void GetSetSongDurationHour()
         {
-            int duration = 2 ;
+            double duration = 120 ;
             Song song = new Song();
             song.Duration = 120;
-            int getsongDuration = song.Duration;
+            double getsongDuration = song.Duration;
             Assert.AreEqual(duration, getsongDuration);
         }
         

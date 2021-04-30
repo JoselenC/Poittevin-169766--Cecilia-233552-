@@ -90,15 +90,12 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         {
             try
             {
-                try
-                { 
-                    _playlistService.AddPlaylist(playlist);
-                    return Ok("Playlist created");
-                }
-                catch (InvalidNameLength)
-                {
-                    return Conflict("Cannot add a playlist with an empty name");
-                }
+                _playlistService.AddPlaylist(playlist);
+                return Ok("Playlist created");
+            }
+            catch (InvalidNameLength)
+            {
+                return Conflict("Cannot add a playlist with an empty name");
             }
             catch (InvalidDescriptionLength)
             {

@@ -80,8 +80,12 @@ namespace MSP.BetterCalm.DataAccess
                 }
             }
             
+            DbSet<PlaylistSongDto> PlaylistSongSet = context.Set<PlaylistSongDto>();
+            PlaylistSongDto playlistSongDto= PlaylistSongSet.FirstOrDefault(x=>x.SongID==obj.SongDtoID);
+            if(playlistSongDto==null)
             return new Song()
             {
+                Id=obj.SongDtoID,
                 AuthorName = obj.AuthorName,
                 Name = obj.Name,
                 Categories= categories,
@@ -89,6 +93,7 @@ namespace MSP.BetterCalm.DataAccess
                 UrlAudio = obj.UrlAudio,
                 UrlImage = obj.UrlImage
             };
+            return null;
         }
 
         public Song GetById(ContextDB context, int id)

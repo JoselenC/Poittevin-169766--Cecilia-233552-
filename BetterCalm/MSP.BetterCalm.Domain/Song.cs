@@ -19,16 +19,8 @@ namespace MSP.BetterCalm.Domain
             else
                 throw new InvalidNameLength();
         }
+        public double Duration { get; set; }
         
-        private int duration;
-        public int Duration {get=>duration; set=>SetDuration(value); }
-        private void SetDuration(int vDuration)
-        {
-            if (vDuration>= 60)
-                duration=vDuration/60;
-            else
-                duration = vDuration;
-        }
         public string AuthorName {get; set; }
         
         public string UrlImage {get; set; }

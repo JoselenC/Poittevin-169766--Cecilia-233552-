@@ -4,8 +4,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
+using MSP.BetterCalm.DataAccess;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.WebAPI.Controllers;
+using MSP.BetterCalm.WebAPI.Dtos;
 
 namespace MSP.BetterCalm.Test.WebAPI
 {
@@ -16,14 +18,34 @@ namespace MSP.BetterCalm.Test.WebAPI
         private SongController songController ;
         private List<Song> songs;
         private Song song;
-        
+        private BetterCalm.WebAPI.Dtos.SongDto songDto;
+            
         [TestInitialize]
         public void InitializeTest()
         {
             mockSongService=new Mock<ISongService>(MockBehavior.Strict);
             songController = new SongController(mockSongService.Object);
             songs = new List<Song>();
-            song = new Song(){ Id = 1};
+            song = new Song()
+            {
+                Id = 1,
+                Categories = new List<Category>(),
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = 12,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            songDto = new BetterCalm.WebAPI.Dtos.SongDto()
+            {
+                Id = 0,
+                Categories = new List<Category>(),
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = "0,2m",
+                UrlAudio = "",
+                UrlImage = ""
+            };
         }
         
         [TestMethod]
@@ -75,7 +97,16 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestCreateSong()
         {
-            Song songToAdd = new Song()
+            BetterCalm.WebAPI.Dtos.SongDto songToAdd = new BetterCalm.WebAPI.Dtos.SongDto()
+            {
+                Categories = new List<Category>(),
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = "12s",
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            Song song = new Song()
             {
                 Categories = new List<Category>(),
                 Name = "Stand by me",
@@ -84,7 +115,7 @@ namespace MSP.BetterCalm.Test.WebAPI
                 UrlAudio = "",
                 UrlImage = ""
             };
-            mockSongService.Setup(m => m.SetSong(songToAdd));
+            mockSongService.Setup(m => m.AddSong(song));
             songController.CreateSong(songToAdd);
             mockSongService.Setup(m => m.GetSongs()).Returns(songs);
             var result = songController.GetAll();
@@ -96,40 +127,33 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestNoCreateSongEmptyName()
         {
-            mockSongService.Setup(m => m.SetSong(song)).Throws(new InvalidNameLength());
-            var result = songController.CreateSong(song) as ConflictObjectResult;
+            mockSongService.Setup(m => m.AddSong(song)).Throws(new InvalidNameLength());
+            var result = songController.CreateSong(songDto) as ConflictObjectResult;
             Assert.IsNotNull(result);
         }
         
         [TestMethod]
         public void TestNoCreateSong()
         {
-            mockSongService.Setup(m => m.SetSong(song)).Throws(new AlreadyExistThisSong());
-            var result = songController.CreateSong(song) as ConflictObjectResult;
+            mockSongService.Setup(m => m.AddSong(song)).Throws(new AlreadyExistThisSong());
+            var result = songController.CreateSong(songDto) as ConflictObjectResult;
             Assert.IsNotNull(result);
         }
         
         [TestMethod]
         public void TestGetSongByCategoryNAme()
         {
-            Category category = new Category()
-            {
-                Name = "Dormir"
-            };
             Song songToAdd = new Song()
             {
-                Categories = new List<Category>()
-                {
-                    category
-                },
+                Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
                 AuthorName = "John Lennon",
                 Duration = 12,
                 UrlAudio = "",
                 UrlImage = ""
             };
-            mockSongService.Setup(m => m.SetSong(songToAdd));
-            songController.CreateSong(songToAdd);
+            mockSongService.Setup(m => m.AddSong(songToAdd));
+            songController.CreateSong(songDto);
             mockSongService.Setup(m => m.GetSongsByCategoryName("Dormir")).Returns(songs);
             var result = songController.GetSongsByCategoryName("Dormir");
             var okResult = result as OkObjectResult;
@@ -148,24 +172,17 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestDeleteSong()
         {
-            Category category = new Category()
-            {
-                Name = "Dormir"
-            };
             Song songToAdd = new Song()
             {
-                Categories = new List<Category>()
-                {
-                    category
-                },
+                Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
                 AuthorName = "John Lennon",
                 Duration = 12,
                 UrlAudio = "",
                 UrlImage = ""
             };
-            mockSongService.Setup(m => m.SetSong(songToAdd));
-            songController.CreateSong(songToAdd);
+            mockSongService.Setup(m => m.AddSong(songToAdd));
+            songController.CreateSong(songDto);
             mockSongService.Setup(m => m.DeleteSong(song.Id));
             var result = songController.DeleteSong(song.Id);
             var okResult = result as OkObjectResult;
@@ -188,7 +205,7 @@ namespace MSP.BetterCalm.Test.WebAPI
             var result = songController.GetSongById(1);
             var okResult = result as OkObjectResult;
             var categoryValue = okResult.Value;
-            Assert.AreEqual(this.song,categoryValue);
+            Assert.AreEqual(songDto,categoryValue);
         }
         
        
