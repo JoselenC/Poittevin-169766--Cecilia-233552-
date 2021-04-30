@@ -85,14 +85,21 @@ namespace MSP.BetterCalm.BusinessLogic
         {
             return repository.Songs.Find(x => x.IsSameSongName(name) && x.IsSameAuthorName(author));
         }
-        
+
         public void UpdateSongById(int id, Song songUpdated)
         {
-
-            Song songToUpdate = repository.Songs.FindById(id);
-            repository.Songs.Update(songToUpdate, songUpdated);
-
+            try
+            {
+                Song songToUpdate = repository.Songs.FindById(id);
+                repository.Songs.Update(songToUpdate, songUpdated);
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new ObjectWasNotUpdated();
+            }
         }
+        
+
         public void DeleteSongs(List<Song> playlistSongs)
         {
             if (playlistSongs != null)
@@ -106,16 +113,28 @@ namespace MSP.BetterCalm.BusinessLogic
 
        public void DeleteSong(int id)
         {
-
-            Song songToDelete = repository.Songs.FindById(id);
-            repository.Songs.Delete(songToDelete);
-
+            try
+            {
+                Song songToDelete = repository.Songs.FindById(id);
+                repository.Songs.Delete(songToDelete);
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new ObjectWasNotDeleted();
+            }
         }
-       
-        public Song GetSongById(int id)
-        {
-            return repository.Songs.FindById(id);
-        }
+
+       public Song GetSongById(int id)
+       {
+           try
+           {
+               return repository.Songs.FindById(id);
+           }
+           catch (KeyNotFoundException)
+           {
+               throw new NotFoundId();
+           }
+       }
     }
 }
     
