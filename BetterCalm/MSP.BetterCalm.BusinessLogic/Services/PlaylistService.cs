@@ -70,27 +70,37 @@ namespace MSP.BetterCalm.BusinessLogic
         {
             repository.Playlists.Update(playlistToUpdate, newPlaylist);
         }
-        
+
         public void UpdatePlaylistById(int id, Playlist newPlaylist)
         {
-  
-            Playlist playlistToUpdate = repository.Playlists.FindById(id);
-            repository.Playlists.Update(playlistToUpdate, newPlaylist);
-
+            try
+            {
+                Playlist playlistToUpdate = repository.Playlists.FindById(id);
+                repository.Playlists.Update(playlistToUpdate, newPlaylist);
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new ObjectWasNotUpdated();
+            }
         }
-        
+
         public void DeletePlaylistByName(string name)
         {
             Playlist playlistToDelete=repository.Playlists.Find(x => x.IsSamePlaylistName(name));
             DeletePlaylist(playlistToDelete.Id);
         }
-        
+
         public void DeletePlaylist(int id)
         {
-
-            Playlist playlistToDelete =repository.Playlists.FindById(id);
-            repository.Playlists.Delete(playlistToDelete);
-
+            try
+            {
+                Playlist playlistToDelete = repository.Playlists.FindById(id);
+                repository.Playlists.Delete(playlistToDelete);
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new ObjectWasNotDeleted();
+            }
         }
 
         public void AddNewSongToPlaylist(Song song, int idPlaylist)
@@ -112,7 +122,13 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public Playlist GetPlaylistById(int id)
         {
+            try{
             return repository.Playlists.FindById(id);
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new NotFoundId();
+            }
         }
 
     }

@@ -33,7 +33,7 @@ namespace MSP.BetterCalm.Domain
         }
 
 
-        public DateTime? GetDayForNextMeetingOnWeek(DateTime week)
+        public DateTime GetDayForNextMeetingOnWeek(DateTime week)
         {
             if (Meetings is null)
                 return week;
@@ -48,8 +48,7 @@ namespace MSP.BetterCalm.Domain
                 if (meetings.Count() < 5)
                     return weekDay;
             }
-
-            return null;
+            return week;
         }
     }
 }

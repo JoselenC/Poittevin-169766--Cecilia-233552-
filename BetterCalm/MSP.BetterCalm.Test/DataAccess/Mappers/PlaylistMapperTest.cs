@@ -20,6 +20,7 @@ namespace MSP.BetterCalm.Test
         {
             options = new DbContextOptionsBuilder<ContextDB>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
             context = new ContextDB(this.options);
+            context.Categories.Add(new CategoryDto() {Name = "Dormir"});
             PlaylistMapper songMapper = new PlaylistMapper();
             Playlists = new DataBaseRepository<Playlist, PlaylistDto>(songMapper, context.Playlists, context);
         }
@@ -63,25 +64,19 @@ namespace MSP.BetterCalm.Test
         {
             Playlist NewPlaylistTest = new Playlist()
             {
+                Categories = new List<Category>()
+                {
+                    new Category(){Name = "Dormir"}
+                },
                 Songs= new List<Song>(){ 
                     new Song()
                     {
-                        Categories = new List<Category>()
-                        {
-                            new Category(){Name = "Dormir"},
-                            new Category(){Name = "Musica"}
-                        },
                         Name = "Let it be",
                         AuthorName = "John Lennon",
                         Duration = 12,
                         UrlAudio = "",
                         UrlImage = ""
                     }
-                },
-                Categories = new List<Category>()
-                {
-                    new Category(){Name = "Dormir"},
-                    new Category(){Name = "Yoga"}
                 },
                 Name = "Entrenamiento",
                 Description = "description",
@@ -94,10 +89,8 @@ namespace MSP.BetterCalm.Test
                 {
                     new PlaylistCategoryDto()
                     {
-                        CategoryDto = new CategoryDto(){Name = "Musica",CategoryDtoID = 8},
-                        CategoryID = 1,
-                        PlaylistDto = new PlaylistDto(){Name = "Musicas", Description = "Lo mas escuchado"},
-                        PlaylistID = 1
+                        CategoryDto = new CategoryDto(){Name = "Dormir",CategoryDtoID = 8},
+                        CategoryID = 1
                     }
                 },
                 PlaylistSongsDto = new List<PlaylistSongDto>()
@@ -176,15 +169,11 @@ namespace MSP.BetterCalm.Test
         {
             Playlist playlistTest = new Playlist()
             {
-                Songs= new List<Song>(){ new Song()
+                Categories = new List<Category>()
                 {
-                    Categories = new List<Category>()
-                    {
-                        new Category(){Name = "Dormir"},
-                        new Category(){Name = "Musica"}
-                    },
-                    Name = "Let it be",
-                }},
+                    new Category(){Name = "aaaaa"}
+                },
+                Songs= new List<Song>(){ new Song(){Name = "Let it be"}},
                 Name = "Entrenamiento",
             };
             PlaylistMapper playlistMapper = new PlaylistMapper();

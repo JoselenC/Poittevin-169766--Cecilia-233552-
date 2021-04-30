@@ -112,9 +112,10 @@ namespace MSP.BetterCalm.Test
         [TestMethod]
         public void UpdateTest()
         {
-            Song song = new Song() {Name = "Let it be"};
+            Song song = new Song() {Id=1,Name = "Let it be"};
             Song songToUdated = new Song()
             {
+                Id=1,
                 Name = "Musica",
                 Duration = 120,
                 UrlImage = "urlImage",
@@ -132,10 +133,10 @@ namespace MSP.BetterCalm.Test
         [ExpectedException(typeof(KeyNotFoundException), "")]
         public void NoUpdateTest()
         {
-            Song song = new Song() {Id=1,Name = "Muscia2"};
+            Song song = new Song() {Id=19,Name = "Muscia2"};
             Song songToUdated = new Song()
             {
-                Id=1,
+                Id=18,
                 Name = "Musica",
             };
             Songs.Update(song, songToUdated);

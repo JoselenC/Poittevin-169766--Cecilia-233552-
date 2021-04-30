@@ -50,17 +50,29 @@ namespace MSP.BetterCalm.DataAccess
                             UrlAudio = song.UrlAudio,
                             UrlImage = song.UrlImage        
                         };
-                        foreach (var categorySong in song.Categories)
+                        if (song.Categories != null)
                         {
-                            songCategoryDtos.Add(new SongCategoryDto(){SongDto = songDto, 
-                                CategoryDto = new CategoryMapper().DomainToDto(categorySong,context)});
-                        }
-                        foreach (var category in categories)
-                        {
-                            songCategoryDtos.Add(new SongCategoryDto(){SongDto = songDto, 
-                                CategoryDto = new CategoryMapper().DomainToDto(category,context)});
+                            foreach (var categorySong in song.Categories)
+                            {
+                                songCategoryDtos.Add(new SongCategoryDto()
+                                {
+                                    SongDto = songDto,
+                                    CategoryDto = new CategoryMapper().DomainToDto(categorySong, context)
+                                });
+                            }
                         }
 
+                        if (categories != null)
+                        {
+                            foreach (var category in categories)
+                            {
+                                songCategoryDtos.Add(new SongCategoryDto()
+                                {
+                                    SongDto = songDto,
+                                    CategoryDto = new CategoryMapper().DomainToDto(category, context)
+                                });
+                            }
+                        }
                         songDto.SongsCategoriesDto = songCategoryDtos;
                     }
                     songsDto.Add(songDto);

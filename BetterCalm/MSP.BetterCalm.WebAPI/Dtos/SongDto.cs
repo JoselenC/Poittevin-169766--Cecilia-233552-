@@ -13,15 +13,8 @@ namespace MSP.BetterCalm.WebAPI.Dtos
         public List<Category> Categories {get; set; }
 
         private string name;
-        public string Name {get=>name; set=>SetName(value); }
+        public string Name { get;set; }
         
-        private void SetName(string vName)
-        {
-            if (vName.Length>0)
-                name=vName;
-            else
-                throw new InvalidNameLength();
-        }
         public string Duration { get; set; }
         
         public string AuthorName {get; set; }

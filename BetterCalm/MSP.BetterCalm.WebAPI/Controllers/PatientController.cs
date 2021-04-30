@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.WebAPI.Dtos;
+using MSP.BetterCalm.WebAPI.Filters;
 
 namespace MSP.BetterCalm.WebAPI.Controllers
 {
     [ApiController]
+    [FilterExceptions]
     [Route("api/[controller]")]
     public class PatientController: ControllerBase
     {

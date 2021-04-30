@@ -271,7 +271,7 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        [ExpectedException(typeof(KeyNotFoundException), "")]
+        [ExpectedException(typeof(ObjectWasNotDeleted), "")]
         public void NoDeleteSong()
         {
             Song song1 = new Song()
@@ -284,7 +284,7 @@ namespace MSP.BetterCalm.Test
                 UrlAudio = "",
                 UrlImage = ""
             };
-            songsMock.Setup(x => x.FindById(song1.Id)).Throws(new KeyNotFoundException());
+            songsMock.Setup(x => x.FindById(song1.Id)).Throws(new ObjectWasNotDeleted());
             _songService.DeleteSong(song1.Id);
         }
 
@@ -310,7 +310,7 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        [ExpectedException(typeof(KeyNotFoundException), "")]
+        [ExpectedException(typeof(ObjectWasNotUpdated), "")]
         public void NoUpdateSongTest()
         {  
             Song song = new Song()
@@ -322,7 +322,7 @@ namespace MSP.BetterCalm.Test
                 UrlAudio = "",
                 UrlImage = ""
             };
-            songsMock.Setup(x => x.FindById(7)).Throws(new KeyNotFoundException());
+            songsMock.Setup(x => x.FindById(7)).Throws(new ObjectWasNotUpdated());
             _songService.UpdateSongById(7,song);
         }
         
@@ -348,7 +348,7 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        [ExpectedException(typeof(KeyNotFoundException), "")]
+        [ExpectedException(typeof(NotFoundId), "")]
         public void NoGetSongByIDTest()
         {   
             Song song = new Song()
@@ -360,7 +360,7 @@ namespace MSP.BetterCalm.Test
                 UrlAudio = "",
                 UrlImage = ""
             };
-            songsMock.Setup(x => x.FindById(3)).Throws(new KeyNotFoundException());
+            songsMock.Setup(x => x.FindById(3)).Throws(new NotFoundId());
             _songService.GetSongById(3);
         }
     }

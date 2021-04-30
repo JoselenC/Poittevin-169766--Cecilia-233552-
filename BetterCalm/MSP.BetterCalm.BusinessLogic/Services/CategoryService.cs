@@ -33,7 +33,13 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public Category GetCategoryById(int id)
         {
+            try{
             return repository.Categories.FindById(id);
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new NotFoundId();
+            }
         }
       
     }

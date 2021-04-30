@@ -2,11 +2,13 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.Domain;
+using MSP.BetterCalm.WebAPI.Filters;
 
 namespace MSP.BetterCalm.WebAPI.Controllers
 {
     
     [ApiController]
+    [FilterExceptions]
     [Route("api/Psychologist")]
     public class PsychologistController: ControllerBase
     {

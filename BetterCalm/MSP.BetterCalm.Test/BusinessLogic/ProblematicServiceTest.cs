@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using MSP.BetterCalm.BusinessLogic;
+using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.Test
@@ -63,7 +64,7 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(KeyNotFoundException), "")]
+        [ExpectedException(typeof(NotFoundId), "")]
         public void FindCategoryByNotExistId()
         {
             problematicMock.Setup(x => x.FindById(2)).Throws( new KeyNotFoundException());
