@@ -28,7 +28,14 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public Category GetCategoryByName(string name)
         {
-            return repository.Categories.Find(x => x.IsSameCategoryName(name));
+            try
+            {
+                return repository.Categories.Find(x => x.IsSameCategoryName(name));
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new NotFoundCategory();
+            }
         }
 
         public Category GetCategoryById(int id)
