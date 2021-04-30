@@ -4,7 +4,7 @@ using MSP.BetterCalm.BusinessLogic.Exceptions;
 
 namespace MSP.BetterCalm.Domain
 {
-    public class Song
+    public class Audio
     {
         public int Id { get; set; }
         public List<Category> Categories {get; set; }
@@ -27,11 +27,11 @@ namespace MSP.BetterCalm.Domain
         
         public string UrlAudio {get; set; }
         
-        public bool IsSameSongName(string songName)
+        public bool IsSameAudioName(string audioName)
         {
-            return Name == songName;
+            return Name == audioName;
         }
-
+        
         public bool IsSameAuthorName(string authorName)
         {
             return authorName == AuthorName;
@@ -41,7 +41,7 @@ namespace MSP.BetterCalm.Domain
         {
             if (obj==null) return false;
             if (obj.GetType() != GetType()) return false;
-            return Id == ((Song) obj).Id;
+            return Id == ((Audio) obj).Id;
         }
 
         public bool IsSameCategoryName(string categroyName)

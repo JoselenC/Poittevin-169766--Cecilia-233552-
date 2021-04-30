@@ -1,10 +1,10 @@
 ﻿namespace MSP.BetterCalm.DataAccess
 {
-    public class SongCategoryDto
+    public class AudioCategoryDto
     {
-        public int SongID { get; set; }
+        public int AudioID { get; set; }
         
-        public SongDto SongDto{ get; set; }
+        public AudioDto AudioDto{ get; set; }
         
         public int CategoryID { get; set; }
 

@@ -12,9 +12,9 @@ namespace MSP.BetterCalm.Test
         [TestMethod]
         public void GetSetPlaylistId()
         {
-            PlaylistDto song = new PlaylistDto();
-            song.PlaylistDtoID = 1;
-            Assert.AreEqual(1, song.PlaylistDtoID);
+            PlaylistDto Audio = new PlaylistDto();
+            Audio.PlaylistDtoID = 1;
+            Assert.AreEqual(1, Audio.PlaylistDtoID);
         }
         
         [TestMethod]
@@ -48,12 +48,12 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
-        public void GetSetPlaylistSongDto()
+        public void GetSetPlaylistAudioDto()
         {
             PlaylistDto playlist = new PlaylistDto();
-            playlist.PlaylistSongsDto = new List<PlaylistSongDto>();
-            ICollection<PlaylistSongDto> getPlaylistSong= playlist.PlaylistSongsDto;
-            CollectionAssert.AreEqual(getPlaylistSong.ToList(), new List<PlaylistSongDto>());
+            playlist.PlaylistAudiosDto = new List<PlaylistAudioDto>();
+            ICollection<PlaylistAudioDto> getPlaylistAudio= playlist.PlaylistAudiosDto;
+            CollectionAssert.AreEqual(getPlaylistAudio.ToList(), new List<PlaylistAudioDto>());
         }
         
         [TestMethod]
@@ -61,8 +61,8 @@ namespace MSP.BetterCalm.Test
         {
             PlaylistDto playlist = new PlaylistDto();
             playlist.PlaylistCategoriesDto = new List<PlaylistCategoryDto>();
-            ICollection<PlaylistCategoryDto> getPlaylistSong= playlist.PlaylistCategoriesDto;
-            CollectionAssert.AreEqual(getPlaylistSong.ToList(), new List<PlaylistCategoryDto>());
+            ICollection<PlaylistCategoryDto> getPlaylistAudio= playlist.PlaylistCategoriesDto;
+            CollectionAssert.AreEqual(getPlaylistAudio.ToList(), new List<PlaylistCategoryDto>());
         }
     }
 }

@@ -13,7 +13,7 @@ namespace MSP.BetterCalm.Test.WebAPI
     public class PlaylistControllerTest
     {
         private Mock<IPlaylistService> mockPlaylistService;
-        private Mock<ISongService> mocksongService;
+        private Mock<IAudioService> mockAudioService;
         private PlaylistController playlistController ;
         private List<Playlist> playlists;
         private Playlist playlist;
@@ -22,7 +22,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         public void InitializeTest()
         {
             mockPlaylistService=new Mock<IPlaylistService>(MockBehavior.Strict);
-            mocksongService = new Mock<ISongService>(MockBehavior.Strict);
+            mockAudioService = new Mock<IAudioService>(MockBehavior.Strict);
             playlistController = new PlaylistController(mockPlaylistService.Object);
             playlists = new List<Playlist>();
             playlist = new Playlist(){ Id = 1};
@@ -75,20 +75,20 @@ namespace MSP.BetterCalm.Test.WebAPI
         }
         
         [TestMethod]
-        public void TestGetPlaylistBySongName()
+        public void TestGetPlaylistByAudioName()
         {   
-            mockPlaylistService.Setup(m => m.GetPlaylistBySongName("John Lennon")).Returns(playlists);
-            var result = playlistController.GetPlaylistBySongName("John Lennon");
+            mockPlaylistService.Setup(m => m.GetPlaylistByAudioName("John Lennon")).Returns(playlists);
+            var result = playlistController.GetPlaylistByAudioName("John Lennon");
             var okResult = result as OkObjectResult;
             var playlistValue = okResult.Value;
             Assert.AreEqual(playlists,playlistValue);
         }
         
         [TestMethod]
-        public void TestGetPlaylistByInvalidSongName()
+        public void TestGetPlaylistByInvalidAudioName()
         {   
-            mockPlaylistService.Setup(m => m.GetPlaylistBySongName("John Lennon")).Throws(new KeyNotFoundException());
-            var result = playlistController.GetPlaylistBySongName("John Lennon") as NotFoundObjectResult;
+            mockPlaylistService.Setup(m => m.GetPlaylistByAudioName("John Lennon")).Throws(new KeyNotFoundException());
+            var result = playlistController.GetPlaylistByAudioName("John Lennon") as NotFoundObjectResult;
             Assert.IsNotNull(result);
         }
         
@@ -97,14 +97,14 @@ namespace MSP.BetterCalm.Test.WebAPI
         {
             Playlist playlistTest = new Playlist()
             {
-                Songs= new List<Song>(),
+                Audios= new List<Audio>(),
                 Categories = new List<Category>(),
                 Name = "Entrenamiento",
                 Description = "description",
                 UrlImage = ""
             };
             mockPlaylistService.Setup(m => m.AddPlaylist(playlistTest));
-            mocksongService.Setup(m => m.DeleteSongs(playlistTest.Songs));
+            mockAudioService.Setup(m => m.DeleteAudio(playlistTest.Audios));
             playlistController.CreatePlaylist(playlistTest);
             mockPlaylistService.Setup(m => m.GetPlaylist()).Returns(playlists);
             var result = playlistController.GetAll();
@@ -117,7 +117,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         public void TestCreateInvalidNamePlaylist()
         {
             mockPlaylistService.Setup(m => m.AddPlaylist(playlist)).Throws(new InvalidNameLength());
-            mocksongService.Setup(m => m.DeleteSongs(playlist.Songs));
+            mockAudioService.Setup(m => m.DeleteAudio(playlist.Audios));
             var result=playlistController.CreatePlaylist(playlist) as ConflictObjectResult;
              Assert.IsNotNull(result);
         }
@@ -125,10 +125,10 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestCreateInvalidDescriptionPlaylist()
         {
-            List<Song> songs = new List<Song>();
+            List<Audio> Audios = new List<Audio>();
          
             mockPlaylistService.Setup(m => m.AddPlaylist(playlist)).Throws(new InvalidDescriptionLength());
-            mocksongService.Setup(m => m.DeleteSongs(playlist.Songs));
+            mockAudioService.Setup(m => m.DeleteAudio(playlist.Audios));
             var result=playlistController.CreatePlaylist(playlist) as ConflictObjectResult;
             Assert.IsNotNull(result);
         }
@@ -152,15 +152,15 @@ namespace MSP.BetterCalm.Test.WebAPI
         }
         
         [TestMethod]
-        public void AddSongToPlaylistTest()
+        public void AddAudioToPlaylistTest()
         {
-            playlist.Songs = new List<Song>();
-            Song song = new Song() {Id = 1, Name = "Let it be"};
-            mockPlaylistService.Setup(m => m.AssociateSongToPlaylist(1,1));
+            playlist.Audios = new List<Audio>();
+            Audio audio = new Audio() {Id = 1, Name = "Let it be"};
+            mockPlaylistService.Setup(m => m.AssociateAudioToPlaylist(1,1));
             mockPlaylistService.Setup(m => m.DeletePlaylist(1));
             mockPlaylistService.Setup(m => m.GetPlaylistById(1)).Returns(playlist);
             mockPlaylistService.Setup(m => m.GetPlaylist()).Returns(playlists);
-            playlistController.AssociateSongToPlaylist(1,1);
+            playlistController.AssociateAudioToPlaylist(1,1);
             var result = playlistController.GetAll();
             var okResult = result as OkObjectResult;
             var playlistsValue = okResult.Value;
@@ -168,7 +168,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         }
         
         [TestMethod]
-        public void TestGetPlaylistBySongId()
+        public void TestGetPlaylistByAudioId()
         {   
             mockPlaylistService.Setup(m => m.GetPlaylistById(1)).Returns(playlist);
             var result = playlistController.GetPlaylistById(1);
@@ -178,7 +178,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         }
         
         [TestMethod]
-        public void TestNoGetPlaylistBySongId()
+        public void TestNoGetPlaylistByAudioId()
         {   
             mockPlaylistService.Setup(m => m.GetPlaylistById(1)).Throws(new KeyNotFoundException());
             var result = playlistController.GetPlaylistById(1) as NotFoundObjectResult;

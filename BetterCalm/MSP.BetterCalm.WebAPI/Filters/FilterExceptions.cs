@@ -31,7 +31,7 @@ namespace MSP.BetterCalm.WebAPI.Filters
                 response.Content = context.Exception.Message;
                 response.Code = 409;
             }
-            if (context.Exception is AlreadyExistThisSong)
+            if (context.Exception is AlreadyExistThisAudio)
             {
                 response.Content = context.Exception.Message;
                 response.Code = 409;
@@ -51,7 +51,7 @@ namespace MSP.BetterCalm.WebAPI.Filters
                 response.Content = context.Exception.Message;
                 response.Code = 404;
             }
-            if (context.Exception is AlreadyExistThisSong)
+            if (context.Exception is AlreadyExistThisAudio)
             {
                 response.Content = context.Exception.Message;
                 response.Code = 404;

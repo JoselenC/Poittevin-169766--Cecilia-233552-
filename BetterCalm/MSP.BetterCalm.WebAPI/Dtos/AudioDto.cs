@@ -5,7 +5,7 @@ using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.WebAPI.Dtos
 {
-    public class SongDto
+    public class AudioDto
     {
         
         public int Id { get; set; }
@@ -36,19 +36,19 @@ namespace MSP.BetterCalm.WebAPI.Dtos
                 throw new InvalidDurationFormat();
         }
 
-        public Song CreateSong()
+        public Audio CreateAudio()
         {
-            Song song = new Song()
+            Audio audio = new Audio()
             {
                 Id=Id,Name = Name, Categories = Categories, Duration = SetDuration(Duration), AuthorName = AuthorName,
                 UrlAudio = UrlAudio, UrlImage = UrlImage
             };
-            return song;
+            return audio;
         }
         
-        public SongDto CreateSongDto(Song song)
+        public AudioDto CreateAudioDto(Audio audio)
         {
-            double duration = (song.Duration / 60);
+            double duration = (audio.Duration / 60);
             string durationFormat = "";
             if (duration <= 60)
             {
@@ -56,23 +56,23 @@ namespace MSP.BetterCalm.WebAPI.Dtos
             }
             else
             {
-                duration = (song.Duration / 60)/60;
+                duration = (audio.Duration / 60)/60;
                 durationFormat = duration.ToString() + "h";
             }
 
-            SongDto songReturn = new SongDto()
+            AudioDto audioReturn = new AudioDto()
             {
-                Name = song.Name, Categories = song.Categories, Duration = durationFormat, AuthorName = song.AuthorName,
-                UrlAudio = song.UrlAudio, UrlImage = song.UrlImage
+                Name = audio.Name, Categories = audio.Categories, Duration = durationFormat, AuthorName = audio.AuthorName,
+                UrlAudio = audio.UrlAudio, UrlImage = audio.UrlImage
             };
-            return songReturn;
+            return audioReturn;
         }
         
         public override bool Equals(object obj)
         {
             if (obj==null) return false;
             if (obj.GetType() != GetType()) return false;
-            return Id == ((SongDto) obj).Id;
+            return Id == ((AudioDto) obj).Id;
         }
     }
 }

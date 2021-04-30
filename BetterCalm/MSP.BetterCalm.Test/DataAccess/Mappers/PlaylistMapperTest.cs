@@ -21,8 +21,8 @@ namespace MSP.BetterCalm.Test
             options = new DbContextOptionsBuilder<ContextDB>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
             context = new ContextDB(this.options);
             context.Categories.Add(new CategoryDto() {Name = "Dormir"});
-            PlaylistMapper songMapper = new PlaylistMapper();
-            Playlists = new DataBaseRepository<Playlist, PlaylistDto>(songMapper, context.Playlists, context);
+            PlaylistMapper AudioMapper = new PlaylistMapper();
+            Playlists = new DataBaseRepository<Playlist, PlaylistDto>(AudioMapper, context.Playlists, context);
         }
 
      
@@ -37,7 +37,7 @@ namespace MSP.BetterCalm.Test
         {
             Playlist playlistTest = new Playlist()
             {
-                Songs= new List<Song>(),
+                Audios= new List<Audio>(),
                 Categories = new List<Category>(),
                 Name = "Entrenamiento",
                 Description = "description",
@@ -46,7 +46,7 @@ namespace MSP.BetterCalm.Test
             PlaylistDto playlistTestDto = new PlaylistDto()
             {
                 PlaylistDtoID = 1,
-                PlaylistSongsDto= new List<PlaylistSongDto>(),
+                PlaylistAudiosDto= new List<PlaylistAudioDto>(),
                 PlaylistCategoriesDto = new List<PlaylistCategoryDto>(),
                 Name = "Entrenamiento",
                 Description = "description",
@@ -60,7 +60,7 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        public void UpdateTestDiffCategorySong()
+        public void UpdateTestDiffCategoryAudio()
         {
             Playlist NewPlaylistTest = new Playlist()
             {
@@ -68,8 +68,8 @@ namespace MSP.BetterCalm.Test
                 {
                     new Category(){Name = "Dormir"}
                 },
-                Songs= new List<Song>(){ 
-                    new Song()
+                Audios= new List<Audio>(){ 
+                    new Audio()
                     {
                         Name = "Let it be",
                         AuthorName = "John Lennon",
@@ -93,12 +93,12 @@ namespace MSP.BetterCalm.Test
                         CategoryID = 1
                     }
                 },
-                PlaylistSongsDto = new List<PlaylistSongDto>()
+                PlaylistAudiosDto = new List<PlaylistAudioDto>()
                 {
-                  new PlaylistSongDto()
+                  new PlaylistAudioDto()
                   {
-                      SongDto= new SongDto(){Name = "let it be", AuthorName = "Jhon Lennon"},
-                      SongID = 1,
+                      AudioDto= new AudioDto(){Name = "let it be", AuthorName = "Jhon Lennon"},
+                      AudioID = 1,
                       PlaylistDto = new PlaylistDto(){Name = "Musicas", Description = "Lo mas escuchado"},
                       PlaylistID = 1,
                   } 
@@ -116,7 +116,7 @@ namespace MSP.BetterCalm.Test
         {
             Playlist playlistTest = new Playlist()
             {
-                Songs= new List<Song>(),
+                Audios= new List<Audio>(),
                 Categories = new List<Category>(),
                 Name = "Entrenamiento",
                 Description = "description",
@@ -125,7 +125,7 @@ namespace MSP.BetterCalm.Test
             PlaylistDto playlistTestDto = new PlaylistDto()
             {
                 PlaylistDtoID = 1,
-                PlaylistSongsDto= null,
+                PlaylistAudiosDto= null,
                 PlaylistCategoriesDto = null,
                 Name = "Entrenamiento",
                 Description = "description",
@@ -142,7 +142,7 @@ namespace MSP.BetterCalm.Test
         {
             Playlist playlistTest = new Playlist()
             {
-                Songs= new List<Song>(),
+                Audios= new List<Audio>(),
                 Categories = new List<Category>(),
                 Name = "Entrenamiento",
                 Description = "description",
@@ -151,7 +151,7 @@ namespace MSP.BetterCalm.Test
             PlaylistDto playlistTestDto = new PlaylistDto()
             {
                 PlaylistDtoID = 1,
-                PlaylistSongsDto= new List<PlaylistSongDto>(),
+                PlaylistAudiosDto= new List<PlaylistAudioDto>(),
                 PlaylistCategoriesDto = new List<PlaylistCategoryDto>(),
                 Name = "Entrenamiento",
                 Description = "description",
@@ -165,7 +165,7 @@ namespace MSP.BetterCalm.Test
         
         [TestMethod]
         [ExpectedException(typeof(InvalidCategory), "")]
-        public void DomainToDtoTestDiffCategoryySong()
+        public void DomainToDtoTestDiffCategoryyAudio()
         {
             Playlist playlistTest = new Playlist()
             {
@@ -173,7 +173,7 @@ namespace MSP.BetterCalm.Test
                 {
                     new Category(){Name = "aaaaa"}
                 },
-                Songs= new List<Song>(){ new Song(){Name = "Let it be"}},
+                Audios= new List<Audio>(){ new Audio(){Name = "Let it be"}},
                 Name = "Entrenamiento",
             };
             PlaylistMapper playlistMapper = new PlaylistMapper();
@@ -185,7 +185,7 @@ namespace MSP.BetterCalm.Test
         {
             Playlist playlistTest = new Playlist()
             {
-                Songs= new List<Song>(),
+                Audios= new List<Audio>(),
                 Categories = new List<Category>(),
                 Name = "Entrenamiento",
                 Description = "description",
@@ -194,7 +194,7 @@ namespace MSP.BetterCalm.Test
             PlaylistDto playlistTestDto = new PlaylistDto()
             {
                 PlaylistDtoID = 1,
-                PlaylistSongsDto= null,
+                PlaylistAudiosDto= null,
                 PlaylistCategoriesDto = null,
                 Name = "Entrenamiento",
                 Description = "description",
@@ -211,7 +211,7 @@ namespace MSP.BetterCalm.Test
         {
             Playlist playlistTest = new Playlist()
             {
-                Songs = new List<Song>(),
+                Audios = new List<Audio>(),
                 Categories = new List<Category>(),
                 Name = "Entrenamiento",
                 Description = "description",
@@ -220,7 +220,7 @@ namespace MSP.BetterCalm.Test
             PlaylistDto playlistTestDto = new PlaylistDto()
             {
                 PlaylistDtoID = 1,
-                PlaylistSongsDto = new List<PlaylistSongDto>(),
+                PlaylistAudiosDto = new List<PlaylistAudioDto>(),
                 PlaylistCategoriesDto = new List<PlaylistCategoryDto>(),
                 Name = "Entrenamiento",
                 Description = "description",
@@ -237,7 +237,7 @@ namespace MSP.BetterCalm.Test
         {
             Playlist playlistTest = new Playlist()
             {
-                Songs= new List<Song>(),
+                Audios= new List<Audio>(),
                 Categories = new List<Category>(),
                 Name = "Entrenamiento",
                 Description = "description",
@@ -246,7 +246,7 @@ namespace MSP.BetterCalm.Test
             PlaylistDto playlistTestDto = new PlaylistDto()
             {
                 PlaylistDtoID = 1,
-                PlaylistSongsDto= null,
+                PlaylistAudiosDto= null,
                 PlaylistCategoriesDto = null,
                 Name = "Entrenamiento",
                 Description = "description",

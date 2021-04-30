@@ -13,21 +13,21 @@ namespace MSP.BetterCalm.Test
     {
 
         private Mock<ManagerPlaylistRepository> repoMock;
-        private Mock<ManagerSongRepository> repoSongMock;
+        private Mock<ManagerAudioRepository> repoAudioMock;
         private Mock<IRepository<Playlist>> playlisMock;
-        private Mock<IRepository<Song>> songMock;
+        private Mock<IRepository<Audio>> AudioMock;
         private PlaylistService _playlistService;
 
         [TestInitialize]
         public void TestFixtureSetup()
         {
-            repoSongMock = new Mock<ManagerSongRepository>();
+            repoAudioMock = new Mock<ManagerAudioRepository>();
             repoMock = new Mock<ManagerPlaylistRepository>();
             playlisMock = new Mock<IRepository<Playlist>>();
-            songMock = new Mock<IRepository<Song>>();
+            AudioMock = new Mock<IRepository<Audio>>();
             repoMock.Object.Playlists = playlisMock.Object;
-            repoSongMock.Object.Songs = songMock.Object;
-            _playlistService = new PlaylistService(repoMock.Object, repoSongMock.Object);
+            repoAudioMock.Object.Audios = AudioMock.Object;
+            _playlistService = new PlaylistService(repoMock.Object, repoAudioMock.Object);
         }
 
         [TestMethod]
@@ -77,27 +77,27 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
-        public void FindPlaylistBySongName()
+        public void FindPlaylistByAudioName()
         {
-            Playlist playlist = new Playlist() {Songs = new List<Song>() {new Song() {Name = "Stand by me"}}, Name = "Entrena tu mente"};
+            Playlist playlist = new Playlist() {Audios = new List<Audio>() {new Audio() {Name = "Stand by me"}}, Name = "Entrena tu mente"};
             List<Playlist> playlists = new List<Playlist>() {playlist};
             playlisMock.Setup(x => x.Set(playlists));
             _playlistService.AddPlaylist(playlist);
             playlisMock.Setup(x => x.Get()).Returns(playlists);
-            List<Playlist> playlist2 = _playlistService.GetPlaylistBySongName("Stand by me");
+            List<Playlist> playlist2 = _playlistService.GetPlaylistByAudioName("Stand by me");
             CollectionAssert.AreEqual(playlists, playlist2);
         }
 
         [TestMethod]
         [ExpectedException(typeof(KeyNotFoundException), "")]
-        public void NoFindPlaylistBySongName()
+        public void NoFindPlaylistByAudioName()
         {
-            Playlist playlist = new Playlist() {Songs = new List<Song>() {new Song() {Name = "Stand by me"}}, Name = "Entrena tu mente"};
+            Playlist playlist = new Playlist() {Audios = new List<Audio>() {new Audio() {Name = "Stand by me"}}, Name = "Entrena tu mente"};
             List<Playlist> playlists = new List<Playlist>() {playlist};
             playlisMock.Setup(x => x.Set(playlists));
             _playlistService.AddPlaylist(playlist);
             playlisMock.Setup(x => x.Get()).Returns(playlists);
-            _playlistService.GetPlaylistBySongName("Para correr");
+            _playlistService.GetPlaylistByAudioName("Para correr");
         }
 
         [TestMethod]
@@ -115,7 +115,7 @@ namespace MSP.BetterCalm.Test
         {
             Playlist playlist = new Playlist()
             {
-                Songs = new List<Song>() {new Song() {Name = "Stand by me"}},
+                Audios = new List<Audio>() {new Audio() {Name = "Stand by me"}},
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Entrena tu mente"
             };
@@ -133,7 +133,7 @@ namespace MSP.BetterCalm.Test
             Playlist playlist = new Playlist()
             {
                 Id = 1,
-                Songs = new List<Song>() {new Song() {Name = "Stand by me"}},
+                Audios = new List<Audio>() {new Audio() {Name = "Stand by me"}},
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Entrena tu mente"
             };
@@ -150,7 +150,7 @@ namespace MSP.BetterCalm.Test
         {
             Playlist playlist1 = new Playlist()
             {
-                Songs = new List<Song>() {new Song() {Name = "Stand by me"}},
+                Audios = new List<Audio>() {new Audio() {Name = "Stand by me"}},
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Entrena tu mente",
                 UrlImage = "urlImage",
@@ -158,7 +158,7 @@ namespace MSP.BetterCalm.Test
             };
             Playlist playlist2 = new Playlist()
             {
-                Songs = new List<Song>() {new Song() {Name = "Stand by me"}},
+                Audios = new List<Audio>() {new Audio() {Name = "Stand by me"}},
                 Categories = new List<Category>() {new Category() {Name = "Musica"}},
                 Name = "Entrena tu mente",
                 UrlImage = "urlImage",

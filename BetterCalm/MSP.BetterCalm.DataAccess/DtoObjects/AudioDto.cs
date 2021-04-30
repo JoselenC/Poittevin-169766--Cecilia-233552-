@@ -2,9 +2,9 @@
 
 namespace MSP.BetterCalm.DataAccess
 {
-    public class SongDto
+    public class AudioDto
     {
-        public int SongDtoID { get; set; }
+        public int AudioDtoID { get; set; }
         
         public string Name {get; set; }
         
@@ -16,8 +16,8 @@ namespace MSP.BetterCalm.DataAccess
         
         public string UrlAudio {get; set; }
      
-        public ICollection<PlaylistSongDto> PlaylistSongsDto { get; set; }
+        public ICollection<PlaylistAudioDto> PlaylistAudiosDto { get; set; }
         
-        public ICollection<SongCategoryDto> SongsCategoriesDto { get; set; }
+        public ICollection<AudioCategoryDto> AudiosCategoriesDto { get; set; }
     }
 }

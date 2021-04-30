@@ -2,8 +2,8 @@
 
 namespace MSP.BetterCalm.BusinessLogic
 {
-    public class ManagerSongRepository
+    public class ManagerAudioRepository
     {
-        public IRepository<Song> Songs;
+        public IRepository<Audio> Audios;
     }
 }

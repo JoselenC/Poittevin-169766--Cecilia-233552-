@@ -94,9 +94,9 @@ namespace MSP.BetterCalm.Test.WebAPI.Filters
         }
         
         [TestMethod]
-        public void AlreadyExistThisSongTest()
+        public void AlreadyExistThisAudioTest()
         {
-            exceptionContext.Exception = new AlreadyExistThisSong();
+            exceptionContext.Exception = new AlreadyExistThisAudio();
             response = new ErrorDto()
             {
                 IsSuccess = false,

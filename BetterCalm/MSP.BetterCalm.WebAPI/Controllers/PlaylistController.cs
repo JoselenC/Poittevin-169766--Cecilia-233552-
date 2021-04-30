@@ -24,8 +24,8 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            IEnumerable<Playlist> songs = _playlistService.GetPlaylist();
-            return Ok(songs);
+            IEnumerable<Playlist> Audios = _playlistService.GetPlaylist();
+            return Ok(Audios);
         }
 
         [HttpGet("name")]
@@ -73,17 +73,17 @@ namespace MSP.BetterCalm.WebAPI.Controllers
 
         }
 
-        [HttpGet("song/name")]
-        public IActionResult GetPlaylistBySongName([FromQuery] string name)
+        [HttpGet("audio/name")]
+        public IActionResult GetPlaylistByAudioName([FromQuery] string name)
         {
             try
             {
-                List<Playlist> playlists = _playlistService.GetPlaylistBySongName(name);
+                List<Playlist> playlists = _playlistService.GetPlaylistByAudioName(name);
                 return Ok(playlists);
             }
             catch (KeyNotFoundException)
             {
-                return NotFound("Not found playlist by this song name");
+                return NotFound("Not found playlist by this audio name");
             }
         }
 
@@ -120,19 +120,19 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         }
 
         [HttpPost ("{id}")]
-        public IActionResult AddNewSongToPlaylist([FromBody] Song song, [FromRoute] int id)
+        public IActionResult AddNewAudioToPlaylist([FromBody] Audio audio, [FromRoute] int id)
         {
 
-            _playlistService.AddNewSongToPlaylist(song, id);
-            return Ok("New song was added to the playlist");
+            _playlistService.AddNewAudioToPlaylist(audio, id);
+            return Ok("New audio was added to the playlist");
         }
         
-        [HttpPost ("{idPlaylist}/Songs/{id}")]
-        public IActionResult AssociateSongToPlaylist([FromRoute] int id, int idPlaylist)
+        [HttpPost ("{idPlaylist}/Audios/{id}")]
+        public IActionResult AssociateAudioToPlaylist([FromRoute] int id, int idPlaylist)
         {
            
-            _playlistService.AssociateSongToPlaylist(id,idPlaylist);
-            return Ok("The song was added to the playlist");
+            _playlistService.AssociateAudioToPlaylist(id,idPlaylist);
+            return Ok("The audio was added to the playlist");
         }
         
         [HttpPut ("{id}")]
@@ -141,7 +141,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             try
             {
                 _playlistService.UpdatePlaylistById(id,newPlaylist);
-                return Ok("The song was updated");
+                return Ok("The audio was updated");
             }
             catch (Exception e)
             {

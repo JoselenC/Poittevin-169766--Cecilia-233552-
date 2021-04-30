@@ -8,10 +8,10 @@ namespace MSP.BetterCalm.BusinessLogic
     public class PlaylistService:IPlaylistService
     {
         private ManagerPlaylistRepository repository;
-        private ManagerSongRepository repositorySong;
-        public PlaylistService(ManagerPlaylistRepository vRepository,ManagerSongRepository vRepositorySong)
+        private ManagerAudioRepository _repositoryAudio;
+        public PlaylistService(ManagerPlaylistRepository vRepository,ManagerAudioRepository vRepositoryAudio)
         {
-            repositorySong = vRepositorySong;
+            _repositoryAudio = vRepositoryAudio;
             repository = vRepository;
         }
         
@@ -39,12 +39,12 @@ namespace MSP.BetterCalm.BusinessLogic
             return playlists;
         }
 
-        public List<Playlist> GetPlaylistBySongName(string songName)
+        public List<Playlist> GetPlaylistByAudioName(string audioName)
         {
             List<Playlist> playlists = new List<Playlist>();
             foreach (var playlist in repository.Playlists.Get())
             {
-                if(playlist.IsSameSongName(songName))
+                if(playlist.IsSameAudioName(audioName))
                     playlists.Add(playlist);
             }
             if (playlists.Count == 0)
@@ -103,20 +103,20 @@ namespace MSP.BetterCalm.BusinessLogic
             }
         }
 
-        public void AddNewSongToPlaylist(Song song, int idPlaylist)
+        public void AddNewAudioToPlaylist(Audio audio, int idPlaylist)
         {
             Playlist playlist = repository.Playlists.FindById(idPlaylist);
             Playlist oldPlaylist = repository.Playlists.FindById(idPlaylist);
-            playlist.Songs.Add(song);
+            playlist.Audios.Add(audio);
             repository.Playlists.Update(oldPlaylist, playlist);
         }
 
-        public void  AssociateSongToPlaylist(int idSong, int idPlaylist)
+        public void  AssociateAudioToPlaylist(int idAudio, int idPlaylist)
         {
             Playlist oldPlaylist = repository.Playlists.FindById(idPlaylist);
             Playlist playlist = repository.Playlists.FindById(idPlaylist);
-            Song song = repositorySong.Songs.FindById(idSong);
-            playlist.Songs.Add(song);
+            Audio audio = _repositoryAudio.Audios.FindById(idAudio);
+            playlist.Audios.Add(audio);
             repository.Playlists.Update(oldPlaylist, playlist);
         }
 
