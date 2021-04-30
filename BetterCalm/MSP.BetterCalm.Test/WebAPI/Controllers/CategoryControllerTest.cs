@@ -50,11 +50,11 @@ namespace MSP.BetterCalm.Test.WebAPI
         }
         
         [TestMethod]
+        [ExpectedException(typeof(KeyNotFoundException))]
         public void TestNoGetCategoryByName()
         {
             mockCategoryService.Setup(m => m.GetCategoryByName("Dormir")).Throws(new KeyNotFoundException());
-            var result = categoryController.GetCategoryByName("Dormir") as NotFoundObjectResult;
-            Assert.IsNotNull(result);
+            categoryController.GetCategoryByName("Dormir");
         }
         
         [TestMethod]
@@ -68,11 +68,11 @@ namespace MSP.BetterCalm.Test.WebAPI
         }
         
         [TestMethod]
+        [ExpectedException(typeof(NotFoundId))]
         public void TestNoGetCategoryById()
         {
-            mockCategoryService.Setup(m => m.GetCategoryById(1)).Throws(new KeyNotFoundException());
-            var result = categoryController.GetCategoryById(1) as NotFoundObjectResult;
-            Assert.IsNotNull(result);
+            mockCategoryService.Setup(m => m.GetCategoryById(1)).Throws(new NotFoundId());
+            categoryController.GetCategoryById(1);
         }
     }
 }

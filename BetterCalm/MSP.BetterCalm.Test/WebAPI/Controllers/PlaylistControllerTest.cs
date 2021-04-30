@@ -49,11 +49,11 @@ namespace MSP.BetterCalm.Test.WebAPI
         }
         
         [TestMethod]
+        [ExpectedException(typeof(NotFoundPlaylist))]
         public void TestGetPlaylistByInvalidName()
         {
-            mockPlaylistService.Setup(m => m.GetPlaylistByName("Stand by me")).Throws(new KeyNotFoundException());
-            var result = playlistController.GetPlaylistByName("Stand by me") as NotFoundObjectResult;
-            Assert.IsNotNull(result);
+            mockPlaylistService.Setup(m => m.GetPlaylistByName("Stand by me")).Throws(new NotFoundPlaylist());
+            playlistController.GetPlaylistByName("Stand by me");
         }
         
         [TestMethod]
@@ -67,11 +67,11 @@ namespace MSP.BetterCalm.Test.WebAPI
         }
         
         [TestMethod]
+        [ExpectedException(typeof(NotFoundPlaylist))]
         public void TestGetPlaylistByInvalidCategoryName()
         {   
-            mockPlaylistService.Setup(m => m.GetPlaylistByCategoryName("John Lennon")).Throws(new KeyNotFoundException());
-            var result = playlistController.GetPlaylistByCategoryName("John Lennon") as NotFoundObjectResult;
-            Assert.IsNotNull(result);
+            mockPlaylistService.Setup(m => m.GetPlaylistByCategoryName("John Lennon")).Throws(new NotFoundPlaylist());
+             playlistController.GetPlaylistByCategoryName("John Lennon");
         }
         
         [TestMethod]
@@ -85,11 +85,11 @@ namespace MSP.BetterCalm.Test.WebAPI
         }
         
         [TestMethod]
+        [ExpectedException(typeof(NotFoundAudio))]
         public void TestGetPlaylistByInvalidAudioName()
         {   
-            mockPlaylistService.Setup(m => m.GetPlaylistByAudioName("John Lennon")).Throws(new KeyNotFoundException());
-            var result = playlistController.GetPlaylistByAudioName("John Lennon") as NotFoundObjectResult;
-            Assert.IsNotNull(result);
+            mockPlaylistService.Setup(m => m.GetPlaylistByAudioName("John Lennon")).Throws(new NotFoundAudio());
+            var result = playlistController.GetPlaylistByAudioName("John Lennon");
         }
         
         [TestMethod]
@@ -114,23 +114,21 @@ namespace MSP.BetterCalm.Test.WebAPI
         }
         
         [TestMethod]
+        [ExpectedException(typeof(InvalidNameLength))]
         public void TestCreateInvalidNamePlaylist()
         {
             mockPlaylistService.Setup(m => m.AddPlaylist(playlist)).Throws(new InvalidNameLength());
             mockAudioService.Setup(m => m.DeleteAudio(playlist.Audios));
-            var result=playlistController.CreatePlaylist(playlist) as ConflictObjectResult;
-             Assert.IsNotNull(result);
+            playlistController.CreatePlaylist(playlist);
         }
         
         [TestMethod]
+        [ExpectedException(typeof(InvalidDescriptionLength))]
         public void TestCreateInvalidDescriptionPlaylist()
         {
-            List<Audio> Audios = new List<Audio>();
-         
             mockPlaylistService.Setup(m => m.AddPlaylist(playlist)).Throws(new InvalidDescriptionLength());
             mockAudioService.Setup(m => m.DeleteAudio(playlist.Audios));
-            var result=playlistController.CreatePlaylist(playlist) as ConflictObjectResult;
-            Assert.IsNotNull(result);
+            playlistController.CreatePlaylist(playlist);
         }
         
         [TestMethod]
@@ -144,11 +142,11 @@ namespace MSP.BetterCalm.Test.WebAPI
         }
         
         [TestMethod]
+        [ExpectedException(typeof(ObjectWasNotDeleted))]
         public void TestNoDeletePlaylist()
         {   
-            mockPlaylistService.Setup(m => m.DeletePlaylist(playlist.Id)).Throws(new KeyNotFoundException());
-            var result = playlistController.DeletePlaylist(playlist.Id) as NotFoundObjectResult;
-            Assert.IsNotNull(result);
+            mockPlaylistService.Setup(m => m.DeletePlaylist(playlist.Id)).Throws(new ObjectWasNotDeleted());
+            playlistController.DeletePlaylist(playlist.Id);
         }
         
         [TestMethod]
@@ -178,11 +176,11 @@ namespace MSP.BetterCalm.Test.WebAPI
         }
         
         [TestMethod]
+        [ExpectedException(typeof(NotFoundId))]
         public void TestNoGetPlaylistByAudioId()
         {   
-            mockPlaylistService.Setup(m => m.GetPlaylistById(1)).Throws(new KeyNotFoundException());
-            var result = playlistController.GetPlaylistById(1) as NotFoundObjectResult;
-            Assert.IsNotNull(result);
+            mockPlaylistService.Setup(m => m.GetPlaylistById(1)).Throws(new NotFoundId());
+            playlistController.GetPlaylistById(1);
         }
         
         [TestMethod]
@@ -195,11 +193,11 @@ namespace MSP.BetterCalm.Test.WebAPI
         }
         
         [TestMethod]
+        [ExpectedException(typeof(ObjectWasNotUpdated))]
         public void TestNoUpdatePlaylist()
         {   
-            mockPlaylistService.Setup(m => m.UpdatePlaylistById(1,playlist)).Throws(new KeyNotFoundException());
-            var result = playlistController.UpdatePlaylist(1,playlist) as NotFoundObjectResult;
-            Assert.IsNotNull(result);
+            mockPlaylistService.Setup(m => m.UpdatePlaylistById(1,playlist)).Throws(new ObjectWasNotUpdated());
+            playlistController.UpdatePlaylist(1, playlist);
         }
       }
 }

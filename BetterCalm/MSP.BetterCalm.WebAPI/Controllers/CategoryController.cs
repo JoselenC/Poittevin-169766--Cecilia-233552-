@@ -31,28 +31,15 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         [HttpGet("name")]
         public IActionResult GetCategoryByName([FromQuery]string name)
         {
-            try{
             Category categoryByName=_categoryService.GetCategoryByName(name);
             return Ok(categoryByName);
-            }
-            catch (KeyNotFoundException)
-            {
-                return NotFound("Not found playlist by this name");
-            }
         }
-        
+
         [HttpGet("{id}")]
         public IActionResult GetCategoryById([FromRoute] int id)
         {
-            try
-            {
-                Category categoryById = _categoryService.GetCategoryById(id);
-                return Ok(categoryById);
-            }
-            catch (KeyNotFoundException)
-            {
-                return NotFound("Not found playlist by this id");
-            }
+            Category categoryById = _categoryService.GetCategoryById(id);
+            return Ok(categoryById);
         }
 
     }
