@@ -51,12 +51,11 @@ namespace MSP.BetterCalm.Test.WebAPI
         }
         
         [TestMethod]
+        [ExpectedException(typeof(NotFoundProblematic))]
         public void TestNoGetProblematicByName()
         {
-            
-            mockProblematicService.Setup(m => m.GetProblematicByName("Estres")).Throws(new KeyNotFoundException());
-            var result = problematicController.GetProblematicByName("Estres") as NotFoundObjectResult;
-            Assert.IsNotNull(result);
+            mockProblematicService.Setup(m => m.GetProblematicByName("Estres")).Throws(new NotFoundProblematic());
+            problematicController.GetProblematicByName("Estres");
         }
         
         [TestMethod]
@@ -71,12 +70,11 @@ namespace MSP.BetterCalm.Test.WebAPI
         }
         
         [TestMethod]
+        [ExpectedException(typeof(NotFoundId))]
         public void TestNoGetProblematicById()
         {
-            
-            mockProblematicService.Setup(m => m.GetProblematicById(1)).Throws(new KeyNotFoundException());
-            var result = problematicController.GetProblematicById(1) as NotFoundObjectResult;
-            Assert.IsNotNull(result);
+            mockProblematicService.Setup(m => m.GetProblematicById(1)).Throws(new NotFoundId());
+            problematicController.GetProblematicById(1);
         }
     }
 }

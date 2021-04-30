@@ -31,28 +31,15 @@ namespace MSP.BetterCalm.WebAPI.Controllers
     [HttpGet("name")]
     public IActionResult GetProblematicByName([FromQuery] string name)
     {
-        try{
         Problematic problematicByName = _problematicService.GetProblematicByName(name);
         return Ok(problematicByName);
-        }
-        catch (KeyNotFoundException)
-        {
-            return NotFound("Not found problematic by this name");
-        }
     }
-    
+
     [HttpGet("{id}")]
     public IActionResult GetProblematicById([FromRoute] int id)
     {
-        try
-        {
-            Problematic problematicById = _problematicService.GetProblematicById(id);
-            return Ok(problematicById);
-        }
-        catch (KeyNotFoundException)
-        {
-            return NotFound("Not found problematic by this id");
-        }
+        Problematic problematicById = _problematicService.GetProblematicById(id);
+        return Ok(problematicById);
     }
 
     }
