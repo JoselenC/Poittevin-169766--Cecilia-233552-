@@ -9,7 +9,7 @@ namespace MSP.BetterCalm.Domain
     {
         public int Id { get; set; }
         public List<Category> Categories {get; set; }
-        public List<Song> Songs {get; set; }
+        public List<Audio> Audios {get; set; }
         
         private string name;
         public string Name {get=>name; set=>SetName(value); }
@@ -46,9 +46,9 @@ namespace MSP.BetterCalm.Domain
             }
             return false;
         }
-        public bool IsSameSongName(string name)
+        public bool IsSameAudioName(string name)
         {
-            foreach (var song in Songs)
+            foreach (var song in Audios)
             {
                 if (song.Name == name)
                     return true;

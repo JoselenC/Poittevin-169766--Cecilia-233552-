@@ -9,12 +9,12 @@ using MSP.BetterCalm.Domain;
 namespace MSP.BetterCalm.Test
 {
     [TestClass]
-    public class SongMapperTest
+    public class AudioMapperTest
     {
         private DbContextOptions<ContextDB> options;
 
-        public  DataBaseRepository<Song, SongDto> Songs;
-        public  Song songTest;
+        public  DataBaseRepository<Audio, AudioDto> Audios;
+        public  Audio AudioTest;
         private ContextDB context;
 
         [TestInitialize]
@@ -22,8 +22,8 @@ namespace MSP.BetterCalm.Test
         {
             options = new DbContextOptionsBuilder<ContextDB>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
             context = new ContextDB(this.options);
-            SongMapper songMapper = new SongMapper();
-            Songs = new DataBaseRepository<Song, SongDto>(songMapper, context.Songs, context);
+            AudioMapper audioMapper = new AudioMapper();
+            Audios = new DataBaseRepository<Audio, AudioDto>(audioMapper, context.Audios, context);
         
         }
         
@@ -37,20 +37,20 @@ namespace MSP.BetterCalm.Test
         [ExpectedException(typeof(InvalidCategory), "")]
         public void DomainToDtoTest()
         {
-            Song songTest = new Song()
+            Audio audioTest = new Audio()
             {
                 Categories = new List<Category>() {new Category(){Id=1,Name = "Musica"},},
                 Name = "Stand by me"
             };
-            Songs.Add(songTest);
-            Song song = Songs.Find(x => x.Name == "Stand by me");
-            Assert.AreEqual(songTest, song);
+            Audios.Add(audioTest);
+            Audio audio = Audios.Find(x => x.Name == "Stand by me");
+            Assert.AreEqual(audioTest, audio);
         }
 
         [TestMethod]
         public void DomainToDtoTestCategoryNull()
         {
-            Song songTest = new Song()
+            Audio audioTest = new Audio()
             {
                 Id=1,
                 Categories = null,
@@ -60,15 +60,15 @@ namespace MSP.BetterCalm.Test
                 UrlAudio = "",
                 UrlImage = ""
             };
-            Songs.Add(songTest);
-            Song song = Songs.Find(x => x.Name == "Stand by me");
-            Assert.AreEqual(songTest, song);
+            Audios.Add(audioTest);
+            Audio audio = Audios.Find(x => x.Name == "Stand by me");
+            Assert.AreEqual(audioTest, audio);
         }
 
         [TestMethod]
         public void DtoToDomainTest()
         {
-            Song songTest = new Song()
+            Audio audioTest = new Audio()
             {
                 Id=1,
                 Categories = new List<Category>(),
@@ -78,15 +78,15 @@ namespace MSP.BetterCalm.Test
                 UrlAudio = "",
                 UrlImage = ""
             };
-            Songs.Add(songTest);
-            Song realSong = Songs.Find(x => x.Name == "Stand by me");
-            Assert.AreEqual(songTest, realSong);
+            Audios.Add(audioTest);
+            Audio realAudio = Audios.Find(x => x.Name == "Stand by me");
+            Assert.AreEqual(audioTest, realAudio);
         }
         
         [TestMethod]
         public void DtoToDomainTestCategoryNull()
         {
-            Song songTest = new Song()
+            Audio audioTest = new Audio()
             {
                 Id=1,
                 Categories = null,
@@ -96,15 +96,15 @@ namespace MSP.BetterCalm.Test
                 UrlAudio = "",
                 UrlImage = ""
             };
-            Songs.Add(songTest);
-            Song realSong = Songs.Find(x => x.Name == "a");
-            Assert.AreEqual(songTest, realSong);
+            Audios.Add(audioTest);
+            Audio realAudio = Audios.Find(x => x.Name == "a");
+            Assert.AreEqual(audioTest, realAudio);
         }
      
         [TestMethod]
         public void UpdateTest()
         {
-            Song songTest = new Song()
+            Audio audioTest = new Audio()
             {
                 Categories = new List<Category>(),
                 Name = "Stand by me",
@@ -113,27 +113,27 @@ namespace MSP.BetterCalm.Test
                 UrlAudio = "",
                 UrlImage = ""
             };
-            SongDto songDtoTest = new SongDto()
+            AudioDto audioDtoTest = new AudioDto()
             {
-                SongDtoID = 1,
-                PlaylistSongsDto = new List<PlaylistSongDto>(),
+                AudioDtoID = 1,
+                PlaylistAudiosDto = new List<PlaylistAudioDto>(),
                 Name = "Stand by me",
                 AuthorName = "The beatles",
                 Duration = 12,
                 UrlAudio = "",
                 UrlImage = ""
             };
-            SongMapper songMapper = new SongMapper();
+            AudioMapper audioMapper = new AudioMapper();
             ContextDB context = new ContextDB();
-            context.Songs.Add(songDtoTest);
-            songMapper.UpdateDtoObject(songDtoTest, songTest, context);
-            Assert.AreEqual(context.Songs.Find(1),songDtoTest);
+            context.Audios.Add(audioDtoTest);
+            audioMapper.UpdateDtoObject(audioDtoTest, audioTest, context);
+            Assert.AreEqual(context.Audios.Find(1),audioDtoTest);
         }
 
         [TestMethod]
         public void UpdateTestCategoryNull()
         {
-            Song songTest = new Song()
+            Audio audioTest = new Audio()
             {
                 Categories = new List<Category>(),
                 Name = "Stand by me",
@@ -142,21 +142,21 @@ namespace MSP.BetterCalm.Test
                 UrlAudio = "",
                 UrlImage = ""
             };
-            SongDto songDtoTest = new SongDto()
+            AudioDto audioDtoTest = new AudioDto()
             {
-                SongDtoID = 1,
-                PlaylistSongsDto = new List<PlaylistSongDto>(),
+                AudioDtoID = 1,
+                PlaylistAudiosDto = new List<PlaylistAudioDto>(),
                 Name = "Stand by me",
                 AuthorName = "The beatles",
                 Duration = 12,
                 UrlAudio = "",
                 UrlImage = ""
             };
-            SongMapper songMapper = new SongMapper();
+            AudioMapper audioMapper = new AudioMapper();
             ContextDB context = new ContextDB();
-            context.Songs.Add(songDtoTest);
-            songMapper.UpdateDtoObject(songDtoTest, songTest, context);
-            Assert.AreEqual(context.Songs.Find(1),songDtoTest);
+            context.Audios.Add(audioDtoTest);
+            audioMapper.UpdateDtoObject(audioDtoTest, audioTest, context);
+            Assert.AreEqual(context.Audios.Find(1),audioDtoTest);
         }
     }
 }

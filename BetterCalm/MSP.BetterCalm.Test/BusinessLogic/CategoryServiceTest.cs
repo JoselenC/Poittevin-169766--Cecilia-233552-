@@ -35,7 +35,7 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(KeyNotFoundException), "")]
+        [ExpectedException(typeof(NotFoundCategory), "")]
         public void FindCategoryByNameNull()
         {
             categoriesMock.Setup(x => x.Find(It.IsAny<Predicate<Category>>())).Throws( new KeyNotFoundException());

@@ -12,21 +12,21 @@ using MSP.BetterCalm.WebAPI.Dtos;
 namespace MSP.BetterCalm.Test.WebAPI
 {
     [TestClass]
-    public class SongControllerTest
+    public class AudioControllerTest
     {
-        private Mock<ISongService> mockSongService;
-        private SongController songController ;
-        private List<Song> songs;
-        private Song song;
-        private BetterCalm.WebAPI.Dtos.SongDto songDto;
+        private Mock<IAudioService> mockAudioService;
+        private AudioController AudioController ;
+        private List<Audio> Audios;
+        private Audio _audio;
+        private BetterCalm.WebAPI.Dtos.AudioDto AudioDto;
             
         [TestInitialize]
         public void InitializeTest()
         {
-            mockSongService=new Mock<ISongService>(MockBehavior.Strict);
-            songController = new SongController(mockSongService.Object);
-            songs = new List<Song>();
-            song = new Song()
+            mockAudioService=new Mock<IAudioService>(MockBehavior.Strict);
+            AudioController = new AudioController(mockAudioService.Object);
+            Audios = new List<Audio>();
+            _audio = new Audio()
             {
                 Id = 1,
                 Categories = new List<Category>(),
@@ -36,7 +36,7 @@ namespace MSP.BetterCalm.Test.WebAPI
                 UrlAudio = "",
                 UrlImage = ""
             };
-            songDto = new BetterCalm.WebAPI.Dtos.SongDto()
+            AudioDto = new BetterCalm.WebAPI.Dtos.AudioDto()
             {
                 Id = 0,
                 Categories = new List<Category>(),
@@ -49,57 +49,57 @@ namespace MSP.BetterCalm.Test.WebAPI
         }
         
         [TestMethod]
-        public void TestGetAllSongs()
+        public void TestGetAllAudios()
         {
-            mockSongService.Setup(m => m.GetSongs()).Returns(this.songs);
-            var result = songController.GetAll();
+            mockAudioService.Setup(m => m.GetAudios()).Returns(this.Audios);
+            var result = AudioController.GetAll();
             var okResult = result as OkObjectResult;
-            var songsValue = okResult.Value;
-            Assert.AreEqual(this.songs,songsValue);
+            var AudiosValue = okResult.Value;
+            Assert.AreEqual(this.Audios,AudiosValue);
         }
         
         [TestMethod]
-        public void TestGetSongByName()
+        public void TestGetAudioByName()
         {
-            mockSongService.Setup(m => m.GetSongsByName("Stand by me")).Returns(songs);
-            var result = songController.GetSongsByName("Stand by me");
+            mockAudioService.Setup(m => m.GetAudiosByName("Stand by me")).Returns(Audios);
+            var result = AudioController.GetAudiosByName("Stand by me");
             var okResult = result as OkObjectResult;
-            var songsValue = okResult.Value;
-            Assert.AreEqual(songs,songsValue);
+            var AudiosValue = okResult.Value;
+            Assert.AreEqual(Audios,AudiosValue);
         }
         
         [TestMethod]
         [ExpectedException(typeof(KeyNotFoundException))]
-        public void TestNoGetSongByName()
+        public void TestNoGetAudioByName()
         {
-            mockSongService.Setup(m => m.GetSongsByName("Stand by me")).Throws(new KeyNotFoundException());
-            var result = songController.GetSongsByName("Stand by me") as NotFoundObjectResult;
+            mockAudioService.Setup(m => m.GetAudiosByName("Stand by me")).Throws(new KeyNotFoundException());
+            var result = AudioController.GetAudiosByName("Stand by me") as NotFoundObjectResult;
             Assert.IsNotNull(result);
         }
         
         [TestMethod]
-        public void TestGetSongByAuthorName()
+        public void TestGetAudioByAuthorName()
         {
-            mockSongService.Setup(m => m.GetSongsByAuthor("John Lennon")).Returns(songs);
-            var result = songController.GetSongsByAuthor("John Lennon");
+            mockAudioService.Setup(m => m.GetAudiosByAuthor("John Lennon")).Returns(Audios);
+            var result = AudioController.GetAudiosByAuthor("John Lennon");
             var okResult = result as OkObjectResult;
-            var songsValue = okResult.Value;
-            Assert.AreEqual(songs,songsValue);
+            var AudiosValue = okResult.Value;
+            Assert.AreEqual(Audios,AudiosValue);
         }
         
         [TestMethod]
         [ExpectedException(typeof(KeyNotFoundException))]
-        public void TestNoGetSongByAuthorName()
+        public void TestNoGetAudioByAuthorName()
         {
-            mockSongService.Setup(m => m.GetSongsByAuthor("John Lennon")).Throws(new KeyNotFoundException());
-            var result = songController.GetSongsByAuthor("John Lennon")as NotFoundObjectResult;
+            mockAudioService.Setup(m => m.GetAudiosByAuthor("John Lennon")).Throws(new KeyNotFoundException());
+            var result = AudioController.GetAudiosByAuthor("John Lennon")as NotFoundObjectResult;
             Assert.IsNotNull(result);
         }
         
         [TestMethod]
-        public void TestCreateSong()
+        public void TestCreateAudio()
         {
-            BetterCalm.WebAPI.Dtos.SongDto songToAdd = new BetterCalm.WebAPI.Dtos.SongDto()
+            BetterCalm.WebAPI.Dtos.AudioDto AudioToAdd = new BetterCalm.WebAPI.Dtos.AudioDto()
             {
                 Categories = new List<Category>(),
                 Name = "Stand by me",
@@ -108,7 +108,7 @@ namespace MSP.BetterCalm.Test.WebAPI
                 UrlAudio = "",
                 UrlImage = ""
             };
-            Song song = new Song()
+            Audio audio = new Audio()
             {
                 Categories = new List<Category>(),
                 Name = "Stand by me",
@@ -117,20 +117,20 @@ namespace MSP.BetterCalm.Test.WebAPI
                 UrlAudio = "",
                 UrlImage = ""
             };
-            mockSongService.Setup(m => m.AddSong(song));
-            songController.CreateSong(songToAdd);
-            mockSongService.Setup(m => m.GetSongs()).Returns(songs);
-            var result = songController.GetAll();
+            mockAudioService.Setup(m => m.AddAudio(audio));
+            AudioController.CreateAudio(AudioToAdd);
+            mockAudioService.Setup(m => m.GetAudios()).Returns(Audios);
+            var result = AudioController.GetAll();
             var okResult = result as OkObjectResult;
-            var songsValue = okResult.Value;
-            Assert.AreEqual(songs,songsValue);
+            var AudiosValue = okResult.Value;
+            Assert.AreEqual(Audios,AudiosValue);
         }
         
         [TestMethod]
         [ExpectedException(typeof(InvalidNameLength))]
-        public void TestNoCreateSongEmptyName()
+        public void TestNoCreateAudioEmptyName()
         {
-            Song song = new Song()
+            Audio audio = new Audio()
             {
                 Categories = new List<Category>(),
                 Name = "Stand by me",
@@ -139,15 +139,15 @@ namespace MSP.BetterCalm.Test.WebAPI
                 UrlAudio = "",
                 UrlImage = ""
             };
-            mockSongService.Setup(m => m.AddSong(song)).Throws(new InvalidNameLength());
-            songController.CreateSong(songDto);
+            mockAudioService.Setup(m => m.AddAudio(audio)).Throws(new InvalidNameLength());
+            AudioController.CreateAudio(AudioDto);
         }
         
         [TestMethod]
-        [ExpectedException(typeof(AlreadyExistThisSong))]
-        public void TestNoCreateSong()
+        [ExpectedException(typeof(AlreadyExistThisAudio))]
+        public void TestNoCreateAudio()
         {
-            Song song = new Song()
+            Audio audio = new Audio()
             {
                 Categories = new List<Category>(),
                 Name = "Stand by me",
@@ -156,14 +156,14 @@ namespace MSP.BetterCalm.Test.WebAPI
                 UrlAudio = "",
                 UrlImage = ""
             };
-            mockSongService.Setup(m => m.AddSong(song)).Throws(new AlreadyExistThisSong());
-            songController.CreateSong(songDto);
+            mockAudioService.Setup(m => m.AddAudio(audio)).Throws(new AlreadyExistThisAudio());
+            AudioController.CreateAudio(AudioDto);
         }
         
         [TestMethod]
-        public void TestGetSongByCategoryNAme()
+        public void TestGetAudioByCategoryNAme()
         {
-            Song songToAdd = new Song()
+            Audio audioToAdd = new Audio()
             {
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
@@ -172,28 +172,28 @@ namespace MSP.BetterCalm.Test.WebAPI
                 UrlAudio = "",
                 UrlImage = ""
             };
-            mockSongService.Setup(m => m.AddSong(songToAdd));
-            songController.CreateSong(songDto);
-            mockSongService.Setup(m => m.GetSongsByCategoryName("Dormir")).Returns(songs);
-            var result = songController.GetSongsByCategoryName("Dormir");
+            mockAudioService.Setup(m => m.AddAudio(audioToAdd));
+            AudioController.CreateAudio(AudioDto);
+            mockAudioService.Setup(m => m.GetAudiosByCategoryName("Dormir")).Returns(Audios);
+            var result = AudioController.GetAudiosByCategoryName("Dormir");
             var okResult = result as OkObjectResult;
-            var songsValue = okResult.Value;
-            Assert.AreEqual(songs,songsValue);
+            var AudiosValue = okResult.Value;
+            Assert.AreEqual(Audios,AudiosValue);
         }
         
         [TestMethod]
         [ExpectedException(typeof(KeyNotFoundException))]
-        public void TestNoGetSongByCategoryNAme()
+        public void TestNoGetAudioByCategoryNAme()
         {
-            mockSongService.Setup(m => m.GetSongsByCategoryName("Dormir")).Throws(new KeyNotFoundException());
-            var result = songController.GetSongsByCategoryName("Dormir") as NotFoundObjectResult;
+            mockAudioService.Setup(m => m.GetAudiosByCategoryName("Dormir")).Throws(new KeyNotFoundException());
+            var result = AudioController.GetAudiosByCategoryName("Dormir") as NotFoundObjectResult;
             Assert.IsNotNull(result);
         }
         
         [TestMethod]
-        public void TestDeleteSong()
+        public void TestDeleteAudio()
         {
-            Song songToAdd = new Song()
+            Audio audioToAdd = new Audio()
             {
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
@@ -202,20 +202,20 @@ namespace MSP.BetterCalm.Test.WebAPI
                 UrlAudio = "",
                 UrlImage = ""
             };
-            mockSongService.Setup(m => m.AddSong(songToAdd));
-            songController.CreateSong(songDto);
-            mockSongService.Setup(m => m.DeleteSong(song.Id));
-            var result = songController.DeleteSong(song.Id);
+            mockAudioService.Setup(m => m.AddAudio(audioToAdd));
+            AudioController.CreateAudio(AudioDto);
+            mockAudioService.Setup(m => m.DeleteAudio(_audio.Id));
+            var result = AudioController.DeleteAudio(_audio.Id);
             var okResult = result as OkObjectResult;
             var value = okResult.Value;
-            Assert.AreEqual("Song removed",value);
+            Assert.AreEqual("Audio removed",value);
         }
         
         [TestMethod]
         [ExpectedException(typeof(KeyNotFoundException))]
-        public void TestNoDeleteSong()
+        public void TestNoDeleteAudio()
         {
-            Song song = new Song()
+            Audio audio = new Audio()
             {
                 Categories = new List<Category>(),
                 Name = "Stand by me",
@@ -224,45 +224,45 @@ namespace MSP.BetterCalm.Test.WebAPI
                 UrlAudio = "",
                 UrlImage = ""
             };
-            mockSongService.Setup(m => m.DeleteSong(song.Id)).Throws(new KeyNotFoundException());
-            songController.DeleteSong(song.Id);
+            mockAudioService.Setup(m => m.DeleteAudio(audio.Id)).Throws(new KeyNotFoundException());
+            AudioController.DeleteAudio(audio.Id);
         }
         
         [TestMethod]
-        public void TestGetSongById()
+        public void TestGetAudioById()
         {
-            mockSongService.Setup(m => m.GetSongById(1)).Returns(this.song);
-            var result = songController.GetSongById(1);
+            mockAudioService.Setup(m => m.GetAudioById(1)).Returns(this._audio);
+            var result = AudioController.GetAudioById(1);
             var okResult = result as OkObjectResult;
             var categoryValue = okResult.Value;
-            Assert.AreEqual(songDto,categoryValue);
+            Assert.AreEqual(AudioDto,categoryValue);
         }
         
        
         [TestMethod]
         [ExpectedException(typeof(KeyNotFoundException))]
-        public void TestNoGetSongById()
+        public void TestNoGetAudioById()
         {
-            mockSongService.Setup(m => m.GetSongById(1)).Throws(new KeyNotFoundException());
-            var result = songController.GetSongById(1) as NotFoundObjectResult;
+            mockAudioService.Setup(m => m.GetAudioById(1)).Throws(new KeyNotFoundException());
+            var result = AudioController.GetAudioById(1) as NotFoundObjectResult;
             Assert.IsNotNull(result);
         }
         
         [TestMethod]
-        public void TestUpdateSong()
+        public void TestUpdateAudio()
         {
-            mockSongService.Setup(m => m.UpdateSongById(1, song));
-            var result = songController.UpdateSong(1,song);
+            mockAudioService.Setup(m => m.UpdateAudioById(1, _audio));
+            var result = AudioController.UpdateAudio(1,_audio);
             var okResult = result as OkObjectResult;
             Assert.IsNotNull(result);
         }
 
         [TestMethod]
         [ExpectedException(typeof(KeyNotFoundException))]
-        public void TestNoUpdateSong()
+        public void TestNoUpdateAudio()
         {
-            mockSongService.Setup(m => m.UpdateSongById(1, song)).Throws(new KeyNotFoundException());
-            var result = songController.UpdateSong(1,song) as NotFoundObjectResult;
+            mockAudioService.Setup(m => m.UpdateAudioById(1, _audio)).Throws(new KeyNotFoundException());
+            var result = AudioController.UpdateAudio(1,_audio) as NotFoundObjectResult;
             Assert.IsNotNull(result);
         }
     }

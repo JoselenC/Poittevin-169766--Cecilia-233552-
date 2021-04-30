@@ -87,10 +87,10 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Songs",
+                name: "Audios",
                 columns: table => new
                 {
-                    SongDtoID = table.Column<int>(type: "int", nullable: false)
+                    AudioDtoID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Duration = table.Column<int>(type: "int", nullable: false),
@@ -101,9 +101,9 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Songs", x => x.SongDtoID);
+                    table.PrimaryKey("PK_Audios", x => x.AudioDtoID);
                     table.ForeignKey(
-                        name: "FK_Songs_Playlists_PlaylistDtoID",
+                        name: "FK_Audios_Playlists_PlaylistDtoID",
                         column: x => x.PlaylistDtoID,
                         principalTable: "Playlists",
                         principalColumn: "PlaylistDtoID",
@@ -141,7 +141,7 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                     CategoryDtoID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SongDtoID = table.Column<int>(type: "int", nullable: true),
+                    AudioDtoID = table.Column<int>(type: "int", nullable: true),
                     PlaylistDtoID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -154,10 +154,10 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                         principalColumn: "PlaylistDtoID",
                         onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
-                        name: "FK_Categories_Songs_SongDtoID",
-                        column: x => x.SongDtoID,
-                        principalTable: "Songs",
-                        principalColumn: "SongDtoID",
+                        name: "FK_Categories_Audios_AudioDtoID",
+                        column: x => x.AudioDtoID,
+                        principalTable: "Audios",
+                        principalColumn: "AudioDtoID",
                         onDelete: ReferentialAction.SetNull);
                 });
 
@@ -167,9 +167,9 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                 column: "PlaylistDtoID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Categories_SongDtoID",
+                name: "IX_Categories_AudioDtoID",
                 table: "Categories",
-                column: "SongDtoID");
+                column: "AudioDtoID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PsychologistProblematic_ProblematicId",
@@ -177,8 +177,8 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                 column: "ProblematicId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Songs_PlaylistDtoID",
-                table: "Songs",
+                name: "IX_Audios_PlaylistDtoID",
+                table: "Audios",
                 column: "PlaylistDtoID");
         }
 
@@ -197,7 +197,7 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                 name: "PsychologistProblematic");
 
             migrationBuilder.DropTable(
-                name: "Songs");
+                name: "Audios");
 
             migrationBuilder.DropTable(
                 name: "Problematics");

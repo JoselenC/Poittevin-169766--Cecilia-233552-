@@ -6,9 +6,9 @@ using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.DataAccess
 {
-      public class SongMapper: IMapper<Song,SongDto>
+      public class AudioMapper: IMapper<Audio,AudioDto>
       {
-          private List<CategoryDto> createCategoriesSongsDto(List<Category> categories, ContextDB context)
+          private List<CategoryDto> createCategoriesAudiosDto(List<Category> categories, ContextDB context)
           {
               
             List<CategoryDto> CategoriesDto = new List<CategoryDto>();
@@ -29,17 +29,17 @@ namespace MSP.BetterCalm.DataAccess
             }
             return CategoriesDto;
         }
-        public SongDto DomainToDto(Song obj, ContextDB context)
+        public AudioDto DomainToDto(Audio obj, ContextDB context)
         {
-            SongDto songDto = context.Songs
+            AudioDto audioDto = context.Audios
                 .Where(x => x.Duration == obj.Duration)
                 .Where(x => x.AuthorName == obj.AuthorName)
                 .Where(x => x.UrlImage == obj.UrlImage)
                 .Where(x => x.UrlAudio == obj.UrlAudio)
                 .FirstOrDefault(x => x.Name == obj.Name);
-            if (songDto is null)
+            if (audioDto is null)
             {
-                songDto = new SongDto()
+                audioDto = new AudioDto()
                 {
                     Name = obj.Name,
                     Duration = obj.Duration,
@@ -51,41 +51,41 @@ namespace MSP.BetterCalm.DataAccess
             }
             else
             {
-                context.Entry(songDto).Collection("SongsCategoriesDto").Load();
-                context.Entry(songDto).State = EntityState.Modified;
+                context.Entry(audioDto).Collection("AudiosCategoriesDto").Load();
+                context.Entry(audioDto).State = EntityState.Modified;
             }
             
-            List<CategoryDto> categories= createCategoriesSongsDto(obj.Categories, context);
-            songDto.SongsCategoriesDto = new List<SongCategoryDto>();
+            List<CategoryDto> categories= createCategoriesAudiosDto(obj.Categories, context);
+            audioDto.AudiosCategoriesDto = new List<AudioCategoryDto>();
             foreach (var category in categories)
             {
-                songDto.SongsCategoriesDto.Add(new SongCategoryDto(){CategoryDto = category, SongDto = songDto});
+                audioDto.AudiosCategoriesDto.Add(new AudioCategoryDto(){CategoryDto = category, AudioDto = audioDto});
             }
              
-            return songDto;
+            return audioDto;
         }
 
-        public Song DtoToDomain(SongDto obj, ContextDB context)
+        public Audio DtoToDomain(AudioDto obj, ContextDB context)
         {
             List<Category> categories = new List<Category>();
             CategoryMapper categoryMapper = new CategoryMapper();
-            context.Entry(obj).Collection("SongsCategoriesDto").Load();
-            if (!(obj.SongsCategoriesDto is null))
+            context.Entry(obj).Collection("AudiosCategoriesDto").Load();
+            if (!(obj.AudiosCategoriesDto is null))
             {
-                foreach (SongCategoryDto songCategoryDto in obj.SongsCategoriesDto)
+                foreach (AudioCategoryDto audioCategoryDto in obj.AudiosCategoriesDto)
                 { 
-                    Category category=categoryMapper.GetById(context,songCategoryDto.CategoryID);
+                    Category category=categoryMapper.GetById(context,audioCategoryDto.CategoryID);
                     categories.Add(category);
                     
                 }
             }
             
-            DbSet<PlaylistSongDto> PlaylistSongSet = context.Set<PlaylistSongDto>();
-            PlaylistSongDto playlistSongDto= PlaylistSongSet.FirstOrDefault(x=>x.SongID==obj.SongDtoID);
-            if(playlistSongDto==null)
-            return new Song()
+            DbSet<PlaylistAudioDto> PlaylistAudioSet = context.Set<PlaylistAudioDto>();
+            PlaylistAudioDto playlistAudioDto= PlaylistAudioSet.FirstOrDefault(x=>x.AudioID==obj.AudioDtoID);
+            if(playlistAudioDto==null)
+            return new Audio()
             {
-                Id=obj.SongDtoID,
+                Id=obj.AudioDtoID,
                 AuthorName = obj.AuthorName,
                 Name = obj.Name,
                 Categories= categories,
@@ -96,16 +96,16 @@ namespace MSP.BetterCalm.DataAccess
             return null;
         }
 
-        public Song GetById(ContextDB context, int id)
+        public Audio GetById(ContextDB context, int id)
         {
-            SongDto songDto = context.Songs.Include(x=>x.SongsCategoriesDto)
-                .FirstOrDefault(m => m.SongDtoID == id);
-            if (songDto != null)
-                return DtoToDomain(songDto, context);
+            AudioDto audioDto = context.Audios.Include(x=>x.AudiosCategoriesDto)
+                .FirstOrDefault(m => m.AudioDtoID == id);
+            if (audioDto != null)
+                return DtoToDomain(audioDto, context);
             return null;
         }
 
-        public SongDto UpdateDtoObject(SongDto objToUpdate, Song updatedObject, ContextDB context)
+        public AudioDto UpdateDtoObject(AudioDto objToUpdate, Audio updatedObject, ContextDB context)
         {
             CategoryMapper categoryMapper = new CategoryMapper();
             objToUpdate.Name = updatedObject.Name;
@@ -116,16 +116,16 @@ namespace MSP.BetterCalm.DataAccess
 
             if (updatedObject.Categories != null && updatedObject.Categories.Count>0)
             {
-                List<SongCategoryDto> diffListOldValues =
-                    objToUpdate.SongsCategoriesDto.Where(x =>
+                List<AudioCategoryDto> diffListOldValues =
+                    objToUpdate.AudiosCategoriesDto.Where(x =>
                         updatedObject.Categories.Contains(categoryMapper.DtoToDomain(x.CategoryDto, context))).ToList();
                 IEnumerable<Category> diffListNewValues = updatedObject.Categories
-                    .Where(x => !objToUpdate.SongsCategoriesDto.Contains(new SongCategoryDto()
+                    .Where(x => !objToUpdate.AudiosCategoriesDto.Contains(new AudioCategoryDto()
                         {CategoryDto = categoryMapper.DomainToDto(x, context)}));
-                diffListOldValues.AddRange(diffListNewValues.Select(x => new SongCategoryDto()
+                diffListOldValues.AddRange(diffListNewValues.Select(x => new AudioCategoryDto()
                     {CategoryDto = categoryMapper.DomainToDto(x, context)}));
                 List<CategoryDto> categoryoDelete = new List<CategoryDto>();
-                objToUpdate.SongsCategoriesDto.Where(x => !diffListOldValues.Contains(x)).ToList();
+                objToUpdate.AudiosCategoriesDto.Where(x => !diffListOldValues.Contains(x)).ToList();
                 if (categoryoDelete != null)
                 {
                     foreach (CategoryDto categoryDto in categoryoDelete)
@@ -134,11 +134,11 @@ namespace MSP.BetterCalm.DataAccess
                     }
                 }
 
-                objToUpdate.SongsCategoriesDto = diffListOldValues;
+                objToUpdate.AudiosCategoriesDto = diffListOldValues;
             }
             else
             {
-                objToUpdate.SongsCategoriesDto = null;
+                objToUpdate.AudiosCategoriesDto = null;
             }
 
             return objToUpdate;

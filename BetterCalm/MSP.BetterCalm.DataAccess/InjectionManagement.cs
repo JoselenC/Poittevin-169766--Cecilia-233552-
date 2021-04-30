@@ -20,7 +20,7 @@ namespace MSP.BetterCalm.DataAccess
         {
             services.AddScoped<ICategoryService,CategoryService>();
             services.AddScoped<IProblematicService,ProblematicService>();
-            services.AddScoped<ISongService,SongService>();
+            services.AddScoped<IAudioService,AudioService>();
             services.AddScoped<IPatientService,PatientService>();
             services.AddScoped<IPlaylistService,PlaylistService>();
             services.AddScoped<IPsychologistService,PsychologistService>();
@@ -28,7 +28,7 @@ namespace MSP.BetterCalm.DataAccess
 
             services.AddScoped<ManagerProblematicRepository,ProblematicRepository>();
             services.AddScoped<ManagerCategoryRepository,CategoryRepository>();
-            services.AddScoped<ManagerSongRepository,SongRepository>();
+            services.AddScoped<ManagerAudioRepository,AudioRepository>();
             services.AddScoped<ManagerPatientRepository,PatientRepository>();
             services.AddScoped<ManagerPlaylistRepository,PlaylistRepository>();
             services.AddScoped<ManagerPsychologistRepository,PsychologistRepository>();
@@ -37,7 +37,7 @@ namespace MSP.BetterCalm.DataAccess
             
             services.AddScoped<IMapper<Category, CategoryDto>,CategoryMapper>();
             services.AddScoped<IMapper<Problematic, ProblematicDto>,ProblematicMapper>();
-            services.AddScoped<IMapper<Song, SongDto>,SongMapper>();
+            services.AddScoped<IMapper<Audio, AudioDto>,AudioMapper>();
             services.AddScoped<IMapper<Playlist, PlaylistDto>,PlaylistMapper>();
             services.AddScoped<IMapper<Patient, PatientDto>, PatientMapper>();
             services.AddScoped<IMapper<Psychologist, PsychologistDto>, PsychologistMapper>();

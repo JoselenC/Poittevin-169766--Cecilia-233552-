@@ -14,7 +14,7 @@ namespace MSP.BetterCalm.Test
         private DbContextOptions<ContextDB> options;
         private ContextDB context;
         private DataBaseRepository<Category, CategoryDto> Categories;
-        private DataBaseRepository<Song, SongDto> Songs;
+        private DataBaseRepository<Audio, AudioDto> Songs;
         private DataBaseRepository<Problematic, ProblematicDto> Problematics;
         private List<Category> AllCategories;
         private Category category;
@@ -30,9 +30,9 @@ namespace MSP.BetterCalm.Test
             category = new Category { Id=1,Name = "Dormir"};
             category = Categories.Add(category);
             AllCategories.Add(category);
-            Songs=new DataBaseRepository<Song, SongDto>(new SongMapper(), context.Songs, context);
-            Song song = new Song() { Id=1, Name = "Let it be"};
-            Songs.Add(song);
+            Songs=new DataBaseRepository<Audio, AudioDto>(new AudioMapper(), context.Audios, context);
+            Audio audio = new Audio() { Id=1, Name = "Let it be"};
+            Songs.Add(audio);
         }
 
         [TestCleanup]
@@ -112,8 +112,8 @@ namespace MSP.BetterCalm.Test
         [TestMethod]
         public void UpdateTest()
         {
-            Song song = new Song() {Id=1,Name = "Let it be"};
-            Song songToUdated = new Song()
+            Audio audio = new Audio() {Id=1,Name = "Let it be"};
+            Audio audioToUdated = new Audio()
             {
                 Id=1,
                 Name = "Musica",
@@ -121,11 +121,11 @@ namespace MSP.BetterCalm.Test
                 UrlImage = "urlImage",
                 Categories = new List<Category>()
             };
-            Songs.Update(song, songToUdated);
+            Songs.Update(audio, audioToUdated);
 
-            Song realSongUpdated = Songs.Find(x => x.Name == "Musica");
+            Audio realAudioUpdated = Songs.Find(x => x.Name == "Musica");
 
-            Assert.AreEqual(songToUdated, realSongUpdated);
+            Assert.AreEqual(audioToUdated, realAudioUpdated);
         }
         
         
@@ -133,28 +133,28 @@ namespace MSP.BetterCalm.Test
         [ExpectedException(typeof(KeyNotFoundException), "")]
         public void NoUpdateTest()
         {
-            Song song = new Song() {Id=19,Name = "Muscia2"};
-            Song songToUdated = new Song()
+            Audio audio = new Audio() {Id=19,Name = "Muscia2"};
+            Audio audioToUdated = new Audio()
             {
                 Id=18,
                 Name = "Musica",
             };
-            Songs.Update(song, songToUdated);
+            Songs.Update(audio, audioToUdated);
         }
         
         [TestMethod]
         public void FindByIdTest()
         {
-            Song realSongUpdated =  Songs.FindById(1);
-            Assert.IsNotNull(realSongUpdated);
+            Audio realAudioUpdated =  Songs.FindById(1);
+            Assert.IsNotNull(realAudioUpdated);
         }
         
         [TestMethod]
         [ExpectedException(typeof(KeyNotFoundException), "")]
         public void NoFindByIdTest()
         {
-            Song realSongUpdated =  Songs.FindById(33);
-            Assert.IsNotNull(realSongUpdated);
+            Audio realAudioUpdated =  Songs.FindById(33);
+            Assert.IsNotNull(realAudioUpdated);
         }
       
     }

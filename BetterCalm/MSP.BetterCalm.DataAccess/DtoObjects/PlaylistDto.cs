@@ -14,6 +14,6 @@ namespace MSP.BetterCalm.DataAccess
         
         public ICollection<PlaylistCategoryDto> PlaylistCategoriesDto { get; set; }
         
-        public ICollection<PlaylistSongDto> PlaylistSongsDto { get; set; }
+        public ICollection<PlaylistAudioDto> PlaylistAudiosDto { get; set; }
     }
 }

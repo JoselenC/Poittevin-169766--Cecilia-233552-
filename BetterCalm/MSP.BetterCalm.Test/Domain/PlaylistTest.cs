@@ -88,13 +88,13 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
-        public void GetSetPlaylistSongs()
+        public void GetSetPlaylistAudios()
         {
-            List<Song> songs = new List<Song>();
+            List<Audio> Audios = new List<Audio>();
             Playlist playlist = new Playlist();
-            playlist.Songs = songs;
-            List<Song> getSongs = playlist.Songs;
-            Assert.AreEqual(songs, getSongs);
+            playlist.Audios = Audios;
+            List<Audio> getAudios = playlist.Audios;
+            Assert.AreEqual(Audios, getAudios);
         }
         
         [TestMethod]
@@ -146,12 +146,12 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
-        public void IsSameSongName()
+        public void IsSameAudioName()
         {
             Playlist playlist = new Playlist();
-            playlist.Songs = new List<Song>()
+            playlist.Audios = new List<Audio>()
             {
-                new Song(){
+                new Audio(){
             
                     Categories = new List<Category>(),
                     Name = "Let it be",
@@ -162,16 +162,16 @@ namespace MSP.BetterCalm.Test
                 }
             };
             string categoryName = "Let it be";
-            Assert.IsTrue(playlist.IsSameSongName(categoryName));
+            Assert.IsTrue(playlist.IsSameAudioName(categoryName));
         }
 
         [TestMethod]
-        public void IsDifferentSongName()
+        public void IsDifferentAudioName()
         {
             Playlist playlist = new Playlist();
-            playlist.Songs = new List<Song>()
+            playlist.Audios = new List<Audio>()
             {
-                new Song(){
+                new Audio(){
             
                 Categories = new List<Category>(),
                 Name = "Stand by me",
@@ -182,7 +182,7 @@ namespace MSP.BetterCalm.Test
                 }
             };
             string categoryName = "Let it be";
-            Assert.IsFalse(playlist.IsSameSongName(categoryName));
+            Assert.IsFalse(playlist.IsSameAudioName(categoryName));
         }
         
         [TestMethod]

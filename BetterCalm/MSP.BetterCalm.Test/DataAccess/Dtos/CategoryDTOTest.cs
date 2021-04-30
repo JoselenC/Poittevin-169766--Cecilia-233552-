@@ -38,8 +38,8 @@ namespace MSP.BetterCalm.Test
         public void GetSetSongCategoryDto()
         {
             CategoryDto category = new CategoryDto();
-            category.SongsCategoriesDto = new List<SongCategoryDto>();
-            ICollection<SongCategoryDto> getcategorySong= category.SongsCategoriesDto;
+            category.AudiosCategoriesDto = new List<AudioCategoryDto>();
+            ICollection<AudioCategoryDto> getcategorySong= category.AudiosCategoriesDto;
             CollectionAssert.AreEqual(getcategorySong.ToList(), new List<PlaylistCategoryDto>());
         }
     }
