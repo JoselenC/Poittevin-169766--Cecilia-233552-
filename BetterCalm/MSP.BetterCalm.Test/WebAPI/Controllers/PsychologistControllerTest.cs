@@ -24,6 +24,7 @@ namespace MSP.BetterCalm.Test.WebAPI
             psychologists = new List<Psychologist>();
             psychologist = new Psychologist()
             {
+                PsychologistId = 1,
                 Name = "Psyco1"
             };
             psychologists.Add(psychologist);
@@ -40,6 +41,18 @@ namespace MSP.BetterCalm.Test.WebAPI
         }
         
         [TestMethod]
+        public void TestGetPsychologistsById()
+        {
+            mockPsychologistService.Setup(
+                x => x.GetPsychologistsById(1)
+            ).Returns(psychologist);
+            var result = psychologistController.GetPsychologistById(1);
+            var okResult = result as OkObjectResult;
+            var realPsychologist = okResult.Value;
+            Assert.AreEqual(realPsychologist, psychologist);
+        }
+        
+        [TestMethod]
         public void TestAddPsychologist()
         {
             mockPsychologistService.Setup(x => x.SetPsychologist(psychologist));
@@ -47,6 +60,17 @@ namespace MSP.BetterCalm.Test.WebAPI
             var createdResult = result as CreatedResult;
             var realPsycho = createdResult.Value;
             Assert.AreEqual(realPsycho, psychologist);
+        }
+        
+                
+        [TestMethod]
+        public void TestDeletePsychologist()
+        {
+            mockPsychologistService.Setup(x => x.DeletePsychologistById(psychologist.PsychologistId));
+            var result = psychologistController.DeletePsychologistById(psychologist.PsychologistId);
+            var createdResult = result as OkObjectResult;
+            var realPsycho = createdResult.Value;
+            Assert.AreEqual("Entity removed", realPsycho);
         }
     }
 }
