@@ -49,9 +49,8 @@ namespace MSP.BetterCalm.BusinessLogic
                 if(audio.IsSameAudioName(audioName))
                     audios.Add(audio);
             }
-
             if (audios.Count == 0)
-                throw new KeyNotFoundException();
+                throw new NotFoundAudio();
             return audios;
         }
 
@@ -64,7 +63,7 @@ namespace MSP.BetterCalm.BusinessLogic
                     audios.Add(audio);
             }
             if (audios.Count == 0)
-                throw new KeyNotFoundException();
+                throw new NotFoundAudio();
             return audios;
         }
 
@@ -77,13 +76,8 @@ namespace MSP.BetterCalm.BusinessLogic
                     audios.Add(audio);
             }
             if (audios.Count == 0)
-                throw new KeyNotFoundException();
+                throw new NotFoundAudio();
             return audios;
-        }
-
-        public Audio GetAudioByNameAndAuthor(string name, string author)
-        {
-            return repository.Audios.Find(x => x.IsSameAudioName(name) && x.IsSameAuthorName(author));
         }
 
         public void UpdateAudioById(int id, Audio audioUpdated)

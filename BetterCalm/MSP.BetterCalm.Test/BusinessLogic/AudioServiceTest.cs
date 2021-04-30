@@ -38,7 +38,7 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        [ExpectedException(typeof(KeyNotFoundException), "")]
+        [ExpectedException(typeof(NotFoundAudio), "")]
         public void NoFindAudioByName()
         {
             Audio Audio1 = new Audio() {Name = "Stand by me"};
@@ -60,7 +60,7 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        [ExpectedException(typeof(KeyNotFoundException), "")]
+        [ExpectedException(typeof(NotFoundAudio), "")]
         public void NoFindAudioByAuthor()
         {
             Audio Audio1 = new Audio() {Name = "Stand by me", AuthorName = "John Lennon"};
@@ -68,39 +68,6 @@ namespace MSP.BetterCalm.Test
             List<Audio> Audios = new List<Audio>() {Audio1};
             AudiosMock.Setup(x => x.Get()).Returns(Audios);
            _audioService.GetAudiosByAuthor("Ringo Starr");
-        }
-
-        [TestMethod]
-        public void FindAudioByAuthorAndName()
-        {
-            Audio Audio1 = new Audio() {Name = "Stand by me", AuthorName = "John Lennon"};
-            AudiosMock.Setup(x => x.Find(It.IsAny<Predicate<Audio>>())).Returns(Audio1);
-            Audio Audio3 = _audioService.GetAudioByNameAndAuthor("Stand by me","John Lennon");
-            Assert.AreEqual(Audio1, Audio3);
-        }
-        
-        [TestMethod]
-        [ExpectedException(typeof(KeyNotFoundException), "")]
-        public void NoFindAudioByAuthorAndName()
-        {
-            AudiosMock.Setup(x => x.Find(It.IsAny<Predicate<Audio>>())).Throws(new KeyNotFoundException());
-            _audioService.GetAudioByNameAndAuthor("Stand by me","Ringo Starr");
-        }
-        
-        [TestMethod]
-        [ExpectedException(typeof(KeyNotFoundException), "")]
-        public void NoFindAudioDiffAuthor()
-        {
-            AudiosMock.Setup(x => x.Find(It.IsAny<Predicate<Audio>>())).Throws(new KeyNotFoundException());
-            _audioService.GetAudioByNameAndAuthor("Let it be","John Lennon");
-        }
-        
-        [TestMethod]
-        [ExpectedException(typeof(KeyNotFoundException), "")]
-        public void NoFindAudioDiffName()
-        {
-            AudiosMock.Setup(x => x.Find(It.IsAny<Predicate<Audio>>())).Throws(new KeyNotFoundException());
-            _audioService.GetAudioByNameAndAuthor("Stand by me","Ringo Starr");
         }
         
         [TestMethod]
@@ -190,7 +157,7 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        [ExpectedException(typeof(KeyNotFoundException), "")]
+        [ExpectedException(typeof(NotFoundAudio), "")]
         public void NoFindAudioByCategoryName()
         {
             Audio Audio1 = new Audio()
