@@ -4,10 +4,12 @@ using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.DataAccess;
 using MSP.BetterCalm.Domain;
+using MSP.BetterCalm.WebAPI.Filters;
 
 namespace MSP.BetterCalm.WebAPI.Controllers
 {
     [ApiController]
+    [FilterExceptions]
     [Route("api/Problematic")]
     public class ProblematicController : ControllerBase
     {

@@ -4,10 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.Domain;
+using MSP.BetterCalm.WebAPI.Filters;
 
 namespace MSP.BetterCalm.WebAPI.Controllers
 {
     [ApiController]
+    [FilterExceptions]
     [Route("api/Playlist")]
     public class PlaylistController : ControllerBase
     {
