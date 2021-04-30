@@ -61,6 +61,16 @@ namespace MSP.BetterCalm.WebAPI.Filters
                 response.Content = context.Exception.Message;
                 response.Code = 404;
             }
+            if (context.Exception is NotFoundAudio)
+            {
+                response.Content = context.Exception.Message;
+                response.Code = 404;
+            }
+            if (context.Exception is NotFoundPlaylist)
+            {
+                response.Content = context.Exception.Message;
+                response.Code = 404;
+            }
             if (context.Exception is AlreadyExistThisAudio)
             {
                 response.Content = context.Exception.Message;

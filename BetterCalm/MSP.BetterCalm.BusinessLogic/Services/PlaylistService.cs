@@ -35,7 +35,7 @@ namespace MSP.BetterCalm.BusinessLogic
             }
 
             if (playlists.Count == 0)
-                throw new KeyNotFoundException();
+                throw new NotFoundPlaylist();
             return playlists;
         }
 
@@ -48,7 +48,7 @@ namespace MSP.BetterCalm.BusinessLogic
                     playlists.Add(playlist);
             }
             if (playlists.Count == 0)
-                throw new KeyNotFoundException();
+                throw new NotFoundPlaylist();
             return playlists;
         }
 
@@ -62,7 +62,7 @@ namespace MSP.BetterCalm.BusinessLogic
             }
 
             if (playlists.Count == 0)
-                throw new KeyNotFoundException();
+                throw new NotFoundPlaylist();
             return playlists;
         }
 
