@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using MSP.BetterCalm.BusinessLogic;
+using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.Test
@@ -43,6 +45,32 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
+        public void TestGetPsychologistById()
+        {
+            Psychologist psychologist = new Psychologist()
+            {
+                Name = "psychologist1",
+                PsychologistId = 1
+            };
+            psychologistMock.Setup(
+                x => x.Find(It.IsAny<Predicate<Psychologist>>())
+            ).Returns(psychologist);
+            service.GetPsychologistsById(psychologist.PsychologistId);
+            psychologistMock.VerifyAll();
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundPsychologist))]
+        public void TestGetPsychologistByIdNotFound()
+        {
+
+            psychologistMock.Setup(
+                x => x.Find(It.IsAny<Predicate<Psychologist>>())
+            ).Throws(new KeyNotFoundException());
+            service.GetPsychologistsById(1);
+        }
+        
+        [TestMethod]
         public void TestAddPsychologist()
         {
             Psychologist psychologist = new Psychologist()
@@ -56,6 +84,33 @@ namespace MSP.BetterCalm.Test
             psychologistMock.VerifyAll();
         }
 
+        [TestMethod]
+        public void TestDeletePsychologist()
+        {
+            Psychologist psychologist = new Psychologist()
+            {
+                Name = "psychologist1",
+                PsychologistId = 1
+            };
+            psychologistMock.Setup(
+                x => x.Delete(psychologist)
+            );
+            psychologistMock.Setup(
+                x => x.Find(It.IsAny<Predicate<Psychologist>>())
+            ).Returns(psychologist);
+            service.DeletePsychologistById(psychologist.PsychologistId);
+            psychologistMock.VerifyAll();
+        }
         
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundPsychologist))]
+        public void TestDeletePsychologistNotFound()
+        {
+
+            psychologistMock.Setup(
+                x => x.Find(It.IsAny<Predicate<Psychologist>>())
+            ).Throws(new KeyNotFoundException());
+            service.DeletePsychologistById(1);
+        }
     }
 }
