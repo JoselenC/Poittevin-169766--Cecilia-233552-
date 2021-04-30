@@ -37,7 +37,7 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(KeyNotFoundException), "")]
+        [ExpectedException(typeof(NotFoundProblematic), "")]
         public void FindProblematicByNameNull()
         {
             problematicMock.Setup(x => x.Find(It.IsAny<Predicate<Problematic>>())).Throws(new KeyNotFoundException());

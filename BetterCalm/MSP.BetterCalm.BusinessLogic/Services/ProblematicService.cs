@@ -16,11 +16,18 @@ namespace MSP.BetterCalm.BusinessLogic
         public List<Problematic> GetProblematics()
         {
             return repository.Problematics.Get();
-        }            
+        }
 
         public Problematic GetProblematicByName(string name)
         {
-            return repository.Problematics.Find(x => x.IsSameProblematicName(name));
+            try
+            {
+                return repository.Problematics.Find(x => x.IsSameProblematicName(name));
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new NotFoundProblematic();
+            }
         }
 
         public Problematic GetProblematicById(int id)
