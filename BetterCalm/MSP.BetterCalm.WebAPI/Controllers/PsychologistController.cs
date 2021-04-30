@@ -23,14 +23,29 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            IEnumerable<Psychologist> patientes = psychologistService.GetPsychologists();
-            return Ok(patientes);
+            IEnumerable<Psychologist> psychologists = psychologistService.GetPsychologists();
+            return Ok(psychologists);
+        }
+        
+        [HttpGet("{psychologistId}")]
+        public IActionResult GetPsychologistById(int psychologistId)
+        {
+            Psychologist psychologist = psychologistService.GetPsychologistsById(psychologistId);
+            return Ok(psychologist);
         }
 
+        [HttpPost]
         public IActionResult AddPsychologist(Psychologist psychologist)
         {
             psychologistService.SetPsychologist(psychologist);
             return Created($"api/psychologist/{psychologist.Name}", psychologist);
+        }
+
+        [HttpDelete("{psychologistId}")]
+        public OkObjectResult DeletePsychologistById(int psychologistId)
+        {
+            psychologistService.DeletePsychologistById(psychologistId);
+            return Ok("Entity removed");
         }
     }
 }
