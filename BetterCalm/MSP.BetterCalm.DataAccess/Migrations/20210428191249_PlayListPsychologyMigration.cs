@@ -11,16 +11,16 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                 table: "Categories");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Categories_Songs_SongDtoID",
+                name: "FK_Categories_Audios_AudioDtoID",
                 table: "Categories");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Songs_Playlists_PlaylistDtoID",
-                table: "Songs");
+                name: "FK_Audios_Playlists_PlaylistDtoID",
+                table: "Audios");
 
             migrationBuilder.DropIndex(
-                name: "IX_Songs_PlaylistDtoID",
-                table: "Songs");
+                name: "IX_Audios_PlaylistDtoID",
+                table: "Audios");
 
             migrationBuilder.DropPrimaryKey(
                 name: "PK_Meeting",
@@ -31,19 +31,19 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                 table: "Categories");
 
             migrationBuilder.DropIndex(
-                name: "IX_Categories_SongDtoID",
+                name: "IX_Categories_AudioDtoID",
                 table: "Categories");
 
             migrationBuilder.DropColumn(
                 name: "PlaylistDtoID",
-                table: "Songs");
+                table: "Audios");
 
             migrationBuilder.DropColumn(
                 name: "PlaylistDtoID",
                 table: "Categories");
 
             migrationBuilder.DropColumn(
-                name: "SongDtoID",
+                name: "AudioDtoID",
                 table: "Categories");
 
             migrationBuilder.AddPrimaryKey(
@@ -76,50 +76,50 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PlaylistSongDto",
+                name: "PlaylistAudioDto",
                 columns: table => new
                 {
-                    SongID = table.Column<int>(type: "int", nullable: false),
+                    AudioID = table.Column<int>(type: "int", nullable: false),
                     PlaylistID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PlaylistSongDto", x => new { x.PlaylistID, x.SongID });
+                    table.PrimaryKey("PK_PlaylistAudioDto", x => new { x.PlaylistID, x.AudioID });
                     table.ForeignKey(
-                        name: "FK_PlaylistSongDto_Playlists_PlaylistID",
+                        name: "FK_PlaylistAudioDto_Playlists_PlaylistID",
                         column: x => x.PlaylistID,
                         principalTable: "Playlists",
                         principalColumn: "PlaylistDtoID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PlaylistSongDto_Songs_SongID",
-                        column: x => x.SongID,
-                        principalTable: "Songs",
-                        principalColumn: "SongDtoID",
+                        name: "FK_PlaylistAudioDto_Audios_AudioID",
+                        column: x => x.AudioID,
+                        principalTable: "Audios",
+                        principalColumn: "AudioDtoID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "SongCategoryDto",
+                name: "AudioCategoryDto",
                 columns: table => new
                 {
-                    SongID = table.Column<int>(type: "int", nullable: false),
+                    AudioID = table.Column<int>(type: "int", nullable: false),
                     CategoryID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SongCategoryDto", x => new { x.SongID, x.CategoryID });
+                    table.PrimaryKey("PK_AudioCategoryDto", x => new { x.AudioID, x.CategoryID });
                     table.ForeignKey(
-                        name: "FK_SongCategoryDto_Categories_CategoryID",
+                        name: "FK_AudioCategoryDto_Categories_CategoryID",
                         column: x => x.CategoryID,
                         principalTable: "Categories",
                         principalColumn: "CategoryDtoID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SongCategoryDto_Songs_SongID",
-                        column: x => x.SongID,
-                        principalTable: "Songs",
-                        principalColumn: "SongDtoID",
+                        name: "FK_AudioCategoryDto_Audios_AudioID",
+                        column: x => x.AudioID,
+                        principalTable: "Audios",
+                        principalColumn: "AudioDtoID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -129,13 +129,13 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                 column: "CategoryID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PlaylistSongDto_SongID",
-                table: "PlaylistSongDto",
-                column: "SongID");
+                name: "IX_PlaylistAudioDto_AudioID",
+                table: "PlaylistAudioDto",
+                column: "AudioID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SongCategoryDto_CategoryID",
-                table: "SongCategoryDto",
+                name: "IX_AudioCategoryDto_CategoryID",
+                table: "AudioCategoryDto",
                 column: "CategoryID");
         }
 
@@ -145,10 +145,10 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                 name: "PlaylistCategoryDto");
 
             migrationBuilder.DropTable(
-                name: "PlaylistSongDto");
+                name: "PlaylistAudioDto");
 
             migrationBuilder.DropTable(
-                name: "SongCategoryDto");
+                name: "AudioCategoryDto");
 
             migrationBuilder.DropPrimaryKey(
                 name: "PK_Meeting",
@@ -156,7 +156,7 @@ namespace MSP.BetterCalm.DataAccess.Migrations
 
             migrationBuilder.AddColumn<int>(
                 name: "PlaylistDtoID",
-                table: "Songs",
+                table: "Audios",
                 type: "int",
                 nullable: true);
 
@@ -167,7 +167,7 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                 nullable: true);
 
             migrationBuilder.AddColumn<int>(
-                name: "SongDtoID",
+                name: "AudioDtoID",
                 table: "Categories",
                 type: "int",
                 nullable: true);
@@ -178,8 +178,8 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                 columns: new[] { "PsychologistId", "PatientId" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Songs_PlaylistDtoID",
-                table: "Songs",
+                name: "IX_Audios_PlaylistDtoID",
+                table: "Audios",
                 column: "PlaylistDtoID");
 
             migrationBuilder.CreateIndex(
@@ -188,9 +188,9 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                 column: "PlaylistDtoID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Categories_SongDtoID",
+                name: "IX_Categories_AudioDtoID",
                 table: "Categories",
-                column: "SongDtoID");
+                column: "AudioDtoID");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Categories_Playlists_PlaylistDtoID",
@@ -201,16 +201,16 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                 onDelete: ReferentialAction.SetNull);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Categories_Songs_SongDtoID",
+                name: "FK_Categories_Audios_AudioDtoID",
                 table: "Categories",
-                column: "SongDtoID",
-                principalTable: "Songs",
-                principalColumn: "SongDtoID",
+                column: "AudioDtoID",
+                principalTable: "Audios",
+                principalColumn: "AudioDtoID",
                 onDelete: ReferentialAction.SetNull);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Songs_Playlists_PlaylistDtoID",
-                table: "Songs",
+                name: "FK_Audios_Playlists_PlaylistDtoID",
+                table: "Audios",
                 column: "PlaylistDtoID",
                 principalTable: "Playlists",
                 principalColumn: "PlaylistDtoID",

@@ -8,7 +8,7 @@ namespace MSP.BetterCalm.DataAccess.Migrations
         {
             migrationBuilder.AlterColumn<double>(
                 name: "Duration",
-                table: "Songs",
+                table: "Audios",
                 type: "float",
                 nullable: false,
                 oldClrType: typeof(int),
@@ -19,7 +19,7 @@ namespace MSP.BetterCalm.DataAccess.Migrations
         {
             migrationBuilder.AlterColumn<int>(
                 name: "Duration",
-                table: "Songs",
+                table: "Audios",
                 type: "int",
                 nullable: false,
                 oldClrType: typeof(double),

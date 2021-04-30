@@ -46,6 +46,48 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                     b.ToTable("Administrators");
                 });
 
+            modelBuilder.Entity("MSP.BetterCalm.DataAccess.AudioCategoryDto", b =>
+                {
+                    b.Property<int>("AudioID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryID")
+                        .HasColumnType("int");
+
+                    b.HasKey("AudioID", "CategoryID");
+
+                    b.HasIndex("CategoryID");
+
+                    b.ToTable("AudioCategoryDto");
+                });
+
+            modelBuilder.Entity("MSP.BetterCalm.DataAccess.AudioDto", b =>
+                {
+                    b.Property<int>("AudioDtoID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AuthorName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Duration")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UrlAudio")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UrlImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AudioDtoID");
+
+                    b.ToTable("Audios");
+                });
+
             modelBuilder.Entity("MSP.BetterCalm.DataAccess.CategoryDto", b =>
                 {
                     b.Property<int>("CategoryDtoID")
@@ -106,6 +148,21 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                     b.ToTable("Patients");
                 });
 
+            modelBuilder.Entity("MSP.BetterCalm.DataAccess.PlaylistAudioDto", b =>
+                {
+                    b.Property<int>("PlaylistID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AudioID")
+                        .HasColumnType("int");
+
+                    b.HasKey("PlaylistID", "AudioID");
+
+                    b.HasIndex("AudioID");
+
+                    b.ToTable("PlaylistAudioDto");
+                });
+
             modelBuilder.Entity("MSP.BetterCalm.DataAccess.PlaylistCategoryDto", b =>
                 {
                     b.Property<int>("PlaylistID")
@@ -140,21 +197,6 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                     b.HasKey("PlaylistDtoID");
 
                     b.ToTable("Playlists");
-                });
-
-            modelBuilder.Entity("MSP.BetterCalm.DataAccess.PlaylistSongDto", b =>
-                {
-                    b.Property<int>("PlaylistID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SongID")
-                        .HasColumnType("int");
-
-                    b.HasKey("PlaylistID", "SongID");
-
-                    b.HasIndex("SongID");
-
-                    b.ToTable("PlaylistSongDto");
                 });
 
             modelBuilder.Entity("MSP.BetterCalm.DataAccess.ProblematicDto", b =>
@@ -214,46 +256,23 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                     b.ToTable("PsychologistProblematic");
                 });
 
-            modelBuilder.Entity("MSP.BetterCalm.DataAccess.SongCategoryDto", b =>
+            modelBuilder.Entity("MSP.BetterCalm.DataAccess.AudioCategoryDto", b =>
                 {
-                    b.Property<int>("SongID")
-                        .HasColumnType("int");
+                    b.HasOne("MSP.BetterCalm.DataAccess.AudioDto", "AudioDto")
+                        .WithMany("AudiosCategoriesDto")
+                        .HasForeignKey("AudioID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<int>("CategoryID")
-                        .HasColumnType("int");
+                    b.HasOne("MSP.BetterCalm.DataAccess.CategoryDto", "CategoryDto")
+                        .WithMany("AudiosCategoriesDto")
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasKey("SongID", "CategoryID");
+                    b.Navigation("AudioDto");
 
-                    b.HasIndex("CategoryID");
-
-                    b.ToTable("SongCategoryDto");
-                });
-
-            modelBuilder.Entity("MSP.BetterCalm.DataAccess.SongDto", b =>
-                {
-                    b.Property<int>("SongDtoID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AuthorName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Duration")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UrlAudio")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UrlImage")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("SongDtoID");
-
-                    b.ToTable("Songs");
+                    b.Navigation("CategoryDto");
                 });
 
             modelBuilder.Entity("MSP.BetterCalm.DataAccess.MeetingDto", b =>
@@ -275,6 +294,25 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                     b.Navigation("Psychologist");
                 });
 
+            modelBuilder.Entity("MSP.BetterCalm.DataAccess.PlaylistAudioDto", b =>
+                {
+                    b.HasOne("MSP.BetterCalm.DataAccess.AudioDto", "AudioDto")
+                        .WithMany("PlaylistAudiosDto")
+                        .HasForeignKey("AudioID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MSP.BetterCalm.DataAccess.PlaylistDto", "PlaylistDto")
+                        .WithMany("PlaylistAudiosDto")
+                        .HasForeignKey("PlaylistID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AudioDto");
+
+                    b.Navigation("PlaylistDto");
+                });
+
             modelBuilder.Entity("MSP.BetterCalm.DataAccess.PlaylistCategoryDto", b =>
                 {
                     b.HasOne("MSP.BetterCalm.DataAccess.CategoryDto", "CategoryDto")
@@ -292,25 +330,6 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                     b.Navigation("CategoryDto");
 
                     b.Navigation("PlaylistDto");
-                });
-
-            modelBuilder.Entity("MSP.BetterCalm.DataAccess.PlaylistSongDto", b =>
-                {
-                    b.HasOne("MSP.BetterCalm.DataAccess.PlaylistDto", "PlaylistDto")
-                        .WithMany("PlaylistSongsDto")
-                        .HasForeignKey("PlaylistID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MSP.BetterCalm.DataAccess.SongDto", "SongDto")
-                        .WithMany("PlaylistSongsDto")
-                        .HasForeignKey("SongID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PlaylistDto");
-
-                    b.Navigation("SongDto");
                 });
 
             modelBuilder.Entity("MSP.BetterCalm.DataAccess.PsychologistProblematicDto", b =>
@@ -332,30 +351,18 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                     b.Navigation("Psychologist");
                 });
 
-            modelBuilder.Entity("MSP.BetterCalm.DataAccess.SongCategoryDto", b =>
+            modelBuilder.Entity("MSP.BetterCalm.DataAccess.AudioDto", b =>
                 {
-                    b.HasOne("MSP.BetterCalm.DataAccess.CategoryDto", "CategoryDto")
-                        .WithMany("SongsCategoriesDto")
-                        .HasForeignKey("CategoryID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("AudiosCategoriesDto");
 
-                    b.HasOne("MSP.BetterCalm.DataAccess.SongDto", "SongDto")
-                        .WithMany("SongsCategoriesDto")
-                        .HasForeignKey("SongID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CategoryDto");
-
-                    b.Navigation("SongDto");
+                    b.Navigation("PlaylistAudiosDto");
                 });
 
             modelBuilder.Entity("MSP.BetterCalm.DataAccess.CategoryDto", b =>
                 {
-                    b.Navigation("PlaylistCategoriesDto");
+                    b.Navigation("AudiosCategoriesDto");
 
-                    b.Navigation("SongsCategoriesDto");
+                    b.Navigation("PlaylistCategoriesDto");
                 });
 
             modelBuilder.Entity("MSP.BetterCalm.DataAccess.PatientDto", b =>
@@ -365,9 +372,9 @@ namespace MSP.BetterCalm.DataAccess.Migrations
 
             modelBuilder.Entity("MSP.BetterCalm.DataAccess.PlaylistDto", b =>
                 {
-                    b.Navigation("PlaylistCategoriesDto");
+                    b.Navigation("PlaylistAudiosDto");
 
-                    b.Navigation("PlaylistSongsDto");
+                    b.Navigation("PlaylistCategoriesDto");
                 });
 
             modelBuilder.Entity("MSP.BetterCalm.DataAccess.ProblematicDto", b =>
@@ -380,13 +387,6 @@ namespace MSP.BetterCalm.DataAccess.Migrations
                     b.Navigation("Meetings");
 
                     b.Navigation("Problematics");
-                });
-
-            modelBuilder.Entity("MSP.BetterCalm.DataAccess.SongDto", b =>
-                {
-                    b.Navigation("PlaylistSongsDto");
-
-                    b.Navigation("SongsCategoriesDto");
                 });
 #pragma warning restore 612, 618
         }
