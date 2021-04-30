@@ -151,7 +151,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         public void TestCreateInvalidDescriptionPlaylist()
         {
             mockPlaylistService.Setup(m => m.SetPlaylist(playlist)).Throws(new InvalidDescriptionLength());
-          playlistController.CreatePlaylist(playlistDto);
+            playlistController.CreatePlaylist(playlistDto);
         }
         
         [TestMethod]
