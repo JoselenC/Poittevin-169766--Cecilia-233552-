@@ -44,5 +44,11 @@ namespace MSP.BetterCalm.BusinessLogic
                 throw new NotFoundPsychologist();
             }
         }
+
+        public Psychologist UpdatePsychologist(Psychologist newPsychologist, int psychologistId)
+        {
+            Psychologist oldPsychologist = GetPsychologistsById(psychologistId);
+            return repository.Psychologists.Update(oldPsychologist, newPsychologist);
+        }
     }
 }

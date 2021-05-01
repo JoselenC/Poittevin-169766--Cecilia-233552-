@@ -8,7 +8,9 @@ namespace MSP.BetterCalm.BusinessLogic
         public List<Psychologist> GetPsychologists();
         public void AddPsychologist(Psychologist psychologist);
         public void DeletePsychologistById(int psychologistId);
-        Psychologist GetPsychologistsById(int psychologistId);
-        
+        public Psychologist GetPsychologistsById(int psychologistId);
+
+        public Psychologist UpdatePsychologist(Psychologist newPsychologist, int psychologistId);
+
     }
 }
