@@ -38,6 +38,8 @@ namespace MSP.BetterCalm.Test.WebAPI
             var okResult = result as OkObjectResult;
             var realPsychologists = okResult.Value;
             Assert.AreEqual(realPsychologists, psychologists);
+            mockPsychologistService.VerifyAll();
+
         }
         
         [TestMethod]
@@ -50,6 +52,8 @@ namespace MSP.BetterCalm.Test.WebAPI
             var okResult = result as OkObjectResult;
             var realPsychologist = okResult.Value;
             Assert.AreEqual(realPsychologist, psychologist);
+            mockPsychologistService.VerifyAll();
+
         }
         
         [TestMethod]
@@ -60,6 +64,8 @@ namespace MSP.BetterCalm.Test.WebAPI
             var createdResult = result as CreatedResult;
             var realPsycho = createdResult.Value;
             Assert.AreEqual(realPsycho, psychologist);
+            mockPsychologistService.VerifyAll();
+
         }
         
                 
@@ -71,6 +77,19 @@ namespace MSP.BetterCalm.Test.WebAPI
             var createdResult = result as OkObjectResult;
             var realPsycho = createdResult.Value;
             Assert.AreEqual("Entity removed", realPsycho);
+            mockPsychologistService.VerifyAll();
+        }
+        
+        [TestMethod]
+        public void TestUpdatePsychologistById()
+        {
+            mockPsychologistService.Setup(
+                x => x.UpdatePsychologist(psychologist, psychologist.PsychologistId)
+                ).Returns(psychologist);
+            var result = psychologistController.UpdatePsychologist(psychologist, psychologist.PsychologistId);
+            var createdResult = result as OkObjectResult;
+            var realPsycho = createdResult.Value;
+            Assert.AreEqual(realPsycho, psychologist);
         }
     }
 }
