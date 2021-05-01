@@ -11,18 +11,16 @@ namespace MSP.BetterCalm.DataAccess
         public PsychologistDto DomainToDto(Psychologist obj, ContextDB context)
         {
             PsychologistDto psychologistDto = context.Psychologists.FirstOrDefault(
-                x => x.Name == obj.Name &&
-                     x.LastName == obj.LastName &&
-                     x.Address == obj.Address &&
-                     x.WorksOnline == obj.WorksOnline
+                x => x.PsychologistDtoId == obj.PsychologistId
                 );
             if (psychologistDto == null)
                 psychologistDto = new PsychologistDto() 
                 {
+                    CreationDate = obj.CreationDate,
                     Name = obj.Name,
                     LastName = obj.LastName,
                     Address = obj.Address,
-                    WorksOnline = obj.WorksOnline,
+                    WorksOnline = obj.WorksOnline
                 };
             List<PsychologistProblematicDto> problematics = new List<PsychologistProblematicDto>();
             if(obj.Problematics != null){
@@ -48,6 +46,7 @@ namespace MSP.BetterCalm.DataAccess
         {
             Psychologist psychologist = new Psychologist()
             {
+                CreationDate =  obj.CreationDate,
                 PsychologistId = obj.PsychologistDtoId,
                 Name = obj.Name,
                 LastName = obj.LastName,

@@ -11,9 +11,12 @@ namespace MSP.BetterCalm.Domain
         public bool WorksOnline { get; set; }
         public List<Problematic> Problematics{ get; set; }
         public List<Meeting> Meetings{ get; set; }
+        public DateTime CreationDate { get; set;}
+        
         protected bool Equals(Psychologist other)
         {
             return Address == other.Address &&
+                   CreationDate == other.CreationDate &&
                    Name == other.Name &&
                    LastName == other.LastName &&
                    WorksOnline == other.WorksOnline &&
