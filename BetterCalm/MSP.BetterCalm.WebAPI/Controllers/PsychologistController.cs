@@ -37,8 +37,8 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         [HttpPost]
         public IActionResult AddPsychologist(Psychologist psychologist)
         {
-            psychologistService.AddPsychologist(psychologist);
-            return Created($"api/psychologist/{psychologist.Name}", psychologist);
+            Psychologist createdPsychologist = psychologistService.AddPsychologist(psychologist);
+            return Created($"api/psychologist/{psychologist.Name}", createdPsychologist);
         }
 
         [HttpDelete("{psychologistId}")]

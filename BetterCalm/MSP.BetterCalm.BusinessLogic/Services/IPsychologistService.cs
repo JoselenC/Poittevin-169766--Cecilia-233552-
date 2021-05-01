@@ -6,7 +6,7 @@ namespace MSP.BetterCalm.BusinessLogic
     public interface IPsychologistService
     {
         public List<Psychologist> GetPsychologists();
-        public void AddPsychologist(Psychologist psychologist);
+        public Psychologist AddPsychologist(Psychologist psychologist);
         public void DeletePsychologistById(int psychologistId);
         public Psychologist GetPsychologistsById(int psychologistId);
 

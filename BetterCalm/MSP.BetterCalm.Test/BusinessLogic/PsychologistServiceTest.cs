@@ -79,8 +79,9 @@ namespace MSP.BetterCalm.Test
             };
             psychologistMock.Setup(
                 x => x.Add(psychologist)
-            );
-            service.AddPsychologist(psychologist);
+            ).Returns(psychologist);
+            Psychologist createdPsychologist = service.AddPsychologist(psychologist);
+            Assert.AreEqual(psychologist, createdPsychologist);
             psychologistMock.VerifyAll();
         }
         
