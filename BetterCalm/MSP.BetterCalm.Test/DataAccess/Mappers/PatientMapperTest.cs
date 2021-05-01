@@ -38,7 +38,7 @@ namespace MSP.BetterCalm.Test
             };
             patientTest.Meetings = new List<Meeting>(){meeting};
             RepoMeetings.Add(meeting);
-            RepoPatients.Add(patientTest);
+            patientTest = RepoPatients.Add(patientTest);
         }
         
         [TestCleanup]
@@ -57,7 +57,7 @@ namespace MSP.BetterCalm.Test
                 Cellphone="092319124",
                 BirthDay = new DateTime(1993,07,12),
             };
-            RepoPatients.Add(patientTest);
+            patientTest = RepoPatients.Add(patientTest);
             Patient actualPatient = RepoPatients.Find(x => x.Name == "Jose");
             Assert.AreEqual(patientTest, actualPatient);
         }
@@ -66,7 +66,7 @@ namespace MSP.BetterCalm.Test
         public void DtoToDomainTest()
         {
             Patient actualPatient = RepoPatients.Find(x => x.Name == "Juan");
-            Assert.AreEqual(this.patientTest, actualPatient);
+            Assert.AreEqual( patientTest, actualPatient);
         }
      
         [TestMethod]

@@ -25,10 +25,11 @@ namespace MSP.BetterCalm.DataAccess
         public Patient DtoToDomain(PatientDto obj, ContextDB context)
         {
             PsychologistMapper psychologistMapper = new PsychologistMapper();
-            List<MeetingDto> meetings = context.Meeting.ToList().FindAll(x => x.Patient == obj);
+            context.Entry(obj).Collection("Meetings").Load();
             List<Meeting> domainMeetings = new List<Meeting>();
-            foreach (MeetingDto meeting in meetings)
+            foreach (MeetingDto meeting in obj.Meetings)
             {
+                context.Entry(meeting).Reference("Psychologist").Load();
                 domainMeetings.Add(
                     new Meeting()
                     {

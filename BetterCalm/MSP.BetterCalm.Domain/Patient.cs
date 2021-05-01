@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MSP.BetterCalm.Domain
 {
@@ -15,10 +16,15 @@ namespace MSP.BetterCalm.Domain
         }
         protected bool Equals(Patient other)
         {
-            return Name == other.Name &&
+            return PatientId == other.PatientId &&
+                   Name == other.Name &&
                    LastName == other.LastName &&
                    Cellphone == other.Cellphone &&
-                   BirthDay.Equals(other.BirthDay);
+                   BirthDay.Equals(other.BirthDay) &&
+                   Meetings.OrderBy(
+                       x => x.Psychologist.PsychologistId).SequenceEqual(
+                       other.Meetings.OrderBy(
+                           x => x.Psychologist.PsychologistId)); ;
         }
 
         public override bool Equals(object obj)
