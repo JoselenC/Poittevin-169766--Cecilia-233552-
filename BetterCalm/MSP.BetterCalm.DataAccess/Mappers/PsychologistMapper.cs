@@ -54,14 +54,17 @@ namespace MSP.BetterCalm.DataAccess
                 Address = obj.Address,
                 WorksOnline = obj.WorksOnline
             };
+            context.Entry(obj).Collection("Problematics").Load();
             List<Problematic> problematics = new List<Problematic>();
             if (obj.Problematics != null)
             {
                 foreach (PsychologistProblematicDto psychologistProblematicDto in obj.Problematics)
                 {
+                    context.Entry(psychologistProblematicDto).Reference("Problematic").Load();
                     problematics.Add(
                         new Problematic()
                         {
+                            Id = psychologistProblematicDto.Problematic.ProblematicDtoID,
                             Name = psychologistProblematicDto.Problematic.Name
                         }
                     );

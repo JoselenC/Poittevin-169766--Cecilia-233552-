@@ -16,7 +16,11 @@ namespace MSP.BetterCalm.Domain
             return Address == other.Address &&
                    Name == other.Name &&
                    LastName == other.LastName &&
-                   WorksOnline == other.WorksOnline;
+                   WorksOnline == other.WorksOnline &&
+                   Problematics.OrderBy(
+                       x => x.Id).SequenceEqual(
+                       other.Problematics.OrderBy(
+                           x => x.Id));
         }
 
         public override bool Equals(object obj)
