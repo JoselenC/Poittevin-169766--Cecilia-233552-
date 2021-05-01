@@ -50,7 +50,7 @@ namespace MSP.BetterCalm.Domain
             }
             for (int i = 0; i < daysBeforeSaturday; i++)
             {
-                weekDay = weekDay.AddDays(i);
+                weekDay = weekDay.AddDays(i == 0 ? 0 : 1);
                 IEnumerable<Meeting> meetings =
                     Meetings.Where(
                         x => x.DateTime.DayOfYear == weekDay.DayOfYear && x.DateTime.Year == weekDay.Year
