@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.DataAccess;
@@ -35,6 +36,16 @@ namespace MSP.BetterCalm.Test
                 UserDtoId = 11
             };
             Assert.AreEqual(11, psychologist.UserDtoId);
+        }
+        
+        [TestMethod]
+        public void GetSetCreationDate()
+        {
+            PsychologistDto psychologist = new PsychologistDto
+            {
+                CreationDate = new DateTime(1990,1,1)
+            };
+            Assert.AreEqual(new DateTime(1990,1,1), psychologist.CreationDate);
         }
         
         [TestMethod]

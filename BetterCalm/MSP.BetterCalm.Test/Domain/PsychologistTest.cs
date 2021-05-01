@@ -41,6 +41,16 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
+        public void GetSetCreationTime()
+        {
+            Psychologist psychologist = new Psychologist
+            {
+                CreationDate = new DateTime(1990,1,1)
+            };
+            Assert.AreEqual(new DateTime(1990,1,1), psychologist.CreationDate);
+        }
+        
+        [TestMethod]
         public void GetSetWorksOnline()
         {
             Psychologist psychologist = new Psychologist
