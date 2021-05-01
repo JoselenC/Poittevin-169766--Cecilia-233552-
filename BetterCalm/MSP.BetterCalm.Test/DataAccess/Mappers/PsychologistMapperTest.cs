@@ -31,12 +31,12 @@ namespace MSP.BetterCalm.Test
             {
                 Name = "test1"
             };
-            probRepo.Add(prob1);
+            prob1 = probRepo.Add(prob1);
             prob2 = new Problematic()
             {
                 Name = "test2"
             };
-            probRepo.Add(prob2);
+            prob2 = probRepo.Add(prob2);
             psychologistTest = new Psychologist()
             {
                 Name = "Roberto",
@@ -44,7 +44,7 @@ namespace MSP.BetterCalm.Test
                 Address = "PsyAddress",
                 WorksOnline = true
             };
-            RepoPsychologists.Add(psychologistTest);
+            psychologistTest = RepoPsychologists.Add(psychologistTest);
         }
 
         [TestCleanup]
@@ -65,7 +65,7 @@ namespace MSP.BetterCalm.Test
                prob1, prob2
             };
             psychologistTest.Problematics = problematics;
-            RepoPsychologists.Add(psychologistTest);
+            psychologistTest = RepoPsychologists.Add(psychologistTest);
             Psychologist actualPsychologist = RepoPsychologists.Find(x => x.Name == "Jose");
             Assert.AreEqual(psychologistTest, actualPsychologist);
         }
@@ -93,7 +93,7 @@ namespace MSP.BetterCalm.Test
         public void DtoToDomainTest()
         {
             Psychologist actualPsychologist = RepoPsychologists.Find(x => x.Name == "Roberto");
-            Assert.AreEqual(this.psychologistTest, actualPsychologist);
+            Assert.AreEqual(psychologistTest, actualPsychologist);
         }
      
         [TestMethod]
