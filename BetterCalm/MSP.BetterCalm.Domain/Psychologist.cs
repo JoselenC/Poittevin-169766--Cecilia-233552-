@@ -42,6 +42,12 @@ namespace MSP.BetterCalm.Domain
             if (Meetings is null)
                 return weekDay;
             int daysBeforeSaturday = (int) DayOfWeek.Saturday - (int) weekDay.DayOfWeek;
+            // If it's Saturday or Sunday, I start the weekday on Monday 
+            if (daysBeforeSaturday == 0 || daysBeforeSaturday == 6)
+            {
+                weekDay = weekDay.AddDays(8 - (int) weekDay.DayOfWeek);
+                daysBeforeSaturday = 5;
+            }
             for (int i = 0; i < daysBeforeSaturday; i++)
             {
                 weekDay = weekDay.AddDays(i);
@@ -52,8 +58,8 @@ namespace MSP.BetterCalm.Domain
                 if (meetings.Count() < 5)
                     return weekDay;
             }
-            //At this point, the day should be a Friday, I Add 2 days to start on Monday adn then look again.
-            weekDay = weekDay.AddDays(8 - (int)weekDay.DayOfWeek);
+            //At this point, the day should be a Friday, I Add 3 days to start on Monday adn then look again.
+            weekDay = weekDay.AddDays(3);
             return GetDayForNextMeetingOnWeek(weekDay);
         }
     }
