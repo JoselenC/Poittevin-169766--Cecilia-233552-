@@ -89,25 +89,6 @@ namespace MSP.BetterCalm.Test
             service.SetPatient(patient);
             patientMock.VerifyAll();
         }
-        
-        
-        [TestMethod]
-        public void TestScheduleNewMeeting()
-        {
-            Meeting expectedMeeting = new Meeting()
-            {
-                DateTime = DateTime.Today,
-                Patient = patient,
-                Psychologist = psychologist
-            };
-            psychologistMock.Setup(
-                x => 
-                    x.Get()
-            ).Returns(new List<Psychologist>(){psychologist});
-            Meeting actualMeeting = service.ScheduleNewMeeting(patient, problematic);
-            Assert.AreEqual(expectedMeeting, actualMeeting);
-            psychologistMock.VerifyAll();
-        }
 
         private List<Meeting> GetMeetingsForDays(int amountDays)
         {
@@ -149,6 +130,39 @@ namespace MSP.BetterCalm.Test
                 x => 
                     x.Get()
             ).Returns(new List<Psychologist>(){BusyPsychologist});
+            Meeting actualMeeting = service.ScheduleNewMeeting(patient, problematic);
+            Assert.AreEqual(expectedMeeting, actualMeeting);
+            psychologistMock.VerifyAll();
+        }
+        
+        [TestMethod]
+        public void TestScheduleNewMeetingWithOlderPsychology()
+        {
+            Psychologist newBusyPsychologist = new Psychologist()
+            {
+                Name = "BusyPerson",
+                Meetings = GetMeetingsForDays(1),
+                CreationDate = DateTime.Today,
+                Problematics = new List<Problematic>(){problematic}
+            };
+            Psychologist oldBusyPsychologist = new Psychologist()
+            {
+                Name = "BusyPerson",
+                Meetings = GetMeetingsForDays(1),
+                CreationDate = DateTime.Today.AddDays(-2),
+                Problematics = new List<Problematic>(){problematic}
+            };
+            DateTime nextDayMeeting = oldBusyPsychologist.GetDayForNextMeetingOnWeek(DateTime.Today);
+            Meeting expectedMeeting = new Meeting()
+            {
+                DateTime =nextDayMeeting,
+                Patient = patient,
+                Psychologist = oldBusyPsychologist
+            };
+            psychologistMock.Setup(
+                x => 
+                    x.Get()
+            ).Returns(new List<Psychologist>(){newBusyPsychologist, oldBusyPsychologist});
             Meeting actualMeeting = service.ScheduleNewMeeting(patient, problematic);
             Assert.AreEqual(expectedMeeting, actualMeeting);
             psychologistMock.VerifyAll();
