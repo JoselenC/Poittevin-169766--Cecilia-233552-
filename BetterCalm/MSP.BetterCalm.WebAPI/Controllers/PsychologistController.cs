@@ -47,5 +47,14 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             psychologistService.DeletePsychologistById(psychologistId);
             return Ok("Entity removed");
         }
+
+        [HttpPut("{psychologistId}")]
+        public IActionResult UpdatePsychologist(
+            [FromBody] Psychologist psychologist, 
+            [FromRoute] int psychologistId)
+        {
+            Psychologist updatedPsychologist = psychologistService.UpdatePsychologist(psychologist, psychologistId);
+            return Ok(updatedPsychologist);
+        }
     }
 }
