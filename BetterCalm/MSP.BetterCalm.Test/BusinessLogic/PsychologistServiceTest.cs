@@ -83,6 +83,31 @@ namespace MSP.BetterCalm.Test
             service.AddPsychologist(psychologist);
             psychologistMock.VerifyAll();
         }
+        
+        [TestMethod]
+        public void TestUpdatePsychologist()
+        {
+            Psychologist OldPsychologist = new Psychologist()
+            {
+                PsychologistId = 2,
+                Name = "Psychologist1"
+            };
+            Psychologist NewPsychologist = new Psychologist()
+            {
+                PsychologistId = 2,
+                Name = "Psychologist32"
+            };
+            psychologistMock.Setup(
+                x => x.Find(It.IsAny<Predicate<Psychologist>>())
+            ).Returns(OldPsychologist);
+            psychologistMock.Setup(
+                x => x.Update(OldPsychologist, NewPsychologist)
+            ).Returns(NewPsychologist);
+            Psychologist realUpdated = service.UpdatePsychologist(NewPsychologist, OldPsychologist.PsychologistId);
+            Assert.AreEqual(NewPsychologist, realUpdated);
+            psychologistMock.VerifyAll();
+        }
+        
 
         [TestMethod]
         public void TestDeletePsychologist()
