@@ -70,6 +70,24 @@ namespace MSP.BetterCalm.DataAccess
                 }
                 psychologist.Problematics = problematics;
             }
+            context.Entry(obj).Collection("Meetings").Load();
+            List<Meeting> meetings = new List<Meeting>();
+            if (obj.Meetings != null)
+            {
+                foreach (MeetingDto meeting in obj.Meetings)
+                {
+                    context.Entry(meeting).Reference("Patient").Load();
+                    meetings.Add(
+                        new Meeting()
+                        {
+                            Patient = new Patient(){ PatientId = meeting.PatientId},
+                            Psychologist = psychologist,
+                            DateTime = meeting.DateTime
+                        }
+                    );
+                }
+                psychologist.Meetings = meetings;
+            }
             return psychologist;
         }
 
