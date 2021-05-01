@@ -20,6 +20,10 @@ namespace MSP.BetterCalm.Test
         private Mock<IRepository<Meeting>> meetingMock;
         private Mock<ManagerMeetingRepository> meetingRepoMock;
 
+        private Patient patient;
+        private Problematic problematic;
+        private Psychologist psychologist;
+
         [TestInitialize]
         public void TestFixtureSetup()
         {
@@ -36,6 +40,20 @@ namespace MSP.BetterCalm.Test
             meetingRepoMock.Object.Meetings = meetingMock.Object;
             
             service = new PatientService(repoMock.Object, psyRepoMock.Object, meetingRepoMock.Object);
+            
+            patient = new Patient()
+            {
+                Name = "Patient1"
+            };
+            problematic = new Problematic()
+            {
+                Name = "problem1"
+            };
+            psychologist = new Psychologist()
+            {
+                Name = "psychologist1",
+                Problematics = new List<Problematic>(){problematic}
+            };
 
         }
 
@@ -76,18 +94,6 @@ namespace MSP.BetterCalm.Test
         [TestMethod]
         public void TestScheduleNewMeeting()
         {
-            Patient patient = new Patient()
-            {
-                Name = "Patient1"
-            };
-            Psychologist psychologist = new Psychologist()
-            {
-                Name = "psychologist1"
-            };
-            Problematic problematic = new Problematic()
-            {
-                Name = "problem1"
-            };
             Meeting expectedMeeting = new Meeting()
             {
                 DateTime = DateTime.Today,
@@ -96,8 +102,78 @@ namespace MSP.BetterCalm.Test
             };
             psychologistMock.Setup(
                 x => 
-                    x.Find(It.IsAny<Predicate<Psychologist>>())
-            ).Returns(psychologist);
+                    x.Get()
+            ).Returns(new List<Psychologist>(){psychologist});
+            Meeting actualMeeting = service.ScheduleNewMeeting(patient, problematic);
+            Assert.AreEqual(expectedMeeting, actualMeeting);
+            psychologistMock.VerifyAll();
+        }
+
+        private List<Meeting> GetMeetingsForDays(int amountDays)
+        {
+            List<Meeting> meetings = new List<Meeting>();
+
+            for (int i = 0; i < amountDays; i++)
+            {
+                List<Meeting> fullDayMeetings = new List<Meeting>()
+                {
+                    new Meeting(){DateTime = new DateTime(1993,7,19).AddDays(i)},
+                    new Meeting(){DateTime = new DateTime(1993,7,19).AddDays(i)},
+                    new Meeting(){DateTime = new DateTime(1993,7,19).AddDays(i)},
+                    new Meeting(){DateTime = new DateTime(1993,7,19).AddDays(i)},
+                    new Meeting(){DateTime = new DateTime(1993,7,19).AddDays(i)},
+                };
+                meetings.AddRange(fullDayMeetings);
+            }
+
+            return meetings;
+        }
+        
+        [TestMethod]
+        public void TestScheduleNewMeetingOnNextWeek()
+        {
+            Psychologist BusyPsychologist = new Psychologist()
+            {
+                Name = "BusyPerson",
+                Meetings = GetMeetingsForDays(1),
+                Problematics = new List<Problematic>(){problematic}
+            };
+            DateTime nextDayMeeting = BusyPsychologist.GetDayForNextMeetingOnWeek(DateTime.Today);
+            Meeting expectedMeeting = new Meeting()
+            {
+                DateTime =nextDayMeeting,
+                Patient = patient,
+                Psychologist = BusyPsychologist
+            };
+            psychologistMock.Setup(
+                x => 
+                    x.Get()
+            ).Returns(new List<Psychologist>(){BusyPsychologist});
+            Meeting actualMeeting = service.ScheduleNewMeeting(patient, problematic);
+            Assert.AreEqual(expectedMeeting, actualMeeting);
+            psychologistMock.VerifyAll();
+        }
+        
+        [TestMethod]
+        public void TestScheduleNewMeetingOn2NextWeeks()
+        {
+            Psychologist BusyPsychologist = new Psychologist()
+            {
+                Name = "BusyPerson",
+                Meetings = GetMeetingsForDays(14),
+                Problematics = new List<Problematic>(){problematic}
+            };
+            DateTime nextDayMeeting = BusyPsychologist.GetDayForNextMeetingOnWeek(DateTime.Today);
+            Meeting expectedMeeting = new Meeting()
+            {
+                DateTime =nextDayMeeting,
+                Patient = patient,
+                Psychologist = BusyPsychologist
+            };
+            psychologistMock.Setup(
+                x => 
+                    x.Get()
+            ).Returns(new List<Psychologist>(){BusyPsychologist});
             Meeting actualMeeting = service.ScheduleNewMeeting(patient, problematic);
             Assert.AreEqual(expectedMeeting, actualMeeting);
             psychologistMock.VerifyAll();

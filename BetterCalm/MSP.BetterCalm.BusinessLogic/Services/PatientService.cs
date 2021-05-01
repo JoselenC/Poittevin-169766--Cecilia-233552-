@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.Domain;
 
@@ -36,13 +37,19 @@ namespace MSP.BetterCalm.BusinessLogic
         {
             try
             {
-                Psychologist psychologist =
-                    psychologistRepository.Psychologists.Find(
-                        x => x.Problematics.Contains(problematic)
-                             && x.GetDayForNextMeetingOnWeek(DateTime.Now) != null
-                    );
-
-                DateTime auxDate = (DateTime) psychologist.GetDayForNextMeetingOnWeek(DateTime.Now);
+                List<Psychologist> psychologists = psychologistRepository.Psychologists.Get();
+                if (psychologists is null)
+                    throw new PsychologistNotFound();
+                psychologists = psychologists.FindAll(x => 
+                    x.Problematics != null && 
+                    x.Problematics.Contains(problematic));
+                psychologists = psychologists.OrderBy(
+                    x => x.GetDayForNextMeetingOnWeek(DateTime.Today)).ToList();
+                if(psychologists.Count == 0)
+                    throw new PsychologistNotFound();
+                Psychologist psychologist = psychologists.First();
+                
+                DateTime auxDate = psychologist.GetDayForNextMeetingOnWeek(DateTime.Now);
                 DateTime date = new DateTime(auxDate.Year, auxDate.Month, auxDate.Day, 0, 0, 0);
                 Meeting meeting = new Meeting()
                 {

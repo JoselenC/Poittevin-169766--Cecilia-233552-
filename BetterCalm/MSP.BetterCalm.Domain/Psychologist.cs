@@ -37,14 +37,14 @@ namespace MSP.BetterCalm.Domain
         }
 
 
-        public DateTime GetDayForNextMeetingOnWeek(DateTime week)
+        public DateTime GetDayForNextMeetingOnWeek(DateTime weekDay)
         {
             if (Meetings is null)
-                return week;
-            int daysBeforeSaturday = (int) DayOfWeek.Saturday - (int) week.DayOfWeek;
+                return weekDay;
+            int daysBeforeSaturday = (int) DayOfWeek.Saturday - (int) weekDay.DayOfWeek;
             for (int i = 0; i < daysBeforeSaturday; i++)
             {
-                DateTime weekDay = week.AddDays(i);
+                weekDay = weekDay.AddDays(i);
                 IEnumerable<Meeting> meetings =
                     Meetings.Where(
                         x => x.DateTime.DayOfYear == weekDay.DayOfYear && x.DateTime.Year == weekDay.Year
@@ -52,7 +52,9 @@ namespace MSP.BetterCalm.Domain
                 if (meetings.Count() < 5)
                     return weekDay;
             }
-            return week;
+            //At this point, the day should be a Friday, I Add 2 days to start on Monday adn then look again.
+            weekDay = weekDay.AddDays(8 - (int)weekDay.DayOfWeek);
+            return GetDayForNextMeetingOnWeek(weekDay);
         }
     }
 }

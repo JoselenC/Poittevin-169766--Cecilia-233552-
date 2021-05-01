@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.Domain;
 
@@ -151,9 +152,39 @@ namespace MSP.BetterCalm.Test
             {
                 Meetings = meetings
             };
-            DateTime nextMeetingDayOnWeek = psychologist.GetDayForNextMeetingOnWeek(new DateTime(1993, 7, 16));
+            DateTime nextMeetingDayOnWeek = psychologist.GetDayForNextMeetingOnWeek(
+                new DateTime(1993, 7, 16));
 
-            DateTime expectedMeetingDayOnWeek = new DateTime(1993,7,16);
+            DateTime expectedMeetingDayOnWeek = new DateTime(1993,7,19);
+            Assert.AreEqual(expectedMeetingDayOnWeek, nextMeetingDayOnWeek);
+        }
+        
+        [TestMethod]
+        public void NextMeetingDayOnWeekWithoutFreeOn2Weeks()
+        {
+            List<Meeting> meetings = new List<Meeting>();
+
+            for (int i = 0; i < 14; i++)
+            {
+                List<Meeting> fullDayMeetings = new List<Meeting>()
+                {
+                    new Meeting(){DateTime = new DateTime(1993,7,19).AddDays(i)},
+                    new Meeting(){DateTime = new DateTime(1993,7,19).AddDays(i)},
+                    new Meeting(){DateTime = new DateTime(1993,7,19).AddDays(i)},
+                    new Meeting(){DateTime = new DateTime(1993,7,19).AddDays(i)},
+                    new Meeting(){DateTime = new DateTime(1993,7,19).AddDays(i)},
+                };
+                meetings.AddRange(fullDayMeetings);
+            }
+            
+            Psychologist psychologist = new Psychologist()
+            {
+                Meetings = meetings
+            };
+            DateTime nextMeetingDayOnWeek = psychologist.GetDayForNextMeetingOnWeek(
+                new DateTime(1993, 7, 19));
+
+            DateTime expectedMeetingDayOnWeek = new DateTime(1993,8,2);
             Assert.AreEqual(expectedMeetingDayOnWeek, nextMeetingDayOnWeek);
         }
     }
