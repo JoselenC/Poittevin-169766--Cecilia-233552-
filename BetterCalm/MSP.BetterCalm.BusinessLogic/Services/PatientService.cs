@@ -45,8 +45,11 @@ namespace MSP.BetterCalm.BusinessLogic
                     x.Problematics.Contains(problematic));
                 psychologists = psychologists.OrderBy(
                     x => x.GetDayForNextMeetingOnWeek(DateTime.Today)).ToList();
+
                 if(psychologists.Count == 0)
                     throw new PsychologistNotFound();
+                if (psychologists.Count > 1)
+                    psychologists = psychologists.OrderBy(x => x.CreationDate).ToList();
                 Psychologist psychologist = psychologists.First();
                 
                 DateTime auxDate = psychologist.GetDayForNextMeetingOnWeek(DateTime.Now);

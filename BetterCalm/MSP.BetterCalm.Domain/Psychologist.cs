@@ -12,7 +12,12 @@ namespace MSP.BetterCalm.Domain
         public List<Problematic> Problematics{ get; set; }
         public List<Meeting> Meetings{ get; set; }
         public DateTime CreationDate { get; set;}
-        
+
+        public Psychologist()
+        {
+            Meetings = new List<Meeting>();
+            Problematics = new List<Problematic>();
+        }
         protected bool Equals(Psychologist other)
         {
             return Address == other.Address &&
@@ -42,8 +47,6 @@ namespace MSP.BetterCalm.Domain
 
         public DateTime GetDayForNextMeetingOnWeek(DateTime weekDay)
         {
-            if (Meetings is null)
-                return weekDay;
             int daysBeforeSaturday = (int) DayOfWeek.Saturday - (int) weekDay.DayOfWeek;
             // If it's Saturday or Sunday, I start the weekday on Monday 
             if (daysBeforeSaturday == 0 || daysBeforeSaturday == 6)

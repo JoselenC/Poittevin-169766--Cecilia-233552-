@@ -68,7 +68,8 @@ namespace MSP.BetterCalm.DataAccess
                     LastName = psyDto.LastName,
                     PsychologistId = psyDto.PsychologistDtoId,
                     Address = psyDto.Address,
-                    Problematics = problematics
+                    Problematics = problematics,
+                    CreationDate = psyDto.CreationDate
                 };
             }
             return null;
