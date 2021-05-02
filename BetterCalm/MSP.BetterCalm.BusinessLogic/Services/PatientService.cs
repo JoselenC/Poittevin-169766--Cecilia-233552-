@@ -54,8 +54,17 @@ namespace MSP.BetterCalm.BusinessLogic
                 
                 DateTime auxDate = psychologist.GetDayForNextMeetingOnWeek(DateTime.Now);
                 DateTime date = new DateTime(auxDate.Year, auxDate.Month, auxDate.Day, 0, 0, 0);
+
+                string address;
+                if (psychologist.WorksOnline)
+                    address = $"https://bettercalm.com.uy/{psychologist.PsychologistId}_{patient.PatientId}/{Guid.NewGuid().ToString()}";
+                else
+                    address = psychologist.Address;
+                
+
                 Meeting meeting = new Meeting()
                 {
+                    Address = address,
                     DateTime = date,
                     Patient = patient,
                     Psychologist = psychologist
