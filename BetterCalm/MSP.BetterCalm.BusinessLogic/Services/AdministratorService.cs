@@ -49,5 +49,10 @@ namespace MSP.BetterCalm.BusinessLogic
             Administrator oldAdministrator = GetAdministratorsById(administratorId);
             return repository.Administrators.Update(oldAdministrator, newAdministrator);
         }
+
+        public string Login(string email, string password)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
