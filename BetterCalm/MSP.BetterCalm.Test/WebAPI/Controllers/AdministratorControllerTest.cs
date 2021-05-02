@@ -42,7 +42,9 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestAddAdminstrator()
         {
-            mockAdministratorService.Setup(x => x.AddAdministrator(administrator));
+            mockAdministratorService.Setup(
+                x => x.AddAdministrator(administrator)
+            ).Returns(administrator);
             var result = administratorController.AddAdministrator(administrator);
             var createdResult = result as CreatedResult;
             var realAdmin = createdResult.Value;
