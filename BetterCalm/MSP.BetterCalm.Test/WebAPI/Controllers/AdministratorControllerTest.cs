@@ -48,6 +48,44 @@ namespace MSP.BetterCalm.Test.WebAPI
             var realAdmin = createdResult.Value;
             Assert.AreEqual(realAdmin, administrator);
         }
+        
+        
+        [TestMethod]
+        public void TestGetAdministratorsById()
+        {
+            mockAdministratorService.Setup(
+                x => x.GetAdministratorsById(1)
+            ).Returns(administrator);
+            var result = administratorController.GetAdministratorById(1);
+            var okResult = result as OkObjectResult;
+            var realAdministrator = okResult.Value;
+            Assert.AreEqual(realAdministrator, administrator);
+            mockAdministratorService.VerifyAll();
+
+        }
+
+        [TestMethod]
+        public void TestDeleteAdministrator()
+        {
+            mockAdministratorService.Setup(x => x.DeleteAdministratorById(administrator.AdministratorId));
+            var result = administratorController.DeleteAdministratorById(administrator.AdministratorId);
+            var createdResult = result as OkObjectResult;
+            var realPsycho = createdResult.Value;
+            Assert.AreEqual("Entity removed", realPsycho);
+            mockAdministratorService.VerifyAll();
+        }
+        
+        [TestMethod]
+        public void TestUpdateAdministratorById()
+        {
+            mockAdministratorService.Setup(
+                x => x.UpdateAdministrator(administrator, administrator.AdministratorId)
+                ).Returns(administrator);
+            var result = administratorController.UpdateAdministrator(administrator, administrator.AdministratorId);
+            var createdResult = result as OkObjectResult;
+            var realPsycho = createdResult.Value;
+            Assert.AreEqual(realPsycho, administrator);
+        }
 
     }
 }
