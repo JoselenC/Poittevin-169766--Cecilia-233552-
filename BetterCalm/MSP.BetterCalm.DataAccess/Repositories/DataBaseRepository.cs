@@ -96,9 +96,9 @@ namespace MSP.BetterCalm.DataAccess
         public D Update(D OldObject, D UpdatedObject)
         {
             T objToUpdate = FindDto(x => x.Equals(OldObject));
-            mapper.UpdateDtoObject(objToUpdate, UpdatedObject, context);
+            T returnObject = mapper.UpdateDtoObject(objToUpdate, UpdatedObject, context);
             context.SaveChanges();
-            return UpdatedObject;
+            return mapper.DtoToDomain(returnObject, context);
         }
     }
 }

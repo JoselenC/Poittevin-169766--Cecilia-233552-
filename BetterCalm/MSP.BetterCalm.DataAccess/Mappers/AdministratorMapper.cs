@@ -7,16 +7,15 @@ namespace MSP.BetterCalm.DataAccess
     {
         public AdministratorDto DomainToDto(Administrator obj, ContextDB context)
         {
-            AdministratorDto administratorDto = context.Administrators.FirstOrDefault(x => x.Name == obj.Name);
+            AdministratorDto administratorDto = context.Administrators.FirstOrDefault(
+                x => x.Email == obj.Email);
             if (administratorDto is null)
                 administratorDto = new AdministratorDto()
                 {
-                    AdministratorDtoId = obj.AdministratorId,
                     Name = obj.Name,
                     LastName = obj.LastName,
                     Email = obj.Email,
                     Password = obj.Password
-                    
                 };
             return administratorDto;
         }
@@ -42,7 +41,6 @@ namespace MSP.BetterCalm.DataAccess
         {
             objToUpdate.Name = updatedObject.Name;
             objToUpdate.LastName = updatedObject.LastName;
-            objToUpdate.Email = updatedObject.Email;
             objToUpdate.Password = updatedObject.Password;
             return objToUpdate;
         }
