@@ -16,7 +16,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         [HttpPost]
         public IActionResult Login(string email, string password)
         {
-            throw new System.NotImplementedException();
+            return Ok(administratorService.Login(email, password));
         }
     }
 }
