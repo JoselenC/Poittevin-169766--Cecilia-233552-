@@ -33,10 +33,12 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestLoginSuccess()
         {
+            string email = "me@email.com";
+            string password = "strongPass";
             mockAdministratorService.Setup(
-                x => x.LoginAdministrator()
+                x => x.LoginAdministrator(email, password)
                 ).Returns("LogedToken");
-            var result = loginController.GetAll();
+            var result = loginController.Login(email, password);
             var okResult = result as OkObjectResult;
             var realToken = okResult.Value;
             Assert.AreEqual(realToken, "LogedToken");

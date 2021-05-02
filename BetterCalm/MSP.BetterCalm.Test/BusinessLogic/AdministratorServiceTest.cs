@@ -131,13 +131,28 @@ namespace MSP.BetterCalm.Test
         [ExpectedException(typeof(NotFoundAdministrator))]
         public void TestDeleteAdministratorNotFound()
         {
-
             administratorMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Administrator>>())
             ).Throws(new KeyNotFoundException());
             service.DeleteAdministratorById(1);
         }
-        
-        
+
+        [TestMethod]
+        public void TestLoginAdministrator()
+        {
+            string email = "me@email.com";
+            string password = "strongPass";
+            Administrator administrator = new Administrator()
+            {
+                AdministratorId = 2,
+                Name = "Administrator1",
+                Email = email,
+                Password = password
+            };
+            administratorMock.Setup(
+                x => x.Find(It.IsAny<Predicate<Administrator>>())
+            ).Returns(administrator);
+            service.Login(email, password);
+        }
     }
 }
