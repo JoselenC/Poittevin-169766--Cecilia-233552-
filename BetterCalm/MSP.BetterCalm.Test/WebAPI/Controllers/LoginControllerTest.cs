@@ -36,7 +36,7 @@ namespace MSP.BetterCalm.Test.WebAPI
             string email = "me@email.com";
             string password = "strongPass";
             mockAdministratorService.Setup(
-                x => x.LoginAdministrator(email, password)
+                x => x.Login(email, password)
                 ).Returns("LogedToken");
             var result = loginController.Login(email, password);
             var okResult = result as OkObjectResult;
