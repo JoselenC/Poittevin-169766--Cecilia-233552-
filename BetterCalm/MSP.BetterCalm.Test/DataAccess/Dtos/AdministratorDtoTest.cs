@@ -36,6 +36,16 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
+        public void GetSetToken()
+        {
+            AdministratorDto administrator = new AdministratorDto
+            {
+                Token = "asfdjlkj1234"
+            };
+            Assert.AreEqual("asfdjlkj1234", administrator.Token);
+        }
+        
+        [TestMethod]
         public void GetSetLastName()
         {
             AdministratorDto administrator = new AdministratorDto
