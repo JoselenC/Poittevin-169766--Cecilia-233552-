@@ -8,10 +8,13 @@ namespace MSP.BetterCalm.Domain
         public Psychologist Psychologist { get; set; }
         public Patient Patient { get; set; }
         public DateTime DateTime { get; set; }
+        public string Address { get; set; }
+
         protected bool Equals(Meeting other)
         {
             return Equals(Psychologist, other.Psychologist) && 
                    Equals(Patient, other.Patient) && 
+                   Address == other.Address &&
                    DateTime.Equals(other.DateTime);
         }
 
