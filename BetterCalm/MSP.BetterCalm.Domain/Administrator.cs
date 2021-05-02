@@ -7,9 +7,12 @@ namespace MSP.BetterCalm.Domain
         public int AdministratorId { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public string Token { get; set; }
+
         protected bool Equals(Administrator other)
         {
             return Email == other.Email && 
+                   Token == other.Token &&
                    Password == other.Password &&
                    Name == other.Name &&
                    LastName == other.LastName;
