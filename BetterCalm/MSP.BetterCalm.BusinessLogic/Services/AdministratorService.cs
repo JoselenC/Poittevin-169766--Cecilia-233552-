@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.BusinessLogic
@@ -17,9 +18,36 @@ namespace MSP.BetterCalm.BusinessLogic
             return repository.Administrators.Get();
         }
 
-        public void AddAdministrator(Administrator admin)
+        public Administrator AddAdministrator(Administrator admin)
         {
-            repository.Administrators.Add(admin);
+            return repository.Administrators.Add(admin);
+        }
+        
+        public void DeleteAdministratorById(int administratorId)
+        {
+            
+            Administrator administrator = GetAdministratorsById(administratorId);
+            repository.Administrators.Delete(administrator);
+
+        }
+
+        public Administrator GetAdministratorsById(int administratorId)
+        {
+            try
+            {
+
+                return repository.Administrators.Find(x => x.AdministratorId == administratorId);
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new NotFoundAdministrator();
+            }
+        }
+
+        public Administrator UpdateAdministrator(Administrator newAdministrator, int administratorId)
+        {
+            Administrator oldAdministrator = GetAdministratorsById(administratorId);
+            return repository.Administrators.Update(oldAdministrator, newAdministrator);
         }
     }
 }

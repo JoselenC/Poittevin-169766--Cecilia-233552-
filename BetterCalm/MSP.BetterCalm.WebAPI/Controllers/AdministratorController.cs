@@ -28,8 +28,31 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         [HttpPost]
         public CreatedResult AddAdministrator(Administrator administrator)
         {
-            administratorService.AddAdministrator(administrator);
+            administrator = administratorService.AddAdministrator(administrator);
             return Created($"api/Administrator/{administrator.Name}", administrator);
+        }
+        
+        [HttpGet("{administratorId}")]
+        public IActionResult GetAdministratorById(int administratorId)
+        {
+            Administrator administrator = administratorService.GetAdministratorsById(administratorId);
+            return Ok(administrator);
+        }
+
+        [HttpDelete("{administratorId}")]
+        public OkObjectResult DeleteAdministratorById(int administratorId)
+        {
+            administratorService.DeleteAdministratorById(administratorId);
+            return Ok("Entity removed");
+        }
+
+        [HttpPut("{administratorId}")]
+        public IActionResult UpdateAdministrator(
+            [FromBody] Administrator administrator, 
+            [FromRoute] int administratorId)
+        {
+            Administrator updatedAdministrator = administratorService.UpdateAdministrator(administrator, administratorId);
+            return Ok(updatedAdministrator);
         }
     }
 }

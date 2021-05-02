@@ -39,7 +39,7 @@ namespace MSP.BetterCalm.BusinessLogic
             {
                 List<Psychologist> psychologists = psychologistRepository.Psychologists.Get();
                 if (psychologists is null)
-                    throw new PsychologistNotFound();
+                    throw new NotFoundPsychologist();
                 psychologists = psychologists.FindAll(x => 
                     x.Problematics != null && 
                     x.Problematics.Contains(problematic));
@@ -47,7 +47,7 @@ namespace MSP.BetterCalm.BusinessLogic
                     x => x.GetDayForNextMeetingOnWeek(DateTime.Today)).ToList();
 
                 if(psychologists.Count == 0)
-                    throw new PsychologistNotFound();
+                    throw new NotFoundPsychologist();
                 if (psychologists.Count > 1)
                     psychologists = psychologists.OrderBy(x => x.CreationDate).ToList();
                 Psychologist psychologist = psychologists.First();
@@ -74,7 +74,7 @@ namespace MSP.BetterCalm.BusinessLogic
             }
             catch (KeyNotFoundException)
             {
-                throw new PsychologistNotFound();
+                throw new NotFoundPsychologist();
             }
         }
     }
