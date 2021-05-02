@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.Domain;
@@ -7,10 +8,12 @@ namespace MSP.BetterCalm.BusinessLogic
     public class AdministratorService : IAdministratorService
     {
         private ManagerAdministratorRepository repository;
+        private IGuidService guidService;
 
-        public AdministratorService(ManagerAdministratorRepository vRepository)
+        public AdministratorService(ManagerAdministratorRepository vRepository, IGuidService vGuid)
         {
             repository = vRepository;
+            guidService = vGuid;
         }
 
         public List<Administrator> GetAdministrators()
@@ -52,7 +55,18 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public string Login(string email, string password)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                Administrator administrator = repository.Administrators.Find(
+                    x => x.Email == email && x.Password == password);
+                administrator.Token = guidService.NewGuid().ToString();
+                UpdateAdministrator(administrator, administrator.AdministratorId);
+                return administrator.Token;
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new NotFoundAdministrator();
+            }
         }
     }
 }
