@@ -15,7 +15,8 @@ namespace MSP.BetterCalm.DataAccess
                     Name = obj.Name,
                     LastName = obj.LastName,
                     Email = obj.Email,
-                    Password = obj.Password
+                    Password = obj.Password,
+                    Token = obj.Token
                 };
             return administratorDto;
         }
@@ -28,7 +29,8 @@ namespace MSP.BetterCalm.DataAccess
                 Name = obj.Name,
                 LastName = obj.LastName,
                 Email = obj.Email,
-                Password = obj.Password
+                Password = obj.Password,
+                Token = obj.Token
             };
         }
 
@@ -42,6 +44,7 @@ namespace MSP.BetterCalm.DataAccess
             objToUpdate.Name = updatedObject.Name;
             objToUpdate.LastName = updatedObject.LastName;
             objToUpdate.Password = updatedObject.Password;
+            objToUpdate.Token = updatedObject.Token;
             return objToUpdate;
         }
     }
