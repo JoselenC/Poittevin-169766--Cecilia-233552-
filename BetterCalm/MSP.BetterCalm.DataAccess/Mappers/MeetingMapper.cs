@@ -30,6 +30,7 @@ namespace MSP.BetterCalm.DataAccess
                 DateTime = obj.DateTime,
                 Patient = patientDto,
                 Psychologist = psychologistDto,
+                Address = obj.Address
             };
         }
 
@@ -69,7 +70,7 @@ namespace MSP.BetterCalm.DataAccess
                     PsychologistId = psyDto.PsychologistDtoId,
                     Address = psyDto.Address,
                     Problematics = problematics,
-                    CreationDate = psyDto.CreationDate
+                    CreationDate = psyDto.CreationDate,
                 };
             }
             return null;
@@ -82,6 +83,7 @@ namespace MSP.BetterCalm.DataAccess
             return new Meeting()
             {
                 DateTime = obj.DateTime,
+                Address = obj.Address,
                 Patient = DtoToDomainPatientWithoutMeetings(obj.Patient),
                 Psychologist = DtoToDomainpPsychologistWithoutMeetings(obj.Psychologist)
             };
