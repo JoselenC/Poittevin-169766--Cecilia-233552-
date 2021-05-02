@@ -12,7 +12,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using MSP.BetterCalm.DataAccess;
+using Newtonsoft.Json;
 
 namespace MSP.BetterCalm.WebAPI
 {
@@ -34,9 +36,13 @@ namespace MSP.BetterCalm.WebAPI
                 options.AddPolicy("AllowEverything",builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             });
             InjectionManagement injectionManagement = new InjectionManagement(services);
-            services.AddControllers().AddNewtonsoftJson(options =>
-                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            );
+            services.AddControllers().AddNewtonsoftJson(
+                options =>
+                {
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                    options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                }
+                );
             injectionManagement.AddScopped();
             injectionManagement.AddDbContext();
             

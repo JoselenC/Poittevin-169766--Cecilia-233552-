@@ -34,9 +34,15 @@ namespace MSP.BetterCalm.DataAccess
                     new Meeting()
                     {
                         DateTime = meeting.DateTime,
-                        Psychologist = psychologistMapper.DtoToDomain(meeting.Psychologist, context)
+                        Psychologist = new Psychologist()
+                        {
+                            Name = meeting.Psychologist.Name,
+                            LastName = meeting.Psychologist.LastName,
+                            CreationDate = meeting.Psychologist.CreationDate,
+                            WorksOnline = meeting.Psychologist.WorksOnline
+                        }
                     }
-                    );
+                );
             }
             return new Patient()
             {

@@ -81,7 +81,6 @@ namespace MSP.BetterCalm.DataAccess
                         new Meeting()
                         {
                             Patient = new Patient(){ PatientId = meeting.PatientId},
-                            Psychologist = psychologist,
                             DateTime = meeting.DateTime
                         }
                     );
