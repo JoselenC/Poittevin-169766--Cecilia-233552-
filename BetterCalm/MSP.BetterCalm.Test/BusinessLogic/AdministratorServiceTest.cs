@@ -13,15 +13,18 @@ namespace MSP.BetterCalm.Test
     {
         private Mock<ManagerAdministratorRepository> repoMock;
         private Mock<IRepository<Administrator>> administratorMock;
+        private Mock<IGuidService> guidServiceMock;
         private IAdministratorService service;
+        
 
         [TestInitialize]
         public void TestFixtureSetup()
         {
             repoMock = new Mock<ManagerAdministratorRepository>();
             administratorMock = new Mock<IRepository<Administrator>>();
+            guidServiceMock = new Mock<IGuidService>();
             repoMock.Object.Administrators = administratorMock.Object;
-            service = new AdministratorService(repoMock.Object);
+            service = new AdministratorService(repoMock.Object, guidServiceMock.Object);
         }
 
         [TestMethod]
@@ -149,10 +152,15 @@ namespace MSP.BetterCalm.Test
                 Email = email,
                 Password = password
             };
+            string expectedToken = "b46cacd9-2871-41fc-85ad-c62f888bdf3d";
+            Guid token = new Guid(expectedToken);
             administratorMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Administrator>>())
             ).Returns(administrator);
-            service.Login(email, password);
+            guidServiceMock.Setup(x => x.NewGuid()).Returns(token);
+            string realToken = service.Login(email, password);
+            Assert.AreEqual(expectedToken, realToken);
+            administratorMock.VerifyAll();
         }
     }
 }

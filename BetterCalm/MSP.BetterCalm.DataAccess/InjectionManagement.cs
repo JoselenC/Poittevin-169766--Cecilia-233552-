@@ -18,6 +18,9 @@ namespace MSP.BetterCalm.DataAccess
         
         public void AddScopped()
         {
+            
+            services.AddScoped<IGuidService,GuidService>();
+            
             services.AddScoped<ICategoryService,CategoryService>();
             services.AddScoped<IProblematicService,ProblematicService>();
             services.AddScoped<IAudioService,AudioService>();
