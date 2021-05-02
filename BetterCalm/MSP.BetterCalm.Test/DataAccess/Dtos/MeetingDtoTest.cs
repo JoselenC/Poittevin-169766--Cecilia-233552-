@@ -7,6 +7,17 @@ namespace MSP.BetterCalm.Test
     [TestClass]
     public class MeetingDtoTest
     {
+        
+        [TestMethod]
+        public void GetSetMeetingAddress()
+        {
+            MeetingDto meeting = new MeetingDto()
+            {
+                Address = "My house 1234"
+            };
+            Assert.AreEqual("My house 1234", meeting.Address);
+        }
+        
         [TestMethod]
         public void GetSetPsychologistId()
         {

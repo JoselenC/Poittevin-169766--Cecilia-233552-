@@ -35,6 +35,16 @@ namespace MSP.BetterCalm.Test
             };
             Assert.AreEqual(meeting.Psychologist, psychologist);
         }
+        
+        [TestMethod]
+        public void GetSetMeetingAddress()
+        {
+            Meeting meeting = new Meeting()
+            {
+                Address = "Mi casa 1234"
+            };
+            Assert.AreEqual("Mi casa 1234", meeting.Address);
+        }
 
         [TestMethod]
         public void GetSetDateTime()
