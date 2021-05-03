@@ -27,7 +27,7 @@ namespace MSP.BetterCalm.BusinessLogic
             return patientRepository.Patients.Get();
         }
 
-        public void AddPatient(Patient patient)
+        public void SetPatient(Patient patient)
         {
             patientRepository.Patients.Add(patient);
         }
