@@ -8,6 +8,7 @@ using MSP.BetterCalm.DataAccess;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.WebAPI.Controllers;
 using MSP.BetterCalm.WebAPI.Dtos;
+using AudioDto = MSP.BetterCalm.WebAPI.Dtos.AudioDto;
 
 namespace MSP.BetterCalm.Test.WebAPI
 {
@@ -38,11 +39,11 @@ namespace MSP.BetterCalm.Test.WebAPI
             };
             AudioDto = new BetterCalm.WebAPI.Dtos.AudioDto()
             {
-                Id = 0,
+                Id = 1,
                 Categories = new List<Category>(),
                 Name = "Stand by me",
                 AuthorName = "John Lennon",
-                Duration = "2m",
+                Duration = "120s",
                 UrlAudio = "",
                 UrlImage = ""
             };
@@ -99,7 +100,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestCreateAudio()
         {
-            BetterCalm.WebAPI.Dtos.AudioDto AudioToAdd = new BetterCalm.WebAPI.Dtos.AudioDto()
+            AudioDto AudioToAdd = new AudioDto()
             {
                 Categories = new List<Category>(),
                 Name = "Stand by me",
@@ -117,7 +118,7 @@ namespace MSP.BetterCalm.Test.WebAPI
                 UrlAudio = "",
                 UrlImage = ""
             };
-            mockAudioService.Setup(m => m.AddAudio(audio));
+            mockAudioService.Setup(m => m.SetAudio(audio)).Returns(audio);
             AudioController.CreateAudio(AudioToAdd);
             mockAudioService.Setup(m => m.GetAudios()).Returns(Audios);
             var result = AudioController.GetAll();
@@ -130,16 +131,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         [ExpectedException(typeof(InvalidNameLength))]
         public void TestNoCreateAudioEmptyName()
         {
-            Audio audio = new Audio()
-            {
-                Categories = new List<Category>(),
-                Name = "Stand by me",
-                AuthorName = "John Lennon",
-                Duration = 12,
-                UrlAudio = "",
-                UrlImage = ""
-            };
-            mockAudioService.Setup(m => m.AddAudio(audio)).Throws(new InvalidNameLength());
+            mockAudioService.Setup(m => m.SetAudio(_audio)).Throws(new InvalidNameLength());
             AudioController.CreateAudio(AudioDto);
         }
         
@@ -147,32 +139,14 @@ namespace MSP.BetterCalm.Test.WebAPI
         [ExpectedException(typeof(AlreadyExistThisAudio))]
         public void TestNoCreateAudio()
         {
-            Audio audio = new Audio()
-            {
-                Categories = new List<Category>(),
-                Name = "Stand by me",
-                AuthorName = "John Lennon",
-                Duration = 12,
-                UrlAudio = "",
-                UrlImage = ""
-            };
-            mockAudioService.Setup(m => m.AddAudio(audio)).Throws(new AlreadyExistThisAudio());
+            mockAudioService.Setup(m => m.SetAudio(_audio)).Throws(new AlreadyExistThisAudio());
             AudioController.CreateAudio(AudioDto);
         }
         
         [TestMethod]
         public void TestGetAudioByCategoryNAme()
         {
-            Audio audioToAdd = new Audio()
-            {
-                Categories = new List<Category>() {new Category() {Name = "Dormir"}},
-                Name = "Stand by me",
-                AuthorName = "John Lennon",
-                Duration = 12,
-                UrlAudio = "",
-                UrlImage = ""
-            };
-            mockAudioService.Setup(m => m.AddAudio(audioToAdd));
+            mockAudioService.Setup(m => m.SetAudio(_audio)).Returns(_audio);
             AudioController.CreateAudio(AudioDto);
             mockAudioService.Setup(m => m.GetAudiosByCategoryName("Dormir")).Returns(Audios);
             var result = AudioController.GetAudiosByCategoryName("Dormir");
@@ -193,16 +167,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestDeleteAudio()
         {
-            Audio audioToAdd = new Audio()
-            {
-                Categories = new List<Category>() {new Category() {Name = "Dormir"}},
-                Name = "Stand by me",
-                AuthorName = "John Lennon",
-                Duration = 120,
-                UrlAudio = "",
-                UrlImage = ""
-            };
-            mockAudioService.Setup(m => m.AddAudio(audioToAdd));
+            mockAudioService.Setup(m => m.SetAudio(_audio)).Returns(_audio);
             AudioController.CreateAudio(AudioDto);
             mockAudioService.Setup(m => m.DeleteAudio(_audio.Id));
             var result = AudioController.DeleteAudio(_audio.Id);
@@ -215,23 +180,44 @@ namespace MSP.BetterCalm.Test.WebAPI
         [ExpectedException(typeof(KeyNotFoundException))]
         public void TestNoDeleteAudio()
         {
-            Audio audio = new Audio()
-            {
-                Categories = new List<Category>(),
-                Name = "Stand by me",
-                AuthorName = "John Lennon",
-                Duration = 12,
-                UrlAudio = "",
-                UrlImage = ""
-            };
-            mockAudioService.Setup(m => m.DeleteAudio(audio.Id)).Throws(new KeyNotFoundException());
-            AudioController.DeleteAudio(audio.Id);
+            mockAudioService.Setup(m => m.DeleteAudio(_audio.Id)).Throws(new KeyNotFoundException());
+            AudioController.DeleteAudio(_audio.Id);
+        }
+        
+        [TestMethod]
+        public void TestDeleteAudioFromBody()
+        {
+            mockAudioService.Setup(m => m.SetAudio(_audio)).Returns(_audio);
+            AudioController.CreateAudio(AudioDto);
+            mockAudioService.Setup(m => m.DeleteAudio(_audio.Id));
+            var result = AudioController.DeleteAudio(AudioDto);
+            var okResult = result as OkObjectResult;
+            var value = okResult.Value;
+            Assert.AreEqual("Audio removed",value);
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(KeyNotFoundException))]
+        public void TestNoDeleteAudioFromBody()
+        {
+            mockAudioService.Setup(m => m.DeleteAudio(_audio.Id)).Throws(new KeyNotFoundException());
+            AudioController.DeleteAudio(AudioDto);
         }
         
         [TestMethod]
         public void TestGetAudioById()
         {
-            mockAudioService.Setup(m => m.GetAudioById(1)).Returns(this._audio);
+            AudioDto = new BetterCalm.WebAPI.Dtos.AudioDto()
+            {
+                Id = 0,
+                Categories = new List<Category>(),
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = "2m",
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            mockAudioService.Setup(m => m.GetAudioById(1)).Returns(_audio);
             var result = AudioController.GetAudioById(1);
             var okResult = result as OkObjectResult;
             var categoryValue = okResult.Value;
@@ -244,17 +230,16 @@ namespace MSP.BetterCalm.Test.WebAPI
         public void TestNoGetAudioById()
         {
             mockAudioService.Setup(m => m.GetAudioById(1)).Throws(new KeyNotFoundException());
-            var result = AudioController.GetAudioById(1) as NotFoundObjectResult;
-            Assert.IsNotNull(result);
+            AudioController.GetAudioById(1);
         }
         
         [TestMethod]
         public void TestUpdateAudio()
         {
             mockAudioService.Setup(m => m.UpdateAudioById(1, _audio));
-            var result = AudioController.UpdateAudio(1,_audio);
+            var result = AudioController.UpdateAudio(1,AudioDto);
             var okResult = result as OkObjectResult;
-            Assert.IsNotNull(result);
+            Assert.IsNotNull(okResult);
         }
 
         [TestMethod]
@@ -262,8 +247,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         public void TestNoUpdateAudio()
         {
             mockAudioService.Setup(m => m.UpdateAudioById(1, _audio)).Throws(new KeyNotFoundException());
-            var result = AudioController.UpdateAudio(1,_audio) as NotFoundObjectResult;
-            Assert.IsNotNull(result);
+            AudioController.UpdateAudio(1, AudioDto);
         }
     }
 }
