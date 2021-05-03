@@ -16,7 +16,13 @@ namespace MSP.BetterCalm.BusinessLogic
         
         public List<Audio> GetAudios()
         {
-            return repository.Audios.Get();
+            List<Audio> audios = new List<Audio>();
+            foreach (var audio in repository.Audios.Get())
+            {
+                if(!audio.AssociatedToPlaylist)
+                    audios.Add(audio);
+            }
+            return audios;
         }
 
         private bool AlreadyExistThisAudio(Audio audio)
@@ -30,13 +36,12 @@ namespace MSP.BetterCalm.BusinessLogic
             {
                 return false;
             }
-                
         }
 
-        public void AddAudio(Audio audio)
+        public Audio SetAudio(Audio audio)
         {
             if (!AlreadyExistThisAudio(audio))
-                repository.Audios.Add(audio);
+                return repository.Audios.Add(audio);
             else
                 throw new AlreadyExistThisAudio();
         }
@@ -46,7 +51,7 @@ namespace MSP.BetterCalm.BusinessLogic
             List<Audio> audios = new List<Audio>();
             foreach (var audio in repository.Audios.Get())
             {
-                if(audio.IsSameAudioName(audioName))
+                if(audio.IsSameAudioName(audioName) && !audio.AssociatedToPlaylist)
                     audios.Add(audio);
             }
             if (audios.Count == 0)
@@ -59,7 +64,7 @@ namespace MSP.BetterCalm.BusinessLogic
             List<Audio> audios = new List<Audio>();
             foreach (var audio in repository.Audios.Get())
             {
-                if(audio.IsSameAuthorName(authorName))
+                if(audio.IsSameAuthorName(authorName)&& !audio.AssociatedToPlaylist)
                     audios.Add(audio);
             }
             if (audios.Count == 0)
@@ -72,7 +77,7 @@ namespace MSP.BetterCalm.BusinessLogic
             List<Audio> audios = new List<Audio>();
             foreach (Audio audio in repository.Audios.Get())
             {
-                if(audio.IsSameCategoryName(categroyName))
+                if(audio.IsSameCategoryName(categroyName)&& !audio.AssociatedToPlaylist)
                     audios.Add(audio);
             }
             if (audios.Count == 0)
@@ -92,18 +97,7 @@ namespace MSP.BetterCalm.BusinessLogic
                 throw new ObjectWasNotUpdated();
             }
         }
-        
-        public void DeleteAudio(List<Audio> playlistAudio)
-        {
-            if (playlistAudio != null)
-            {
-                foreach (var audio in playlistAudio)
-                {
-                    DeleteAudio(audio.Id);
-                }
-            }
-        }
-
+    
        public void DeleteAudio(int id)
         {
             try
@@ -121,7 +115,10 @@ namespace MSP.BetterCalm.BusinessLogic
        {
            try
            {
-               return repository.Audios.FindById(id);
+               Audio audio = repository.Audios.FindById(id);
+               if (!audio.AssociatedToPlaylist)
+                   return audio;
+               throw new NotFoundId();
            }
            catch (KeyNotFoundException)
            {
