@@ -193,6 +193,7 @@ namespace MSP.BetterCalm.Test
             RepoPlaylists.Add(Playlist);
             Playlist actualPlaylist = new Playlist()
             {
+                Id = 2,
                 Name = "ToUpdate",
                 Audios = new List<Audio>(){AudioTest2},
                 Categories = new List<Category>() {category2, category1}
@@ -206,6 +207,7 @@ namespace MSP.BetterCalm.Test
         {
             Playlist actualPlaylist = new Playlist()
             {
+                Id = 1,
                 Name = "Playlist",
                 Description = "description",
                 UrlImage = "",

@@ -19,7 +19,7 @@ namespace MSP.BetterCalm.BusinessLogic
             return repository.Psychologists.Get();
         }
 
-        public Psychologist AddPsychologist(Psychologist psychologist)
+        public Psychologist SetPsychologist(Psychologist psychologist)
         {
             return repository.Psychologists.Add(psychologist);
         }

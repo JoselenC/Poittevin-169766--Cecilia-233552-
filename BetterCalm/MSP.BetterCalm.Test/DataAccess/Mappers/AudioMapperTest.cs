@@ -149,6 +149,7 @@ namespace MSP.BetterCalm.Test
             };
             RepoAudios.Add(audio);
             Audio actualAudio =new Audio() {
+                Id = 1,
                 Name = "ToUpdate",
                 Categories = new List<Category>(){category2,category1}
             };
@@ -161,6 +162,7 @@ namespace MSP.BetterCalm.Test
         public void UpdateAudioWithDiffCateogryTest()
         {
             Audio actualAudio =new Audio() {
+                Id = 1,
                 Name = "Help",
                 AuthorName = "The beatles",
                 Duration = 121,

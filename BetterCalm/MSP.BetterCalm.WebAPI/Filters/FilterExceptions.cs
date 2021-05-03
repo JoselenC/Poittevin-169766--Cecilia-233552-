@@ -105,11 +105,6 @@ namespace MSP.BetterCalm.WebAPI.Filters
                 response.Content = context.Exception.Message;
                 response.Code = 404;
             }
-            else
-            {
-                response.Content = "Internal server error, please contact an administrator";
-                response.Code = 500;
-            }
 
             context.Result = new ObjectResult(response)
             {
