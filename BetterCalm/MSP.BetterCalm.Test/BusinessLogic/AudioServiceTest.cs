@@ -109,9 +109,44 @@ namespace MSP.BetterCalm.Test
                 UrlImage = ""
             };
             AudiosMock.Setup(x => x.FindById(3)).Throws(new AlreadyExistThisAudio());
-            _audioService.AddAudio(audio);
+            _audioService.SetAudio(audio);
         }
 
+        [TestMethod]
+        public void SetAudioTest()
+        {    
+            Audio audio = new Audio()
+            {
+                Id=1,
+                Name = "Help",
+                AuthorName = "John Lennon",
+                Duration = 12,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            AudiosMock.Setup(x => x.Add(audio)).Returns(audio);
+            AudiosMock.Setup(x => x.FindById(audio.Id)).Throws(new KeyNotFoundException());
+            Audio audioAdded=_audioService.SetAudio(audio);
+            Assert.AreEqual(audio,audioAdded);
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(AlreadyExistThisAudio), "")]
+        public void SetAudiosRepeted()
+        {    
+            Audio audio = new Audio()
+            {
+                Id=4,
+                Name = "Let it be",
+                AuthorName = "John Lennon",
+                Duration = 12,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            _audioService.SetAudio(audio);
+            _audioService.SetAudio(audio);
+        }
+        
         [TestMethod]
         [ExpectedException(typeof(InvalidNameLength), "")]
         public void SetAudiosInvalidName()
@@ -128,8 +163,8 @@ namespace MSP.BetterCalm.Test
             Audio audio = new Audio() {Name = "Let it be"};
             List<Audio> Audios1 = new List<Audio> {audio};
             AudiosMock.Setup(x => x.Set(Audios1));
-            _audioService.AddAudio(audio);
-            _audioService.AddAudio(audio);
+            _audioService.SetAudio(audio);
+            _audioService.SetAudio(audio);
         }
 
        
@@ -195,6 +230,7 @@ namespace MSP.BetterCalm.Test
                 UrlImage = ""
             };
             List<Audio> Audios = new List<Audio>(){Audio1,Audio2};
+            AudiosMock.Setup(x => x.FindById(Audio2.Id)).Returns(Audio1);
             AudiosMock.Setup(x => x.Delete(Audio1));
             AudiosMock.Setup(x => x.Get()).Returns(Audios);
             AudiosMock.Setup(x => x.Set(Audios));
@@ -217,7 +253,7 @@ namespace MSP.BetterCalm.Test
                 UrlImage = ""
             };
             AudiosMock.Setup(x => x.Add(Audio1)).Throws(new AlreadyExistThisAudio());
-            _audioService.AddAudio(Audio1);
+            _audioService.SetAudio(Audio1);
         }
         
         [TestMethod]
@@ -234,7 +270,7 @@ namespace MSP.BetterCalm.Test
                 UrlImage = ""
             };
             AudiosMock.Setup(x => x.Add(Audio1)).Throws(new InvalidNameLength());
-            _audioService.AddAudio(Audio1);
+            _audioService.SetAudio(Audio1);
         }
         
         [TestMethod]
@@ -256,6 +292,24 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ObjectWasNotDeleted), "")]
+        public void NoFindDeleteAudio()
+        {
+            Audio Audio1 = new Audio()
+            {
+                Id=3,
+                Categories = new List<Category>() {new Category() {Name = "Dormir"}},
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = 12,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            AudiosMock.Setup(x => x.FindById(Audio1.Id)).Throws(new KeyNotFoundException());
+            _audioService.DeleteAudio(Audio1.Id);
+        }
+        
+        [TestMethod]
         public void UpdateAudioTest()
         {  
             Audio audio = new Audio()
@@ -269,6 +323,7 @@ namespace MSP.BetterCalm.Test
                 UrlImage = ""
             };
             List<Audio> Audios1 = new List<Audio> {audio};
+            AudiosMock.Setup(x => x.FindById(2)).Returns(audio);
             AudiosMock.Setup(x => x.Update(audio,audio));
             AudiosMock.Setup(x => x.Get()).Returns(Audios1);
             _audioService.UpdateAudioById(2,audio);
@@ -294,10 +349,28 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
+        [ExpectedException(typeof(ObjectWasNotUpdated), "")]
+        public void NoFindUpdateAudioTest()
+        {  
+            Audio audio = new Audio()
+            {
+                Categories = new List<Category>() {new Category() {Name = "Dormir"}},
+                Name = "Let it be",
+                AuthorName = "John Lennon",
+                Duration = 12,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            AudiosMock.Setup(x => x.FindById(7)).Throws(new KeyNotFoundException());
+            _audioService.UpdateAudioById(7,audio);
+        }
+        
+        [TestMethod]
         public void GetAudioByIDTest()
         {  
             Audio audio = new Audio()
             {
+                AssociatedToPlaylist = false,
                 Id=2,
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
@@ -306,12 +379,47 @@ namespace MSP.BetterCalm.Test
                 UrlAudio = "",
                 UrlImage = ""
             };
-            List<Audio> Audios1 = new List<Audio> {audio};
             AudiosMock.Setup(x => x.FindById(2)).Returns(audio);
-            AudiosMock.Setup(x => x.Get()).Returns(Audios1);
+            Audio audioFind=_audioService.GetAudioById(2);
+            Assert.AreEqual(audio, audioFind);
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundId), "")]
+        public void GetAudioByIDAssociatedTest()
+        {  
+            Audio audio = new Audio()
+            {
+                AssociatedToPlaylist = true,
+                Id=2,
+                Categories = new List<Category>() {new Category() {Name = "Dormir"}},
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = 12,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            AudiosMock.Setup(x => x.FindById(2)).Returns(audio);
+           _audioService.GetAudioById(2);
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundId), "")]
+        public void GetAudioByIDKeyNotFountTest()
+        {  
+            Audio audio = new Audio()
+            {
+                AssociatedToPlaylist = true,
+                Id=2,
+                Categories = new List<Category>() {new Category() {Name = "Dormir"}},
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = 12,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            AudiosMock.Setup(x => x.FindById(2)).Throws(new KeyNotFoundException());;
             _audioService.GetAudioById(2);
-            List<Audio> Audios2 = _audioService.GetAudios();
-            CollectionAssert.AreEqual(Audios1, Audios2);
         }
         
         [TestMethod]
