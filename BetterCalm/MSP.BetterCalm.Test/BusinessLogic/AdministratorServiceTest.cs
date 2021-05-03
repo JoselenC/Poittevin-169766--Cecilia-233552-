@@ -6,6 +6,7 @@ using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.Test
 {
+    [TestClass]
     public class AdministratorServiceTest
     {
         private Mock<ManagerAdministratorRepository> repoMock;
