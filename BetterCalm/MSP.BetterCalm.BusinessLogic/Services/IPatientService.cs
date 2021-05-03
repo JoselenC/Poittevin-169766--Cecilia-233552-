@@ -7,7 +7,7 @@ namespace MSP.BetterCalm.BusinessLogic
     {
         List<Patient> GetPatients();
 
-        void AddPatient(Patient patient);
+        void SetPatient(Patient patient);
         Meeting ScheduleNewMeeting(Patient patient, Problematic problematic);
     }
 }

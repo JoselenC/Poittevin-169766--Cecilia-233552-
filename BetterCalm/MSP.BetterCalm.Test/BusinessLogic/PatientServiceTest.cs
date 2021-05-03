@@ -86,7 +86,7 @@ namespace MSP.BetterCalm.Test
             patientMock.Setup(
                 x => x.Add(patient)
             );
-            service.AddPatient(patient);
+            service.SetPatient(patient);
             patientMock.VerifyAll();
         }
 
