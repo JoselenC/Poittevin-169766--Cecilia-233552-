@@ -65,7 +65,7 @@ namespace MSP.BetterCalm.Test
         [ExpectedException(typeof(NotFoundId), "")]
         public void FindCategoryByNotExistId()
         {
-            categoriesMock.Setup(x => x.FindById(2)).Throws( new NotFoundId());
+            categoriesMock.Setup(x => x.FindById(2)).Throws( new KeyNotFoundException());
             _service.GetCategoryById(2);
         }
     }
