@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.DataAccess;
@@ -12,21 +13,38 @@ namespace MSP.BetterCalm.Test
     public class AudioMapperTest
     {
         private DbContextOptions<ContextDB> options;
-
-        public  DataBaseRepository<Audio, AudioDto> Audios;
-        public  Audio AudioTest;
         private ContextDB context;
+        private DataBaseRepository<Audio, AudioDto> RepoAudios;
+        private Audio AudioTest;
+        private Category category1;
+        private Category category2;
 
         [TestInitialize]
-        public  void TestFixtureSetup()
+        public void TestFixtureSetup()
         {
-            options = new DbContextOptionsBuilder<ContextDB>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
-            context = new ContextDB(this.options);
-            AudioMapper audioMapper = new AudioMapper();
-            Audios = new DataBaseRepository<Audio, AudioDto>(audioMapper, context.Audios, context);
-        
+            options = new DbContextOptionsBuilder<ContextDB>().UseInMemoryDatabase(databaseName: "BetterCalmDB")
+                .Options;
+            context = new ContextDB(options);
+            RepoAudios = new DataBaseRepository<Audio, AudioDto>(new AudioMapper(), context.Audios,context);
+            DataBaseRepository<Category, CategoryDto> categRepo = new DataBaseRepository<Category, CategoryDto>(new CategoryMapper(), context.Categories,
+                    context);
+            category1 = new Category() {Name = "Musica"};
+            categRepo.Add(category1);
+            category2 = new Category() {Name = "Dormir"};
+            categRepo.Add(category2);
+            
+            AudioTest = new Audio() {
+                Id = 1,
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = 120,
+                UrlAudio = "",
+                UrlImage = "",
+                Categories = new List<Category>(){category1}
+            };
+            RepoAudios.Add(AudioTest);
         }
-        
+
         [TestCleanup]
         public void TestCleanUp()
         {
@@ -34,129 +52,124 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidCategory), "")]
         public void DomainToDtoTest()
         {
-            Audio audioTest = new Audio()
-            {
-                Categories = new List<Category>() {new Category(){Id=1,Name = "Musica"},},
-                Name = "Stand by me"
-            };
-            Audios.Add(audioTest);
-            Audio audio = Audios.Find(x => x.Name == "Stand by me");
-            Assert.AreEqual(audioTest, audio);
+            RepoAudios.Add(AudioTest);
+            Audio actualAudio = RepoAudios.Find(x => x.Name == "Stand by me");
+            Assert.AreEqual(AudioTest, actualAudio);
         }
 
         [TestMethod]
-        public void DomainToDtoTestCategoryNull()
+        [ExpectedException(typeof(InvalidCategory))]
+        public void DomainToDtoWrongcategoryTest()
         {
-            Audio audioTest = new Audio()
+            Audio AudioTest = new Audio()
             {
-                Id=1,
-                Categories = null,
+                Id = 0,
+                Categories =  new List<Category>(),
                 Name = "Stand by me",
                 AuthorName = "John Lennon",
-                Duration = 12,
+                Duration = 120,
                 UrlAudio = "",
                 UrlImage = ""
             };
-            Audios.Add(audioTest);
-            Audio audio = Audios.Find(x => x.Name == "Stand by me");
-            Assert.AreEqual(audioTest, audio);
+            List<Category> Categories = new List<Category>()
+            {
+                new Category()
+                {
+                    Name = "Category Category"
+                }
+            };
+            AudioTest.Categories = Categories;
+            RepoAudios.Add(AudioTest);
         }
 
         [TestMethod]
         public void DtoToDomainTest()
         {
-            Audio audioTest = new Audio()
-            {
-                Id=1,
-                Categories = new List<Category>(),
-                Name = "Stand by me",
-                AuthorName = "John Lennon",
-                Duration = 12,
-                UrlAudio = "",
-                UrlImage = ""
-            };
-            Audios.Add(audioTest);
-            Audio realAudio = Audios.Find(x => x.Name == "Stand by me");
-            Assert.AreEqual(audioTest, realAudio);
+            Audio actualAudio = RepoAudios.Find(x => x.Name == "Stand by me");
+            Assert.AreEqual(this.AudioTest, actualAudio);
         }
         
         [TestMethod]
-        public void DtoToDomainTestCategoryNull()
+        public void DtoToDomainWitAudioTest()
         {
-            Audio audioTest = new Audio()
-            {
-                Id=1,
-                Categories = null,
-                Name = "a",
-                AuthorName = "John Lennon",
-                Duration = 12,
-                UrlAudio = "",
-                UrlImage = ""
-            };
-            Audios.Add(audioTest);
-            Audio realAudio = Audios.Find(x => x.Name == "a");
-            Assert.AreEqual(audioTest, realAudio);
-        }
-     
-        [TestMethod]
-        public void UpdateTest()
-        {
-            Audio audioTest = new Audio()
-            {
-                Categories = new List<Category>(),
+            AudioTest = new Audio() {
+                Id = 1,
                 Name = "Stand by me",
                 AuthorName = "John Lennon",
-                Duration = 12,
+                Duration = 120,
                 UrlAudio = "",
-                UrlImage = ""
+                UrlImage = "",
+                Categories = new List<Category>(){category1}
             };
-            AudioDto audioDtoTest = new AudioDto()
-            {
-                AudioDtoID = 1,
-                PlaylistAudiosDto = new List<PlaylistAudioDto>(),
-                Name = "Stand by me",
-                AuthorName = "The beatles",
-                Duration = 12,
-                UrlAudio = "",
-                UrlImage = ""
-            };
-            AudioMapper audioMapper = new AudioMapper();
-            ContextDB context = new ContextDB();
-            context.Audios.Add(audioDtoTest);
-            audioMapper.UpdateDtoObject(audioDtoTest, audioTest, context);
-            Assert.AreEqual(context.Audios.Find(1),audioDtoTest);
+            RepoAudios.Add(AudioTest);
+            Audio actualAudio = RepoAudios.Find(x => x.Name == "Stand by me");
+            Assert.AreEqual(this.AudioTest, actualAudio);
         }
 
         [TestMethod]
-        public void UpdateTestCategoryNull()
+        public void DtoToDomainWitPlaylistest()
         {
-            Audio audioTest = new Audio()
-            {
-                Categories = new List<Category>(),
+            AudioTest = new Audio() {
+                AssociatedToPlaylist = true,
+                Id = 1,
                 Name = "Stand by me",
                 AuthorName = "John Lennon",
-                Duration = 12,
+                Duration = 120,
                 UrlAudio = "",
-                UrlImage = ""
+                UrlImage = "",
+                Categories = new List<Category>(){category1}
             };
-            AudioDto audioDtoTest = new AudioDto()
-            {
-                AudioDtoID = 1,
-                PlaylistAudiosDto = new List<PlaylistAudioDto>(),
-                Name = "Stand by me",
+            RepoAudios.Add(AudioTest);
+            Audio actualAudio = RepoAudios.Find(x => x.Name == "Stand by me");
+            Assert.AreEqual(this.AudioTest, actualAudio);
+        }
+        
+        [TestMethod]
+        public void UpdateTest()
+        {
+            Audio actualAudio = RepoAudios.Find(x => x.Name =="Stand by me");
+            actualAudio.Name = "Help";
+            Audio updatedAudio = RepoAudios.Update(AudioTest, actualAudio);
+            Assert.AreEqual(actualAudio, updatedAudio);
+        }
+        
+        [TestMethod]
+        public void UpdateAudioWithCateogryTest()
+        {
+            Audio audio =new Audio() {
+                Id = 1,
+                Name = "Help",
                 AuthorName = "The beatles",
-                Duration = 12,
+                Duration = 121,
                 UrlAudio = "",
-                UrlImage = ""
+                UrlImage = "",
+                Categories = new List<Category>(){category2,category1}
             };
-            AudioMapper audioMapper = new AudioMapper();
-            ContextDB context = new ContextDB();
-            context.Audios.Add(audioDtoTest);
-            audioMapper.UpdateDtoObject(audioDtoTest, audioTest, context);
-            Assert.AreEqual(context.Audios.Find(1),audioDtoTest);
+            RepoAudios.Add(audio);
+            Audio actualAudio =new Audio() {
+                Name = "ToUpdate",
+                Categories = new List<Category>(){category2,category1}
+            };
+            actualAudio.Name = "Help";
+            Audio updatedAudio = RepoAudios.Update(audio, actualAudio);
+            Assert.AreEqual(actualAudio, updatedAudio);
+        }
+       
+        [TestMethod]
+        public void UpdateAudioWithDiffCateogryTest()
+        {
+            Audio actualAudio =new Audio() {
+                Name = "Help",
+                AuthorName = "The beatles",
+                Duration = 121,
+                UrlAudio = "",
+                UrlImage = "",
+                Categories = new List<Category>(){category2}
+            };
+            Audio updatedAudio = RepoAudios.Update(AudioTest, actualAudio);
+            Assert.AreEqual(actualAudio, updatedAudio);
         }
     }
 }
