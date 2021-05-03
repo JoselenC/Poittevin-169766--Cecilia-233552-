@@ -50,7 +50,27 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
             Assert.AreEqual(duration, getAudioDuration);
         }
         
+        [TestMethod]
+        public void GetSetAudioDurationM()
+        {
+            string duration = "23m" ;
+            AudioDto audio = new AudioDto();
+            audio.Duration = "23m";
+            string  getAudioDuration = audio.Duration;
+            Assert.AreEqual(duration, getAudioDuration);
+        }
         
+        [TestMethod]
+        public void GetSetAudioDurationS()
+        {
+            string duration = "23s" ;
+            AudioDto audio = new AudioDto();
+            audio.Duration = "23s";
+            string  getAudioDuration = audio.Duration;
+            Assert.AreEqual(duration, getAudioDuration);
+        }
+        
+       
         [TestMethod]
         public void GetSetAudioId()
         {
@@ -94,7 +114,7 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
                 UrlAudio = "",
                 UrlImage = ""
             };
-            AudioDto AudiodtoExpected = new AudioDto()
+            AudioDto audioDtoExpected = new AudioDto()
             {
                 Id=0,
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
@@ -105,7 +125,164 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
                 UrlImage = ""
             };
             AudioDto audioDto = new AudioDto().CreateAudioDto(audio);
-            Assert.AreEqual(AudiodtoExpected, audioDto);
+            Assert.AreEqual(audioDtoExpected, audioDto);
+        }
+        
+        [TestMethod]
+        public void CreateAudiodto()
+        {
+            Audio audio = new Audio()
+            {
+                Id=2,
+                Categories = new List<Category>() {new Category() {Name = "Dormir"}},
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = 60*60*60,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            AudioDto audioDtoExpected = new AudioDto()
+            {
+                Id=0,
+                Categories = new List<Category>() {new Category() {Name = "Dormir"}},
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = "60h",
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            AudioDto audioDto = new AudioDto().CreateAudioDto(audio);
+            Assert.AreEqual(audioDtoExpected, audioDto);
+        }
+        
+       [TestMethod]
+        public void EqualsNull()
+        {
+            AudioDto audiodtoExpected = new AudioDto()
+            {
+                Id=0,
+                Categories = new List<Category>() {new Category() {Name = "Dormir"}},
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = "2m",
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            Assert.IsFalse(audiodtoExpected.Equals(null));
+        }
+        
+        [TestMethod]
+        public void EqualsDiffType()
+        {
+            AudioDto audiodtoExpected = new AudioDto()
+            {
+                Id=0,
+                Categories = new List<Category>() {new Category() {Name = "Dormir"}},
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = "2m",
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            Assert.IsFalse(audiodtoExpected.Equals(new Category()));
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(InvalidDurationFormat))]
+        public void CreateAudioTest()
+        {
+         AudioDto audiodtoExpected = new AudioDto()
+            {
+                Id=2,
+                Categories = new List<Category>() {new Category() {Name = "Dormir"}},
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = "12000q",
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            Audio audioDto = audiodtoExpected.CreateAudio();
+        }
+        
+        [TestMethod]
+        public void CreateAudioTestDurationS()
+        {
+            AudioDto audiodtoExpected = new AudioDto()
+            {
+                Id=0,
+                Categories = new List<Category>() {new Category() {Name = "Dormir"}},
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = "12000s",
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            Audio audio = new Audio()
+            {
+                Id=0,
+                Categories = new List<Category>() {new Category() {Name = "Dormir"}},
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = 12000,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            Audio audioDto = audiodtoExpected.CreateAudio();
+            Assert.AreEqual(audio, audioDto);
+        }
+        
+        [TestMethod]
+        public void CreateAudioTestDurationM()
+        {
+            AudioDto audiodtoExpected = new AudioDto()
+            {
+                Id=0,
+                Categories = new List<Category>() {new Category() {Name = "Dormir"}},
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = "10m",
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            Audio audio = new Audio()
+            {
+                Id=0,
+                Categories = new List<Category>() {new Category() {Name = "Dormir"}},
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = 10*60,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            Audio audioDto = audiodtoExpected.CreateAudio();
+            Assert.AreEqual(audio, audioDto);
+        }
+        
+        [TestMethod]
+        public void CreateAudioTestDurationH()
+        {
+            AudioDto audiodtoExpected = new AudioDto()
+            {
+                Id=0,
+                Categories = new List<Category>() {new Category() {Name = "Dormir"}},
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = "10h",
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            Audio audio = new Audio()
+            {
+                Id=0,
+                Categories = new List<Category>() {new Category() {Name = "Dormir"}},
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = 10*60*60,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            Audio audioDto = audiodtoExpected.CreateAudio();
+            Assert.AreEqual(audio, audioDto);
         }
     }
 }
