@@ -26,6 +26,7 @@ namespace MSP.BetterCalm.DataAccess
             foreach (T item in entity.ToList())
             {
                 var x = mapper.DtoToDomain(item, context);
+                if(x!=null)
                 Dlist.Add(x);
             }
 
