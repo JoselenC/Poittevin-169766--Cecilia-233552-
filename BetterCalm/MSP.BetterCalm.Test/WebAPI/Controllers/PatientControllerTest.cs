@@ -44,7 +44,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestAddPatient()
         {
-            mockPatientService.Setup(x => x.AddPatient(patient));
+            mockPatientService.Setup(x => x.SetPatient(patient));
             var result = patientController.AddPatient(patient);
             var createdResult = result as CreatedResult;
             var realPatients = createdResult.Value;
