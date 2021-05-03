@@ -80,7 +80,7 @@ namespace MSP.BetterCalm.Test
             psychologistMock.Setup(
                 x => x.Add(psychologist)
             ).Returns(psychologist);
-            Psychologist createdPsychologist = service.AddPsychologist(psychologist);
+            Psychologist createdPsychologist = service.SetPsychologist(psychologist);
             Assert.AreEqual(psychologist, createdPsychologist);
             psychologistMock.VerifyAll();
         }
