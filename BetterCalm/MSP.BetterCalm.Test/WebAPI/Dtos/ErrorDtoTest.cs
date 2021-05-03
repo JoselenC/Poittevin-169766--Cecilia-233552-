@@ -8,7 +8,7 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
     [TestClass]
     public class ErrorDtoTest
     {
-         [TestMethod]
+        [TestMethod]
         public void GetSetIsSuccess()
         {
             ErrorDto error = new ErrorDto();
@@ -16,8 +16,7 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
             bool IsSuccess = error.IsSuccess;
             Assert.AreEqual(IsSuccess, error.IsSuccess);
         }
-      
-        
+
         [TestMethod]
         public void GetSetCode()
         {
@@ -34,6 +33,22 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
             error.ErrorMessage = "";
             string ErrorMessage = error.ErrorMessage;
             Assert.AreEqual(ErrorMessage, error.ErrorMessage);
+        }
+        
+        [TestMethod]
+        public void EqualsNull()
+        {
+            ErrorDto error = new ErrorDto();
+            error.ErrorMessage = "";
+            Assert.IsFalse( error.Equals(null));
+        }
+        
+        [TestMethod]
+        public void EqualsDiffType()
+        {
+            ErrorDto error = new ErrorDto();
+            error.ErrorMessage = "";
+            Assert.IsFalse( error.Equals(new Category()));
         }
         
     }
