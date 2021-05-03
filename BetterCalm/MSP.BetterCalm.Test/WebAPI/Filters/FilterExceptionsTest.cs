@@ -187,5 +187,101 @@ namespace MSP.BetterCalm.Test.WebAPI.Filters
             ErrorDto error = (ErrorDto) objResult.Value;
             Assert.AreEqual(errorDto, error);
         }
+        
+        [TestMethod]
+        public void InvalidCategoryTest()
+        {
+            exceptionContext.Exception = new InvalidCategory();
+            response = new ErrorDto()
+            {
+                IsSuccess = false,
+                ErrorMessage = exceptionContext.Exception.Message,
+                Content = exceptionContext.Exception.Message,
+                Code = 404
+            };
+            result = new ObjectResult(response) {StatusCode = response.Code};
+            filter.OnException(exceptionContext);
+            ObjectResult objResult = (ObjectResult) exceptionContext.Result;
+            ErrorDto errorDto = (ErrorDto) result.Value;
+            ErrorDto error = (ErrorDto) objResult.Value;
+            Assert.AreEqual(errorDto, error);
+        }
+        
+        [TestMethod]
+        public void InvalidProblematicTest()
+        {
+            exceptionContext.Exception = new InvalidProblematic();
+            response = new ErrorDto()
+            {
+                IsSuccess = false,
+                ErrorMessage = exceptionContext.Exception.Message,
+                Content = exceptionContext.Exception.Message,
+                Code = 404
+            };
+            result = new ObjectResult(response) {StatusCode = response.Code};
+            filter.OnException(exceptionContext);
+            ObjectResult objResult = (ObjectResult) exceptionContext.Result;
+            ErrorDto errorDto = (ErrorDto) result.Value;
+            ErrorDto error = (ErrorDto) objResult.Value;
+            Assert.AreEqual(errorDto, error);
+        }
+        
+        [TestMethod]
+        public void NotFoundAudioTest()
+        {
+            exceptionContext.Exception = new NotFoundAudio();
+            response = new ErrorDto()
+            {
+                IsSuccess = false,
+                ErrorMessage = exceptionContext.Exception.Message,
+                Content = exceptionContext.Exception.Message,
+                Code = 404
+            };
+            result = new ObjectResult(response) {StatusCode = response.Code};
+            filter.OnException(exceptionContext);
+            ObjectResult objResult = (ObjectResult) exceptionContext.Result;
+            ErrorDto errorDto = (ErrorDto) result.Value;
+            ErrorDto error = (ErrorDto) objResult.Value;
+            Assert.AreEqual(errorDto, error);
+        }
+        
+        [TestMethod]
+        public void NotFoundPlaylistTest()
+        {
+            exceptionContext.Exception = new NotFoundPlaylist();
+            response = new ErrorDto()
+            {
+                IsSuccess = false,
+                ErrorMessage = exceptionContext.Exception.Message,
+                Content = exceptionContext.Exception.Message,
+                Code = 404
+            };
+            result = new ObjectResult(response) {StatusCode = response.Code};
+            filter.OnException(exceptionContext);
+            ObjectResult objResult = (ObjectResult) exceptionContext.Result;
+            ErrorDto errorDto = (ErrorDto) result.Value;
+            ErrorDto error = (ErrorDto) objResult.Value;
+            Assert.AreEqual(errorDto, error);
+        }
+        
+        [TestMethod]
+        public void NotFoundCategoryTest()
+        {
+            exceptionContext.Exception = new NotFoundCategory();
+            response = new ErrorDto()
+            {
+                IsSuccess = false,
+                ErrorMessage = exceptionContext.Exception.Message,
+                Content = exceptionContext.Exception.Message,
+                Code = 404
+            };
+            result = new ObjectResult(response) {StatusCode = response.Code};
+            filter.OnException(exceptionContext);
+            ObjectResult objResult = (ObjectResult) exceptionContext.Result;
+            ErrorDto errorDto = (ErrorDto) result.Value;
+            ErrorDto error = (ErrorDto) objResult.Value;
+            Assert.AreEqual(errorDto, error);
+        }
+      
     }
 }
