@@ -9,6 +9,7 @@ namespace MSP.BetterCalm.Domain
         public int Id { get; set; }
         public List<Category> Categories {get; set; }
 
+        public bool AssociatedToPlaylist { get; set; }
         private string name;
         public string Name {get=>name; set=>SetName(value); }
         
@@ -29,12 +30,12 @@ namespace MSP.BetterCalm.Domain
         
         public bool IsSameAudioName(string audioName)
         {
-            return Name == audioName;
+            return Name.ToLower() == audioName.ToLower();
         }
         
         public bool IsSameAuthorName(string authorName)
         {
-            return authorName == AuthorName;
+            return authorName.ToLower() == AuthorName.ToLower();
         }
         
         public override bool Equals(object obj)
