@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using MSP.BetterCalm.BusinessLogic;
-using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.Domain;
+using MSP.BetterCalm.WebAPI.Dtos;
 using MSP.BetterCalm.WebAPI.Filters;
 
 namespace MSP.BetterCalm.WebAPI.Controllers
@@ -24,8 +23,8 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            IEnumerable<Playlist> Audios = _playlistService.GetPlaylist();
-            return Ok(Audios);
+            List<Playlist> playlists = _playlistService.GetPlaylist();
+            return Ok(playlists);
         }
 
         [HttpGet("name")]
@@ -57,10 +56,10 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreatePlaylist([FromBody] Playlist playlist)
+        public IActionResult CreatePlaylist([FromBody] PlaylistDto playlist)
         {
-            _playlistService.AddPlaylist(playlist);
-            return Ok("Playlist created");
+            Playlist playlistAdded = _playlistService.SetPlaylist(playlist.CreatePlaylist());
+            return Created($"api/Playlist/{playlistAdded.Name}","Playlist created");
         }
 
         [HttpDelete("{id}")]
@@ -71,23 +70,24 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         }
 
         [HttpPost ("{id}")]
-        public IActionResult AddNewAudioToPlaylist([FromBody] Audio audio, [FromRoute] int id)
+        public IActionResult AddNewAudioToPlaylist([FromBody] AudioDto audio, [FromRoute] int id)
         {
-            _playlistService.AddNewAudioToPlaylist(audio, id);
-            return Ok("New audio was added to the playlist");
+            Playlist playlist = _playlistService.GetPlaylistById(id);
+            Audio audioAdded=_playlistService.AddNewAudioToPlaylist(audio.CreateAudio(), id);
+            return Created($"api/Playlist/{playlist.Name}/Audio/{audioAdded.Name}","New audio was added to the playlist");
         }
         
         [HttpPost ("{idPlaylist}/Audios/{id}")]
         public IActionResult AssociateAudioToPlaylist([FromRoute] int id, int idPlaylist)
         {
             _playlistService.AssociateAudioToPlaylist(id,idPlaylist);
-            return Ok("The audio was added to the playlist");
+            return Created($"api/Playlist/{idPlaylist}/Audio/{id}","The audio was added to the playlist");
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdatePlaylist([FromRoute] int id, [FromBody] Playlist newPlaylist)
+        public IActionResult UpdatePlaylist([FromRoute] int id, [FromBody] PlaylistDto newPlaylist)
         {
-            _playlistService.UpdatePlaylistById(id, newPlaylist);
+            _playlistService.UpdatePlaylistById(id, newPlaylist.CreatePlaylist());
             return Ok("The audio was updated");
         }
 
