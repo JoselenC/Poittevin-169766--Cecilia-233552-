@@ -217,16 +217,9 @@ namespace MSP.BetterCalm.Test
             Playlist playlist=null;
             Assert.IsNull(playlist);
         }
-        
+       
         [TestMethod]
-        public void NotPlaylistNull()
-        {
-            Playlist playlist = new Playlist();
-            Assert.IsNotNull(playlist);
-        }
-        
-        [TestMethod]
-        public void NotEqualsPlaylistId()
+        public void EqualsNull()
         {
             Playlist playlist = new Playlist()
             {
@@ -235,20 +228,12 @@ namespace MSP.BetterCalm.Test
                 Description = "para despejar",
                 UrlImage="url"
             };
-            Playlist playlistToCompare = new Playlist()
-            {
-                Id=2,
-                Name  = "Entrena tu mente2",
-                Description = "para despejar",
-                UrlImage="url"
-            };
-            Assert.AreNotEqual(playlist, playlistToCompare);
+            Assert.IsFalse( playlist.Equals(null));
         }
         
         [TestMethod]
-        public void NotEqualsPlaylistType()
+        public void EqualsDiffType()
         {
-            Category category = new Category();
             Playlist playlist = new Playlist()
             {
                 Id=1,
@@ -256,9 +241,8 @@ namespace MSP.BetterCalm.Test
                 Description = "para despejar",
                 UrlImage="url"
             };
-            Assert.AreNotEqual(category, playlist);
+            Assert.IsFalse( playlist.Equals(new Audio()));
         }
-        
        
     }
 }
