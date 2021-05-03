@@ -35,7 +35,7 @@ namespace MSP.BetterCalm.Domain
         }
         public bool IsSamePlaylistName(string name)
         {
-            return Name == name;
+            return Name.ToLower() == name.ToLower();
         }
         public bool IsSameCategoryName(string name)
         {
@@ -50,7 +50,7 @@ namespace MSP.BetterCalm.Domain
         {
             foreach (var song in Audios)
             {
-                if (song.Name == name)
+                if (song.Name.ToLower() == name.ToLower())
                     return true;
             }
             return false;
