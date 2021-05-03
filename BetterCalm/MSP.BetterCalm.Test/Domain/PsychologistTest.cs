@@ -156,5 +156,52 @@ namespace MSP.BetterCalm.Test
             DateTime expectedMeetingDayOnWeek = new DateTime(1993,7,16);
             Assert.AreEqual(expectedMeetingDayOnWeek, nextMeetingDayOnWeek);
         }
+
+        [TestMethod]
+        public void HashCodeAddressTest()
+        {
+            Psychologist psychologist = new Psychologist
+            {
+                Address = "House 1234"
+            };
+            Assert.AreEqual(psychologist.GetHashCode(), psychologist.GetHashCode());
+        }
+        
+        [TestMethod]
+        public void HashCodeTest()
+        {
+            Psychologist psychologist = new Psychologist { };
+            Assert.AreEqual(0, psychologist.GetHashCode());
+        }
+
+        [TestMethod]
+        public void EqualsNull()
+        {
+            Psychologist psychologist = new Psychologist
+            {
+                Address = "House 1234"
+            };
+            Assert.IsFalse( psychologist.Equals(null));
+        }
+        
+        [TestMethod]
+        public void EqualsDiffType()
+        {
+            Psychologist psychologist = new Psychologist
+            {
+                Address = "House 1234"
+            };
+            Assert.IsFalse( psychologist.Equals(new Audio()));
+        }
+        
+        [TestMethod]
+        public void EqualsTest()
+        {
+            Psychologist psychologist = new Psychologist
+            {
+                Address = "House 1234"
+            };
+            Assert.IsTrue( psychologist.Equals(psychologist));
+        }
     }
 }
