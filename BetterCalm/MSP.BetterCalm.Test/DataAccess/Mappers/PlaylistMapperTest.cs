@@ -11,251 +11,242 @@ namespace MSP.BetterCalm.Test
     public class PlaylistMapperTest
     {
         private DbContextOptions<ContextDB> options;
-        public  DataBaseRepository<Playlist, PlaylistDto> Playlists;
         private ContextDB context;
-        public  Playlist playlistTest;
+        private DataBaseRepository<Playlist, PlaylistDto> RepoPlaylists;
+        private Playlist PlaylistTest;
+        private Category category1;
+        private Category category2;
+        private Audio AudioTest;
+        private Audio AudioTest2;
 
         [TestInitialize]
-        public  void TestFixtureSetup()
+        public void TestFixtureSetup()
         {
-            options = new DbContextOptionsBuilder<ContextDB>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
-            context = new ContextDB(this.options);
-            context.Categories.Add(new CategoryDto() {Name = "Dormir"});
-            PlaylistMapper AudioMapper = new PlaylistMapper();
-            Playlists = new DataBaseRepository<Playlist, PlaylistDto>(AudioMapper, context.Playlists, context);
+            options = new DbContextOptionsBuilder<ContextDB>().UseInMemoryDatabase(databaseName: "BetterCalmDB")
+                .Options;
+            context = new ContextDB(options);
+            RepoPlaylists = new DataBaseRepository<Playlist, PlaylistDto>(new PlaylistMapper(), context.Playlists, context);
+            DataBaseRepository<Category, CategoryDto> categRepo = new DataBaseRepository<Category, CategoryDto>(
+                new CategoryMapper(), context.Categories,
+                context);
+            DataBaseRepository<Audio, AudioDto> audioRepo = new DataBaseRepository<Audio, AudioDto>(new AudioMapper(), context.Audios,
+                context);
+            category1 = new Category() {Name = "Musica",Id=1};
+            categRepo.Add(category1);
+            category2 = new Category() {Name = "Dormir",Id=2};
+            categRepo.Add(category2);
+            AudioTest = new Audio() {
+                Id=1,
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = 120,
+                UrlAudio = "",
+                UrlImage = "",
+                Categories = new List<Category>(){category1}
+            };
+            AudioTest2 = new Audio() {
+                Id=2,
+                Name = "Help",
+                AuthorName = "The beatles",
+                Duration = 120,
+                UrlAudio = "",
+                UrlImage = "",
+                Categories = new List<Category>(){category2}
+            };
+            audioRepo.Add(AudioTest);
+            audioRepo.Add(AudioTest2);
+            PlaylistTest = new Playlist()
+            {
+                Id=1,
+                Name = "Playlist",
+                Description = "description",
+                UrlImage = "",
+                Audios = new List<Audio>(){AudioTest},
+                Categories = new List<Category>() {category1}
+            };
+            RepoPlaylists.Add(PlaylistTest);
         }
 
-     
         [TestCleanup]
         public void TestCleanUp()
         {
             context.Database.EnsureDeleted();
         }
-        
-        [TestMethod]
-        public void UpdateTest()
-        {
-            Playlist playlistTest = new Playlist()
-            {
-                Audios= new List<Audio>(),
-                Categories = new List<Category>(),
-                Name = "Entrenamiento",
-                Description = "description",
-                UrlImage = ""
-            };
-            PlaylistDto playlistTestDto = new PlaylistDto()
-            {
-                PlaylistDtoID = 1,
-                PlaylistAudiosDto= new List<PlaylistAudioDto>(),
-                PlaylistCategoriesDto = new List<PlaylistCategoryDto>(),
-                Name = "Entrenamiento",
-                Description = "description",
-                UrlImage = ""
-            };
-            PlaylistMapper playlistMapper = new PlaylistMapper();
-            context.Playlists.Add(playlistTestDto);
-            playlistMapper.UpdateDtoObject(playlistTestDto, playlistTest, context);
-            Assert.AreEqual(context.Playlists.Find(1),playlistTestDto);
-        
-        }
-        
-        [TestMethod]
-        public void UpdateTestDiffCategoryAudio()
-        {
-            Playlist NewPlaylistTest = new Playlist()
-            {
-                Categories = new List<Category>()
-                {
-                    new Category(){Name = "Dormir"}
-                },
-                Audios= new List<Audio>(){ 
-                    new Audio()
-                    {
-                        Name = "Let it be",
-                        AuthorName = "John Lennon",
-                        Duration = 12,
-                        UrlAudio = "",
-                        UrlImage = ""
-                    }
-                },
-                Name = "Entrenamiento",
-                Description = "description",
-                UrlImage = ""
-            };
-            PlaylistDto OldPlaylistTestDto = new PlaylistDto()
-            {
-                PlaylistDtoID = 1,
-                PlaylistCategoriesDto= new List<PlaylistCategoryDto>()
-                {
-                    new PlaylistCategoryDto()
-                    {
-                        CategoryDto = new CategoryDto(){Name = "Dormir",CategoryDtoID = 8},
-                        CategoryID = 1
-                    }
-                },
-                PlaylistAudiosDto = new List<PlaylistAudioDto>()
-                {
-                  new PlaylistAudioDto()
-                  {
-                      AudioDto= new AudioDto(){Name = "let it be", AuthorName = "Jhon Lennon"},
-                      AudioID = 1,
-                      PlaylistDto = new PlaylistDto(){Name = "Musicas", Description = "Lo mas escuchado"},
-                      PlaylistID = 1,
-                  } 
-                }
-            };
-            PlaylistMapper playlistMapper = new PlaylistMapper();
-            context.Playlists.Add(OldPlaylistTestDto);
-            playlistMapper.UpdateDtoObject(OldPlaylistTestDto, NewPlaylistTest, context);
-            PlaylistDto expectedPlaylist = context.Playlists.Find(1);
-            Assert.AreEqual(expectedPlaylist,OldPlaylistTestDto);
-        }
 
         [TestMethod]
-        public void UpdateTestNull()
-        {
-            Playlist playlistTest = new Playlist()
-            {
-                Audios= new List<Audio>(),
-                Categories = new List<Category>(),
-                Name = "Entrenamiento",
-                Description = "description",
-                UrlImage = ""
-            };
-            PlaylistDto playlistTestDto = new PlaylistDto()
-            {
-                PlaylistDtoID = 1,
-                PlaylistAudiosDto= null,
-                PlaylistCategoriesDto = null,
-                Name = "Entrenamiento",
-                Description = "description",
-                UrlImage = ""
-            };
-            PlaylistMapper playlistMapper = new PlaylistMapper();
-            context.Playlists.Add(playlistTestDto);
-            playlistMapper.UpdateDtoObject(playlistTestDto, playlistTest, context);
-            Assert.AreEqual(context.Playlists.Find(1),playlistTestDto);
-        }
-        
-         [TestMethod]
         public void DomainToDtoTest()
         {
-            Playlist playlistTest = new Playlist()
-            {
-                Audios= new List<Audio>(),
-                Categories = new List<Category>(),
-                Name = "Entrenamiento",
-                Description = "description",
-                UrlImage = ""
-            };
-            PlaylistDto playlistTestDto = new PlaylistDto()
-            {
-                PlaylistDtoID = 1,
-                PlaylistAudiosDto= new List<PlaylistAudioDto>(),
-                PlaylistCategoriesDto = new List<PlaylistCategoryDto>(),
-                Name = "Entrenamiento",
-                Description = "description",
-                UrlImage = ""
-            };
-            PlaylistMapper playlistMapper = new PlaylistMapper();
-            context.Playlists.Add(playlistTestDto);
-            playlistMapper.DomainToDto(playlistTest, context);
-            Assert.AreEqual(context.Playlists.Find(1),playlistTestDto);
+            RepoPlaylists.Add(PlaylistTest);
+            Playlist actualPlaylist = RepoPlaylists.Find(x => x.Name == "Playlist");
+            Assert.AreEqual(PlaylistTest, actualPlaylist);
         }
         
         [TestMethod]
-        [ExpectedException(typeof(InvalidCategory), "")]
-        public void DomainToDtoTestDiffCategoryyAudio()
+        public void DomainToDtoNewAudioTest()
         {
-            Playlist playlistTest = new Playlist()
-            {
-                Categories = new List<Category>()
-                {
-                    new Category(){Name = "aaaaa"}
-                },
-                Audios= new List<Audio>(){ new Audio(){Name = "Let it be"}},
-                Name = "Entrenamiento",
+            Audio audio = new Audio() {
+                Name = "Let it be",
+                AuthorName = "The beatles",
+                Duration = 120,
+                UrlAudio = "",
+                UrlImage = ""
             };
-            PlaylistMapper playlistMapper = new PlaylistMapper();
-            playlistMapper.DomainToDto(playlistTest, context);
+            Playlist playlist = new Playlist()
+            {
+                Id=1,
+                Name = "Playlist",
+                Description = "description",
+                UrlImage = "",
+                Audios = new List<Audio>(){audio},
+                Categories = new List<Category>() {category1}
+            };
+            RepoPlaylists.Add(playlist);
+            Playlist actualPlaylist = RepoPlaylists.Find(x => x.Name == "Playlist");
+            Assert.AreEqual(PlaylistTest, actualPlaylist);
         }
 
         [TestMethod]
-        public void DomainToDtoTestNull()
+        public void DomainToDtoAudioEmptyAtributesTest()
         {
-            Playlist playlistTest = new Playlist()
-            {
-                Audios= new List<Audio>(),
-                Categories = new List<Category>(),
-                Name = "Entrenamiento",
-                Description = "description",
-                UrlImage = ""
+            Audio audio = new Audio() {
+                Name = "Audio",
+                Categories = new List<Category>() {category2}
             };
-            PlaylistDto playlistTestDto = new PlaylistDto()
+            Playlist playlist = new Playlist()
             {
-                PlaylistDtoID = 1,
-                PlaylistAudiosDto= null,
-                PlaylistCategoriesDto = null,
-                Name = "Entrenamiento",
+                Id=1,
+                Name = "Playlist",
                 Description = "description",
-                UrlImage = ""
+                UrlImage = "",
+                Audios = new List<Audio>(){audio},
+                Categories = new List<Category>() {category1}
             };
-            PlaylistMapper playlistMapper = new PlaylistMapper();
-            context.Playlists.Add(playlistTestDto);
-            playlistMapper.DomainToDto(playlistTest, context);
-            Assert.AreEqual(context.Playlists.Find(1),playlistTestDto);
+            RepoPlaylists.Add(playlist);
+            Playlist actualPlaylist = RepoPlaylists.Find(x => x.Name == "Playlist");
+            Assert.AreEqual(PlaylistTest, actualPlaylist);
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(InvalidCategory))]
+        public void DomainToDtoWrongcategoryTest()
+        {
+            Playlist PlaylistTest = new Playlist()
+            {
+                Id = 0,
+                Name = "Playlist",
+                Description = "description",
+                UrlImage = "",
+                Audios = new List<Audio>(){AudioTest2},
+                Categories = new List<Category>() {category1}
+            };
+            List<Category> Categories = new List<Category>()
+            {
+                new Category()
+                {
+                    Name = "Category Category"
+                }
+            };
+            PlaylistTest.Categories = Categories;
+            RepoPlaylists.Add(PlaylistTest);
         }
 
         [TestMethod]
         public void DtoToDomainTest()
         {
-            Playlist playlistTest = new Playlist()
-            {
-                Audios = new List<Audio>(),
-                Categories = new List<Category>(),
-                Name = "Entrenamiento",
-                Description = "description",
-                UrlImage = ""
-            };
-            PlaylistDto playlistTestDto = new PlaylistDto()
-            {
-                PlaylistDtoID = 1,
-                PlaylistAudiosDto = new List<PlaylistAudioDto>(),
-                PlaylistCategoriesDto = new List<PlaylistCategoryDto>(),
-                Name = "Entrenamiento",
-                Description = "description",
-                UrlImage = ""
-            };
-            PlaylistMapper playlistMapper = new PlaylistMapper();
-            context.Playlists.Add(playlistTestDto);
-            Playlist playlists = playlistMapper.DtoToDomain(playlistTestDto, context);
-            Assert.AreEqual(playlists, playlistTest);
+            Playlist actualPlaylist = RepoPlaylists.Find(x => x.Name == "Playlist");
+            Assert.AreEqual(this.PlaylistTest, actualPlaylist);
         }
 
-       [TestMethod]
-        public void DtoToDomainTestNull()
+        [TestMethod]
+        public void DtoToDomainWitPlaylistTest()
         {
-            Playlist playlistTest = new Playlist()
+            Playlist actualPlaylist = RepoPlaylists.Find(x => x.Name == "Playlist");
+            Assert.AreEqual(this.PlaylistTest, actualPlaylist);
+        }
+
+        [TestMethod]
+        public void DtoToDomainWitPlaylistest()
+        {
+            Playlist actualPlaylist = RepoPlaylists.Find(x => x.Name == "Playlist");
+            Assert.AreEqual(this.PlaylistTest, actualPlaylist);
+        }
+
+        [TestMethod]
+        public void UpdateTest()
+        {
+            Playlist actualPlaylist = RepoPlaylists.Find(x => x.Name == "Playlist");
+            actualPlaylist.Name = "Help";
+            Playlist updatedPlaylist = RepoPlaylists.Update(PlaylistTest, actualPlaylist);
+            Assert.AreEqual(actualPlaylist, updatedPlaylist);
+        }
+
+        [TestMethod]
+        public void UpdatePlaylistWithCateogryTest()
+        {
+            Playlist Playlist = new Playlist()
             {
-                Audios= new List<Audio>(),
-                Categories = new List<Category>(),
-                Name = "Entrenamiento",
-                Description = "description",
-                UrlImage = ""
+                Id = 2,
+                Name = "Playlist",
+                Audios = new List<Audio>(),
+                Categories = new List<Category>()
             };
-            PlaylistDto playlistTestDto = new PlaylistDto()
+            RepoPlaylists.Add(Playlist);
+            Playlist actualPlaylist = new Playlist()
             {
-                PlaylistDtoID = 1,
-                PlaylistAudiosDto= null,
-                PlaylistCategoriesDto = null,
-                Name = "Entrenamiento",
-                Description = "description",
-                UrlImage = ""
+                Name = "ToUpdate",
+                Audios = new List<Audio>(){AudioTest2},
+                Categories = new List<Category>() {category2, category1}
             };
-            PlaylistMapper playlistMapper = new PlaylistMapper();
-            context.Playlists.Add(playlistTestDto);
-            Playlist playlists= playlistMapper.DtoToDomain(playlistTestDto, context);
-            Assert.AreEqual(playlists,playlistTest);
+            Playlist updatedPlaylist = RepoPlaylists.Update(Playlist, actualPlaylist);
+            Assert.AreEqual(actualPlaylist, updatedPlaylist);
+        }
+
+        [TestMethod]
+        public void UpdatePlaylistTest()
+        {
+            Playlist actualPlaylist = new Playlist()
+            {
+                Name = "Playlist",
+                Description = "description",
+                UrlImage = "",
+                Audios = new List<Audio>(){AudioTest2},
+                Categories = new List<Category>() {category2}
+            };
+            Playlist updatedPlaylist = RepoPlaylists.Update(PlaylistTest, actualPlaylist);
+            Assert.AreEqual(actualPlaylist, updatedPlaylist);
+        }
+        
+        [TestMethod]
+        public void GetByIDTest()
+        {
+            Playlist actualPlaylist = new Playlist()
+            {
+                Id = 1,
+                Name = "Playlist",
+                Description = "description",
+                UrlImage = "",
+                Audios = new List<Audio>(){AudioTest},
+                Categories = new List<Category>() {category1}
+            };
+            Playlist playlist = RepoPlaylists.FindById(1);
+            Assert.AreEqual(actualPlaylist, playlist);
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(KeyNotFoundException))]
+        public void NoGetByIDTest()
+        {
+            Playlist actualPlaylist = new Playlist()
+            {
+                Id = 1,
+                Name = "Playlist",
+                Description = "description",
+                UrlImage = "",
+                Audios = new List<Audio>(){AudioTest},
+                Categories = new List<Category>() {category1}
+            };
+            Playlist playlist = RepoPlaylists.FindById(10);
+            Assert.AreEqual(actualPlaylist, playlist);
         }
     }
 }
