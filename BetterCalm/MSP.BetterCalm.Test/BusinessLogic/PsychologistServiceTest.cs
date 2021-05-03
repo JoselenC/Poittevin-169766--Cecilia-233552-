@@ -52,7 +52,7 @@ namespace MSP.BetterCalm.Test
             psychologistMock.Setup(
                 x => x.Add(psychologist)
             );
-            service.AddPsychologist(psychologist);
+            service.SetPsychologist(psychologist);
             psychologistMock.VerifyAll();
         }
 
