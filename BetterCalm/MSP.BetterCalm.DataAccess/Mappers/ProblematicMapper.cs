@@ -24,6 +24,7 @@ namespace MSP.BetterCalm.DataAccess
         {
             return new Problematic()
             {
+                Id=obj.ProblematicDtoID,
                 Name = obj.Name
             };
         }
