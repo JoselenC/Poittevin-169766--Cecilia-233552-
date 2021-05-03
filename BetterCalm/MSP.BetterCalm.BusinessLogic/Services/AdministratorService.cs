@@ -68,5 +68,17 @@ namespace MSP.BetterCalm.BusinessLogic
                 throw new NotFoundAdministrator();
             }
         }
+
+        public Administrator GetAdministratorByToken(string token)
+        {
+            try
+            {
+                return repository.Administrators.Find(x => x.Token == token);
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new NotFoundAdministrator();
+            }
+        }
     }
 }

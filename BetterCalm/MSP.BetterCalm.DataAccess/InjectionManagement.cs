@@ -13,7 +13,7 @@ namespace MSP.BetterCalm.DataAccess
         
         public InjectionManagement(IServiceCollection services)
         {
-        this.services = services;
+            this.services = services;
         }
         
         public void AddScopped()

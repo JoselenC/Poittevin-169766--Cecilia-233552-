@@ -162,5 +162,37 @@ namespace MSP.BetterCalm.Test
             Assert.AreEqual(expectedToken, realToken);
             administratorMock.VerifyAll();
         }
+
+        [TestMethod]
+        public void TestGetAdminByToken()
+        {
+            string email = "me@email.com";
+            string password = "strongPass";
+            Administrator administrator = new Administrator()
+            {
+                AdministratorId = 2,
+                Name = "Administrator1",
+                Email = email,
+                Password = password
+            };
+            string expectedToken = "b46cacd9-2871-41fc-85ad-c62f888bdf3d";
+            Guid token = new Guid(expectedToken);
+            administratorMock.Setup(
+                x => x.Find(It.IsAny<Predicate<Administrator>>())
+            ).Returns(administrator);
+            Administrator actualAdministrator = service.GetAdministratorByToken(token.ToString());
+            Assert.AreEqual(administrator, actualAdministrator);
+            administratorMock.VerifyAll();
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundAdministrator))]
+        public void TestGetAdminByTokenError()
+        {
+            administratorMock.Setup(
+                x => x.Find(It.IsAny<Predicate<Administrator>>())
+            ).Throws(new NotFoundAdministrator());
+            service.GetAdministratorByToken("token");
+        }
     }
 }

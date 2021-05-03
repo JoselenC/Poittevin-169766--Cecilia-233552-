@@ -13,5 +13,6 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public Administrator UpdateAdministrator(Administrator newAdministrator, int administratorId);
         string Login(string email, string password);
+        Administrator GetAdministratorByToken(string toString);
     }
 }

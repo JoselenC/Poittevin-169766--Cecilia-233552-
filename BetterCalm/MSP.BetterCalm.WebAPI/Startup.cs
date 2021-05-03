@@ -1,19 +1,12 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using MSP.BetterCalm.DataAccess;
+using MSP.BetterCalm.WebAPI.Filters;
 using Newtonsoft.Json;
 
 namespace MSP.BetterCalm.WebAPI
@@ -43,8 +36,10 @@ namespace MSP.BetterCalm.WebAPI
                     options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 }
                 );
+            services.AddScoped<FilterAuthentication>();
             injectionManagement.AddScopped();
             injectionManagement.AddDbContext();
+
             
             string directory = System.IO.Directory.GetCurrentDirectory();
             IConfigurationRoot configuration = new ConfigurationBuilder()
