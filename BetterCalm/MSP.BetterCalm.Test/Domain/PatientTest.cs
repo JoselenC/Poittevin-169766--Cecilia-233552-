@@ -63,5 +63,54 @@ namespace MSP.BetterCalm.Test
             };
             CollectionAssert.AreEqual(patient.Meetings, meetings);
         }
+        
+        [TestMethod]
+        public void HashCodeAddressTest()
+        {
+            List<Meeting> meetings = new List<Meeting>()
+            {
+                new Meeting(){Psychologist = new Psychologist(){Name = "Psycho1"}},
+                new Meeting(){Psychologist = new Psychologist(){Name = "Pscho1"}}
+            };
+            Patient patient = new Patient
+            {
+                BirthDay = new DateTime(1993, 7, 15),
+                Meetings = meetings,
+                Cellphone = "09123981"
+            };
+            Assert.AreEqual(patient.GetHashCode(), patient.GetHashCode());
+        }
+        
+        [TestMethod]
+        public void EqualsNull()
+        {
+            Patient patient = new Patient
+            {
+                BirthDay = new DateTime(1993, 7, 15),
+                Cellphone = "09123981"
+            };
+            Assert.IsFalse( patient.Equals(null));
+        }
+        
+        [TestMethod]
+        public void EqualsDiffType()
+        {
+            Patient patient = new Patient
+            {
+                BirthDay = new DateTime(1993, 7, 15),
+                Cellphone = "09123981"
+            };
+            Assert.IsFalse(patient.Equals(new Audio()));
+        }
+        [TestMethod]
+        public void EqualsTest()
+        {
+            Patient patient = new Patient
+            {
+                BirthDay = new DateTime(1993, 7, 15),
+                Cellphone = "09123981"
+            };
+            Assert.IsTrue(patient.Equals(patient));
+        }
     }
 }
