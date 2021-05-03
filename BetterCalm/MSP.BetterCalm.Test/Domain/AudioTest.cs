@@ -162,6 +162,20 @@ namespace MSP.BetterCalm.Test
             Assert.IsFalse(audio.IsSameCategoryName(categoryName));
         }
         
-       
+        [TestMethod]
+        public void EqualsNull()
+        {
+            Audio audio = new Audio();
+            audio.AuthorName =  "Ringo Starr";
+            Assert.IsFalse( audio.Equals(null));
+        }
+        
+        [TestMethod]
+        public void EqualsDiffType()
+        {
+            Audio audio = new Audio();
+            audio.AuthorName =  "Ringo Starr";
+            Assert.IsFalse( audio.Equals(new Category()));
+        }
     }
 }
