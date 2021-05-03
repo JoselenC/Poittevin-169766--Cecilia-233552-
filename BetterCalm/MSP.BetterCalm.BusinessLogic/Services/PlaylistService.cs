@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.Domain;
 
@@ -20,9 +21,9 @@ namespace MSP.BetterCalm.BusinessLogic
             return repository.Playlists.Get();
         }
 
-        public void AddPlaylist(Playlist playlist)
+        public Playlist SetPlaylist(Playlist playlist)
         {
-            repository.Playlists.Add(playlist);
+            return repository.Playlists.Add(playlist);
         }
 
       public List<Playlist> GetPlaylistByName(string playlistName)
@@ -76,7 +77,8 @@ namespace MSP.BetterCalm.BusinessLogic
             try
             {
                 Playlist playlistToUpdate = repository.Playlists.FindById(id);
-                repository.Playlists.Update(playlistToUpdate, newPlaylist);
+                Playlist playlist = CreateNewPlaylist(id, newPlaylist);
+                repository.Playlists.Update(playlistToUpdate, playlist);
             }
             catch (KeyNotFoundException)
             {
@@ -84,10 +86,29 @@ namespace MSP.BetterCalm.BusinessLogic
             }
         }
 
-        public void DeletePlaylistByName(string name)
+        private Playlist CreateNewPlaylist(int id, Playlist newPlaylist)
         {
-            Playlist playlistToDelete=repository.Playlists.Find(x => x.IsSamePlaylistName(name));
-            DeletePlaylist(playlistToDelete.Id);
+            Playlist playlist = new Playlist();
+            playlist.Name = newPlaylist.Name;
+            playlist.Description = newPlaylist.Description;
+            playlist.Id = id;
+            playlist.UrlImage = newPlaylist.UrlImage;
+            playlist.Audios = new List<Audio>();
+            playlist.Categories = newPlaylist.Categories;
+            if (newPlaylist.Audios != null)
+            {
+                foreach (var audio in newPlaylist.Audios)
+                {
+                    if (audio.Id == 0)
+                    {
+                        Audio audioAdd = _repositoryAudio.Audios.Add(audio);
+                        playlist.Audios.Add(audioAdd);
+                    }
+                    else
+                        playlist.Audios.Add(audio);
+                }
+            }
+            return playlist;
         }
 
         public void DeletePlaylist(int id)
@@ -103,27 +124,53 @@ namespace MSP.BetterCalm.BusinessLogic
             }
         }
 
-        public void AddNewAudioToPlaylist(Audio audio, int idPlaylist)
+        public Audio AddNewAudioToPlaylist(Audio audio, int idPlaylist)
         {
-            Playlist playlist = repository.Playlists.FindById(idPlaylist);
-            Playlist oldPlaylist = repository.Playlists.FindById(idPlaylist);
-            playlist.Audios.Add(audio);
-            repository.Playlists.Update(oldPlaylist, playlist);
+            try
+            {
+                Playlist playlist = repository.Playlists.FindById(idPlaylist);
+                if (playlist.Categories != null)
+                {
+                    if (audio.Categories == null) audio.Categories = new List<Category>();
+                    foreach (var category in playlist.Categories)
+                    {
+                        audio.Categories.Add(category);
+                    }
+                }
+
+                Audio audioToadd = _repositoryAudio.Audios.Add(audio);
+                Playlist oldPlaylist = repository.Playlists.FindById(idPlaylist);
+                oldPlaylist.Audios.Add(audioToadd);
+                UpdatePlaylist(playlist, oldPlaylist);
+                return _repositoryAudio.Audios.FindById(audioToadd.Id);
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new NotFoundId();
+            }
         }
 
         public void  AssociateAudioToPlaylist(int idAudio, int idPlaylist)
         {
-            Playlist oldPlaylist = repository.Playlists.FindById(idPlaylist);
-            Playlist playlist = repository.Playlists.FindById(idPlaylist);
-            Audio audio = _repositoryAudio.Audios.FindById(idAudio);
-            playlist.Audios.Add(audio);
-            repository.Playlists.Update(oldPlaylist, playlist);
+            try
+            {
+                Playlist oldPlaylist = repository.Playlists.FindById(idPlaylist);
+                Playlist playlist = repository.Playlists.FindById(idPlaylist);
+                Audio audioById = _repositoryAudio.Audios.FindById(idAudio);
+                playlist.Audios.Add(audioById);
+                repository.Playlists.Update(oldPlaylist, playlist);
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new NotFoundId();
+            }
         }
 
         public Playlist GetPlaylistById(int id)
         {
-            try{
-            return repository.Playlists.FindById(id);
+            try
+            {
+                return repository.Playlists.FindById(id);
             }
             catch (KeyNotFoundException)
             {
