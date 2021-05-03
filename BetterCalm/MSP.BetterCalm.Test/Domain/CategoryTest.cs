@@ -93,5 +93,21 @@ namespace MSP.BetterCalm.Test
             string categoryName = "Musica";
             Assert.IsFalse(category.IsSameCategoryName(categoryName));
         }
+        
+        [TestMethod]
+        public void EqualsNull()
+        {
+            Category category = new Category();
+            category.Name = "Yoga";
+            Assert.IsFalse( category.Equals(null));
+        }
+        
+        [TestMethod]
+        public void EqualsDiffType()
+        {
+            Category category = new Category();
+            category.Name = "Yoga";
+            Assert.IsFalse( category.Equals(new Audio()));
+        }
     }
 }

@@ -14,7 +14,7 @@
       
         public bool IsSameCategoryName(string categoryName)
         { 
-            return Name == categoryName;
+            return Name.ToLower() == categoryName.ToLower();
         }
     }
 }
