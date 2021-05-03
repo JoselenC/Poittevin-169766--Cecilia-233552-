@@ -42,7 +42,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestAddPsychologist()
         {
-            mockPsychologistService.Setup(x => x.AddPsychologist(psychologist));
+            mockPsychologistService.Setup(x => x.SetPsychologist(psychologist));
             var result = psychologistController.AddPsychologist(psychologist);
             var createdResult = result as CreatedResult;
             var realPsycho = createdResult.Value;
