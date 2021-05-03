@@ -92,5 +92,21 @@ namespace MSP.BetterCalm.Test
             string problematicName = "Tristesa";
             Assert.IsFalse(problematic.IsSameProblematicName(problematicName));
         }
+        
+        [TestMethod]
+        public void EqualsNull()
+        {
+            Problematic problematic = new Problematic();
+            problematic.Name = "Estres";
+            Assert.IsFalse( problematic.Equals(null));
+        }
+        
+        [TestMethod]
+        public void EqualsDiffType()
+        {
+            Problematic problematic = new Problematic();
+            problematic.Name = "Estres";
+            Assert.IsFalse( problematic.Equals(new Audio()));
+        }
     }
 }

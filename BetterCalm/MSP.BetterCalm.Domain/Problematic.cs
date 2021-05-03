@@ -15,7 +15,7 @@
 
         public bool IsSameProblematicName(string problematicName)
         {
-            return Name == problematicName;
+            return Name.ToLower() == problematicName.ToLower();
         }
     }
 }
