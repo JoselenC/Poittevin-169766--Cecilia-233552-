@@ -6,6 +6,7 @@ using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.WebAPI.Controllers;
+using MSP.BetterCalm.WebAPI.Dtos;
 
 namespace MSP.BetterCalm.Test.WebAPI
 {
@@ -17,7 +18,8 @@ namespace MSP.BetterCalm.Test.WebAPI
         private PlaylistController playlistController ;
         private List<Playlist> playlists;
         private Playlist playlist;
-        
+        private PlaylistDto playlistDto;
+        private AudioDto _audioDto;
         [TestInitialize]
         public void InitializeTest()
         {
@@ -25,7 +27,23 @@ namespace MSP.BetterCalm.Test.WebAPI
             mockAudioService = new Mock<IAudioService>(MockBehavior.Strict);
             playlistController = new PlaylistController(mockPlaylistService.Object);
             playlists = new List<Playlist>();
-            playlist = new Playlist(){ Id = 1};
+            playlist = new Playlist(){ Id = 1,Name="playlist",Description = "", 
+                Audios = new List<Audio>(), UrlImage = "", Categories = new List<Category>()};
+            playlistDto = new PlaylistDto()
+            {
+                Id = 1,Name="playlist",Description = "", 
+                Audios = new List<Audio>(), UrlImage = "", Categories = new List<Category>()
+            };
+            _audioDto = new AudioDto()
+            {
+                Id = 1,
+                Categories = new List<Category>(),
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = "120s",
+                UrlAudio = "",
+                UrlImage = ""
+            };
         }
         
         [TestMethod]
@@ -103,9 +121,16 @@ namespace MSP.BetterCalm.Test.WebAPI
                 Description = "description",
                 UrlImage = ""
             };
-            mockPlaylistService.Setup(m => m.AddPlaylist(playlistTest));
-            mockAudioService.Setup(m => m.DeleteAudio(playlistTest.Audios));
-            playlistController.CreatePlaylist(playlistTest);
+            PlaylistDto playlistTestDto = new PlaylistDto()
+            {
+                Audios= new List<Audio>(),
+                Categories = new List<Category>(),
+                Name = "Entrenamiento",
+                Description = "description",
+                UrlImage = ""
+            };
+            mockPlaylistService.Setup(m => m.SetPlaylist(playlistTest)).Returns(playlistTest);
+            playlistController.CreatePlaylist(playlistTestDto);
             mockPlaylistService.Setup(m => m.GetPlaylist()).Returns(playlists);
             var result = playlistController.GetAll();
             var okResult = result as OkObjectResult;
@@ -117,18 +142,16 @@ namespace MSP.BetterCalm.Test.WebAPI
         [ExpectedException(typeof(InvalidNameLength))]
         public void TestCreateInvalidNamePlaylist()
         {
-            mockPlaylistService.Setup(m => m.AddPlaylist(playlist)).Throws(new InvalidNameLength());
-            mockAudioService.Setup(m => m.DeleteAudio(playlist.Audios));
-            playlistController.CreatePlaylist(playlist);
+            mockPlaylistService.Setup(m => m.SetPlaylist(playlist)).Throws(new InvalidNameLength());
+           playlistController.CreatePlaylist(playlistDto);
         }
         
         [TestMethod]
         [ExpectedException(typeof(InvalidDescriptionLength))]
         public void TestCreateInvalidDescriptionPlaylist()
         {
-            mockPlaylistService.Setup(m => m.AddPlaylist(playlist)).Throws(new InvalidDescriptionLength());
-            mockAudioService.Setup(m => m.DeleteAudio(playlist.Audios));
-            playlistController.CreatePlaylist(playlist);
+            mockPlaylistService.Setup(m => m.SetPlaylist(playlist)).Throws(new InvalidDescriptionLength());
+          playlistController.CreatePlaylist(playlistDto);
         }
         
         [TestMethod]
@@ -165,6 +188,28 @@ namespace MSP.BetterCalm.Test.WebAPI
             Assert.AreEqual(playlists,playlistsValue);
         }
         
+        
+        [TestMethod]
+        public void AddNewAudioToPlaylistTest()
+        {
+            playlist.Audios = new List<Audio>();
+            Audio audio = new Audio() { Id = 1,
+                Categories = new List<Category>(),
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = 120,
+                UrlAudio = "",
+                UrlImage = ""};
+            mockPlaylistService.Setup(m => m.AddNewAudioToPlaylist(audio,1)).Returns(audio);
+            mockPlaylistService.Setup(m => m.DeletePlaylist(1));
+            mockPlaylistService.Setup(m => m.GetPlaylistById(1)).Returns(playlist);
+            mockPlaylistService.Setup(m => m.GetPlaylist()).Returns(playlists);
+            playlistController.AddNewAudioToPlaylist(_audioDto,1);
+            var result = playlistController.GetAll();
+            var okResult = result as OkObjectResult;
+            var playlistsValue = okResult.Value;
+            Assert.AreEqual(playlists,playlistsValue);
+        }
         [TestMethod]
         public void TestGetPlaylistByAudioId()
         {   
@@ -187,7 +232,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         public void TestUpdatePlaylist()
         {   
             mockPlaylistService.Setup(m => m.UpdatePlaylistById(1,playlist));
-            var result = playlistController.UpdatePlaylist(1,playlist);
+            var result = playlistController.UpdatePlaylist(1,playlistDto);
             var okResult = result as OkObjectResult;
             Assert.IsNotNull(okResult);
         }
@@ -197,7 +242,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         public void TestNoUpdatePlaylist()
         {   
             mockPlaylistService.Setup(m => m.UpdatePlaylistById(1,playlist)).Throws(new ObjectWasNotUpdated());
-            playlistController.UpdatePlaylist(1, playlist);
+            playlistController.UpdatePlaylist(1, playlistDto);
         }
       }
 }
