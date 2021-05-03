@@ -56,5 +56,89 @@ namespace MSP.BetterCalm.Test
             };
             Assert.AreEqual(meeting.DateTime, datetime);
         }
+        
+        [TestMethod]
+        public void HashCodeAddressTest()
+        {
+            Psychologist psychologist = new Psychologist()
+            {
+                Name = "Test1"
+            };
+            DateTime datetime = new DateTime(1993, 7, 15);
+            Patient patient = new Patient()
+            {
+                Name = "Test1"
+            };
+            Meeting meeting = new Meeting()
+            {
+                Psychologist = psychologist,
+                DateTime = datetime,
+                Patient =patient
+            };
+            Assert.AreEqual(meeting.GetHashCode(), meeting.GetHashCode());
+        }
+        
+        [TestMethod]
+        public void EqualsNull()
+        {
+            Psychologist psychologist = new Psychologist()
+            {
+                Name = "Test1"
+            };
+            DateTime datetime = new DateTime(1993, 7, 15);
+            Patient patient = new Patient()
+            {
+                Name = "Test1"
+            };
+            Meeting meeting = new Meeting()
+            {
+                Psychologist = psychologist,
+                DateTime = datetime,
+                Patient =patient
+            };
+            Assert.IsFalse( meeting.Equals(null));
+        }
+        
+        [TestMethod]
+        public void EqualsDiffType()
+        {
+            Psychologist psychologist = new Psychologist()
+            {
+                Name = "Test1"
+            };
+            DateTime datetime = new DateTime(1993, 7, 15);
+            Patient patient = new Patient()
+            {
+                Name = "Test1"
+            };
+            Meeting meeting = new Meeting()
+            {
+                Psychologist = psychologist,
+                DateTime = datetime,
+                Patient =patient
+            };
+            Assert.IsFalse( meeting.Equals(new Audio()));
+        }
+        
+        [TestMethod]
+        public void EqualsTest()
+        {
+            Psychologist psychologist = new Psychologist()
+            {
+                Name = "Test1"
+            };
+            DateTime datetime = new DateTime(1993, 7, 15);
+            Patient patient = new Patient()
+            {
+                Name = "Test1"
+            };
+            Meeting meeting = new Meeting()
+            {
+                Psychologist = psychologist,
+                DateTime = datetime,
+                Patient =patient
+            };
+            Assert.IsTrue( meeting.Equals(meeting));
+        }
     }
 }
