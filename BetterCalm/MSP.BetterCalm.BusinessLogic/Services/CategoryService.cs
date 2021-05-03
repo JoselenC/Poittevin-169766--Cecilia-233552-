@@ -15,15 +15,7 @@ namespace MSP.BetterCalm.BusinessLogic
         
         public List<Category> GetCategories()
         {
-            List<Category> categories= repository.Categories.Get();
-            List<Category> getCategories = new List<Category>();
-            foreach (var category in categories)
-            {
-                if(!getCategories.Contains(category))
-                    getCategories.Add(category);
-            }
-
-            return getCategories;
+            return repository.Categories.Get();
         }            
 
         public Category GetCategoryByName(string name)
@@ -40,8 +32,9 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public Category GetCategoryById(int id)
         {
-            try{
-            return repository.Categories.FindById(id);
+            try
+            {
+                return repository.Categories.FindById(id);
             }
             catch (KeyNotFoundException)
             {
