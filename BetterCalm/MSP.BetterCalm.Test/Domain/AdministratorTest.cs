@@ -54,8 +54,50 @@ namespace MSP.BetterCalm.Test
             Administrator administrator = new Administrator
             {
                 Password = "StrongHashedPass"
+                
             };
             Assert.AreEqual("StrongHashedPass", administrator.Password);
+        }
+        
+        [TestMethod]
+        public void HashCodeAddressTest()
+        {
+            Administrator administrator = new Administrator
+            {
+                Password = "StrongHashedPass",
+                Email = "my.email@gmail.com"
+            };
+            Assert.AreEqual(administrator.GetHashCode(), administrator.GetHashCode());
+        }
+        
+        [TestMethod]
+        public void EqualsNull()
+        {
+            Administrator administrator = new Administrator
+            {
+                Email = "my.email@gmail.com"
+            };
+            Assert.IsFalse( administrator.Equals(null));
+        }
+        
+        [TestMethod]
+        public void EqualsTest()
+        {
+            Administrator administrator = new Administrator
+            {
+                Email = "my.email@gmail.com"
+            };
+            Assert.IsTrue( administrator.Equals(administrator));
+        }
+        
+        [TestMethod]
+        public void EqualsDiffType()
+        {
+            Administrator administrator = new Administrator
+            {
+                Email = "my.email@gmail.com"
+            };
+            Assert.IsFalse( administrator.Equals(new Category()));
         }
     }
 }
