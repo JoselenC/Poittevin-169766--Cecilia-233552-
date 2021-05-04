@@ -82,7 +82,7 @@ namespace MSP.BetterCalm.BusinessLogic
             }
             catch (KeyNotFoundException)
             {
-                throw new ObjectWasNotUpdated();
+                throw new NotFoundPlaylist();
             }
         }
 
@@ -120,7 +120,7 @@ namespace MSP.BetterCalm.BusinessLogic
             }
             catch (KeyNotFoundException)
             {
-                throw new ObjectWasNotDeleted();
+                throw new NotFoundPlaylist();
             }
         }
 

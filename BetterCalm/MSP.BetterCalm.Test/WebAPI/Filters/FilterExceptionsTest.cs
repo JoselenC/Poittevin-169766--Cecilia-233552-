@@ -45,7 +45,7 @@ namespace MSP.BetterCalm.Test.WebAPI.Filters
                 IsSuccess = false,
                 ErrorMessage = exceptionContext.Exception.Message,
                 Content = exceptionContext.Exception.Message,
-                Code = 409
+                Code = 422
             };
             result = new ObjectResult(response) {StatusCode = response.Code};
             filter.OnException(exceptionContext);
@@ -64,7 +64,7 @@ namespace MSP.BetterCalm.Test.WebAPI.Filters
                 IsSuccess = false,
                 ErrorMessage = exceptionContext.Exception.Message,
                 Content = exceptionContext.Exception.Message,
-                Code = 409
+                Code = 422
             };
             result = new ObjectResult(response) {StatusCode = response.Code};
             filter.OnException(exceptionContext);
@@ -83,7 +83,7 @@ namespace MSP.BetterCalm.Test.WebAPI.Filters
                 IsSuccess = false,
                 ErrorMessage = exceptionContext.Exception.Message,
                 Content = exceptionContext.Exception.Message,
-                Code = 409
+                Code = 422
             };
             result = new ObjectResult(response) {StatusCode = response.Code};
             filter.OnException(exceptionContext);
@@ -102,7 +102,7 @@ namespace MSP.BetterCalm.Test.WebAPI.Filters
                 IsSuccess = false,
                 ErrorMessage = exceptionContext.Exception.Message,
                 Content = exceptionContext.Exception.Message,
-                Code = 404
+                Code = 409
             };
             result = new ObjectResult(response) {StatusCode = response.Code};
             filter.OnException(exceptionContext);
@@ -111,26 +111,7 @@ namespace MSP.BetterCalm.Test.WebAPI.Filters
             ErrorDto error = (ErrorDto) objResult.Value;
             Assert.AreEqual(errorDto, error);
         }
-        
-        [TestMethod]
-        public void ObjectWasNotDeletedTest()
-        {
-            exceptionContext.Exception = new ObjectWasNotDeleted();
-            response = new ErrorDto()
-            {
-                IsSuccess = false,
-                ErrorMessage = exceptionContext.Exception.Message,
-                Content = exceptionContext.Exception.Message,
-                Code = 404
-            };
-            result = new ObjectResult(response) {StatusCode = response.Code};
-            filter.OnException(exceptionContext);
-            ObjectResult objResult = (ObjectResult) exceptionContext.Result;
-            ErrorDto errorDto = (ErrorDto) result.Value;
-            ErrorDto error = (ErrorDto) objResult.Value;
-            Assert.AreEqual(errorDto, error);
-        }
-        
+
         [TestMethod]
         public void KeyNotFoundExceptionTest()
         {
@@ -149,26 +130,7 @@ namespace MSP.BetterCalm.Test.WebAPI.Filters
             ErrorDto error = (ErrorDto) objResult.Value;
             Assert.AreEqual(errorDto, error);
         }
-        
-        [TestMethod]
-        public void ObjectWasNotUpdatedTest()
-        {
-            exceptionContext.Exception = new ObjectWasNotUpdated();
-            response = new ErrorDto()
-            {
-                IsSuccess = false,
-                ErrorMessage = exceptionContext.Exception.Message,
-                Content = exceptionContext.Exception.Message,
-                Code = 404
-            };
-            result = new ObjectResult(response) {StatusCode = response.Code};
-            filter.OnException(exceptionContext);
-            ObjectResult objResult = (ObjectResult) exceptionContext.Result;
-            ErrorDto errorDto = (ErrorDto) result.Value;
-            ErrorDto error = (ErrorDto) objResult.Value;
-            Assert.AreEqual(errorDto, error);
-        }
-        
+
         [TestMethod]
         public void NotFoundIdTest()
         {
@@ -197,7 +159,7 @@ namespace MSP.BetterCalm.Test.WebAPI.Filters
                 IsSuccess = false,
                 ErrorMessage = exceptionContext.Exception.Message,
                 Content = exceptionContext.Exception.Message,
-                Code = 404
+                Code = 409
             };
             result = new ObjectResult(response) {StatusCode = response.Code};
             filter.OnException(exceptionContext);
@@ -216,7 +178,7 @@ namespace MSP.BetterCalm.Test.WebAPI.Filters
                 IsSuccess = false,
                 ErrorMessage = exceptionContext.Exception.Message,
                 Content = exceptionContext.Exception.Message,
-                Code = 404
+                Code = 409
             };
             result = new ObjectResult(response) {StatusCode = response.Code};
             filter.OnException(exceptionContext);
@@ -274,6 +236,25 @@ namespace MSP.BetterCalm.Test.WebAPI.Filters
                 ErrorMessage = exceptionContext.Exception.Message,
                 Content = exceptionContext.Exception.Message,
                 Code = 404
+            };
+            result = new ObjectResult(response) {StatusCode = response.Code};
+            filter.OnException(exceptionContext);
+            ObjectResult objResult = (ObjectResult) exceptionContext.Result;
+            ErrorDto errorDto = (ErrorDto) result.Value;
+            ErrorDto error = (ErrorDto) objResult.Value;
+            Assert.AreEqual(errorDto, error);
+        }
+        
+        [TestMethod]
+        public void NotControlledExceptionTest()
+        {
+            exceptionContext.Exception = new Exception("Panic! Not Controlled");
+            response = new ErrorDto()
+            {
+                IsSuccess = false,
+                ErrorMessage = exceptionContext.Exception.Message,
+                Content = exceptionContext.Exception.Message,
+                Code = 500
             };
             result = new ObjectResult(response) {StatusCode = response.Code};
             filter.OnException(exceptionContext);

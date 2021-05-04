@@ -42,8 +42,8 @@ namespace MSP.BetterCalm.BusinessLogic
         {
             if (!AlreadyExistThisAudio(audio))
                 return repository.Audios.Add(audio);
-            else
-                throw new AlreadyExistThisAudio();
+            
+            throw new AlreadyExistThisAudio();
         }
 
         public List<Audio> GetAudiosByName(string audioName)
@@ -94,7 +94,7 @@ namespace MSP.BetterCalm.BusinessLogic
             }
             catch (KeyNotFoundException)
             {
-                throw new ObjectWasNotUpdated();
+                throw new NotFoundAudio();
             }
         }
     
@@ -107,7 +107,7 @@ namespace MSP.BetterCalm.BusinessLogic
             }
             catch (KeyNotFoundException)
             {
-                throw new ObjectWasNotDeleted();
+                throw new NotFoundAudio();
             }
         }
 

@@ -274,7 +274,7 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        [ExpectedException(typeof(ObjectWasNotDeleted), "")]
+        [ExpectedException(typeof(NotFoundAudio))]
         public void NoDeleteAudio()
         {
             Audio Audio1 = new Audio()
@@ -287,12 +287,12 @@ namespace MSP.BetterCalm.Test
                 UrlAudio = "",
                 UrlImage = ""
             };
-            AudiosMock.Setup(x => x.FindById(Audio1.Id)).Throws(new ObjectWasNotDeleted());
+            AudiosMock.Setup(x => x.FindById(Audio1.Id)).Throws(new NotFoundAudio());
             _audioService.DeleteAudio(Audio1.Id);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ObjectWasNotDeleted), "")]
+        [ExpectedException(typeof(NotFoundAudio))]
         public void NoFindDeleteAudio()
         {
             Audio Audio1 = new Audio()
@@ -332,7 +332,7 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        [ExpectedException(typeof(ObjectWasNotUpdated), "")]
+        [ExpectedException(typeof(NotFoundAudio), "")]
         public void NoUpdateAudioTest()
         {  
             Audio audio = new Audio()
@@ -344,12 +344,12 @@ namespace MSP.BetterCalm.Test
                 UrlAudio = "",
                 UrlImage = ""
             };
-            AudiosMock.Setup(x => x.FindById(7)).Throws(new ObjectWasNotUpdated());
+            AudiosMock.Setup(x => x.FindById(7)).Throws(new KeyNotFoundException());
             _audioService.UpdateAudioById(7,audio);
         }
         
         [TestMethod]
-        [ExpectedException(typeof(ObjectWasNotUpdated), "")]
+        [ExpectedException(typeof(NotFoundAudio))]
         public void NoFindUpdateAudioTest()
         {  
             Audio audio = new Audio()

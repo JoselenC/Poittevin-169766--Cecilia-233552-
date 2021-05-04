@@ -198,17 +198,17 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ObjectWasNotDeleted), "")]
+        [ExpectedException(typeof(NotFoundPlaylist))]
         public void NoDeletePlaylistTest()
         {
             Playlist playlist = new Playlist() {Id = 1, Name = "Para correr"};
             playlisMock.Setup(x => x.FindById(3)).Returns(playlist);
-            playlisMock.Setup(x => x.Delete(playlist)).Throws(new ObjectWasNotDeleted());
+            playlisMock.Setup(x => x.Delete(playlist)).Throws(new NotFoundPlaylist());
             _playlistService.DeletePlaylist(3);
         }
         
         [TestMethod]
-        [ExpectedException(typeof(ObjectWasNotDeleted), "")]
+        [ExpectedException(typeof(NotFoundPlaylist))]
         public void NoFindDeletePlaylistTest()
         {
             Playlist playlist = new Playlist() {Id = 1, Name = "Para correr"};
@@ -278,17 +278,15 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ObjectWasNotUpdated), "")]
+        [ExpectedException(typeof(NotFoundPlaylist))]
         public void NoUpdatePlaylisy()
         {
-            Playlist playlist = new Playlist() {Name = "Yoga", Id = 1};
-            playlisMock.Setup(x => x.FindById(2)).Throws(new ObjectWasNotUpdated());
-            playlisMock.Setup(x => x.Update(playlist, playlist));
-            _playlistService.UpdatePlaylistById(2, playlist);
+            playlisMock.Setup(x => x.FindById(2)).Throws(new KeyNotFoundException());
+            _playlistService.UpdatePlaylistById(2, new Playlist());
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ObjectWasNotUpdated), "")]
+        [ExpectedException(typeof(NotFoundPlaylist), "")]
         public void UpdatePlaylistByNotExistId()
         {
             Playlist playlist = new Playlist() {Name = "Yoga", Id = 1};

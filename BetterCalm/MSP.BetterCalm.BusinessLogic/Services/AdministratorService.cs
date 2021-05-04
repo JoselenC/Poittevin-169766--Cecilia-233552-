@@ -65,7 +65,7 @@ namespace MSP.BetterCalm.BusinessLogic
             }
             catch (KeyNotFoundException)
             {
-                throw new NotFoundAdministrator();
+                throw new NotFoundAdminLoginError();
             }
         }
 

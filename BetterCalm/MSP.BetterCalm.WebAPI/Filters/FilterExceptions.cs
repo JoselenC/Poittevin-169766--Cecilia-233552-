@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
@@ -11,24 +12,30 @@ namespace MSP.BetterCalm.WebAPI.Filters
     {
         public void OnException(ExceptionContext context)
         {
+            List<Type> errors401 = new List<Type>()
+            {
+                typeof(NotFoundAdminLoginError),
+                typeof(AuthenticationException)
+            };
             List<Type> errors404 = new List<Type>()
             {
-                typeof(InvalidCategory),
-                typeof(InvalidProblematic),
-                typeof(ObjectWasNotDeleted),
-                typeof(ObjectWasNotUpdated),
                 typeof(NotFoundId),
                 typeof(NotFoundAudio),
                 typeof(NotFoundPlaylist),
                 typeof(NotFoundCategory),
-                typeof(KeyNotFoundException),
-                typeof(AlreadyExistThisAudio),
                 typeof(NotFoundAdministrator),
                 typeof(NotFoundPsychologist),
-                typeof(NotFoundProblematic)
-                
+                typeof(NotFoundProblematic),
+                typeof(KeyNotFoundException)
             };
             List<Type> errors409 = new List<Type>()
+            {
+                typeof(AlreadyExistThisAudio),
+                typeof(InvalidCategory),
+                typeof(InvalidProblematic),
+
+            };
+            List<Type> errors422 = new List<Type>()
             {
                 typeof(InvalidNameLength),
                 typeof(InvalidDescriptionLength),
@@ -42,15 +49,30 @@ namespace MSP.BetterCalm.WebAPI.Filters
             };
             
             Type errorType = context.Exception.GetType();
-            if (errors404.Contains(errorType))
+            if (errors401.Contains(errorType))
+            {
+                response.Content = context.Exception.Message;
+                response.Code = 401;
+            }
+            else if (errors404.Contains(errorType))
             {
                 response.Content = context.Exception.Message;
                 response.Code = 404;
             }
-            if (errors409.Contains(errorType))
+            else if (errors409.Contains(errorType))
             {
                 response.Content = context.Exception.Message;
                 response.Code = 409;
+            }
+            else if (errors422.Contains(errorType))
+            {
+                response.Content = context.Exception.Message;
+                response.Code = 422;
+            }
+            else
+            {
+                response.Content = context.Exception.Message;
+                response.Code = 500;
             }
 
             context.Result = new ObjectResult(response)
