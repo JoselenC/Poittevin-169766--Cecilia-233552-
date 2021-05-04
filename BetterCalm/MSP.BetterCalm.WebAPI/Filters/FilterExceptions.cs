@@ -11,99 +11,46 @@ namespace MSP.BetterCalm.WebAPI.Filters
     {
         public void OnException(ExceptionContext context)
         {
+            List<Type> errors404 = new List<Type>()
+            {
+                typeof(InvalidCategory),
+                typeof(InvalidProblematic),
+                typeof(ObjectWasNotDeleted),
+                typeof(ObjectWasNotUpdated),
+                typeof(NotFoundId),
+                typeof(NotFoundAudio),
+                typeof(NotFoundPlaylist),
+                typeof(NotFoundCategory),
+                typeof(KeyNotFoundException),
+                typeof(AlreadyExistThisAudio),
+                typeof(NotFoundAdministrator),
+                typeof(NotFoundPsychologist),
+                typeof(NotFoundProblematic)
+                
+            };
+            List<Type> errors409 = new List<Type>()
+            {
+                typeof(InvalidNameLength),
+                typeof(InvalidDescriptionLength),
+                typeof(InvalidDurationFormat),
+            };
+
             ErrorDto response = new ErrorDto()
             {
                 IsSuccess = false,
                 ErrorMessage = context.Exception.Message
             };
-            if (context.Exception is InvalidNameLength)
+            
+            Type errorType = context.Exception.GetType();
+            if (errors404.Contains(errorType))
+            {
+                response.Content = context.Exception.Message;
+                response.Code = 404;
+            }
+            if (errors409.Contains(errorType))
             {
                 response.Content = context.Exception.Message;
                 response.Code = 409;
-            }
-
-            if (context.Exception is InvalidDescriptionLength)
-            {
-                response.Content = context.Exception.Message;
-                response.Code = 409;
-            }
-
-            if (context.Exception is InvalidDurationFormat)
-            {
-                response.Content = context.Exception.Message;
-                response.Code = 409;
-            }
-
-            if (context.Exception is AlreadyExistThisAudio)
-            {
-                response.Content = context.Exception.Message;
-                response.Code = 409;
-            }
-
-            if (context.Exception is InvalidCategory)
-            {
-                response.Content = context.Exception.Message;
-                response.Code = 404;
-            }
-
-            if (context.Exception is InvalidProblematic)
-            {
-                response.Content = context.Exception.Message;
-                response.Code = 404;
-            }
-
-            if (context.Exception is ObjectWasNotDeleted)
-            {
-                response.Content = context.Exception.Message;
-                response.Code = 404;
-            }
-
-            if (context.Exception is ObjectWasNotUpdated)
-            {
-                response.Content = context.Exception.Message;
-                response.Code = 404;
-            }
-
-            if (context.Exception is NotFoundId)
-            {
-                response.Content = context.Exception.Message;
-                response.Code = 404;
-            }
-
-            if (context.Exception is NotFoundAudio)
-            {
-                response.Content = context.Exception.Message;
-                response.Code = 404;
-            }
-
-            if (context.Exception is NotFoundPlaylist)
-            {
-                response.Content = context.Exception.Message;
-                response.Code = 404;
-            }
-
-            if (context.Exception is NotFoundCategory)
-            {
-                response.Content = context.Exception.Message;
-                response.Code = 404;
-            }
-
-            if (context.Exception is NotFoundPlaylist)
-            {
-                response.Content = context.Exception.Message;
-                response.Code = 404;
-            }
-
-            if (context.Exception is AlreadyExistThisAudio)
-            {
-                response.Content = context.Exception.Message;
-                response.Code = 404;
-            }
-
-            if (context.Exception is KeyNotFoundException)
-            {
-                response.Content = context.Exception.Message;
-                response.Code = 404;
             }
 
             context.Result = new ObjectResult(response)

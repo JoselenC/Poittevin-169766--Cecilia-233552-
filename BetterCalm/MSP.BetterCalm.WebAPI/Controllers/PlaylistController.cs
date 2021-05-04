@@ -59,7 +59,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         public IActionResult CreatePlaylist([FromBody] PlaylistDto playlist)
         {
             Playlist playlistAdded = _playlistService.SetPlaylist(playlist.CreatePlaylist());
-            return Created($"api/Playlist/{playlistAdded.Name}","Playlist created");
+            return Created($"api/Playlist/{playlistAdded.Name}", playlistAdded);
         }
 
         [HttpDelete("{id}")]
@@ -73,8 +73,8 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         public IActionResult AddNewAudioToPlaylist([FromBody] AudioDto audio, [FromRoute] int id)
         {
             Playlist playlist = _playlistService.GetPlaylistById(id);
-            Audio audioAdded=_playlistService.AddNewAudioToPlaylist(audio.CreateAudio(), id);
-            return Created($"api/Playlist/{playlist.Name}/Audio/{audioAdded.Name}","New audio was added to the playlist");
+            Audio audioAdded = _playlistService.AddNewAudioToPlaylist(audio.CreateAudio(), id);
+            return Created($"api/Playlist/{playlist.Name}/Audio/{audioAdded.Name}", audioAdded);
         }
         
         [HttpPost ("{idPlaylist}/Audios/{id}")]
