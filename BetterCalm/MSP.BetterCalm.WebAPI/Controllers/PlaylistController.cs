@@ -79,7 +79,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         }
         
         [ServiceFilter(typeof(FilterAuthentication))]
-        [HttpPost ("{idPlaylist}/Audios/{id}")]
+        [HttpPut ("{idPlaylist}/Audios/{id}")]
         public IActionResult AssociateAudioToPlaylist([FromRoute] int id, int idPlaylist)
         {
             Playlist playlist = _playlistService.AssociateAudioToPlaylist(id,idPlaylist);
