@@ -8,7 +8,9 @@ namespace MSP.BetterCalm.WebAPI.Controllers
 {    
     [ApiController]
     [FilterExceptions]
+    [ServiceFilter(typeof(FilterAuthentication))]
     [Route("api/Administrator")]
+    
     public class AdministratorController: ControllerBase
     {
         private IAdministratorService administratorService;
@@ -19,7 +21,6 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         }
 
         [HttpGet]
-        [ServiceFilter(typeof(FilterAuthentication))]
         public IActionResult GetAll()
         {
             IEnumerable<Administrator> administratores = administratorService.GetAdministrators();
@@ -34,7 +35,6 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         }
         
         [HttpGet("{administratorId}")]
-        [ServiceFilter(typeof(FilterAuthentication))]
         public IActionResult GetAdministratorById(int administratorId)
         {
             Administrator administrator = administratorService.GetAdministratorsById(administratorId);

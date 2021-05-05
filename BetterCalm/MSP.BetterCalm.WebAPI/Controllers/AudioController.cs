@@ -60,6 +60,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
 
         
         [HttpPost]
+        [ServiceFilter(typeof(FilterAuthentication))]
         public IActionResult CreateAudio([FromBody] AudioDto audio)
         {
             Audio audioAdded = _audioService.SetAudio(audio.CreateAudio());
@@ -67,6 +68,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         }
 
         [HttpDelete()]
+        [ServiceFilter(typeof(FilterAuthentication))]
         public IActionResult DeleteAudio([FromBody] AudioDto audio)
         {
             _audioService.DeleteAudio(audio.Id);
@@ -74,6 +76,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+        [ServiceFilter(typeof(FilterAuthentication))]
         public IActionResult DeleteAudio([FromRoute] int id)
         {
             _audioService.DeleteAudio(id);
@@ -81,6 +84,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         }
 
         [HttpPut("{id}")]
+        [ServiceFilter(typeof(FilterAuthentication))]
         public IActionResult UpdateAudio([FromRoute] int id, [FromBody] AudioDto audioUpdated)
         {
             _audioService.UpdateAudioById(id, audioUpdated.CreateAudio());

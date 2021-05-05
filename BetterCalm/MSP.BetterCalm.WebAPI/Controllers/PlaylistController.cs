@@ -70,6 +70,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         }
 
         [HttpPost ("{id}")]
+        [ServiceFilter(typeof(FilterAuthentication))]
         public IActionResult AddNewAudioToPlaylist([FromBody] AudioDto audio, [FromRoute] int id)
         {
             Playlist playlist = _playlistService.GetPlaylistById(id);
@@ -77,6 +78,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             return Created($"api/Playlist/{playlist.Name}/Audio/{audioAdded.Name}", audioAdded);
         }
         
+        [ServiceFilter(typeof(FilterAuthentication))]
         [HttpPost ("{idPlaylist}/Audios/{id}")]
         public IActionResult AssociateAudioToPlaylist([FromRoute] int id, int idPlaylist)
         {
