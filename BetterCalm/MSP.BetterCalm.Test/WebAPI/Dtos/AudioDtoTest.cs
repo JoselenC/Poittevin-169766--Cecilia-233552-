@@ -197,7 +197,7 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
                 AuthorName = "John Lennon",
-                Duration = "12000q",
+                Duration = "12000sq",
                 UrlAudio = "",
                 UrlImage = ""
             };
@@ -240,7 +240,7 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
                 AuthorName = "John Lennon",
-                Duration = "10m",
+                Duration = "100m",
                 UrlAudio = "",
                 UrlImage = ""
             };

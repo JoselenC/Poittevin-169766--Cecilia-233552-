@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.Domain;
 
@@ -23,17 +24,25 @@ namespace MSP.BetterCalm.WebAPI.Dtos
         
         public string UrlAudio {get; set; }
 
-        
+        private bool IsDurationValid(string duration)
+        {
+
+            string pattern = @"^([0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9])[hms]$";
+            Regex reg = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            return reg.IsMatch(duration);
+        }
         private int SetDuration(string vDuration)
         {
-            if (vDuration.Contains('h'))
-                return Int32.Parse(vDuration.Split('h')[0])*60*60;
-            else if (vDuration.Contains('m'))
-                return Int32.Parse(vDuration.Split('m')[0])*60;
-            else if (vDuration.Contains('s'))
-                return Int32.Parse(vDuration.Split('s')[0]);
-            else
-                throw new InvalidDurationFormat();
+            if (IsDurationValid(Duration))
+            {
+                if (vDuration.Contains('h'))
+                    return Int32.Parse(vDuration.Split('h')[0]) * 60 * 60;
+                else if (vDuration.Contains('m'))
+                    return Int32.Parse(vDuration.Split('m')[0]) * 60;
+                else if (vDuration.Contains('s'))
+                    return Int32.Parse(vDuration.Split('s')[0]);
+            }
+            throw new InvalidDurationFormat();
         }
 
         public Audio CreateAudio()
