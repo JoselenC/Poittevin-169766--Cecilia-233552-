@@ -8,7 +8,7 @@
 
         public override bool Equals(object obj)
         {
-            if (obj==null) return false;
+            if (obj == null) return false;
             if (obj.GetType() != GetType()) return false;
             return Id == ((Problematic)obj).Id;
         }

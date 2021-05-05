@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.WebAPI.Dtos

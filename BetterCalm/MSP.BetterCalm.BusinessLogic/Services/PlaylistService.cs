@@ -127,15 +127,7 @@ namespace MSP.BetterCalm.BusinessLogic
             try
             {
                 Playlist playlist = repository.Playlists.FindById(idPlaylist);
-                if (playlist.Categories != null)
-                {
-                    if (audio.Categories == null) audio.Categories = new List<Category>();
-                    foreach (var category in playlist.Categories)
-                    {
-                        audio.Categories.Add(category);
-                    }
-                }
-
+                AddCategoriesToSong(audio, playlist);
                 Audio audioToadd = _repositoryAudio.Audios.Add(audio);
                 Playlist oldPlaylist = repository.Playlists.FindById(idPlaylist);
                 oldPlaylist.Audios.Add(audioToadd);
@@ -145,6 +137,18 @@ namespace MSP.BetterCalm.BusinessLogic
             catch (KeyNotFoundException)
             {
                 throw new NotFoundId();
+            }
+        }
+
+        private void AddCategoriesToSong(Audio audio, Playlist playlist)
+        {
+            if (playlist.Categories != null)
+            {
+                if (audio.Categories == null) audio.Categories = new List<Category>();
+                foreach (var category in playlist.Categories)
+                {
+                    audio.Categories.Add(category);
+                }
             }
         }
 

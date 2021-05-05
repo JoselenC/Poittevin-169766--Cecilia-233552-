@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using MSP.BetterCalm.BusinessLogic;
-using MSP.BetterCalm.BusinessLogic.Exceptions;
-using MSP.BetterCalm.DataAccess;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.WebAPI.Filters;
 

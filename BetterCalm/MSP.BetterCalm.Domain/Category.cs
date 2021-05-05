@@ -7,7 +7,7 @@
 
         public override bool Equals(object obj)
         {
-            if (obj==null) return false;
+            if (obj == null) return false;
             if (obj.GetType() != GetType()) return false;
             return Name == ((Category)obj).Name && Id == ((Category)obj).Id;
         }

@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
-using MSP.BetterCalm.BusinessLogic;
+﻿using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.DataAccess
