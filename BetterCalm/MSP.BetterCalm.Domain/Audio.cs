@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
 
 namespace MSP.BetterCalm.Domain
@@ -10,6 +11,8 @@ namespace MSP.BetterCalm.Domain
         public List<Category> Categories {get; set; }
 
         public bool AssociatedToPlaylist { get; set; }
+        
+        
         private string name;
         public string Name {get=>name; set=>SetName(value); }
         
@@ -24,9 +27,35 @@ namespace MSP.BetterCalm.Domain
         
         public string AuthorName {get; set; }
         
-        public string UrlImage {get; set; }
+        private bool IsUrlValid(string url)
+        {
+
+            string pattern = @"^(http|https|ftp|)\://|[a-zA-Z0-9\-\.]+\.[a-zA-Z](:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*[^\.\,\)\(\s]$";
+            Regex reg = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            return reg.IsMatch(url);
+        }
         
-        public string UrlAudio {get; set; }
+        private string urlImage;
+        public string UrlImage {get=>urlImage; set=>SetUrlImage(value); }
+        
+        private void SetUrlImage(string vUrl)
+        {
+            if (IsUrlValid(vUrl) || vUrl=="")
+                urlImage=vUrl;
+            else
+                throw new InvalidUrl();
+        }
+        
+        private string urlAudio;
+        public string UrlAudio {get=>urlAudio; set=>SetUrlAudio(value); }
+        
+        private void SetUrlAudio(string vUrl)
+        {
+            if (IsUrlValid(vUrl) || vUrl=="")
+                urlAudio=vUrl;
+            else
+                throw new InvalidUrl();
+        }
         
         public bool IsSameAudioName(string audioName)
         {

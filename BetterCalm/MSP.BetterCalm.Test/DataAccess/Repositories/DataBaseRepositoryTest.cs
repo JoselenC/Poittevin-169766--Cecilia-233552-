@@ -118,7 +118,7 @@ namespace MSP.BetterCalm.Test
                 Id=1,
                 Name = "Musica",
                 Duration = 120,
-                UrlImage = "urlImage",
+                UrlImage = "",
                 Categories = new List<Category>()
             };
             Songs.Update(audio, audioToUdated);
