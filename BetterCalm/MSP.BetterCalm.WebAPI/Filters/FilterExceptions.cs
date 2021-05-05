@@ -32,7 +32,7 @@ namespace MSP.BetterCalm.WebAPI.Filters
             {
                 typeof(AlreadyExistThisAudio),
                 typeof(InvalidCategory),
-                typeof(InvalidProblematic),
+                typeof(InvalidProblematic)
 
             };
             List<Type> errors422 = new List<Type>()
@@ -40,6 +40,7 @@ namespace MSP.BetterCalm.WebAPI.Filters
                 typeof(InvalidNameLength),
                 typeof(InvalidDescriptionLength),
                 typeof(InvalidDurationFormat),
+                typeof(InvalidUrl),
             };
 
             ErrorDto response = new ErrorDto()

@@ -94,6 +94,25 @@ namespace MSP.BetterCalm.Test.WebAPI.Filters
         }
         
         [TestMethod]
+        public void InvalidUrlTest()
+        {
+            exceptionContext.Exception = new InvalidUrl();
+            response = new ErrorDto()
+            {
+                IsSuccess = false,
+                ErrorMessage = exceptionContext.Exception.Message,
+                Content = exceptionContext.Exception.Message,
+                Code = 422
+            };
+            result = new ObjectResult(response) {StatusCode = response.Code};
+            filter.OnException(exceptionContext);
+            ObjectResult objResult = (ObjectResult) exceptionContext.Result;
+            ErrorDto errorDto = (ErrorDto) result.Value;
+            ErrorDto error = (ErrorDto) objResult.Value;
+            Assert.AreEqual(errorDto, error);
+        }
+        
+        [TestMethod]
         public void AlreadyExistThisAudioTest()
         {
             exceptionContext.Exception = new AlreadyExistThisAudio();
