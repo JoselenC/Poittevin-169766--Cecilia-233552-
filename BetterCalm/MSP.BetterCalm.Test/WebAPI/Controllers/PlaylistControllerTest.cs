@@ -129,7 +129,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         {
             playlist.Audios = new List<Audio>();
             Audio audio = new Audio() {Id = 1, Name = "Let it be"};
-            mockPlaylistService.Setup(m => m.AssociateAudioToPlaylist(1,1));
+            mockPlaylistService.Setup(m => m.AssociateAudioToPlaylist(1,1)).Returns(playlist);
             mockPlaylistService.Setup(m => m.DeletePlaylist(1));
             mockPlaylistService.Setup(m => m.GetPlaylistById(1)).Returns(playlist);
             mockPlaylistService.Setup(m => m.GetPlaylist()).Returns(playlists);

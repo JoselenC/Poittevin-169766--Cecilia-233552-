@@ -66,7 +66,8 @@ namespace MSP.BetterCalm.Test
             List<Problematic> problematics = new List<Problematic>()
             {
                 new Problematic(){Name= "Test1"},
-                new Problematic(){Name= "Test2"}
+                new Problematic(){Name= "Test2"},
+                new Problematic(){Name= "Test3"}
             };
             Psychologist psychologist = new Psychologist()
             {

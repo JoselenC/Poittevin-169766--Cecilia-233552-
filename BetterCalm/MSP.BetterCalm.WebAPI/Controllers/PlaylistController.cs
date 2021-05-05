@@ -80,8 +80,8 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         [HttpPost ("{idPlaylist}/Audios/{id}")]
         public IActionResult AssociateAudioToPlaylist([FromRoute] int id, int idPlaylist)
         {
-            _playlistService.AssociateAudioToPlaylist(id,idPlaylist);
-            return Created($"api/Playlist/{idPlaylist}/Audio/{id}","The audio was added to the playlist");
+            Playlist playlist = _playlistService.AssociateAudioToPlaylist(id,idPlaylist);
+            return Created($"api/Playlist/{idPlaylist}/Audio/{id}", playlist);
         }
 
         [HttpPut("{id}")]

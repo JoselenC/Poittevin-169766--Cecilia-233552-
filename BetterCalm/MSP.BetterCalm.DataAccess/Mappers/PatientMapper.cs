@@ -24,12 +24,21 @@ namespace MSP.BetterCalm.DataAccess
 
         public Patient DtoToDomain(PatientDto obj, ContextDB context)
         {
-            PsychologistMapper psychologistMapper = new PsychologistMapper();
+            ProblematicMapper problematicMapper = new ProblematicMapper();
             context.Entry(obj).Collection("Meetings").Load();
             List<Meeting> domainMeetings = new List<Meeting>();
             foreach (MeetingDto meeting in obj.Meetings)
             {
                 context.Entry(meeting).Reference("Psychologist").Load();
+                List<Problematic> problematics = new List<Problematic>();
+                
+                context.Entry(meeting.Psychologist).Collection("Problematics").Load();
+                foreach (var problematic in meeting.Psychologist.Problematics)
+                {
+                    problematics.Add(problematicMapper.DtoToDomain(problematic.Problematic, context));
+                }
+
+
                 domainMeetings.Add(
                     new Meeting()
                     {
@@ -39,7 +48,8 @@ namespace MSP.BetterCalm.DataAccess
                             Name = meeting.Psychologist.Name,
                             LastName = meeting.Psychologist.LastName,
                             CreationDate = meeting.Psychologist.CreationDate,
-                            WorksOnline = meeting.Psychologist.WorksOnline
+                            WorksOnline = meeting.Psychologist.WorksOnline,
+                            Problematics = problematics
                         }
                     }
                 );

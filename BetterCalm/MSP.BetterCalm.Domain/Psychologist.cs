@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MSP.BetterCalm.BusinessLogic.Exceptions;
 
 namespace MSP.BetterCalm.Domain
 {
@@ -9,14 +10,22 @@ namespace MSP.BetterCalm.Domain
         public int PsychologistId { get; set; }
         public string Address { get; set; }
         public bool WorksOnline { get; set; }
-        public List<Problematic> Problematics{ get; set; }
+
+        private List<Problematic> problematics;
+        public List<Problematic> Problematics{ get=>problematics; set => SetProblematics(value); }
         public List<Meeting> Meetings{ get; set; }
         public DateTime CreationDate { get; set;}
 
         public Psychologist()
         {
             Meetings = new List<Meeting>();
-            Problematics = new List<Problematic>();
+        }
+
+        public void SetProblematics(List<Problematic> vProblematics)
+        {
+            if (vProblematics is null || vProblematics.Count != 3)
+                throw new InvalidAmountOfProblematicsError();
+            problematics = vProblematics;
         }
         protected bool Equals(Psychologist other)
         {

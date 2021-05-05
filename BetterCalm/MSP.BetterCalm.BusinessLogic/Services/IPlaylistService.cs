@@ -15,6 +15,6 @@ namespace MSP.BetterCalm.BusinessLogic
         public void UpdatePlaylistById(int id, Playlist newPlaylist);
         public void DeletePlaylist(int id);
         public Audio AddNewAudioToPlaylist(Audio audio, int idPlaylist);
-        public void AssociateAudioToPlaylist(int idAudio, int idPlaylist);
+        public Playlist AssociateAudioToPlaylist(int idAudio, int idPlaylist);
     }
 }

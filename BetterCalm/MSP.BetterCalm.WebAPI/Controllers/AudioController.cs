@@ -62,8 +62,8 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         [HttpPost]
         public IActionResult CreateAudio([FromBody] AudioDto audio)
         {
-            Audio audioAdded=_audioService.SetAudio(audio.CreateAudio());
-            return Created($"api/Audio/{audioAdded.Name}","Audio created");
+            Audio audioAdded = _audioService.SetAudio(audio.CreateAudio());
+            return Created($"api/Audio/{audioAdded.Name}", audioAdded);
         }
 
         [HttpDelete()]

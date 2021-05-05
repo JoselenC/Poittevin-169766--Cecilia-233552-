@@ -121,8 +121,8 @@ namespace MSP.BetterCalm.DataAccess
                             Psychologist = objToUpdate,
                             Problematic = problematic
                         };
-                        problematics.Add(psychologistProblematicDto);
                     }
+                    problematics.Add(psychologistProblematicDto);
                 }  
             }
             objToUpdate.Problematics = problematics;

@@ -148,7 +148,7 @@ namespace MSP.BetterCalm.BusinessLogic
             }
         }
 
-        public void  AssociateAudioToPlaylist(int idAudio, int idPlaylist)
+        public Playlist AssociateAudioToPlaylist(int idAudio, int idPlaylist)
         {
             try
             {
@@ -156,7 +156,7 @@ namespace MSP.BetterCalm.BusinessLogic
                 Playlist playlist = repository.Playlists.FindById(idPlaylist);
                 Audio audioById = _repositoryAudio.Audios.FindById(idAudio);
                 playlist.Audios.Add(audioById);
-                repository.Playlists.Update(oldPlaylist, playlist);
+                return repository.Playlists.Update(oldPlaylist, playlist);
             }
             catch (KeyNotFoundException)
             {
