@@ -1,9 +1,11 @@
 using System;
 using System.Security.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Primitives;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
+using MSP.BetterCalm.WebAPI.Dtos;
 
 namespace MSP.BetterCalm.WebAPI.Filters
 {
@@ -17,18 +19,35 @@ namespace MSP.BetterCalm.WebAPI.Filters
         }
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-
+            Exception exception = new NotFoundAdministrator();
+            ErrorDto error=new ErrorDto()
+            {
+                IsSuccess = false,
+                ErrorMessage = exception.Message,
+                Content = exception.Message,
+                Code = 401
+            };
+            
             StringValues token;
             context.HttpContext.Request.Headers.TryGetValue("Authorization", out token);
             if (token.Count == 0)
-                throw new AuthenticationException();
+            {
+                context.Result = new ObjectResult(error)
+                {
+                    StatusCode = error.Code
+                };
+            }
+
             try
             {
                 administratorService.GetAdministratorByToken(token);
             }
             catch (NotFoundAdministrator)
             {
-                throw new AuthenticationException();
+                context.Result= new ObjectResult(error)
+                {
+                    StatusCode = error.Code
+                };
             }
         }
     }
