@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.Test
@@ -68,6 +69,24 @@ namespace MSP.BetterCalm.Test
                 new Problematic(){Name= "Test1"},
                 new Problematic(){Name= "Test2"},
                 new Problematic(){Name= "Test3"}
+            };
+            Psychologist psychologist = new Psychologist()
+            {
+                Problematics = problematics
+            };
+            CollectionAssert.AreEqual(psychologist.Problematics, problematics);
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(InvalidAmountOfProblematicsError), "")]
+        public void GetSetInvalidAmountProblematics()
+        {
+            List<Problematic> problematics = new List<Problematic>()
+            {
+                new Problematic(){Name= "Test1"},
+                new Problematic(){Name= "Test2"},
+                new Problematic(){Name= "Test3"},
+                new Problematic(){Name= "Test4"}
             };
             Psychologist psychologist = new Psychologist()
             {

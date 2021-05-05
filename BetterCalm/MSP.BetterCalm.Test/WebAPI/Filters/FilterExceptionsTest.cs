@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
@@ -283,5 +284,42 @@ namespace MSP.BetterCalm.Test.WebAPI.Filters
             Assert.AreEqual(errorDto, error);
         }
       
+        [TestMethod]
+        public void NotNotFoundAdminLoginErrorTest()
+        {
+            exceptionContext.Exception = new NotFoundAdminLoginError();
+            response = new ErrorDto()
+            {
+                IsSuccess = false,
+                ErrorMessage = exceptionContext.Exception.Message,
+                Content = exceptionContext.Exception.Message,
+                Code = 401
+            };
+            result = new ObjectResult(response) {StatusCode = response.Code};
+            filter.OnException(exceptionContext);
+            ObjectResult objResult = (ObjectResult) exceptionContext.Result;
+            ErrorDto errorDto = (ErrorDto) result.Value;
+            ErrorDto error = (ErrorDto) objResult.Value;
+            Assert.AreEqual(errorDto, error);
+        }
+        
+        [TestMethod]
+        public void AuthenticationExceptionTest()
+        {
+            exceptionContext.Exception = new AuthenticationException();
+            response = new ErrorDto()
+            {
+                IsSuccess = false,
+                ErrorMessage = exceptionContext.Exception.Message,
+                Content = exceptionContext.Exception.Message,
+                Code = 401
+            };
+            result = new ObjectResult(response) {StatusCode = response.Code};
+            filter.OnException(exceptionContext);
+            ObjectResult objResult = (ObjectResult) exceptionContext.Result;
+            ErrorDto errorDto = (ErrorDto) result.Value;
+            ErrorDto error = (ErrorDto) objResult.Value;
+            Assert.AreEqual(errorDto, error);
+        }
     }
 }

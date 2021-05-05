@@ -71,7 +71,7 @@ namespace MSP.BetterCalm.Test
         public void GetSetPlaylistUrlImage()
         {
             string AudioUrlImage = "https://www.google.com/search?q=paisaje&tbm=isch&ved=2ahUKEwifk_70vbHwAhWHMrkGHdFZCwUQ2-cCegQIABAA&oq=paisaje&gs_lcp=CgNpbWcQAzIECCMQJzIHCAAQsQMQQzIKCAAQsQMQgwEQQzIHCAAQsQMQQzIHCAAQsQMQQzIHCAAQsQMQQzIECAAQQzIECAAQQzICCAAyAggAOgUIABCxAzoICAAQsQMQgwFQrfQDWPD7A2CE_QNoAHAAeACAAY4CiAHRCZIBBTAuNS4ymAEAoAEBqgELZ3dzLXdpei1pbWfAAQE&sclient=img&ei=cwGSYN-NCofl5OUP0bOtKA#imgrc=Mo3K6BpTEC_zGM";
-            Audio audio = new Audio();
+            Playlist audio = new Playlist();
             audio.UrlImage = "https://www.google.com/search?q=paisaje&tbm=isch&ved=2ahUKEwifk_70vbHwAhWHMrkGHdFZCwUQ2-cCegQIABAA&oq=paisaje&gs_lcp=CgNpbWcQAzIECCMQJzIHCAAQsQMQQzIKCAAQsQMQgwEQQzIHCAAQsQMQQzIHCAAQsQMQQzIHCAAQsQMQQzIECAAQQzIECAAQQzICCAAyAggAOgUIABCxAzoICAAQsQMQgwFQrfQDWPD7A2CE_QNoAHAAeACAAY4CiAHRCZIBBTAuNS4ymAEAoAEBqgELZ3dzLXdpei1pbWfAAQE&sclient=img&ei=cwGSYN-NCofl5OUP0bOtKA#imgrc=Mo3K6BpTEC_zGM";
             string getAudioUrlImage = audio.UrlImage;
             Assert.AreEqual(AudioUrlImage, getAudioUrlImage);
@@ -81,7 +81,7 @@ namespace MSP.BetterCalm.Test
         public void GetSetPlaylistEmptyUrlImage()
         {
             string AudioUrlImage = "";
-            Audio audio = new Audio();
+            Playlist audio = new Playlist();
             audio.UrlImage = "";
             string getAudioUrlImage = audio.UrlImage;
             Assert.AreEqual(AudioUrlImage, getAudioUrlImage);
@@ -92,7 +92,7 @@ namespace MSP.BetterCalm.Test
         public void GetSetInalidPlaylistUrlImage()
         {
             string AudioUrlImage = "UrlImage";
-            Audio audio = new Audio();
+            Playlist audio = new Playlist();
             audio.UrlImage = "UrlImage";
             string getAudioUrlImage = audio.UrlImage;
             Assert.AreEqual(AudioUrlImage, getAudioUrlImage);

@@ -88,5 +88,12 @@ namespace MSP.BetterCalm.Test
         {
             repoMeetings.Update(meetingTest, meetingTest);
         }
+        
+        [TestMethod]
+        [ExpectedException(typeof(NotImplementedException), "")]
+        public void GetByIdTest()
+        {
+            repoMeetings.FindById(1);
+        }
     }
 }

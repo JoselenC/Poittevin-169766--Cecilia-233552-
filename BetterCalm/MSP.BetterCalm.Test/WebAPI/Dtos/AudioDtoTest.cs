@@ -205,7 +205,7 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
         }
         
         [TestMethod]
-        public void CreateAudioTestDurationS()
+        public void CreateAudioTestDurations()
         {
             AudioDto audiodtoExpected = new AudioDto()
             {
@@ -224,6 +224,33 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
                 Name = "Stand by me",
                 AuthorName = "John Lennon",
                 Duration = 12000,
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            Audio audioDto = audiodtoExpected.CreateAudio();
+            Assert.AreEqual(audio, audioDto);
+        }
+        
+        [TestMethod]
+        public void CreateAudioTestDurationS()
+        {
+            AudioDto audiodtoExpected = new AudioDto()
+            {
+                Id=0,
+                Categories = new List<Category>() {new Category() {Name = "Dormir"}},
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = "1200H",
+                UrlAudio = "",
+                UrlImage = ""
+            };
+            Audio audio = new Audio()
+            {
+                Id=0,
+                Categories = new List<Category>() {new Category() {Name = "Dormir"}},
+                Name = "Stand by me",
+                AuthorName = "John Lennon",
+                Duration = 1200,
                 UrlAudio = "",
                 UrlImage = ""
             };

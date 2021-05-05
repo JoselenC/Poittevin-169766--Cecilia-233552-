@@ -124,5 +124,12 @@ namespace MSP.BetterCalm.Test
             Psychologist updatedPsychologist = RepoPsychologists.Find(x => x.Name == "Roberto");
             Assert.AreEqual(actualPsychologist, updatedPsychologist);
         }
+        
+        [TestMethod]
+        [ExpectedException(typeof(NotImplementedException), "")]
+        public void GetByIdTest()
+        {
+            RepoPsychologists.FindById(1);
+        }
     }
 }

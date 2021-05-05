@@ -26,21 +26,20 @@ namespace MSP.BetterCalm.WebAPI.Dtos
 
         private bool IsDurationValid(string duration)
         {
-
             string pattern = @"^([0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9])[hms]$";
             Regex reg = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
             return reg.IsMatch(duration);
         }
-        private int SetDuration(string vDuration)
+        private int SetDuration()
         {
-            if (IsDurationValid(Duration))
+            if (IsDurationValid(Duration.ToLower()))
             {
-                if (vDuration.Contains('h'))
-                    return Int32.Parse(vDuration.Split('h')[0]) * 60 * 60;
-                else if (vDuration.Contains('m'))
-                    return Int32.Parse(vDuration.Split('m')[0]) * 60;
-                else if (vDuration.Contains('s'))
-                    return Int32.Parse(vDuration.Split('s')[0]);
+                if (Duration.ToLower().Contains('h'))
+                    return Int32.Parse(Duration.ToLower().Split('h')[0]) * 60 * 60;
+                else if (Duration.ToLower().Contains('m'))
+                    return Int32.Parse(Duration.ToLower().Split('m')[0]) * 60;
+                else if (Duration.ToLower().Contains('s'))
+                    return Int32.Parse(Duration.ToLower().Split('s')[0]);
             }
             throw new InvalidDurationFormat();
         }
@@ -49,7 +48,7 @@ namespace MSP.BetterCalm.WebAPI.Dtos
         {
             Audio audio = new Audio()
             {
-                Id=Id,Name = Name, Categories = Categories, Duration = SetDuration(Duration), AuthorName = AuthorName,
+                Id=Id,Name = Name, Categories = Categories, Duration = SetDuration(), AuthorName = AuthorName,
                 UrlAudio = UrlAudio, UrlImage = UrlImage
             };
             return audio;
@@ -57,18 +56,21 @@ namespace MSP.BetterCalm.WebAPI.Dtos
         
         public AudioDto CreateAudioDto(Audio audio)
         {
-            double duration = (audio.Duration / 60);
-            string durationFormat = "";
-            if (duration <= 60)
+            double duration = 0;
+            string durationFormat = "0m";
+            if (audio.Duration != 0)
             {
-              durationFormat = duration.ToString() + "m";
+                duration = (audio.Duration / 60);
+                if (duration <= 60)
+                {
+                    durationFormat = duration.ToString() + "m";
+                }
+                else
+                {
+                    duration = (audio.Duration / 60) / 60;
+                    durationFormat = duration.ToString() + "h";
+                }
             }
-            else
-            {
-                duration = (audio.Duration / 60)/60;
-                durationFormat = duration.ToString() + "h";
-            }
-
             AudioDto audioReturn = new AudioDto()
             {
                 Name = audio.Name, Categories = audio.Categories, Duration = durationFormat, AuthorName = audio.AuthorName,

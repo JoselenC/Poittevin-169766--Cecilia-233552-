@@ -8,6 +8,7 @@ using MSP.BetterCalm.WebAPI.Controllers;
 
 namespace MSP.BetterCalm.Test.WebAPI
 {
+    [TestClass]
     public class LoginControllerTest
     {
         private Mock<IAdministratorService> mockAdministratorService;

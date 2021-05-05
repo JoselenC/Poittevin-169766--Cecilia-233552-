@@ -90,5 +90,12 @@ namespace MSP.BetterCalm.Test
             Patient updatedPatient = repoPatients.Update(patientTest, actualPatient);
             Assert.AreEqual(actualPatient, updatedPatient);
         }
+        
+        [TestMethod]
+        [ExpectedException(typeof(NotImplementedException), "")]
+        public void GetByIdTest()
+        {
+           repoPatients.FindById(1);
+        }
     }
 }

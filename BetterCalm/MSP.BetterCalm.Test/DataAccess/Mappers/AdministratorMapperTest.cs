@@ -56,5 +56,12 @@ namespace MSP.BetterCalm.Test
             Administrator updatedAdministrator = RepoAdministrators.Update(administratorTest, actualAdministrator);
             Assert.AreEqual(actualAdministrator, updatedAdministrator);
         }
+        
+        [TestMethod]
+        [ExpectedException(typeof(NotImplementedException), "")]
+        public void GetByIdTest()
+        {
+            RepoAdministrators.FindById(1);
+        }
     }
 }
