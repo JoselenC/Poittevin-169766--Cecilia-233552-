@@ -12,9 +12,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
     [Route("api/Audio")]
     public class AudioController : ControllerBase
     {
-
         private IAudioService _audioService;
-
         public AudioController(IAudioService audioService)
         {
             this._audioService = audioService;

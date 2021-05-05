@@ -49,8 +49,6 @@ namespace MSP.BetterCalm.WebAPI
             var connectionString = configuration.GetConnectionString("@BetterCalmDB");
             services.AddDbContext<ContextDB>(options =>
                 options.UseSqlServer(connectionString).UseLazyLoadingProxies());
-            
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
