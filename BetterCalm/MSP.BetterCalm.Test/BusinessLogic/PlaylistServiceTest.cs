@@ -57,7 +57,6 @@ namespace MSP.BetterCalm.Test
         {
             Playlist playlist = new Playlist() {Categories = new List<Category>() {new Category() {Name = "Dormir"}}, Name = "Entrena tu mente"};
             List<Playlist> playlists = new List<Playlist>() {playlist};
-            playlisMock.Setup(x => x.Set(playlists));
             _playlistService.SetPlaylist(playlist);
             playlisMock.Setup(x => x.Get()).Returns(playlists);
             List<Playlist> playlist2 = _playlistService.GetPlaylistByCategoryName("Dormir");
@@ -70,7 +69,6 @@ namespace MSP.BetterCalm.Test
         {
             Playlist playlist = new Playlist() {Categories = new List<Category>() {new Category() {Name = "Dormir"}}, Name = "Entrena tu mente"};
             List<Playlist> playlists = new List<Playlist>() {playlist};
-            playlisMock.Setup(x => x.Set(playlists));
             _playlistService.SetPlaylist(playlist);
             playlisMock.Setup(x => x.Get()).Returns(playlists);
             _playlistService.GetPlaylistByCategoryName("Para correr");
@@ -81,7 +79,6 @@ namespace MSP.BetterCalm.Test
         {
             Playlist playlist = new Playlist() {Audios = new List<Audio>() {new Audio() {Name = "Stand by me"}}, Name = "Entrena tu mente"};
             List<Playlist> playlists = new List<Playlist>() {playlist};
-            playlisMock.Setup(x => x.Set(playlists));
             _playlistService.SetPlaylist(playlist);
             playlisMock.Setup(x => x.Get()).Returns(playlists);
             List<Playlist> playlist2 = _playlistService.GetPlaylistByAudioName("Stand by me");
@@ -94,7 +91,6 @@ namespace MSP.BetterCalm.Test
         {
             Playlist playlist = new Playlist() {Audios = new List<Audio>() {new Audio() {Name = "Stand by me"}}, Name = "Entrena tu mente"};
             List<Playlist> playlists = new List<Playlist>() {playlist};
-            playlisMock.Setup(x => x.Set(playlists));
             _playlistService.SetPlaylist(playlist);
             playlisMock.Setup(x => x.Get()).Returns(playlists);
             _playlistService.GetPlaylistByAudioName("Para correr");
@@ -120,7 +116,6 @@ namespace MSP.BetterCalm.Test
                 Name = "Entrena tu mente"
             };
             List<Playlist> playlists = new List<Playlist>() {playlist};
-            playlisMock.Setup(x => x.Set(playlists));
             _playlistService.SetPlaylist(playlist);
             playlisMock.Setup(x => x.Get()).Returns(playlists);
             List<Playlist> playlists2 = _playlistService.GetPlaylist();
@@ -138,7 +133,6 @@ namespace MSP.BetterCalm.Test
                 Name = "Entrena tu mente"
             };
             List<Playlist> playlists = new List<Playlist>() {playlist};
-            playlisMock.Setup(x => x.Set(playlists));
             _playlistService.SetPlaylist(playlist);
             playlisMock.Setup(x => x.Get()).Returns(playlists);
             List<Playlist> playlists2 = _playlistService.GetPlaylist();
@@ -223,7 +217,6 @@ namespace MSP.BetterCalm.Test
         {
             Playlist playlist = new Playlist() {Name = ""};
             List<Playlist> playlists = new List<Playlist>() {playlist};
-            playlisMock.Setup(x => x.Set(playlists)).Throws(new InvalidNameLength());
             _playlistService.SetPlaylist(playlist);
         }
 
@@ -235,7 +228,6 @@ namespace MSP.BetterCalm.Test
                 Description = "descrptiondescrptiondescrptiondescrptiondescrptiondescrptiondescrptiondescrptiondescrption" +
                               "descrptiondescrptiondescrptiondescrptiondescrptiondescrptiondescrptiondescrptiondescrptiond"};
             List<Playlist> playlists = new List<Playlist>() {playlist};
-            playlisMock.Setup(x => x.Set(playlists)).Throws(new InvalidDescriptionLength());
             _playlistService.SetPlaylist(playlist);
         }
 

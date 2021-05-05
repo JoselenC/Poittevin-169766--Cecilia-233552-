@@ -153,7 +153,6 @@ namespace MSP.BetterCalm.Test
         {
             Audio audio = new Audio() {Name = ""};
             List<Audio> Audios1 = new List<Audio> {audio};
-            AudiosMock.Setup(x => x.Set(Audios1));
         }
 
         [TestMethod]
@@ -162,7 +161,6 @@ namespace MSP.BetterCalm.Test
         {    
             Audio audio = new Audio() {Name = "Let it be"};
             List<Audio> Audios1 = new List<Audio> {audio};
-            AudiosMock.Setup(x => x.Set(Audios1));
             _audioService.SetAudio(audio);
             _audioService.SetAudio(audio);
         }
@@ -185,7 +183,6 @@ namespace MSP.BetterCalm.Test
                 UrlImage = ""
             };
             List<Audio> Audios = new List<Audio>() {Audio1, Audio1, Audio1, Audio1};
-            AudiosMock.Setup(x => x.Set(Audios));
             AudiosMock.Setup(x => x.Get()).Returns(Audios);
             List<Audio> Audio3 = _audioService.GetAudiosByCategoryName("Dormir");
             CollectionAssert.AreEqual(Audios, Audio3);
@@ -201,7 +198,6 @@ namespace MSP.BetterCalm.Test
                 Name = "Stand by me"
             };
             List<Audio> Audios = new List<Audio>() {Audio1, Audio1, Audio1, Audio1};
-            AudiosMock.Setup(x => x.Set(Audios));
             AudiosMock.Setup(x => x.Get()).Returns(Audios);
             _audioService.GetAudiosByCategoryName("Musica");
         }
@@ -233,7 +229,6 @@ namespace MSP.BetterCalm.Test
             AudiosMock.Setup(x => x.FindById(Audio2.Id)).Returns(Audio1);
             AudiosMock.Setup(x => x.Delete(Audio1));
             AudiosMock.Setup(x => x.Get()).Returns(Audios);
-            AudiosMock.Setup(x => x.Set(Audios));
             _audioService.DeleteAudio(Audio1.Id);
             List<Audio> AudioPostDelete = _audioService.GetAudios();
             CollectionAssert.AreEqual(AudioPostDelete, Audios);
