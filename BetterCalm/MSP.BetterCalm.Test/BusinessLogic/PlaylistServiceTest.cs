@@ -153,7 +153,7 @@ namespace MSP.BetterCalm.Test
                 Audios = new List<Audio>() {new Audio() {Name = "Stand by me"}},
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Entrena tu mente",
-                UrlImage = "urlImage",
+                UrlImage = "",
                 Description = "descrption"
             };
             Playlist playlist2 = new Playlist()
@@ -161,7 +161,7 @@ namespace MSP.BetterCalm.Test
                 Audios = new List<Audio>() {new Audio() {Name = "Stand by me"}},
                 Categories = new List<Category>() {new Category() {Name = "Musica"}},
                 Name = "Entrena tu mente",
-                UrlImage = "urlImage",
+                UrlImage = "",
                 Description = "descrption"
             };
             List<Playlist> playlists = new List<Playlist>() {playlist2};
