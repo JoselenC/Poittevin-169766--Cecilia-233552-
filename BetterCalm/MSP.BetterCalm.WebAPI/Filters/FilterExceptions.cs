@@ -75,6 +75,7 @@ namespace MSP.BetterCalm.WebAPI.Filters
             {
                 response.Content = context.Exception.Message;
                 response.Code = 500;
+                Console.WriteLine(context.Exception);
             }
 
             context.Result = new ObjectResult(response)

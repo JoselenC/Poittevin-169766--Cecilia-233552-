@@ -32,33 +32,40 @@ namespace MSP.BetterCalm.DataAccess
             ProblematicMapper problematicMapper = new ProblematicMapper();
             context.Entry(obj).Collection("Meetings").Load();
             List<Meeting> domainMeetings = new List<Meeting>();
-            foreach (MeetingDto meeting in obj.Meetings)
+            if (obj.Meetings != null && obj.Meetings.Count>0)
             {
-                context.Entry(meeting).Reference("Psychologist").Load();
-                List<Problematic> problematics = new List<Problematic>();
-                
-                context.Entry(meeting.Psychologist).Collection("Problematics").Load();
-                foreach (var problematic in meeting.Psychologist.Problematics)
+                foreach (MeetingDto meeting in obj.Meetings)
                 {
-                    problematics.Add(problematicMapper.DtoToDomain(problematic.Problematic, context));
-                }
+                    context.Entry(meeting).Reference("Psychologist").Load();
+                    List<Problematic> problematics = new List<Problematic>();
 
-
-                domainMeetings.Add(
-                    new Meeting()
+                    context.Entry(meeting.Psychologist).Collection("Problematics").Load();
+                    foreach (var problematic in meeting.Psychologist.Problematics)
                     {
-                        DateTime = meeting.DateTime,
-                        Psychologist = new Psychologist()
-                        {
-                            Name = meeting.Psychologist.Name,
-                            LastName = meeting.Psychologist.LastName,
-                            CreationDate = meeting.Psychologist.CreationDate,
-                            WorksOnline = meeting.Psychologist.WorksOnline,
-                            Problematics = problematics
-                        }
+                        ProblematicDto problematicById =
+                            context.Problematics.FirstOrDefault(x => x.ProblematicDtoID == problematic.ProblematicId);
+                        if(problematicById!=null)
+                            problematics.Add(problematicMapper.DtoToDomain(problematicById, context));
                     }
-                );
+
+
+                    domainMeetings.Add(
+                        new Meeting()
+                        {
+                            DateTime = meeting.DateTime,
+                            Psychologist = new Psychologist()
+                            {
+                                Name = meeting.Psychologist.Name,
+                                LastName = meeting.Psychologist.LastName,
+                                CreationDate = meeting.Psychologist.CreationDate,
+                                WorksOnline = meeting.Psychologist.WorksOnline,
+                                Problematics = problematics
+                            }
+                        }
+                    );
+                }
             }
+
             return new Patient()
             {
                 Id = obj.PatientDtoId,

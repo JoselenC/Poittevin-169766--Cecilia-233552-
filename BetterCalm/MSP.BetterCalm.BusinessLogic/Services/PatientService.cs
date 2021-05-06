@@ -36,6 +36,10 @@ namespace MSP.BetterCalm.BusinessLogic
 
         public Meeting ScheduleNewMeeting(Patient patient, Problematic problematic)
         {
+            if (patient.Id != 0)
+            {
+                patient = patientRepository.Patients.Find(x => x.Id == patient.Id);
+            }
             try
             {
                 List<Psychologist> psychologists = psychologistRepository.Psychologists.Get();
