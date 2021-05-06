@@ -77,11 +77,14 @@ namespace MSP.BetterCalm.DataAccess
             {
                 foreach (var categoryaudio in audio.Categories)
                 {
-                    audioCategoryDtos.Add(new AudioCategoryDto()
+                    if (categoryaudio.Id != 0)
                     {
-                        AudioDto = audioDto,
-                        CategoryDto = new CategoryMapper().DomainToDto(categoryaudio, context)
-                    });
+                        audioCategoryDtos.Add(new AudioCategoryDto()
+                        {
+                            AudioDto = audioDto,
+                            CategoryDto = new CategoryMapper().DomainToDto(categoryaudio, context)
+                        });
+                    }
                 }
             }
 
@@ -89,10 +92,12 @@ namespace MSP.BetterCalm.DataAccess
             {
                 foreach (var category in categories)
                 {
+                    CategoryDto categoryToAdd = context.Categories
+                        .FirstOrDefault(x => x.CategoryDtoID == category.Id || x.Name==category.Name);
                     audioCategoryDtos.Add(new AudioCategoryDto()
                     {
                         AudioDto = audioDto,
-                        CategoryDto = new CategoryMapper().DomainToDto(category, context)
+                        CategoryDto = categoryToAdd
                     });
                 }
             }
@@ -207,46 +212,57 @@ namespace MSP.BetterCalm.DataAccess
         private static List<PlaylistAudioDto> UpdatePlaylistAudios(PlaylistDto objToUpdate, Playlist updatedObject, ContextDB context,
             AudioMapper audioMapper)
         {
-            List<PlaylistAudioDto> diffListOldValuesAudio = objToUpdate.PlaylistAudiosDto.Where(x =>
-                    updatedObject.Audios.Contains(audioMapper.DtoToDomain(x.AudioDto, context))).ToList();
-
-            List<Audio> diffListNewValuesAudio = new List<Audio>();
+            List<PlaylistAudioDto> audiosToDelete = objToUpdate.PlaylistAudiosDto.Where(x =>
+                x.PlaylistID == objToUpdate.PlaylistDtoID).ToList();
+            DbSet<PlaylistAudioDto> playlistAudioSet = context.Set<PlaylistAudioDto>();
+            foreach (PlaylistAudioDto playlistAudioDto in audiosToDelete)
+            {
+                playlistAudioSet.Remove(playlistAudioDto);
+            }
+            List<Audio> newAudiosToAdd = new List<Audio>();
+            List<PlaylistAudioDto> playlistsAudiosToAdd = new List<PlaylistAudioDto>();
             if (updatedObject.Audios != null)
             {
                 foreach (var audio in updatedObject.Audios)
                 {
-                    Audio audioToadd = audioMapper.DtoToDomain(context.Audios.FirstOrDefault(x => x.AudioDtoID == audio.Id), context);
-                   diffListNewValuesAudio.Add(audioToadd);
+                    Audio audioToAdd = audioMapper.DtoToDomain(context.Audios
+                        .FirstOrDefault(x => x.AudioDtoID == audio.Id || x.Name == audio.Name), context);
+                    newAudiosToAdd.Add(audioToAdd);
                 }
 
-                diffListOldValuesAudio.AddRange(diffListNewValuesAudio.Select(x => new PlaylistAudioDto() {
-                        AudioDto = audioMapper.DomainToDto(x, context), AudioID = x.Id,
-                        PlaylistID = objToUpdate.PlaylistDtoID, PlaylistDto = objToUpdate}));
+                playlistsAudiosToAdd.AddRange(newAudiosToAdd.Select(x => new PlaylistAudioDto() {
+                    AudioDto = audioMapper.DomainToDto(x, context), AudioID = x.Id,
+                    PlaylistDto = objToUpdate, PlaylistID = objToUpdate.PlaylistDtoID}));
             }
-            return diffListOldValuesAudio;
+            return playlistsAudiosToAdd;
         }
 
         private static List<PlaylistCategoryDto> UpdatePlaylistCategory(PlaylistDto objToUpdate, Playlist updatedObject, ContextDB context,
             CategoryMapper categoryMapper)
         {
-            List<PlaylistCategoryDto> diffListOldValuesCategory = objToUpdate.PlaylistCategoriesDto.Where(x =>
-                updatedObject.Categories.Contains(categoryMapper.DtoToDomain(x.CategoryDto, context))).ToList();
-            List<Category> diffListNewValuesCategory = new List<Category>();
-
+            List<PlaylistCategoryDto> categoriesToDelete = objToUpdate.PlaylistCategoriesDto.Where(x =>
+                x.PlaylistID == objToUpdate.PlaylistDtoID).ToList();
+            DbSet<PlaylistCategoryDto> playlistCategorySet = context.Set<PlaylistCategoryDto>();
+            foreach (PlaylistCategoryDto playlistCategory in categoriesToDelete)
+            {
+                playlistCategorySet.Remove(playlistCategory);
+            }
+            List<Category> newCategoriesToAdd = new List<Category>();
+            List<PlaylistCategoryDto> playlistsCategoriesToAdd = new List<PlaylistCategoryDto>();
             if (updatedObject.Categories != null)
             {
                 foreach (var category in updatedObject.Categories)
                 {
                     Category categoryToAdd = categoryMapper.DtoToDomain(context.Categories
                         .FirstOrDefault(x => x.CategoryDtoID == category.Id || x.Name == category.Name), context);
-                   diffListNewValuesCategory.Add(categoryToAdd);
+                    newCategoriesToAdd.Add(categoryToAdd);
                 }
 
-                diffListOldValuesCategory.AddRange(diffListNewValuesCategory.Select(x => new PlaylistCategoryDto() {
+                playlistsCategoriesToAdd.AddRange(newCategoriesToAdd.Select(x => new PlaylistCategoryDto() {
                         CategoryDto = categoryMapper.DomainToDto(x, context), CategoryID = x.Id,
                         PlaylistDto = objToUpdate, PlaylistID = objToUpdate.PlaylistDtoID}));
             }
-            return diffListOldValuesCategory;
+            return playlistsCategoriesToAdd;
         }
     }
 }

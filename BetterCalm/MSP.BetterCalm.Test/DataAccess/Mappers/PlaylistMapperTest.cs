@@ -174,15 +174,8 @@ namespace MSP.BetterCalm.Test
         [TestMethod]
         public void UpdateTest()
         {
-            Playlist actualPlaylist =new Playlist()
-            {
-                Id=1,
-                Name = "Playlist",
-                Description = "description",
-                UrlImage = "",
-                Audios = new List<Audio>(){AudioTest2},
-                Categories = new List<Category>() {category2}
-            };
+            Playlist actualPlaylist = RepoPlaylists.Find(x => x.Name == "Playlist");
+            actualPlaylist.Name="Help";
             Playlist updatedPlaylist = RepoPlaylists.Update(PlaylistTest, actualPlaylist);
             Assert.AreEqual(actualPlaylist, updatedPlaylist);
         }

@@ -40,7 +40,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         }
 
 
-        [HttpGet("category/name")]
+        [HttpGet("Category/name")]
         public IActionResult GetAudiosByCategoryName([FromQuery] string name)
         {
             List<Audio> Audios = _audioService.GetAudiosByCategoryName(name);

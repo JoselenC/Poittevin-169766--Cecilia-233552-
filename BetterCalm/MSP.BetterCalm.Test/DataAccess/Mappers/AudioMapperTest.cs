@@ -127,15 +127,8 @@ namespace MSP.BetterCalm.Test
         [TestMethod]
         public void UpdateTest()
         {
-            Audio actualAudio =  AudioTest = new Audio() {
-                Id = 1,
-                Name = "Help",
-                AuthorName = "John Lennon",
-                Duration = 120,
-                UrlAudio = "",
-                UrlImage = "",
-                Categories = new List<Category>(){category2}
-            };
+            Audio actualAudio = RepoAudios.Find(x => x.Name=="Stand by me");
+            actualAudio.Name = "Help";
             Audio updatedAudio = RepoAudios.Update(AudioTest, actualAudio);
             Assert.AreEqual(actualAudio, updatedAudio);
         }

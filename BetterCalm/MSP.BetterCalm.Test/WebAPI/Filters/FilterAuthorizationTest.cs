@@ -77,12 +77,18 @@ namespace MSP.BetterCalm.Test.WebAPI.Filters
         }
         
         [TestMethod]
-        [ExpectedException(typeof(AuthenticationException))]
-
         public void TestFilterAuthorizationWrongToken()
         {
             DefaultHttpContext httpContext = new DefaultHttpContext();
             httpContext.Request.Headers["Authorization"] = "token";
+            Exception exception = new NotFoundAdministrator();
+            ErrorDto response = new ErrorDto()
+            {
+                IsSuccess = false,
+                ErrorMessage = exception.Message,
+                Content = exception.Message,
+                Code = 401
+            };
             AuthorizationFilterContext actionContext = new AuthorizationFilterContext(
                 new ActionContext()
                 {
@@ -98,6 +104,8 @@ namespace MSP.BetterCalm.Test.WebAPI.Filters
             );
             
             filter.OnAuthorization(actionContext);
+            ObjectResult obj = actionContext.Result as ObjectResult;
+            Assert.AreEqual(obj.Value, response );
         }
     }
 }
