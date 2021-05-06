@@ -62,16 +62,13 @@ namespace MSP.BetterCalm.DataAccess
             AudioDto audioDto;
             List<AudioCategoryDto> audioCategoryDtos = new List<AudioCategoryDto>();
 
-            if (audio.AuthorName == null) audio.AuthorName = "";
-            if (audio.UrlImage == null) audio.UrlImage = "";
-            if (audio.UrlAudio == null) audio.UrlAudio = "";
             audioDto = new AudioDto()
             {
-                AuthorName = audio.AuthorName,
+                AuthorName = audio.AuthorName ?? "",
                 Name = audio.Name,
                 Duration = audio.Duration,
-                UrlAudio = audio.UrlAudio,
-                UrlImage = audio.UrlImage
+                UrlAudio = audio.UrlAudio ?? "",
+                UrlImage = audio.UrlImage ?? ""
             };
             if (audio.Categories != null)
             {
@@ -128,7 +125,7 @@ namespace MSP.BetterCalm.DataAccess
                 context.Entry(playlistDto).Collection("PlaylistCategoriesDto").Load();
                 context.Entry(playlistDto).State = EntityState.Modified;
             }
-            
+             
             List<AudioDto> audios= createAudios(obj.Audios, obj.Categories, context);
             playlistDto.PlaylistAudiosDto = new List<PlaylistAudioDto>();
             foreach (var audioDto in audios)
@@ -196,12 +193,10 @@ namespace MSP.BetterCalm.DataAccess
         {
             CategoryMapper categoryMapper = new CategoryMapper();
             AudioMapper audioMapper = new AudioMapper();
-            if (updatedObject.Description == null) updatedObject.Description = "";
-            if (updatedObject.UrlImage == null) updatedObject.UrlImage = "";
-            
-            objToUpdate.Name = updatedObject.Name;
-            objToUpdate.Description = updatedObject.Description;
-            objToUpdate.UrlImage = updatedObject.UrlImage;
+
+            objToUpdate.Name = updatedObject.Name ?? objToUpdate.Name;
+            objToUpdate.Description = updatedObject.Description ?? objToUpdate.Description;
+            objToUpdate.UrlImage = updatedObject.UrlImage ?? objToUpdate.UrlImage;
             var diffListOldValuesCategory = UpdatePlaylistCategory(objToUpdate, updatedObject, context, categoryMapper);
             objToUpdate.PlaylistCategoriesDto = diffListOldValuesCategory;
             var diffListOldValuesAudio = UpdatePlaylistAudios(objToUpdate, updatedObject, context, audioMapper);

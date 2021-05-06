@@ -162,6 +162,17 @@ namespace MSP.BetterCalm.Test
             Assert.AreEqual(expectedToken, realToken);
             administratorMock.VerifyAll();
         }
+        
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundAdminLoginError))]
+        public void TestLoginAdministratorError()
+        {
+            administratorMock.Setup(
+                x => x.Find(It.IsAny<Predicate<Administrator>>())
+            ).Throws(new KeyNotFoundException());
+            service.Login("email", "password");
+        }
+        
 
         [TestMethod]
         public void TestGetAdminByToken()
@@ -191,7 +202,7 @@ namespace MSP.BetterCalm.Test
         {
             administratorMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Administrator>>())
-            ).Throws(new NotFoundAdministrator());
+            ).Throws(new KeyNotFoundException());
             service.GetAdministratorByToken("token");
         }
     }

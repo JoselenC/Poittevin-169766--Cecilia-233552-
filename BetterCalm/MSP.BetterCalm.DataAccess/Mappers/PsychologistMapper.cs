@@ -97,9 +97,9 @@ namespace MSP.BetterCalm.DataAccess
 
         public PsychologistDto UpdateDtoObject(PsychologistDto objToUpdate, Psychologist updatedObject, ContextDB context)
         {
-            objToUpdate.Name = updatedObject.Name;
-            objToUpdate.LastName = updatedObject.LastName;
-            objToUpdate.Address = updatedObject.Address;
+            objToUpdate.Name = updatedObject.Name ?? objToUpdate.Name;
+            objToUpdate.LastName = updatedObject.LastName ?? objToUpdate.LastName;
+            objToUpdate.Address = updatedObject.Address ?? objToUpdate.Address;
             objToUpdate.WorksOnline = updatedObject.WorksOnline;
 
             List<PsychologistProblematicDto> problematics = new List<PsychologistProblematicDto>();

@@ -116,7 +116,7 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
             };
             AudioDto audioDtoExpected = new AudioDto()
             {
-                Id=0,
+                Id=2,
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
                 AuthorName = "John Lennon",
@@ -143,7 +143,7 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
             };
             AudioDto audioDtoExpected = new AudioDto()
             {
-                Id=0,
+                Id=2,
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
                 AuthorName = "John Lennon",

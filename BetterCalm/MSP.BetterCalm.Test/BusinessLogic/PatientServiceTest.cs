@@ -78,6 +78,32 @@ namespace MSP.BetterCalm.Test
             CollectionAssert.AreEqual(patients, actualPatients);
             patientMock.VerifyAll();
         }
+                
+        [TestMethod]
+        public void TestGetPatientById()
+        {
+            Patient patient = new Patient()
+            {
+                Name = "patient1",
+                Id = 1
+            };
+            patientMock.Setup(
+                x => x.Find(It.IsAny<Predicate<Patient>>())
+            ).Returns(patient);
+            service.GetPatientsById(patient.Id);
+            patientMock.VerifyAll();
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundPatient))]
+        public void TestGetPatientByIdNotFound()
+        {
+
+            patientMock.Setup(
+                x => x.Find(It.IsAny<Predicate<Patient>>())
+            ).Throws(new KeyNotFoundException());
+            service.GetPatientsById(1);
+        }
         
         [TestMethod]
         public void TestAddPatient()
@@ -228,6 +254,60 @@ namespace MSP.BetterCalm.Test
             Meeting actualMeeting = service.ScheduleNewMeeting(patient, problematics[0]);
             Assert.AreEqual(expectedMeeting, actualMeeting);
             psychologistMock.VerifyAll();
+        }
+        
+        [TestMethod]
+        public void TestUpdatePatient()
+        {
+            Patient OldPatient = new Patient()
+            {
+                Id = 2,
+                Name = "Patient1"
+            };
+            Patient NewPatient = new Patient()
+            {
+                Id = 2,
+                Name = "Patient32"
+            };
+            patientMock.Setup(
+                x => x.Find(It.IsAny<Predicate<Patient>>())
+            ).Returns(OldPatient);
+            patientMock.Setup(
+                x => x.Update(OldPatient, NewPatient)
+            ).Returns(NewPatient);
+            Patient realUpdated = service.UpdatePatient(NewPatient, OldPatient.Id);
+            Assert.AreEqual(NewPatient, realUpdated);
+            patientMock.VerifyAll();
+        }
+        
+
+        [TestMethod]
+        public void TestDeletePatient()
+        {
+            Patient patient = new Patient()
+            {
+                Name = "patient1",
+                Id = 1
+            };
+            patientMock.Setup(
+                x => x.Delete(patient)
+            );
+            patientMock.Setup(
+                x => x.Find(It.IsAny<Predicate<Patient>>())
+            ).Returns(patient);
+            service.DeletePatientById(patient.Id);
+            patientMock.VerifyAll();
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(NotFoundPatient))]
+        public void TestDeletePatientNotFound()
+        {
+
+            patientMock.Setup(
+                x => x.Find(It.IsAny<Predicate<Patient>>())
+            ).Throws(new KeyNotFoundException());
+            service.DeletePatientById(1);
         }
 
     }

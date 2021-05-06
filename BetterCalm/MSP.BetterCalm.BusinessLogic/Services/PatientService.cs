@@ -28,6 +28,20 @@ namespace MSP.BetterCalm.BusinessLogic
         {
             return patientRepository.Patients.Get();
         }
+        
+        public Patient GetPatientsById(int patientId)
+        {
+            try
+            {
+
+                return patientRepository.Patients.Find(x => x.Id == patientId);
+            }
+            catch (KeyNotFoundException)
+            {
+                throw new NotFoundPatient();
+            }
+        }
+
 
         public Patient SetPatient(Patient patient)
         {
@@ -86,6 +100,20 @@ namespace MSP.BetterCalm.BusinessLogic
             {
                 throw new NotFoundPsychologist();
             }
+        }
+        
+        public void DeletePatientById(int patientId)
+        {
+            
+            Patient patient = GetPatientsById(patientId);
+            patientRepository.Patients.Delete(patient);
+
+        }
+
+        public Patient UpdatePatient(Patient newPatient, int patientId)
+        {
+            Patient oldPatient = GetPatientsById(patientId);
+            return patientRepository.Patients.Update(oldPatient, newPatient);
         }
     }
 }

@@ -18,20 +18,6 @@ namespace MSP.BetterCalm.BusinessLogic
         {
             return repository.Psychologists.Get();
         }
-
-        public Psychologist SetPsychologist(Psychologist psychologist)
-        {
-            return repository.Psychologists.Add(psychologist);
-        }
-
-        public void DeletePsychologistById(int psychologistId)
-        {
-            
-            Psychologist psychologist = GetPsychologistsById(psychologistId);
-            repository.Psychologists.Delete(psychologist);
-
-        }
-
         public Psychologist GetPsychologistsById(int psychologistId)
         {
             try
@@ -43,6 +29,18 @@ namespace MSP.BetterCalm.BusinessLogic
             {
                 throw new NotFoundPsychologist();
             }
+        }
+        public Psychologist SetPsychologist(Psychologist psychologist)
+        {
+            return repository.Psychologists.Add(psychologist);
+        }
+
+        public void DeletePsychologistById(int psychologistId)
+        {
+            
+            Psychologist psychologist = GetPsychologistsById(psychologistId);
+            repository.Psychologists.Delete(psychologist);
+
         }
 
         public Psychologist UpdatePsychologist(Psychologist newPsychologist, int psychologistId)

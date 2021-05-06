@@ -26,6 +26,12 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             return Ok(patientes);
         }
 
+        [HttpGet("{patientId}")]
+        public IActionResult GetPatientById(int patientId)
+        {
+            Patient patient = patientService.GetPatientsById(patientId);
+            return Ok(patient);
+        }
         
         [HttpPost("schedule")]
         public IActionResult ScheduleMeeting([FromBody] ScheduleMeetingDto scheduleMeetingDto)
@@ -42,5 +48,21 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             return Created($"api/patient/{returnPatient.Name}", returnPatient);
         }
 
+        
+        [HttpDelete("{patientId}")]
+        public OkObjectResult DeletePatientById(int patientId)
+        {
+            patientService.DeletePatientById(patientId);
+            return Ok("Entity removed");
+        }
+        
+        [HttpPut("{patientId}")]
+        public IActionResult UpdatePatient(
+            [FromBody] Patient patient, 
+            [FromRoute] int patientId)
+        {
+            Patient updatedPatient = patientService.UpdatePatient(patient, patientId);
+            return Ok(updatedPatient);
+        }
     }
 }

@@ -48,8 +48,13 @@ namespace MSP.BetterCalm.WebAPI.Dtos
         {
             Audio audio = new Audio()
             {
-                Id=Id,Name = Name, Categories = Categories, Duration = SetDuration(), AuthorName = AuthorName,
-                UrlAudio = UrlAudio, UrlImage = UrlImage
+                Id=Id,
+                Name = Name, 
+                Categories = Categories, 
+                Duration = SetDuration(), 
+                AuthorName = AuthorName,
+                UrlAudio = UrlAudio, 
+                UrlImage = UrlImage
             };
             return audio;
         }
@@ -73,8 +78,13 @@ namespace MSP.BetterCalm.WebAPI.Dtos
             }
             AudioDto audioReturn = new AudioDto()
             {
-                Name = audio.Name, Categories = audio.Categories, Duration = durationFormat, AuthorName = audio.AuthorName,
-                UrlAudio = audio.UrlAudio, UrlImage = audio.UrlImage
+                Id = audio.Id,
+                Name = audio.Name, 
+                Categories = audio.Categories, 
+                Duration = durationFormat, 
+                AuthorName = audio.AuthorName,
+                UrlAudio = audio.UrlAudio, 
+                UrlImage = audio.UrlImage
             };
             return audioReturn;
         }

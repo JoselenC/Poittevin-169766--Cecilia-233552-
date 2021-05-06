@@ -18,8 +18,9 @@ namespace MSP.BetterCalm.Test.WebAPI
         private Mock<IAudioService> mockAudioService;
         private AudioController AudioController ;
         private List<Audio> Audios;
+        private List<AudioDto> AudiosDtos;
         private Audio _audio;
-        private BetterCalm.WebAPI.Dtos.AudioDto AudioDto;
+        private AudioDto AudioDto;
             
         [TestInitialize]
         public void InitializeTest()
@@ -37,7 +38,8 @@ namespace MSP.BetterCalm.Test.WebAPI
                 UrlAudio = "",
                 UrlImage = ""
             };
-            AudioDto = new BetterCalm.WebAPI.Dtos.AudioDto()
+            Audios.Add(_audio);
+            AudioDto = new AudioDto()
             {
                 Id = 1,
                 Categories = new List<Category>(),
@@ -47,16 +49,22 @@ namespace MSP.BetterCalm.Test.WebAPI
                 UrlAudio = "",
                 UrlImage = ""
             };
+            AudiosDtos = new List<AudioDto>();
+            foreach (Audio audio in Audios)
+            {
+                AudiosDtos.Add(new AudioDto().CreateAudioDto(audio));
+            }
+
         }
         
         [TestMethod]
         public void TestGetAllAudios()
         {
-            mockAudioService.Setup(m => m.GetAudios()).Returns(this.Audios);
+            mockAudioService.Setup(m => m.GetAudios()).Returns(Audios);
             var result = AudioController.GetAll();
             var okResult = result as OkObjectResult;
-            var AudiosValue = okResult.Value;
-            Assert.AreEqual(this.Audios,AudiosValue);
+            List<AudioDto> AudiosValue = (List<AudioDto>) okResult.Value;
+            CollectionAssert.AreEqual(AudiosDtos,AudiosValue);
         }
         
         [TestMethod]
@@ -65,8 +73,8 @@ namespace MSP.BetterCalm.Test.WebAPI
             mockAudioService.Setup(m => m.GetAudiosByName("Stand by me")).Returns(Audios);
             var result = AudioController.GetAudiosByName("Stand by me");
             var okResult = result as OkObjectResult;
-            var AudiosValue = okResult.Value;
-            Assert.AreEqual(Audios,AudiosValue);
+            List<AudioDto> AudiosValue = (List<AudioDto>) okResult.Value;
+            CollectionAssert.AreEqual(AudiosDtos,AudiosValue);
         }
         
         [TestMethod]
@@ -84,8 +92,8 @@ namespace MSP.BetterCalm.Test.WebAPI
             mockAudioService.Setup(m => m.GetAudiosByAuthor("John Lennon")).Returns(Audios);
             var result = AudioController.GetAudiosByAuthor("John Lennon");
             var okResult = result as OkObjectResult;
-            var AudiosValue = okResult.Value;
-            Assert.AreEqual(Audios,AudiosValue);
+            List<AudioDto> AudiosValue = (List<AudioDto>) okResult.Value;
+            CollectionAssert.AreEqual(AudiosDtos,AudiosValue);
         }
         
         [TestMethod]
@@ -100,7 +108,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestCreateAudio()
         {
-            AudioDto AudioToAdd = new AudioDto()
+            AudioDto expectedAudio = new AudioDto()
             {
                 Categories = new List<Category>(),
                 Name = "Stand by me",
@@ -119,12 +127,10 @@ namespace MSP.BetterCalm.Test.WebAPI
                 UrlImage = ""
             };
             mockAudioService.Setup(m => m.SetAudio(audio)).Returns(audio);
-            AudioController.CreateAudio(AudioToAdd);
-            mockAudioService.Setup(m => m.GetAudios()).Returns(Audios);
-            var result = AudioController.GetAll();
-            var okResult = result as OkObjectResult;
+            var result = AudioController.CreateAudio(expectedAudio);
+            var okResult = result as CreatedResult;
             var AudiosValue = okResult.Value;
-            Assert.AreEqual(Audios,AudiosValue);
+            Assert.AreEqual(expectedAudio,AudiosValue);
         }
         
         [TestMethod]
@@ -151,8 +157,8 @@ namespace MSP.BetterCalm.Test.WebAPI
             mockAudioService.Setup(m => m.GetAudiosByCategoryName("Dormir")).Returns(Audios);
             var result = AudioController.GetAudiosByCategoryName("Dormir");
             var okResult = result as OkObjectResult;
-            var AudiosValue = okResult.Value;
-            Assert.AreEqual(Audios,AudiosValue);
+            List<AudioDto> AudiosValue = (List<AudioDto>) okResult.Value;
+            CollectionAssert.AreEqual(AudiosDtos,AudiosValue);
         }
         
         [TestMethod]
@@ -187,9 +193,9 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestGetAudioById()
         {
-            AudioDto = new BetterCalm.WebAPI.Dtos.AudioDto()
+            AudioDto = new AudioDto()
             {
-                Id = 0,
+                Id = 1,
                 Categories = new List<Category>(),
                 Name = "Stand by me",
                 AuthorName = "John Lennon",
@@ -200,8 +206,8 @@ namespace MSP.BetterCalm.Test.WebAPI
             mockAudioService.Setup(m => m.GetAudioById(1)).Returns(_audio);
             var result = AudioController.GetAudioById(1);
             var okResult = result as OkObjectResult;
-            var categoryValue = okResult.Value;
-            Assert.AreEqual(AudioDto,categoryValue);
+            var realAudioDto =  okResult.Value;
+            Assert.AreEqual(AudioDto,realAudioDto);
         }
         
        

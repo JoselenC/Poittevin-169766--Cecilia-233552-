@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.Domain;
@@ -22,29 +23,32 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         public IActionResult GetAll()
         {
             List<Audio> Audios = _audioService.GetAudios();
-            return Ok(Audios);
+            List<AudioDto> audioDtos = Audios.Select(audio => new AudioDto().CreateAudioDto(audio)).ToList();
+            return Ok(audioDtos);
         }
 
         [HttpGet("name")]
         public IActionResult GetAudiosByName([FromQuery] string name)
         {
             List<Audio> Audios = _audioService.GetAudiosByName(name);
-            return Ok(Audios);
+            List<AudioDto> audioDtos = Audios.Select(audio => new AudioDto().CreateAudioDto(audio)).ToList();
+            return Ok(audioDtos);
         }
 
         [HttpGet("author")]
         public IActionResult GetAudiosByAuthor([FromQuery] string author)
         {
             List<Audio> Audios = _audioService.GetAudiosByAuthor(author);
-            return Ok(Audios);
-        }
+            List<AudioDto> audioDtos = Audios.Select(audio => new AudioDto().CreateAudioDto(audio)).ToList();
+            return Ok(audioDtos);        }
 
 
-        [HttpGet("Category/name")]
+        [HttpGet("Category")]
         public IActionResult GetAudiosByCategoryName([FromQuery] string name)
         {
             List<Audio> Audios = _audioService.GetAudiosByCategoryName(name);
-            return Ok(Audios);
+            List<AudioDto> audioDtos = Audios.Select(audio => new AudioDto().CreateAudioDto(audio)).ToList();
+            return Ok(audioDtos);
         }
 
 
@@ -62,7 +66,8 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         public IActionResult CreateAudio([FromBody] AudioDto audio)
         {
             Audio audioAdded = _audioService.SetAudio(audio.CreateAudio());
-            return Created($"api/Audio/{audioAdded.Name}", audioAdded);
+            AudioDto audioDto = new AudioDto().CreateAudioDto(audioAdded);
+            return Created($"api/Audio/{audioAdded.Name}", audioDto);
         }
 
         [HttpDelete("{id}")]

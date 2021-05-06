@@ -68,8 +68,7 @@ namespace MSP.BetterCalm.Test.WebAPI
             mockPsychologistService.VerifyAll();
 
         }
-        
-                
+
         [TestMethod]
         public void TestDeletePsychologist()
         {

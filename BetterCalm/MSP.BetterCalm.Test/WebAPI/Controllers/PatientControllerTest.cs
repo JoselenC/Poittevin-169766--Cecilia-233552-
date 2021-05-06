@@ -66,6 +66,20 @@ namespace MSP.BetterCalm.Test.WebAPI
         }
         
         [TestMethod]
+        public void TestGetPatientsById()
+        {
+            mockPatientService.Setup(
+                x => x.GetPatientsById(1)
+            ).Returns(patient);
+            var result = patientController.GetPatientById(1);
+            var okResult = result as OkObjectResult;
+            var realPatient = okResult.Value;
+            Assert.AreEqual(realPatient, patient);
+            mockPatientService.VerifyAll();
+
+        }
+        
+        [TestMethod]
         public void TestScheduleMeeting()
         {
             
@@ -93,6 +107,30 @@ namespace MSP.BetterCalm.Test.WebAPI
             var createdResult = result as CreatedResult;
             var realMeeting = createdResult.Value;
             Assert.AreEqual(expectedMeeting, realMeeting);
+        }
+        
+                        
+        [TestMethod]
+        public void TestDeletePatient()
+        {
+            mockPatientService.Setup(x => x.DeletePatientById(patient.Id));
+            var result = patientController.DeletePatientById(patient.Id);
+            var createdResult = result as OkObjectResult;
+            var realPsycho = createdResult.Value;
+            Assert.AreEqual("Entity removed", realPsycho);
+            mockPatientService.VerifyAll();
+        }
+        
+        [TestMethod]
+        public void TestUpdatePatientById()
+        {
+            mockPatientService.Setup(
+                x => x.UpdatePatient(patient, patient.Id)
+            ).Returns(patient);
+            var result = patientController.UpdatePatient(patient, patient.Id);
+            var createdResult = result as OkObjectResult;
+            var realPsycho = createdResult.Value;
+            Assert.AreEqual(realPsycho, patient);
         }
     }
 }

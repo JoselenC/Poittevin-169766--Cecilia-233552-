@@ -35,19 +35,14 @@ namespace MSP.BetterCalm.DataAccess
          
             if (audioDto is null)
             {
-                if (obj.AuthorName == null) obj.AuthorName = "";
-                if (obj.UrlImage == null) obj.UrlImage = "";
-                if (obj.UrlAudio == null) obj.UrlAudio = "";
-                
                 audioDto = new AudioDto()
                 {
                     AudioDtoID = obj.Id,
                     Name = obj.Name,
                     Duration = obj.Duration,
-                    AuthorName = obj.AuthorName,
-                    UrlAudio = obj.UrlAudio,
-                    UrlImage = obj.UrlImage
-                    
+                    AuthorName = obj.AuthorName ?? "",
+                    UrlAudio = obj.UrlAudio ?? "",
+                    UrlImage = obj.UrlImage ?? ""
                 };
             }
             else
@@ -111,7 +106,7 @@ namespace MSP.BetterCalm.DataAccess
 
                     for (int j = 0; j < playlistsCategories.Count(); j++)
                     {
-                        CategoryDto categoryDto=context.Categories.FirstOrDefault(x => x.CategoryDtoID == playlistsCategories[i].CategoryID);
+                        CategoryDto categoryDto=context.Categories.FirstOrDefault(x => x.CategoryDtoID == playlistsCategories[j].CategoryID);
                         Category category = new CategoryMapper().DtoToDomain(categoryDto, context);
                         if (categories.Contains(category))
                         {
@@ -136,16 +131,12 @@ namespace MSP.BetterCalm.DataAccess
         public AudioDto UpdateDtoObject(AudioDto objToUpdate, Audio updatedObject, ContextDB context)
         {
             CategoryMapper categoryMapper = new CategoryMapper();
-            
-            if (updatedObject.UrlImage == null) updatedObject.UrlImage = "";
-            if (updatedObject.UrlAudio == null) updatedObject.UrlAudio = "";
-            if (updatedObject.AuthorName == null) updatedObject.AuthorName = "";
-            
+
             objToUpdate.Name = updatedObject.Name;
             objToUpdate.Duration = updatedObject.Duration;
-            objToUpdate.UrlAudio = updatedObject.UrlAudio;
-            objToUpdate.UrlImage = updatedObject.UrlImage;
-            objToUpdate.AuthorName = updatedObject.AuthorName;
+            objToUpdate.UrlAudio = updatedObject.UrlAudio ?? objToUpdate.UrlAudio;
+            objToUpdate.UrlImage = updatedObject.UrlImage ?? objToUpdate.UrlImage;
+            objToUpdate.AuthorName = updatedObject.AuthorName ?? objToUpdate.AuthorName;
             objToUpdate.AudiosCategoriesDto= UpdateAudioCategories(objToUpdate, updatedObject, context, categoryMapper);
             return objToUpdate;
         }
