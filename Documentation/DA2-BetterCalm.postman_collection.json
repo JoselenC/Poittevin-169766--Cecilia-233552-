@@ -1,0 +1,4522 @@
+{
+	"info": {
+		"_postman_id": "bf6fef27-31aa-4a67-b302-10631bf19e70",
+		"name": "DA2-BetterCalm",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Category endpoints",
+			"item": [
+				{
+					"name": "Get Category by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{domain}}/api/Category/1"
+					},
+					"response": [
+						{
+							"name": "Get Category by ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{domain}}/api/Category/1"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Fri, 30 Apr 2021 23:08:49 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "24"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"Musica\"\n}"
+						},
+						{
+							"name": "Get Category by ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{domain}}/api/Category/12"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 05 May 2021 21:39:29 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "155"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": \"The specified id does not exist in the database\",\n    \"isSuccess\": false,\n    \"code\": 404,\n    \"errorMessage\": \"The specified id does not exist in the database\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get categroy by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/Category/name?name=Category",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"Category",
+								"name"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Category"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get categroy by name",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/Category/name?name=Musica",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"Category",
+										"name"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Musica"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sun, 02 May 2021 07:55:41 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "24"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"Musica\"\n}"
+						},
+						{
+							"name": "Get categroy by name",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/Category/name?name=Category",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"Category",
+										"name"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Category"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 05 May 2021 21:41:26 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "95"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": \"No category found\",\n    \"isSuccess\": false,\n    \"code\": 404,\n    \"errorMessage\": \"No category found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{domain}}/api/Category"
+					},
+					"response": [
+						{
+							"name": "Get Categories",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{domain}}/api/Category"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 05 May 2021 21:49:08 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "102"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Dormir\"\n    },\n    {\n        \"id\": 2,\n        \"name\": \"Meditar\"\n    },\n    {\n        \"id\": 3,\n        \"name\": \"Musica\"\n    },\n    {\n        \"id\": 4,\n        \"name\": \"Cuerpo\"\n    }\n]"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Patient endpoints",
+			"item": [
+				{
+					"name": "Errors",
+					"item": [
+						{
+							"name": "Add Patient wrong birthday",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"Patient11231313\",\n    \"lastName\":\"Rodriguez\",\n    \"cellphone\": 1,\n    \"birthday\":\"-1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{domain}}/api/patient"
+							},
+							"response": [
+								{
+									"name": "Add Patient wrong birthday",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\":\"Patient11231313\",\n    \"lastName\":\"Rodriguez\",\n    \"cellphone\": 1,\n    \"birthday\":\"-1\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{domain}}/api/patient"
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Thu, 06 May 2021 01:53:51 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/problem+json; charset=utf-8"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Content-Length",
+											"value": "268"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"errors\": {\n        \"birthday\": [\n            \"Could not convert string to DateTime: -1. Path 'birthday', line 5, position 19.\"\n        ]\n    },\n    \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"traceId\": \"|f9c885e-45d52cccbfa19dd6.\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Schedule Meeting Error Psychologist not found",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"patient\": {\n        \"name\": \"Patient Nuevo\",\n        \"lastName\":\"test1\",\n        \"cellphone\":\"12344523\",\n        \"birthday\":\"1993-07-15T00:00:00\"\n    },\n    \"problematic\":{\n        \"name\": \"no exist prob\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{domain}}/api/patient/schedule/"
+							},
+							"response": [
+								{
+									"name": "Schedule Meeting Error Psychologist not found",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"patient\": {\n        \"name\": \"Patient Nuevo\",\n        \"lastName\":\"test1\",\n        \"cellphone\":\"12344523\",\n        \"birthday\":\"1993-07-15T00:00:00\"\n    },\n    \"problematic\":{\n        \"name\": \"no exist prob\"\n    }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{domain}}/api/patient/schedule/"
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Thu, 06 May 2021 01:54:21 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Content-Length",
+											"value": "103"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"content\": \"No Psychologist found\",\n    \"isSuccess\": false,\n    \"code\": 404,\n    \"errorMessage\": \"No Psychologist found\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Add Patient",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Patient1\",\n    \"lastName\":\"Rodriguez\",\n    \"cellphone\": \"123499823\",\n    \"birthday\":\"1993-07-18T00:00:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{domain}}/api/patient"
+					},
+					"response": [
+						{
+							"name": "Add Patient",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"Patient1\",\n    \"lastName\":\"Rodriguez\",\n    \"cellphone\": \"123499823\",\n    \"birthday\":\"1993-07-18T00:00:00\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{domain}}/api/patient"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 01:53:12 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "130"
+								},
+								{
+									"key": "Location",
+									"value": "api/patient/Patient1"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"patientId\": 1004,\n    \"cellphone\": \"123499823\",\n    \"birthDay\": \"1993-07-18T00:00:00\",\n    \"meetings\": [],\n    \"name\": \"Patient1\",\n    \"lastName\": \"Rodriguez\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Patient",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Patiss\",\n    \"lastName\":\"Rodriguez\",\n    \"cellphone\": \"12111\",\n    \"birthday\":\"1993-07-15T00:00:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{domain}}/api/patient/1"
+					},
+					"response": [
+						{
+							"name": "Add Patient",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"Patient1\",\n    \"lastName\":\"Rodriguez\",\n    \"cellphone\": \"123499823\",\n    \"birthday\":\"1993-07-18T00:00:00\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{domain}}/api/patient"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 01:53:12 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "130"
+								},
+								{
+									"key": "Location",
+									"value": "api/patient/Patient1"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"patientId\": 1004,\n    \"cellphone\": \"123499823\",\n    \"birthDay\": \"1993-07-18T00:00:00\",\n    \"meetings\": [],\n    \"name\": \"Patient1\",\n    \"lastName\": \"Rodriguez\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get All Patients",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{domain}}/api/patient"
+					},
+					"response": [
+						{
+							"name": "Get All Patients",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{domain}}/api/patient"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 01:53:22 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1326"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"patientId\": 1,\n        \"cellphone\": \"12344523\",\n        \"birthDay\": \"1993-07-15T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"12\",\n        \"lastName\": \"test1\"\n    },\n    {\n        \"patientId\": 2,\n        \"cellphone\": \"12344523\",\n        \"birthDay\": \"1993-07-15T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"PruebaNull\",\n        \"lastName\": \"test1\"\n    },\n    {\n        \"patientId\": 3,\n        \"birthDay\": \"1993-07-15T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"PruebaNull2\",\n        \"lastName\": \"test1\"\n    },\n    {\n        \"patientId\": 1002,\n        \"cellphone\": \"123499823\",\n        \"birthDay\": \"1993-07-18T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"Patient4\",\n        \"lastName\": \"Rodriguez\"\n    },\n    {\n        \"patientId\": 1003,\n        \"cellphone\": \"123499823\",\n        \"birthDay\": \"1993-07-18T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"Patient1003\",\n        \"lastName\": \"Rodriguez\"\n    },\n    {\n        \"patientId\": 1004,\n        \"cellphone\": \"123499823\",\n        \"birthDay\": \"1993-07-18T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"Patient1\",\n        \"lastName\": \"Rodriguez\"\n    },\n    {\n        \"patientId\": 1005,\n        \"cellphone\": \"1\",\n        \"birthDay\": \"1993-07-18T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"Patient11231313\",\n        \"lastName\": \"Rodriguez\"\n    },\n    {\n        \"patientId\": 1006,\n        \"cellphone\": \"2\",\n        \"birthDay\": \"1993-07-18T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"Patient11231313\",\n        \"lastName\": \"Rodriguez\"\n    },\n    {\n        \"patientId\": 1007,\n        \"birthDay\": \"0001-01-01T00:00:00\",\n        \"meetings\": []\n    },\n    {\n        \"patientId\": 1008,\n        \"cellphone\": \"12344523\",\n        \"birthDay\": \"1993-07-15T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"Patient 1\",\n        \"lastName\": \"test1\"\n    },\n    {\n        \"patientId\": 1009,\n        \"cellphone\": \"12344523\",\n        \"birthDay\": \"1993-07-15T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"Patient Nuevo\",\n        \"lastName\": \"test1\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Delete Patient",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{domain}}/api/patient/13"
+					},
+					"response": [
+						{
+							"name": "Get All Patients",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{domain}}/api/patient"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 01:53:22 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1326"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"patientId\": 1,\n        \"cellphone\": \"12344523\",\n        \"birthDay\": \"1993-07-15T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"12\",\n        \"lastName\": \"test1\"\n    },\n    {\n        \"patientId\": 2,\n        \"cellphone\": \"12344523\",\n        \"birthDay\": \"1993-07-15T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"PruebaNull\",\n        \"lastName\": \"test1\"\n    },\n    {\n        \"patientId\": 3,\n        \"birthDay\": \"1993-07-15T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"PruebaNull2\",\n        \"lastName\": \"test1\"\n    },\n    {\n        \"patientId\": 1002,\n        \"cellphone\": \"123499823\",\n        \"birthDay\": \"1993-07-18T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"Patient4\",\n        \"lastName\": \"Rodriguez\"\n    },\n    {\n        \"patientId\": 1003,\n        \"cellphone\": \"123499823\",\n        \"birthDay\": \"1993-07-18T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"Patient1003\",\n        \"lastName\": \"Rodriguez\"\n    },\n    {\n        \"patientId\": 1004,\n        \"cellphone\": \"123499823\",\n        \"birthDay\": \"1993-07-18T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"Patient1\",\n        \"lastName\": \"Rodriguez\"\n    },\n    {\n        \"patientId\": 1005,\n        \"cellphone\": \"1\",\n        \"birthDay\": \"1993-07-18T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"Patient11231313\",\n        \"lastName\": \"Rodriguez\"\n    },\n    {\n        \"patientId\": 1006,\n        \"cellphone\": \"2\",\n        \"birthDay\": \"1993-07-18T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"Patient11231313\",\n        \"lastName\": \"Rodriguez\"\n    },\n    {\n        \"patientId\": 1007,\n        \"birthDay\": \"0001-01-01T00:00:00\",\n        \"meetings\": []\n    },\n    {\n        \"patientId\": 1008,\n        \"cellphone\": \"12344523\",\n        \"birthDay\": \"1993-07-15T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"Patient 1\",\n        \"lastName\": \"test1\"\n    },\n    {\n        \"patientId\": 1009,\n        \"cellphone\": \"12344523\",\n        \"birthDay\": \"1993-07-15T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"Patient Nuevo\",\n        \"lastName\": \"test1\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get Patient by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{domain}}/api/patient/15"
+					},
+					"response": [
+						{
+							"name": "Get All Patients",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{domain}}/api/patient"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 01:53:22 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1326"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"patientId\": 1,\n        \"cellphone\": \"12344523\",\n        \"birthDay\": \"1993-07-15T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"12\",\n        \"lastName\": \"test1\"\n    },\n    {\n        \"patientId\": 2,\n        \"cellphone\": \"12344523\",\n        \"birthDay\": \"1993-07-15T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"PruebaNull\",\n        \"lastName\": \"test1\"\n    },\n    {\n        \"patientId\": 3,\n        \"birthDay\": \"1993-07-15T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"PruebaNull2\",\n        \"lastName\": \"test1\"\n    },\n    {\n        \"patientId\": 1002,\n        \"cellphone\": \"123499823\",\n        \"birthDay\": \"1993-07-18T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"Patient4\",\n        \"lastName\": \"Rodriguez\"\n    },\n    {\n        \"patientId\": 1003,\n        \"cellphone\": \"123499823\",\n        \"birthDay\": \"1993-07-18T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"Patient1003\",\n        \"lastName\": \"Rodriguez\"\n    },\n    {\n        \"patientId\": 1004,\n        \"cellphone\": \"123499823\",\n        \"birthDay\": \"1993-07-18T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"Patient1\",\n        \"lastName\": \"Rodriguez\"\n    },\n    {\n        \"patientId\": 1005,\n        \"cellphone\": \"1\",\n        \"birthDay\": \"1993-07-18T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"Patient11231313\",\n        \"lastName\": \"Rodriguez\"\n    },\n    {\n        \"patientId\": 1006,\n        \"cellphone\": \"2\",\n        \"birthDay\": \"1993-07-18T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"Patient11231313\",\n        \"lastName\": \"Rodriguez\"\n    },\n    {\n        \"patientId\": 1007,\n        \"birthDay\": \"0001-01-01T00:00:00\",\n        \"meetings\": []\n    },\n    {\n        \"patientId\": 1008,\n        \"cellphone\": \"12344523\",\n        \"birthDay\": \"1993-07-15T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"Patient 1\",\n        \"lastName\": \"test1\"\n    },\n    {\n        \"patientId\": 1009,\n        \"cellphone\": \"12344523\",\n        \"birthDay\": \"1993-07-15T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"Patient Nuevo\",\n        \"lastName\": \"test1\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Schedule Meeting",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"patient\": {\n        \"Id\": 15\n    },\n    \"problematic\":{\n        \"id\": 7\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{domain}}/api/patient/schedule/"
+					},
+					"response": [
+						{
+							"name": "Schedule Meeting",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"patient\": {\n        \"name\": \"Patient Nuevo\",\n        \"lastName\":\"test1\",\n        \"cellphone\":\"12344523\",\n        \"birthday\":\"1993-07-15T00:00:00\"\n    },\n    \"problematic\":{\n        \"name\": \"duelo\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{domain}}/api/patient/schedule/"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 01:53:35 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "531"
+								},
+								{
+									"key": "Location",
+									"value": "api/patient/schedule"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"psychologist\": {\n        \"psychologistId\": 1002,\n        \"address\": \"Lorezo lopez 12354\",\n        \"worksOnline\": true,\n        \"problematics\": [\n            {\n                \"id\": 1,\n                \"name\": \"duelo\"\n            },\n            {\n                \"id\": 2,\n                \"name\": \"autoestima\"\n            },\n            {\n                \"id\": 1003,\n                \"name\": \"relaciones\"\n            }\n        ],\n        \"meetings\": [],\n        \"creationDate\": \"0001-01-01T00:00:00\",\n        \"name\": \"El gran\",\n        \"lastName\": \"Jose\"\n    },\n    \"patient\": {\n        \"patientId\": 0,\n        \"cellphone\": \"12344523\",\n        \"birthDay\": \"1993-07-15T00:00:00\",\n        \"meetings\": [],\n        \"name\": \"Patient Nuevo\",\n        \"lastName\": \"test1\"\n    },\n    \"dateTime\": \"2021-05-05T00:00:00\",\n    \"address\": \"https://bettercalm.com.uy/1002_0/b84cda45-e803-4cb2-8a20-19b5a521c325\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Psychologist endpoints",
+			"item": [
+				{
+					"name": "Errors",
+					"item": [
+						{
+							"name": "Delete Psychologist not found",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "ce1c97e1-3380-4456-bc72-afdab22556ff",
+										"type": "text"
+									}
+								],
+								"url": "{{domain}}/api/psychologist/1"
+							},
+							"response": [
+								{
+									"name": "Delete Psychologist not found",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "ce1c97e1-3380-4456-bc72-afdab22556ff",
+												"type": "text"
+											}
+										],
+										"url": "{{domain}}/api/psychologist/1"
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Thu, 06 May 2021 01:51:28 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Content-Length",
+											"value": "103"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"content\": \"No Psychologist found\",\n    \"isSuccess\": false,\n    \"code\": 404,\n    \"errorMessage\": \"No Psychologist found\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Add Psychologist wrong amount of problematics",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "ce1c97e1-3380-4456-bc72-afdab22556ff",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"Jose\",\n    \"lastName\":\"Test\",\n    \"address\": \"My house 1234\",\n    \"worksOnline\": true,\n    \"problematics\": [\n        {\n            \"Name\": \"duelo\"\n        },\n        {\n            \"Name\": \"autoestima\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{domain}}/api/psychologist"
+							},
+							"response": [
+								{
+									"name": "Add Psychologist wrong amount of problematics",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "ce1c97e1-3380-4456-bc72-afdab22556ff",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\":\"Jose\",\n    \"lastName\":\"Test\",\n    \"address\": \"My house 1234\",\n    \"worksOnline\": true,\n    \"problematics\": [\n        {\n            \"Name\": \"duelo\"\n        },\n        {\n            \"Name\": \"autoestima\"\n        }\n    ]\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{domain}}/api/psychologist"
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Thu, 06 May 2021 01:52:45 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/problem+json; charset=utf-8"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Content-Length",
+											"value": "271"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"errors\": {\n        \"problematics\": [\n            \"Error setting value to 'Problematics' on 'MSP.BetterCalm.Domain.Psychologist'.\"\n        ]\n    },\n    \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"traceId\": \"|f9c8856-45d52cccbfa19dd6.\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Update Psychologist wrong amount of problematics Copy",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "ce1c97e1-3380-4456-bc72-afdab22556ff"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"Jose\",\n    \"lastName\":\"Test\",\n    \"address\": \"My house 1234\",\n    \"worksOnline\": true,\n    \"problematics\": [\n        {\n            \"Name\": \"duelo\"\n        },\n        {\n            \"Name\": \"autoestima\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{domain}}/api/psychologist/2"
+							},
+							"response": [
+								{
+									"name": "Update Psychologist wrong amount of problematics Copy",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"type": "text",
+												"value": "ce1c97e1-3380-4456-bc72-afdab22556ff"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\":\"Jose\",\n    \"lastName\":\"Test\",\n    \"address\": \"My house 1234\",\n    \"worksOnline\": true,\n    \"problematics\": [\n        {\n            \"Name\": \"duelo\"\n        },\n        {\n            \"Name\": \"autoestima\"\n        }\n    ]\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{domain}}/api/psychologist/2"
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Thu, 06 May 2021 01:52:23 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/problem+json; charset=utf-8"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Content-Length",
+											"value": "271"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"errors\": {\n        \"problematics\": [\n            \"Error setting value to 'Problematics' on 'MSP.BetterCalm.Domain.Psychologist'.\"\n        ]\n    },\n    \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"traceId\": \"|f9c8854-45d52cccbfa19dd6.\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Get All Psychologists",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"url": "{{domain}}/api/psychologist/"
+					},
+					"response": [
+						{
+							"name": "Get All Psychologists",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "ce1c97e1-3380-4456-bc72-afdab22556ff",
+										"type": "text"
+									}
+								],
+								"url": "{{domain}}/api/psychologist/"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 01:40:43 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "717"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"psychologistId\": 2,\n        \"address\": \"My house 1234\",\n        \"worksOnline\": true,\n        \"problematics\": [\n            {\n                \"id\": 1,\n                \"name\": \"duelo\"\n            },\n            {\n                \"id\": 2,\n                \"name\": \"autoestima\"\n            },\n            {\n                \"id\": 1002,\n                \"name\": \"enojo\"\n            }\n        ],\n        \"meetings\": [\n            {\n                \"patient\": {\n                    \"patientId\": 1008,\n                    \"birthDay\": \"0001-01-01T00:00:00\",\n                    \"meetings\": []\n                },\n                \"dateTime\": \"2021-05-05T00:00:00\"\n            },\n            {\n                \"patient\": {\n                    \"patientId\": 1009,\n                    \"birthDay\": \"0001-01-01T00:00:00\",\n                    \"meetings\": []\n                },\n                \"dateTime\": \"2021-05-05T00:00:00\"\n            }\n        ],\n        \"creationDate\": \"0001-01-01T00:00:00\",\n        \"name\": \"Jose\",\n        \"lastName\": \"Test\"\n    },\n    {\n        \"psychologistId\": 1002,\n        \"address\": \"My house 1234\",\n        \"worksOnline\": true,\n        \"problematics\": [\n            {\n                \"id\": 1,\n                \"name\": \"duelo\"\n            },\n            {\n                \"id\": 2,\n                \"name\": \"autoestima\"\n            },\n            {\n                \"id\": 1002,\n                \"name\": \"enojo\"\n            }\n        ],\n        \"meetings\": [],\n        \"creationDate\": \"0001-01-01T00:00:00\",\n        \"name\": \"Jose\",\n        \"lastName\": \"Test\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get Psychologist By Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"url": "{{domain}}/api/psychologist/1"
+					},
+					"response": [
+						{
+							"name": "Get Psychologist By Id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "ce1c97e1-3380-4456-bc72-afdab22556ff",
+										"type": "text"
+									}
+								],
+								"url": "{{domain}}/api/psychologist/2"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 01:49:19 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "466"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"psychologistId\": 2,\n    \"address\": \"My house 1234\",\n    \"worksOnline\": true,\n    \"problematics\": [\n        {\n            \"id\": 1,\n            \"name\": \"duelo\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"autoestima\"\n        },\n        {\n            \"id\": 1002,\n            \"name\": \"enojo\"\n        }\n    ],\n    \"meetings\": [\n        {\n            \"patient\": {\n                \"patientId\": 1008,\n                \"birthDay\": \"0001-01-01T00:00:00\",\n                \"meetings\": []\n            },\n            \"dateTime\": \"2021-05-05T00:00:00\"\n        },\n        {\n            \"patient\": {\n                \"patientId\": 1009,\n                \"birthDay\": \"0001-01-01T00:00:00\",\n                \"meetings\": []\n            },\n            \"dateTime\": \"2021-05-05T00:00:00\"\n        }\n    ],\n    \"creationDate\": \"0001-01-01T00:00:00\",\n    \"name\": \"Jose\",\n    \"lastName\": \"Test\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Psychologist",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"url": "{{domain}}/api/psychologist/11"
+					},
+					"response": [
+						{
+							"name": "Delete Psychologist",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "ce1c97e1-3380-4456-bc72-afdab22556ff",
+										"type": "text"
+									}
+								],
+								"url": "{{domain}}/api/psychologist/2"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 01:49:45 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "Entity removed"
+						}
+					]
+				},
+				{
+					"name": "Add Psychologist",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Jose\",\n    \"lastName\":\"Test\",\n    \"address\": \"My house 1234\",\n    \"worksOnline\": true,\n    \"problematics\": [\n        {\n            \"Name\": \"duelo\"\n        },\n        {\n            \"Name\": \"autoestima\"\n        },\n        {\n            \"Name\": \"enojo\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{domain}}/api/psychologist"
+					},
+					"response": [
+						{
+							"name": "Add Psychologist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "ce1c97e1-3380-4456-bc72-afdab22556ff",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"Jose\",\n    \"lastName\":\"Test\",\n    \"address\": \"My house 1234\",\n    \"worksOnline\": true,\n    \"problematics\": [\n        {\n            \"Name\": \"duelo\"\n        },\n        {\n            \"Name\": \"autoestima\"\n        },\n        {\n            \"Name\": \"enojo\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{domain}}/api/psychologist"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 01:50:03 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "248"
+								},
+								{
+									"key": "Location",
+									"value": "api/psychologist/Jose"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"psychologistId\": 1003,\n    \"address\": \"My house 1234\",\n    \"worksOnline\": true,\n    \"problematics\": [\n        {\n            \"id\": 1,\n            \"name\": \"duelo\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"autoestima\"\n        },\n        {\n            \"id\": 1002,\n            \"name\": \"enojo\"\n        }\n    ],\n    \"meetings\": [],\n    \"creationDate\": \"0001-01-01T00:00:00\",\n    \"name\": \"Jose\",\n    \"lastName\": \"Test\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Psychologist",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"psychologistId\": 4,\n    \"worksOnline\": false,\n    \"address\": \"Mi casa 1234\",\n    \"problematics\": [\n        {\n            \"id\": 4,\n            \"name\": \"Autoestima\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Estrés\"\n        },\n        {\n            \"id\": 3,\n            \"name\": \"Ansiedad\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{domain}}/api/psychologist/1"
+					},
+					"response": [
+						{
+							"name": "Update Psychologist",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "ce1c97e1-3380-4456-bc72-afdab22556ff",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"psychologistId\": 2,\n    \"address\": \"Lorezo lopez 12354\",\n    \"worksOnline\": true,\n    \"problematics\": [\n        {\n            \"id\": 1,\n            \"name\": \"duelo\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"autoestima\"\n        },\n        {\n            \"name\": \"relaciones\"\n        }\n    ],\n    \"name\": \"El gran\",\n    \"lastName\": \"Jose\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{domain}}/api/psychologist/1002"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 01:50:28 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "261"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"psychologistId\": 1002,\n    \"address\": \"Lorezo lopez 12354\",\n    \"worksOnline\": true,\n    \"problematics\": [\n        {\n            \"id\": 1,\n            \"name\": \"duelo\"\n        },\n        {\n            \"id\": 2,\n            \"name\": \"autoestima\"\n        },\n        {\n            \"id\": 1003,\n            \"name\": \"relaciones\"\n        }\n    ],\n    \"meetings\": [],\n    \"creationDate\": \"0001-01-01T00:00:00\",\n    \"name\": \"El gran\",\n    \"lastName\": \"Jose\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Administrator endpoints",
+			"item": [
+				{
+					"name": "Errors",
+					"item": [
+						{
+							"name": "Get All Administrators auth error",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "{{domain}}/api/administrator"
+							},
+							"response": [
+								{
+									"name": "Get All Administrators auth error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": "{{domain}}/api/administrator"
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Thu, 06 May 2021 02:03:13 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Content-Length",
+											"value": "135"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"content\": \"You are not allowed to do this action\",\n    \"isSuccess\": false,\n    \"code\": 401,\n    \"errorMessage\": \"You are not allowed to do this action\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Add Admin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Juan1\",\n    \"lastName\":\"test1\",\n    \"email\":\"email@me3.com\",\n    \"password\":\"pass\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{domain}}/api/administrator"
+					},
+					"response": [
+						{
+							"name": "Add Admin",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"Juan\",\n    \"lastName\":\"test1\",\n    \"email\":\"Juan@me2.com\",\n    \"password\":\"pass\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/api/administrator",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"administrator"
+									],
+									"query": [
+										{
+											"key": "Name",
+											"value": "TestingAdd",
+											"disabled": true
+										},
+										{
+											"key": "LastName",
+											"value": "test",
+											"disabled": true
+										},
+										{
+											"key": "Email",
+											"value": "test@test.com",
+											"disabled": true
+										},
+										{
+											"key": "Password",
+											"value": "pass",
+											"disabled": true
+										},
+										{
+											"key": "Cellphone",
+											"value": "01919239",
+											"disabled": true
+										},
+										{
+											"key": "BirthDay",
+											"value": "7/15/1993",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 05 May 2021 22:45:54 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "107"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": \"Administrator not found\",\n    \"isSuccess\": false,\n    \"code\": 401,\n    \"errorMessage\": \"Administrator not found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get All Administrators",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"url": "{{domain}}/api/administrator"
+					},
+					"response": [
+						{
+							"name": "Get All Administrators",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "ce1c97e1-3380-4456-bc72-afdab22556ff",
+										"type": "text"
+									}
+								],
+								"url": "{{domain}}/api/administrator"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 01:54:44 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "249"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"administratorId\": 2,\n        \"email\": \"email@me1.com\",\n        \"password\": \"pass123\",\n        \"token\": \"ce1c97e1-3380-4456-bc72-afdab22556ff\",\n        \"name\": \"Juan\",\n        \"lastName\": \"test1123\"\n    },\n    {\n        \"administratorId\": 3,\n        \"email\": \"email@me2.com\",\n        \"password\": \"pass\",\n        \"name\": \"Juan1\",\n        \"lastName\": \"test1\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Update Administrator",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"administratorId\": 2,\n    \"email\": \"email@me2.com\",\n    \"password\": \"password segura\",\n    \"name\": \"Juan Pablo\",\n    \"lastName\": \"Santana\",\n    \"token\": \"ce1c97e1-3380-4456-bc72-afdab22556ff\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/api/administrator/2",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"administrator",
+								"2"
+							],
+							"query": [
+								{
+									"key": "Name",
+									"value": "TestingAdd",
+									"disabled": true
+								},
+								{
+									"key": "LastName",
+									"value": "test",
+									"disabled": true
+								},
+								{
+									"key": "Email",
+									"value": "test@test.com",
+									"disabled": true
+								},
+								{
+									"key": "Password",
+									"value": "pass",
+									"disabled": true
+								},
+								{
+									"key": "Cellphone",
+									"value": "01919239",
+									"disabled": true
+								},
+								{
+									"key": "BirthDay",
+									"value": "7/15/1993",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Administrator",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "ce1c97e1-3380-4456-bc72-afdab22556ff",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"email@m222e.com\",\n    \"password\": \"ReallyStrong.Pass\",\n    \"name\": \"Juan\",\n    \"lastName\": \"test1123\",\n    \"token\": \"ce1c97e1-3380-4456-bc72-afdab22556ff\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/api/administrator/2",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"administrator",
+										"2"
+									],
+									"query": [
+										{
+											"key": "Name",
+											"value": "TestingAdd",
+											"disabled": true
+										},
+										{
+											"key": "LastName",
+											"value": "test",
+											"disabled": true
+										},
+										{
+											"key": "Email",
+											"value": "test@test.com",
+											"disabled": true
+										},
+										{
+											"key": "Password",
+											"value": "pass",
+											"disabled": true
+										},
+										{
+											"key": "Cellphone",
+											"value": "01919239",
+											"disabled": true
+										},
+										{
+											"key": "BirthDay",
+											"value": "7/15/1993",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 01:59:37 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "159"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"administratorId\": 2,\n    \"email\": \"email@me1.com\",\n    \"password\": \"ReallyStrong.Pass\",\n    \"token\": \"ce1c97e1-3380-4456-bc72-afdab22556ff\",\n    \"name\": \"Juan\",\n    \"lastName\": \"test1123\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Administrator",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"url": "{{domain}}/api/administrator/3"
+					},
+					"response": [
+						{
+							"name": "Delete Administrator",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "ce1c97e1-3380-4456-bc72-afdab22556ff",
+										"type": "text"
+									}
+								],
+								"url": "{{domain}}/api/administrator/2"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 02:00:20 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "Entity removed"
+						}
+					]
+				},
+				{
+					"name": "Get Administrator By Id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"url": "{{domain}}/api/administrator/2"
+					},
+					"response": [
+						{
+							"name": "Get Administrator By Id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "ce1c97e1-3380-4456-bc72-afdab22556ff",
+										"type": "text"
+									}
+								],
+								"url": "{{domain}}/api/administrator/3"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 02:01:11 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "144"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"administratorId\": 3,\n    \"email\": \"email@me2.com\",\n    \"password\": \"pass\",\n    \"token\": \"ce1c97e1-3380-4456-bc72-afdab22556ff\",\n    \"name\": \"Juan1\",\n    \"lastName\": \"test1\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Problematic endpoints",
+			"item": [
+				{
+					"name": "Get problematic by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{domain}}/api/Problematic/1"
+					},
+					"response": [
+						{
+							"name": "Get problematic by ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{domain}}/api/Problematic/1"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 01 May 2021 15:30:20 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "24"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"Estres\"\n}"
+						},
+						{
+							"name": "Get problematic by ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{domain}}/api/Problematic/2"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 01 May 2021 15:30:32 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "155"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": \"The specified id does not exist in the database\",\n    \"isSuccess\": false,\n    \"code\": 404,\n    \"errorMessage\": \"The specified id does not exist in the database\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get problematics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{domain}}/api/Problematic"
+					},
+					"response": [
+						{
+							"name": "Get problematics",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{domain}}/api/Problematic"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 01 May 2021 15:30:44 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "26"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"Estres\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get problematic by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/Problematic/name?name=Estres",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"Problematic",
+								"name"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Estres"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get problematic by name",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/Problematic/name?name=Estres",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"Problematic",
+										"name"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Estres"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sun, 02 May 2021 14:38:23 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "24"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"Estres\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get All Problematics",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Problematica1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}/api/problematic",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"problematic"
+							],
+							"query": [
+								{
+									"key": "Name",
+									"value": "TestingAdd",
+									"disabled": true
+								},
+								{
+									"key": "LastName",
+									"value": "test",
+									"disabled": true
+								},
+								{
+									"key": "Email",
+									"value": "test@test.com",
+									"disabled": true
+								},
+								{
+									"key": "Password",
+									"value": "pass",
+									"disabled": true
+								},
+								{
+									"key": "Cellphone",
+									"value": "01919239",
+									"disabled": true
+								},
+								{
+									"key": "BirthDay",
+									"value": "7/15/1993",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get All Problematics",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"Problematica1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}/api/problematic",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"problematic"
+									],
+									"query": [
+										{
+											"key": "Name",
+											"value": "TestingAdd",
+											"disabled": true
+										},
+										{
+											"key": "LastName",
+											"value": "test",
+											"disabled": true
+										},
+										{
+											"key": "Email",
+											"value": "test@test.com",
+											"disabled": true
+										},
+										{
+											"key": "Password",
+											"value": "pass",
+											"disabled": true
+										},
+										{
+											"key": "Cellphone",
+											"value": "01919239",
+											"disabled": true
+										},
+										{
+											"key": "BirthDay",
+											"value": "7/15/1993",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 02:02:48 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "113"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"duelo\"\n    },\n    {\n        \"id\": 2,\n        \"name\": \"autoestima\"\n    },\n    {\n        \"id\": 1002,\n        \"name\": \"enojo\"\n    },\n    {\n        \"id\": 1003,\n        \"name\": \"relaciones\"\n    }\n]"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Audio endpoints",
+			"item": [
+				{
+					"name": "Get audios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{domain}}/api/Audio"
+					},
+					"response": [
+						{
+							"name": "Get audios",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{domain}}/api/Audio"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 01 May 2021 15:30:58 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2"
+								}
+							],
+							"cookie": [],
+							"body": "[]"
+						},
+						{
+							"name": "Get audios",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{domain}}/api/Audio"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 01 May 2021 16:02:55 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "278"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"categories\": [\n            {\n                \"id\": 1,\n                \"name\": \"Musica\"\n            }\n        ],\n        \"name\": \"Let it be\",\n        \"duration\": 7200,\n        \"authorName\": \"The beatles\",\n        \"urlImage\": \"\",\n        \"urlAudio\": \"\"\n    },\n    {\n        \"id\": 2,\n        \"categories\": [\n            {\n                \"id\": 1,\n                \"name\": \"Musica\"\n            }\n        ],\n        \"name\": \"Help\",\n        \"duration\": 7200,\n        \"authorName\": \"The beatles\",\n        \"urlImage\": \"\",\n        \"urlAudio\": \"\"\n    }\n]"
+						},
+						{
+							"name": "Get audios",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{domain}}/api/Audio"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 01 May 2021 20:42:30 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "142"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 8,\n        \"categories\": [\n            {\n                \"id\": 1,\n                \"name\": \"Musica\"\n            }\n        ],\n        \"name\": \"Let it be\",\n        \"duration\": 7200,\n        \"authorName\": \"The beatles\",\n        \"urlImage\": \"\",\n        \"urlAudio\": \"\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get audios by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/Audio/name?name=The room where it happens",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"Audio",
+								"name"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "The room where it happens"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get audios by name",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/Audio/name?name=Holaa",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"Audio",
+										"name"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Holaa"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sun, 02 May 2021 14:41:28 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "646"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 25,\n        \"categories\": [],\n        \"associatedToPlaylist\": false,\n        \"name\": \"Holaa\",\n        \"duration\": 0,\n        \"authorName\": \"\",\n        \"urlImage\": \"\",\n        \"urlAudio\": \"\"\n    },\n    {\n        \"id\": 27,\n        \"categories\": [],\n        \"associatedToPlaylist\": false,\n        \"name\": \"Holaa\",\n        \"duration\": 0,\n        \"authorName\": \"\",\n        \"urlImage\": \"\",\n        \"urlAudio\": \"\"\n    },\n    {\n        \"id\": 28,\n        \"categories\": [],\n        \"associatedToPlaylist\": false,\n        \"name\": \"Holaa\",\n        \"duration\": 0,\n        \"authorName\": \"\",\n        \"urlImage\": \"\",\n        \"urlAudio\": \"\"\n    },\n    {\n        \"id\": 29,\n        \"categories\": [],\n        \"associatedToPlaylist\": false,\n        \"name\": \"Holaa\",\n        \"duration\": 0,\n        \"authorName\": \"\",\n        \"urlImage\": \"\",\n        \"urlAudio\": \"\"\n    },\n    {\n        \"id\": 30,\n        \"categories\": [],\n        \"associatedToPlaylist\": false,\n        \"name\": \"Holaa\",\n        \"duration\": 0,\n        \"authorName\": \"\",\n        \"urlImage\": \"\",\n        \"urlAudio\": \"\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get audios by author",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/Audio/Author?author=Jhon Legend",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"Audio",
+								"Author"
+							],
+							"query": [
+								{
+									"key": "author",
+									"value": "Jhon Legend"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get audios by author",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/Audio/Author?author=Jhon Legend",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"Audio",
+										"Author"
+									],
+									"query": [
+										{
+											"key": "author",
+											"value": "Jhon Legend"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 05:05:34 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "341"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 3,\n        \"categories\": [],\n        \"associatedToPlaylist\": false,\n        \"name\": \"All of me\",\n        \"duration\": 250,\n        \"authorName\": \"Jhon Legend\",\n        \"urlImage\": \"\",\n        \"urlAudio\": \"\"\n    },\n    {\n        \"id\": 6,\n        \"categories\": [\n            {\n                \"id\": 2,\n                \"name\": \"Meditar\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"Musica\"\n            }\n        ],\n        \"associatedToPlaylist\": false,\n        \"name\": \"All of me\",\n        \"duration\": 250,\n        \"authorName\": \"Jhon Legend\",\n        \"urlImage\": \"\",\n        \"urlAudio\": \"\"\n    }\n]"
+						},
+						{
+							"name": "Get audios by author",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/Audio/Author?author=author",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"Audio",
+										"Author"
+									],
+									"query": [
+										{
+											"key": "author",
+											"value": "author"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 05:06:21 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "89"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": \"No audio found\",\n    \"isSuccess\": false,\n    \"code\": 404,\n    \"errorMessage\": \"No audio found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get audios by category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/Audio/Category?Name=Meditar",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"Audio",
+								"Category"
+							],
+							"query": [
+								{
+									"key": "Name",
+									"value": "Meditar"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get audios by category",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/Audio/category/Name?Name=Dormir",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"Audio",
+										"category",
+										"Name"
+									],
+									"query": [
+										{
+											"key": "Name",
+											"value": "Dormir"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 05 May 2021 23:16:38 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "226"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 3,\n        \"categories\": [\n            {\n                \"id\": 1,\n                \"name\": \"Dormir\"\n            }\n        ],\n        \"associatedToPlaylist\": false,\n        \"name\": \"Holy\",\n        \"duration\": 250,\n        \"authorName\": \"Justin Bieber\",\n        \"urlImage\": \"https://en.wikipedia.org/wiki/File:Holy_-_Justin_Bieber.png\",\n        \"urlAudio\": \"\"\n    }\n]"
+						},
+						{
+							"name": "Get audios by category",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/Audio/category/Name?Name=Musica",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"Audio",
+										"category",
+										"Name"
+									],
+									"query": [
+										{
+											"key": "Name",
+											"value": "Musica"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 05 May 2021 23:18:20 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "89"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": \"No audio found\",\n    \"isSuccess\": false,\n    \"code\": 404,\n    \"errorMessage\": \"No audio found\"\n}"
+						},
+						{
+							"name": "Get audios by category",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/Audio/Category/Name?Name=Meditar",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"Audio",
+										"Category",
+										"Name"
+									],
+									"query": [
+										{
+											"key": "Name",
+											"value": "Meditar"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 05:08:42 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "556"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 5,\n        \"categories\": [\n            {\n                \"id\": 2,\n                \"name\": \"Meditar\"\n            }\n        ],\n        \"associatedToPlaylist\": false,\n        \"name\": \"Let it be\",\n        \"duration\": 250,\n        \"authorName\": \"The Beatles\",\n        \"urlImage\": \"\",\n        \"urlAudio\": \"\"\n    },\n    {\n        \"id\": 6,\n        \"categories\": [\n            {\n                \"id\": 2,\n                \"name\": \"Meditar\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"Musica\"\n            }\n        ],\n        \"associatedToPlaylist\": false,\n        \"name\": \"All of me\",\n        \"duration\": 250,\n        \"authorName\": \"Jhon Legend\",\n        \"urlImage\": \"\",\n        \"urlAudio\": \"\"\n    },\n    {\n        \"id\": 8,\n        \"categories\": [\n            {\n                \"id\": 2,\n                \"name\": \"Meditar\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"Musica\"\n            }\n        ],\n        \"associatedToPlaylist\": false,\n        \"name\": \"Help\",\n        \"duration\": 250,\n        \"authorName\": \"The beatles\",\n        \"urlImage\": \"\",\n        \"urlAudio\": \"\"\n    }\n]"
+						},
+						{
+							"name": "Get audios by category",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/Audio/Category/Name?Name=Dormir",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"Audio",
+										"Category",
+										"Name"
+									],
+									"query": [
+										{
+											"key": "Name",
+											"value": "Dormir"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 05:09:34 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "89"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": \"No audio found\",\n    \"isSuccess\": false,\n    \"code\": 404,\n    \"errorMessage\": \"No audio found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Create Audio",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"AudioPrueba\",\r\n    \"duration\":\"122m\",\r\n    \"authorName\":\"Alexander Hamilton\",\r\n    \"UrlImage\": \"\",\r\n    \"UrlAudio\": \"https://www.youtube.com/watch?v=WySzEXKUSZw&list=RDWySzEXKUSZw&start_radio=1&t=5\",\r\n    \"Categories\": \r\n    [\r\n        {\r\n            \"id\": \"3\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{domain}}/api/Audio"
+					},
+					"response": [
+						{
+							"name": "Create Audio",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "2f59eab3-9130-4222-81bc-781a1c63356b",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Holy\",\r\n    \"duration\":\"250s\",\r\n    \"authorName\":\"Justin Bieber\",\r\n    \"UrlImage\":\"https://en.wikipedia.org/wiki/File:Holy_-_Justin_Bieber.png\",\r\n    \"UrlAudio\":\"\",\r\n    \"Categories\": \r\n    [\r\n        {\r\n        \"id\": \"1\"    \r\n        }   \r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{domain}}/api/Audio"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 05 May 2021 23:10:03 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "224"
+								},
+								{
+									"key": "Location",
+									"value": "api/Audio/Holy"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 3,\n    \"categories\": [\n        {\n            \"id\": 1,\n            \"name\": \"Dormir\"\n        }\n    ],\n    \"associatedToPlaylist\": false,\n    \"name\": \"Holy\",\n    \"duration\": 250,\n    \"authorName\": \"Justin Bieber\",\n    \"urlImage\": \"https://en.wikipedia.org/wiki/File:Holy_-_Justin_Bieber.png\",\n    \"urlAudio\": \"\"\n}"
+						},
+						{
+							"name": "Create Audio",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "2f59eab3-9130-4222-81bc-781a1c63356b",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Holy\",\r\n    \"duration\":\"250s\",\r\n    \"authorName\":\"Justin Bieber\",\r\n    \"UrlImage\":\"incorrect\",\r\n    \"UrlAudio\":\"\",\r\n    \"Categories\": \r\n    [\r\n        {\r\n        \"id\": \"1\"    \r\n        }   \r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{domain}}/api/Audio"
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 05 May 2021 23:10:20 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "97"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": \"Invalid url format\",\n    \"isSuccess\": false,\n    \"code\": 422,\n    \"errorMessage\": \"Invalid url format\"\n}"
+						},
+						{
+							"name": "Create Audio",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "2f59eab3-9130-4222-81bc-781a1c63356b",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Holy\",\r\n    \"duration\":\"250duracion\",\r\n    \"authorName\":\"Justin Bieber\",\r\n    \"UrlImage\":\"\",\r\n    \"UrlAudio\":\"\",\r\n    \"Categories\": \r\n    [\r\n        {\r\n        \"id\": \"1\"    \r\n        }   \r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{domain}}/api/Audio"
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 05 May 2021 23:10:37 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "107"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": \"Invalid duration format\",\n    \"isSuccess\": false,\n    \"code\": 422,\n    \"errorMessage\": \"Invalid duration format\"\n}"
+						},
+						{
+							"name": "Create Audio",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{Authorization}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Holy\",\r\n    \"duration\":\"250s\",\r\n    \"authorName\":\"Justin Bieber\",\r\n    \"UrlImage\":\"https://en.wikipedia.org/wiki/File:Holy_-_Justin_Bieber.png\",\r\n    \"UrlAudio\":\"incorrect\",\r\n    \"Categories\": \r\n    [\r\n        {\r\n        \"id\": \"1\"    \r\n        }   \r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{domain}}/api/Audio"
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 05 May 2021 23:20:38 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "97"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": \"Invalid url format\",\n    \"isSuccess\": false,\n    \"code\": 422,\n    \"errorMessage\": \"Invalid url format\"\n}"
+						},
+						{
+							"name": "Create Audio",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{Authorization}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"\",\r\n    \"duration\":\"250s\",\r\n    \"authorName\":\"Justin Bieber\",\r\n    \"UrlImage\":\"https://en.wikipedia.org/wiki/File:Holy_-_Justin_Bieber.png\",\r\n    \"UrlAudio\":\"incorrect\",\r\n    \"Categories\": \r\n    [\r\n        {\r\n        \"id\": \"1\"    \r\n        }   \r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{domain}}/api/Audio"
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 05 May 2021 23:20:49 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "97"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": \"Invalid empty name\",\n    \"isSuccess\": false,\n    \"code\": 422,\n    \"errorMessage\": \"Invalid empty name\"\n}"
+						},
+						{
+							"name": "Create Audio",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{Authorization}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Let it be\",\r\n    \"duration\":\"250s\",\r\n    \"authorName\":\"The Beatles\",\r\n    \"UrlImage\":\"\",\r\n    \"UrlAudio\":\"\",\r\n    \"Categories\": \r\n    [\r\n        {\r\n        \"id\": \"3\"    \r\n        }   \r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{domain}}/api/Audio"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 00:09:46 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "168"
+								},
+								{
+									"key": "Location",
+									"value": "api/Audio/Let it be"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 4,\n    \"categories\": [\n        {\n            \"id\": 3,\n            \"name\": \"Musica\"\n        }\n    ],\n    \"associatedToPlaylist\": false,\n    \"name\": \"Let it be\",\n    \"duration\": 250,\n    \"authorName\": \"The Beatles\",\n    \"urlImage\": \"\",\n    \"urlAudio\": \"\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get audio by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{domain}}/api/Audio/10"
+					},
+					"response": [
+						{
+							"name": "Get audio by id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{domain}}/api/Audio/44"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 05 May 2021 23:15:33 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "155"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": \"The specified id does not exist in the database\",\n    \"isSuccess\": false,\n    \"code\": 404,\n    \"errorMessage\": \"The specified id does not exist in the database\"\n}"
+						},
+						{
+							"name": "Get audio by id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{domain}}/api/Audio/3"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 05 May 2021 23:15:44 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "210"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 0,\n    \"categories\": [\n        {\n            \"id\": 1,\n            \"name\": \"Dormir\"\n        }\n    ],\n    \"name\": \"Holy\",\n    \"duration\": \"4,166666666666667m\",\n    \"authorName\": \"Justin Bieber\",\n    \"urlImage\": \"https://en.wikipedia.org/wiki/File:Holy_-_Justin_Bieber.png\",\n    \"urlAudio\": \"\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update audio",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"All of me \",\r\n    \"duration\":\"170m\",\r\n    \"authorName\":\"Jhon Legend\",\r\n    \"UrlImage\":\"\",\r\n    \"UrlAudio\":\"\",\r\n    \"Categories\": \r\n    [\r\n        {\r\n        \"id\": 2    \r\n        } \r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{domain}}/api/Audio/10"
+					},
+					"response": [
+						{
+							"name": "Update audio",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{Authorization}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"All of me\",\r\n    \"duration\":\"250s\",\r\n    \"authorName\":\"Jhon Legend\",\r\n    \"UrlImage\":\"incorrect\",\r\n    \"UrlAudio\":\"\",\r\n    \"Categories\": \r\n    [\r\n        {\r\n        \"id\": \"3\"    \r\n        }   \r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{domain}}/api/Audio/3"
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 05 May 2021 23:24:04 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "97"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": \"Invalid url format\",\n    \"isSuccess\": false,\n    \"code\": 422,\n    \"errorMessage\": \"Invalid url format\"\n}"
+						},
+						{
+							"name": "Update audio",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{Authorization}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"All of me\",\r\n    \"duration\":\"250s\",\r\n    \"authorName\":\"Jhon Legend\",\r\n    \"UrlImage\":\"\",\r\n    \"UrlAudio\":\"\",\r\n    \"Categories\": \r\n    [\r\n        {\r\n        \"id\": \"3\"    \r\n        }   \r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{domain}}/api/Audio/3"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 05 May 2021 23:24:17 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "Audio Updated"
+						},
+						{
+							"name": "Update audio",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{Authorization}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"All of me\",\r\n    \"duration\":\"250duration\",\r\n    \"authorName\":\"Jhon Legend\",\r\n    \"UrlImage\":\"\",\r\n    \"UrlAudio\":\"\",\r\n    \"Categories\": \r\n    [\r\n        {\r\n        \"id\": \"3\"    \r\n        }   \r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{domain}}/api/Audio/3"
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 05 May 2021 23:24:29 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "107"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": \"Invalid duration format\",\n    \"isSuccess\": false,\n    \"code\": 422,\n    \"errorMessage\": \"Invalid duration format\"\n}"
+						},
+						{
+							"name": "Update audio",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{Authorization}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"\",\r\n    \"duration\":\"250s\",\r\n    \"authorName\":\"Jhon Legend\",\r\n    \"UrlImage\":\"\",\r\n    \"UrlAudio\":\"\",\r\n    \"Categories\": \r\n    [\r\n        {\r\n        \"id\": \"3\"    \r\n        }   \r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{domain}}/api/Audio/3"
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 05 May 2021 23:24:43 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "97"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": \"Invalid empty name\",\n    \"isSuccess\": false,\n    \"code\": 422,\n    \"errorMessage\": \"Invalid empty name\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete audio by id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"url": "{{domain}}/api/Audio/21"
+					},
+					"response": [
+						{
+							"name": "Delete audio by id",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{Authorization}}",
+										"type": "text"
+									}
+								],
+								"url": "{{domain}}/api/Audio/1"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 05 May 2021 23:14:12 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "Audio removed"
+						},
+						{
+							"name": "Delete audio by id",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{Authorization}}",
+										"type": "text"
+									}
+								],
+								"url": "{{domain}}/api/Audio/12"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 05 May 2021 23:14:20 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "89"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": \"No audio found\",\n    \"isSuccess\": false,\n    \"code\": 404,\n    \"errorMessage\": \"No audio found\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Playlist endpoints",
+			"item": [
+				{
+					"name": "Get playlists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{domain}}/api/Playlist"
+					},
+					"response": [
+						{
+							"name": "Get playlists",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{domain}}/api/Playlist"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 00:07:01 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "495"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"categories\": [\n            {\n                \"id\": 3,\n                \"name\": \"Musica\"\n            }\n        ],\n        \"audios\": [\n            {\n                \"id\": 3,\n                \"categories\": [\n                    {\n                        \"id\": 3,\n                        \"name\": \"Musica\"\n                    }\n                ],\n                \"associatedToPlaylist\": true,\n                \"name\": \"All of me\",\n                \"duration\": 250,\n                \"authorName\": \"Jhon Legend\",\n                \"urlImage\": \"\",\n                \"urlAudio\": \"\"\n            }\n        ],\n        \"name\": \"New songs\",\n        \"description\": \"songs 2021\",\n        \"urlImage\": \"https://www.google.com/search?q=2021&sxsrf=ALeKk031sM_KeF0zSoqxrj0ZirU7X4JI4g:1620258964111&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiPrf__3rPwAhVkqJUCHZq0BgQQ_AUoAXoECAEQAw&biw=856&bih=810#imgrc=tv6rZ7kFYmnH9M\"\n    }\n]"
+						},
+						{
+							"name": "Get playlists",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{domain}}/api/Playlist"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 00:57:56 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1571"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"categories\": [\n            {\n                \"id\": 3,\n                \"name\": \"Musica\"\n            }\n        ],\n        \"audios\": [\n            {\n                \"id\": 3,\n                \"categories\": [\n                    {\n                        \"id\": 3,\n                        \"name\": \"Musica\"\n                    }\n                ],\n                \"associatedToPlaylist\": true,\n                \"name\": \"All of me\",\n                \"duration\": 250,\n                \"authorName\": \"Jhon Legend\",\n                \"urlImage\": \"\",\n                \"urlAudio\": \"\"\n            },\n            {\n                \"id\": 4,\n                \"categories\": [\n                    {\n                        \"id\": 3,\n                        \"name\": \"Musica\"\n                    }\n                ],\n                \"associatedToPlaylist\": true,\n                \"name\": \"Let it be\",\n                \"duration\": 250,\n                \"authorName\": \"The Beatles\",\n                \"urlImage\": \"\",\n                \"urlAudio\": \"\"\n            },\n            {\n                \"id\": 5,\n                \"categories\": [\n                    {\n                        \"id\": 2,\n                        \"name\": \"Meditar\"\n                    }\n                ],\n                \"associatedToPlaylist\": false,\n                \"name\": \"Let it be\",\n                \"duration\": 250,\n                \"authorName\": \"The Beatles\",\n                \"urlImage\": \"\",\n                \"urlAudio\": \"\"\n            },\n            {\n                \"id\": 6,\n                \"categories\": [\n                    {\n                        \"id\": 2,\n                        \"name\": \"Meditar\"\n                    },\n                    {\n                        \"id\": 3,\n                        \"name\": \"Musica\"\n                    }\n                ],\n                \"associatedToPlaylist\": true,\n                \"name\": \"All of me\",\n                \"duration\": 250,\n                \"authorName\": \"Jhon Legend\",\n                \"urlImage\": \"\",\n                \"urlAudio\": \"\"\n            }\n        ],\n        \"name\": \"New songs\",\n        \"description\": \"songs 2021\",\n        \"urlImage\": \"https://www.google.com/search?q=2021&sxsrf=ALeKk031sM_KeF0zSoqxrj0ZirU7X4JI4g:1620258964111&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiPrf__3rPwAhVkqJUCHZq0BgQQ_AUoAXoECAEQAw&biw=856&bih=810#imgrc=tv6rZ7kFYmnH9M\"\n    },\n    {\n        \"id\": 10,\n        \"categories\": [\n            {\n                \"id\": 1,\n                \"name\": \"Dormir\"\n            }\n        ],\n        \"audios\": [\n            {\n                \"id\": 3,\n                \"categories\": [\n                    {\n                        \"id\": 3,\n                        \"name\": \"Musica\"\n                    }\n                ],\n                \"associatedToPlaylist\": true,\n                \"name\": \"All of me\",\n                \"duration\": 250,\n                \"authorName\": \"Jhon Legend\",\n                \"urlImage\": \"\",\n                \"urlAudio\": \"\"\n            }\n        ],\n        \"name\": \"Old songs\",\n        \"description\": \"Old songs\",\n        \"urlImage\": \"\"\n    },\n    {\n        \"id\": 11,\n        \"categories\": [\n            {\n                \"id\": 1,\n                \"name\": \"Dormir\"\n            }\n        ],\n        \"audios\": [\n            {\n                \"id\": 7,\n                \"categories\": [],\n                \"associatedToPlaylist\": false,\n                \"name\": \"See you again\",\n                \"duration\": 0,\n                \"authorName\": \"\",\n                \"urlImage\": \"\",\n                \"urlAudio\": \"\"\n            }\n        ],\n        \"name\": \"Old songs\",\n        \"description\": \"Old songs\",\n        \"urlImage\": \"\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Associate audio toplaylist",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"url": "{{domain}}/api/Playlist/16/Audios/19"
+					},
+					"response": [
+						{
+							"name": "Associate audio toplaylist",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{Authorization}}",
+										"type": "text"
+									}
+								],
+								"url": "{{domain}}/api/Playlist/2/Audios/3"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 00:08:34 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "155"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": \"The specified id does not exist in the database\",\n    \"isSuccess\": false,\n    \"code\": 404,\n    \"errorMessage\": \"The specified id does not exist in the database\"\n}"
+						},
+						{
+							"name": "Associate audio toplaylist",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{Authorization}}",
+										"type": "text"
+									}
+								],
+								"url": "{{domain}}/api/Playlist/1/Audios/23"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 00:08:47 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "155"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": \"The specified id does not exist in the database\",\n    \"isSuccess\": false,\n    \"code\": 404,\n    \"errorMessage\": \"The specified id does not exist in the database\"\n}"
+						},
+						{
+							"name": "Associate audio toplaylist",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{Authorization}}",
+										"type": "text"
+									}
+								],
+								"url": "{{domain}}/api/Playlist/1/Audios/5"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 00:28:17 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1025"
+								},
+								{
+									"key": "Location",
+									"value": "api/Playlist/1/Audio/5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"categories\": [\n        {\n            \"id\": 3,\n            \"name\": \"Musica\"\n        }\n    ],\n    \"audios\": [\n        {\n            \"id\": 3,\n            \"categories\": [\n                {\n                    \"id\": 3,\n                    \"name\": \"Musica\"\n                }\n            ],\n            \"associatedToPlaylist\": true,\n            \"name\": \"All of me\",\n            \"duration\": 250,\n            \"authorName\": \"Jhon Legend\",\n            \"urlImage\": \"\",\n            \"urlAudio\": \"\"\n        },\n        {\n            \"id\": 4,\n            \"categories\": [\n                {\n                    \"id\": 3,\n                    \"name\": \"Musica\"\n                }\n            ],\n            \"associatedToPlaylist\": true,\n            \"name\": \"Let it be\",\n            \"duration\": 250,\n            \"authorName\": \"The Beatles\",\n            \"urlImage\": \"\",\n            \"urlAudio\": \"\"\n        },\n        {\n            \"id\": 5,\n            \"categories\": [\n                {\n                    \"id\": 2,\n                    \"name\": \"Meditar\"\n                }\n            ],\n            \"associatedToPlaylist\": false,\n            \"name\": \"Let it be\",\n            \"duration\": 250,\n            \"authorName\": \"The Beatles\",\n            \"urlImage\": \"\",\n            \"urlAudio\": \"\"\n        },\n        {\n            \"id\": 6,\n            \"categories\": [\n                {\n                    \"id\": 2,\n                    \"name\": \"Meditar\"\n                },\n                {\n                    \"id\": 3,\n                    \"name\": \"Musica\"\n                }\n            ],\n            \"associatedToPlaylist\": true,\n            \"name\": \"All of me\",\n            \"duration\": 250,\n            \"authorName\": \"Jhon Legend\",\n            \"urlImage\": \"\",\n            \"urlAudio\": \"\"\n        }\n    ],\n    \"name\": \"New songs\",\n    \"description\": \"songs 2021\",\n    \"urlImage\": \"https://www.google.com/search?q=2021&sxsrf=ALeKk031sM_KeF0zSoqxrj0ZirU7X4JI4g:1620258964111&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiPrf__3rPwAhVkqJUCHZq0BgQQ_AUoAXoECAEQAw&biw=856&bih=810#imgrc=tv6rZ7kFYmnH9M\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get playlist by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{domain}}/api/Playlist/19"
+					},
+					"response": [
+						{
+							"name": "Get playlist by id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{domain}}/api/Playlist/23"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 00:06:13 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "155"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": \"The specified id does not exist in the database\",\n    \"isSuccess\": false,\n    \"code\": 404,\n    \"errorMessage\": \"The specified id does not exist in the database\"\n}"
+						},
+						{
+							"name": "Get playlist by id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{domain}}/api/Playlist/1"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 00:06:23 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "493"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"categories\": [\n        {\n            \"id\": 3,\n            \"name\": \"Musica\"\n        }\n    ],\n    \"audios\": [\n        {\n            \"id\": 3,\n            \"categories\": [\n                {\n                    \"id\": 3,\n                    \"name\": \"Musica\"\n                }\n            ],\n            \"associatedToPlaylist\": true,\n            \"name\": \"All of me\",\n            \"duration\": 250,\n            \"authorName\": \"Jhon Legend\",\n            \"urlImage\": \"\",\n            \"urlAudio\": \"\"\n        }\n    ],\n    \"name\": \"New songs\",\n    \"description\": \"songs 2021\",\n    \"urlImage\": \"https://www.google.com/search?q=2021&sxsrf=ALeKk031sM_KeF0zSoqxrj0ZirU7X4JI4g:1620258964111&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiPrf__3rPwAhVkqJUCHZq0BgQQ_AUoAXoECAEQAw&biw=856&bih=810#imgrc=tv6rZ7kFYmnH9M\"\n}"
+						},
+						{
+							"name": "Get playlist by id",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{domain}}/api/Playlist/19"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 05:26:01 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "290"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 19,\n    \"categories\": [\n        {\n            \"id\": 2,\n            \"name\": \"Meditar\"\n        }\n    ],\n    \"audios\": [\n        {\n            \"id\": 4,\n            \"categories\": [\n                {\n                    \"id\": 3,\n                    \"name\": \"Musica\"\n                }\n            ],\n            \"associatedToPlaylist\": true,\n            \"name\": \"All of me \",\n            \"duration\": 10200,\n            \"authorName\": \"Jhon Legend\",\n            \"urlImage\": \"\",\n            \"urlAudio\": \"\"\n        }\n    ],\n    \"name\": \"Playlist\",\n    \"description\": \"Old songs\",\n    \"urlImage\": \"\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Create playlist",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"\",\r\n    \"description\":\"Todas las canciones del mejor musical que hay\",\r\n    \"UrlImage\":\"\",\r\n    \"categories\": \r\n        [\r\n            {\r\n                \"id\": 2\r\n            }\r\n    ],\r\n    \"audios\": [\r\n        {\"name\": \"Wait for it\"}\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{domain}}/api/Playlist"
+					},
+					"response": [
+						{
+							"name": "Create playlist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Old songs\",\r\n    \"description\":\"Old songs\",\r\n    \"UrlImage\":\"\",\r\n    \"categories\": \r\n        [\r\n            {\"id\": 2}\r\n    ],    \r\n    \"audios\": \r\n    [\r\n            {\"id\":2}\r\n        ]    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{domain}}/api/Playlist"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sat, 01 May 2021 17:26:59 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "Playlist created"
+						},
+						{
+							"name": "Create playlist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Old songs\",\r\n    \"description\": \"Old songs\",\r\n    \"UrlImage\": \"\",\r\n    \"categories\": [\r\n        {\r\n            \"id\": 1\r\n        }\r\n    ],\r\n    \"audios\": [\r\n        {\r\n            \"id\": \"8\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{domain}}/api/Playlist"
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 00:53:52 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "97"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": \"Invalid empty name\",\n    \"isSuccess\": false,\n    \"code\": 422,\n    \"errorMessage\": \"Invalid empty name\"\n}"
+						},
+						{
+							"name": "Create playlist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{Authorization}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Playlist\",\r\n    \"description\":\"Old songs\",\r\n    \"UrlImage\":\"\",\r\n    \"categories\": \r\n        [\r\n            {\r\n                \"id\": 2\r\n            }\r\n    ],    \r\n    \"audios\": [\r\n        {\"id\":4}\r\n        ]    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{domain}}/api/Playlist"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 05:23:19 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "290"
+								},
+								{
+									"key": "Location",
+									"value": "api/Playlist/Playlist"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 19,\n    \"categories\": [\n        {\n            \"id\": 2,\n            \"name\": \"Meditar\"\n        }\n    ],\n    \"audios\": [\n        {\n            \"id\": 4,\n            \"categories\": [\n                {\n                    \"id\": 3,\n                    \"name\": \"Musica\"\n                }\n            ],\n            \"associatedToPlaylist\": true,\n            \"name\": \"All of me \",\n            \"duration\": 10200,\n            \"authorName\": \"Jhon Legend\",\n            \"urlImage\": \"\",\n            \"urlAudio\": \"\"\n        }\n    ],\n    \"name\": \"Playlist\",\n    \"description\": \"Old songs\",\n    \"urlImage\": \"\"\n}"
+						},
+						{
+							"name": "Create playlist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{Authorization}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Playlist\",\r\n    \"description\":\"Old songs\",\r\n    \"UrlImage\":\"\",\r\n    \"categories\": \r\n        [\r\n            {\r\n                \"id\": 2\r\n            }\r\n    ],    \r\n    \"audios\": [\r\n        {\"name\":\"newSongPlaylist\"}\r\n        ]    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{domain}}/api/Playlist"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 05:24:48 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "282"
+								},
+								{
+									"key": "Location",
+									"value": "api/Playlist/Playlist"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 20,\n    \"categories\": [\n        {\n            \"id\": 2,\n            \"name\": \"Meditar\"\n        }\n    ],\n    \"audios\": [\n        {\n            \"id\": 17,\n            \"categories\": [\n                {\n                    \"id\": 2,\n                    \"name\": \"Meditar\"\n                }\n            ],\n            \"associatedToPlaylist\": true,\n            \"name\": \"newSongPlaylist\",\n            \"duration\": 0,\n            \"authorName\": \"\",\n            \"urlImage\": \"\",\n            \"urlAudio\": \"\"\n        }\n    ],\n    \"name\": \"Playlist\",\n    \"description\": \"Old songs\",\n    \"urlImage\": \"\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Add new audio to playlist",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{Authorization}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Help\",\r\n    \"duration\":\"250s\",\r\n    \"authorName\":\"The beatles\",\r\n    \"UrlImage\":\"\",\r\n    \"UrlAudio\":\"\",\r\n    \"Categories\": \r\n    [\r\n        {\r\n        \"id\": \"2\"    \r\n        }   \r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{domain}}/api/playlist/1"
+					},
+					"response": [
+						{
+							"name": "Add new audio to playlist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{Authorization}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"All of me\",\r\n    \"duration\":\"250s\",\r\n    \"authorName\":\"Jhon Legend\",\r\n    \"UrlImage\":\"\",\r\n    \"UrlAudio\":\"\",\r\n    \"Categories\": \r\n    [\r\n        {\r\n        \"id\": \"2\"    \r\n        }   \r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{domain}}/api/playlist/1"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 00:16:47 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "193"
+								},
+								{
+									"key": "Location",
+									"value": "api/Playlist/New songs/Audio/All of me"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 6,\n    \"categories\": [\n        {\n            \"id\": 2,\n            \"name\": \"Meditar\"\n        },\n        {\n            \"id\": 3,\n            \"name\": \"Musica\"\n        }\n    ],\n    \"associatedToPlaylist\": true,\n    \"name\": \"All of me\",\n    \"duration\": 250,\n    \"authorName\": \"Jhon Legend\",\n    \"urlImage\": \"\",\n    \"urlAudio\": \"\"\n}"
+						},
+						{
+							"name": "Add new audio to playlist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{Authorization}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"All of me\",\r\n    \"duration\":\"250s\",\r\n    \"authorName\":\"Jhon Legend\",\r\n    \"UrlImage\":\"\",\r\n    \"UrlAudio\":\"\",\r\n    \"Categories\": \r\n    [\r\n        {\r\n        \"id\": \"2\"    \r\n        }   \r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{domain}}/api/playlist/12"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 00:18:08 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "155"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": \"The specified id does not exist in the database\",\n    \"isSuccess\": false,\n    \"code\": 404,\n    \"errorMessage\": \"The specified id does not exist in the database\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update playlist",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"New songs\",\r\n    \"description\":\"songs 2021\",\r\n    \"UrlImage\":\"\",\r\n    \"categories\": \r\n        [\r\n            {\"id\": 2},\r\n            {\"id\": 3}\r\n    ],    \r\n    \"audios\": \r\n    [\r\n            {\"id\":3}\r\n        ]    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{domain}}/api/Playlist/1"
+					},
+					"response": [
+						{
+							"name": "Update playlist",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"New songs\",\r\n    \"description\":\"songs 2021\",\r\n    \"UrlImage\":\"\",\r\n    \"categories\": \r\n        [\r\n            {\"id\": 2},\r\n            {\"id\": 3}\r\n    ],    \r\n    \"audios\": \r\n    [\r\n            {\"id\":3}\r\n        ]    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{domain}}/api/Playlist/1"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 01:06:08 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "The audio was updated"
+						}
+					]
+				},
+				{
+					"name": "Get playlist by audio name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/Playlist/audio/name?name=All of me",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"Playlist",
+								"audio",
+								"name"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "All of me"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get playlist by audio name",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/Playlist/audio/name?name=song",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"Playlist",
+										"audio",
+										"name"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "song"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 00:21:06 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "95"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": \"No playlist found\",\n    \"isSuccess\": false,\n    \"code\": 404,\n    \"errorMessage\": \"No playlist found\"\n}"
+						},
+						{
+							"name": "Get playlist by audio name",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/Playlist/audio/name?name=All of me",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"Playlist",
+										"audio",
+										"name"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "All of me"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 00:21:19 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1027"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"categories\": [\n            {\n                \"id\": 3,\n                \"name\": \"Musica\"\n            }\n        ],\n        \"audios\": [\n            {\n                \"id\": 3,\n                \"categories\": [\n                    {\n                        \"id\": 3,\n                        \"name\": \"Musica\"\n                    }\n                ],\n                \"associatedToPlaylist\": true,\n                \"name\": \"All of me\",\n                \"duration\": 250,\n                \"authorName\": \"Jhon Legend\",\n                \"urlImage\": \"\",\n                \"urlAudio\": \"\"\n            },\n            {\n                \"id\": 4,\n                \"categories\": [\n                    {\n                        \"id\": 3,\n                        \"name\": \"Musica\"\n                    }\n                ],\n                \"associatedToPlaylist\": true,\n                \"name\": \"Let it be\",\n                \"duration\": 250,\n                \"authorName\": \"The Beatles\",\n                \"urlImage\": \"\",\n                \"urlAudio\": \"\"\n            },\n            {\n                \"id\": 5,\n                \"categories\": [\n                    {\n                        \"id\": 2,\n                        \"name\": \"Meditar\"\n                    }\n                ],\n                \"associatedToPlaylist\": false,\n                \"name\": \"Let it be\",\n                \"duration\": 250,\n                \"authorName\": \"The Beatles\",\n                \"urlImage\": \"\",\n                \"urlAudio\": \"\"\n            },\n            {\n                \"id\": 6,\n                \"categories\": [\n                    {\n                        \"id\": 2,\n                        \"name\": \"Meditar\"\n                    },\n                    {\n                        \"id\": 3,\n                        \"name\": \"Musica\"\n                    }\n                ],\n                \"associatedToPlaylist\": true,\n                \"name\": \"All of me\",\n                \"duration\": 250,\n                \"authorName\": \"Jhon Legend\",\n                \"urlImage\": \"\",\n                \"urlAudio\": \"\"\n            }\n        ],\n        \"name\": \"New songs\",\n        \"description\": \"songs 2021\",\n        \"urlImage\": \"https://www.google.com/search?q=2021&sxsrf=ALeKk031sM_KeF0zSoqxrj0ZirU7X4JI4g:1620258964111&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiPrf__3rPwAhVkqJUCHZq0BgQQ_AUoAXoECAEQAw&biw=856&bih=810#imgrc=tv6rZ7kFYmnH9M\"\n    }\n]"
+						},
+						{
+							"name": "Get playlist by audio name",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/Playlist/audio/name?name=All of me",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"Playlist",
+										"audio",
+										"name"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "All of me"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 05:28:09 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "293"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 19,\n        \"categories\": [\n            {\n                \"id\": 2,\n                \"name\": \"Meditar\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"Musica\"\n            }\n        ],\n        \"audios\": [\n            {\n                \"id\": 3,\n                \"categories\": [],\n                \"associatedToPlaylist\": false,\n                \"name\": \"All of me\",\n                \"duration\": 250,\n                \"authorName\": \"Jhon Legend\",\n                \"urlImage\": \"\",\n                \"urlAudio\": \"\"\n            }\n        ],\n        \"name\": \"New songs\",\n        \"description\": \"songs 2021\",\n        \"urlImage\": \"\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Delete playlist",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{domain}}/api/Playlist/20"
+					},
+					"response": [
+						{
+							"name": "Delete playlist",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": "{{domain}}/api/Playlist/10"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 01:07:48 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "Element removed"
+						}
+					]
+				},
+				{
+					"name": "Get playlist by category name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/Playlist/Category?name=Dormir",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"Playlist",
+								"Category"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Dormir"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get playlist by category name",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/Playlist/category/name?name=Category",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"Playlist",
+										"category",
+										"name"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Category"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 00:21:44 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "95"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": \"No playlist found\",\n    \"isSuccess\": false,\n    \"code\": 404,\n    \"errorMessage\": \"No playlist found\"\n}"
+						},
+						{
+							"name": "Get playlist by category name",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/Playlist/category/name?name=Musica",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"Playlist",
+										"category",
+										"name"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Musica"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 00:22:00 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1027"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"categories\": [\n            {\n                \"id\": 3,\n                \"name\": \"Musica\"\n            }\n        ],\n        \"audios\": [\n            {\n                \"id\": 3,\n                \"categories\": [\n                    {\n                        \"id\": 3,\n                        \"name\": \"Musica\"\n                    }\n                ],\n                \"associatedToPlaylist\": true,\n                \"name\": \"All of me\",\n                \"duration\": 250,\n                \"authorName\": \"Jhon Legend\",\n                \"urlImage\": \"\",\n                \"urlAudio\": \"\"\n            },\n            {\n                \"id\": 4,\n                \"categories\": [\n                    {\n                        \"id\": 3,\n                        \"name\": \"Musica\"\n                    }\n                ],\n                \"associatedToPlaylist\": true,\n                \"name\": \"Let it be\",\n                \"duration\": 250,\n                \"authorName\": \"The Beatles\",\n                \"urlImage\": \"\",\n                \"urlAudio\": \"\"\n            },\n            {\n                \"id\": 5,\n                \"categories\": [\n                    {\n                        \"id\": 2,\n                        \"name\": \"Meditar\"\n                    }\n                ],\n                \"associatedToPlaylist\": false,\n                \"name\": \"Let it be\",\n                \"duration\": 250,\n                \"authorName\": \"The Beatles\",\n                \"urlImage\": \"\",\n                \"urlAudio\": \"\"\n            },\n            {\n                \"id\": 6,\n                \"categories\": [\n                    {\n                        \"id\": 2,\n                        \"name\": \"Meditar\"\n                    },\n                    {\n                        \"id\": 3,\n                        \"name\": \"Musica\"\n                    }\n                ],\n                \"associatedToPlaylist\": true,\n                \"name\": \"All of me\",\n                \"duration\": 250,\n                \"authorName\": \"Jhon Legend\",\n                \"urlImage\": \"\",\n                \"urlAudio\": \"\"\n            }\n        ],\n        \"name\": \"New songs\",\n        \"description\": \"songs 2021\",\n        \"urlImage\": \"https://www.google.com/search?q=2021&sxsrf=ALeKk031sM_KeF0zSoqxrj0ZirU7X4JI4g:1620258964111&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiPrf__3rPwAhVkqJUCHZq0BgQQ_AUoAXoECAEQAw&biw=856&bih=810#imgrc=tv6rZ7kFYmnH9M\"\n    }\n]"
+						},
+						{
+							"name": "Get playlist by category name",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/Playlist/Category/name?name=Musica",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"Playlist",
+										"Category",
+										"name"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Musica"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 05:28:52 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "584"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"categories\": [\n            {\n                \"id\": 3,\n                \"name\": \"Musica\"\n            }\n        ],\n        \"audios\": [\n            {\n                \"id\": 4,\n                \"categories\": [\n                    {\n                        \"id\": 3,\n                        \"name\": \"Musica\"\n                    }\n                ],\n                \"associatedToPlaylist\": true,\n                \"name\": \"All of me \",\n                \"duration\": 10200,\n                \"authorName\": \"Jhon Legend\",\n                \"urlImage\": \"\",\n                \"urlAudio\": \"\"\n            }\n        ],\n        \"name\": \"New songs\",\n        \"description\": \"songs 2021\",\n        \"urlImage\": \"\"\n    },\n    {\n        \"id\": 19,\n        \"categories\": [\n            {\n                \"id\": 2,\n                \"name\": \"Meditar\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"Musica\"\n            }\n        ],\n        \"audios\": [\n            {\n                \"id\": 3,\n                \"categories\": [],\n                \"associatedToPlaylist\": false,\n                \"name\": \"All of me\",\n                \"duration\": 250,\n                \"authorName\": \"Jhon Legend\",\n                \"urlImage\": \"\",\n                \"urlAudio\": \"\"\n            }\n        ],\n        \"name\": \"New songs\",\n        \"description\": \"songs 2021\",\n        \"urlImage\": \"\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Get playlist by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{domain}}/api/Playlist/name?name=Playlist",
+							"host": [
+								"{{domain}}"
+							],
+							"path": [
+								"api",
+								"Playlist",
+								"name"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Playlist"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get playlist by name",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/Playlist/name?name=New songs",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"Playlist",
+										"name"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "New songs"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 00:24:54 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1027"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"categories\": [\n            {\n                \"id\": 3,\n                \"name\": \"Musica\"\n            }\n        ],\n        \"audios\": [\n            {\n                \"id\": 3,\n                \"categories\": [\n                    {\n                        \"id\": 3,\n                        \"name\": \"Musica\"\n                    }\n                ],\n                \"associatedToPlaylist\": true,\n                \"name\": \"All of me\",\n                \"duration\": 250,\n                \"authorName\": \"Jhon Legend\",\n                \"urlImage\": \"\",\n                \"urlAudio\": \"\"\n            },\n            {\n                \"id\": 4,\n                \"categories\": [\n                    {\n                        \"id\": 3,\n                        \"name\": \"Musica\"\n                    }\n                ],\n                \"associatedToPlaylist\": true,\n                \"name\": \"Let it be\",\n                \"duration\": 250,\n                \"authorName\": \"The Beatles\",\n                \"urlImage\": \"\",\n                \"urlAudio\": \"\"\n            },\n            {\n                \"id\": 5,\n                \"categories\": [\n                    {\n                        \"id\": 2,\n                        \"name\": \"Meditar\"\n                    }\n                ],\n                \"associatedToPlaylist\": false,\n                \"name\": \"Let it be\",\n                \"duration\": 250,\n                \"authorName\": \"The Beatles\",\n                \"urlImage\": \"\",\n                \"urlAudio\": \"\"\n            },\n            {\n                \"id\": 6,\n                \"categories\": [\n                    {\n                        \"id\": 2,\n                        \"name\": \"Meditar\"\n                    },\n                    {\n                        \"id\": 3,\n                        \"name\": \"Musica\"\n                    }\n                ],\n                \"associatedToPlaylist\": true,\n                \"name\": \"All of me\",\n                \"duration\": 250,\n                \"authorName\": \"Jhon Legend\",\n                \"urlImage\": \"\",\n                \"urlAudio\": \"\"\n            }\n        ],\n        \"name\": \"New songs\",\n        \"description\": \"songs 2021\",\n        \"urlImage\": \"https://www.google.com/search?q=2021&sxsrf=ALeKk031sM_KeF0zSoqxrj0ZirU7X4JI4g:1620258964111&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiPrf__3rPwAhVkqJUCHZq0BgQQ_AUoAXoECAEQAw&biw=856&bih=810#imgrc=tv6rZ7kFYmnH9M\"\n    }\n]"
+						},
+						{
+							"name": "Get playlist by name",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{domain}}/api/Playlist/name?name=Playlists",
+									"host": [
+										"{{domain}}"
+									],
+									"path": [
+										"api",
+										"Playlist",
+										"name"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Playlists"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 06 May 2021 00:25:08 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "95"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": \"No playlist found\",\n    \"isSuccess\": false,\n    \"code\": 404,\n    \"errorMessage\": \"No playlist found\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Login endpoints",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "admin@admin.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "pass",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{domain}}/api/login"
+					},
+					"response": [
+						{
+							"name": "Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "email@me1.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "pass",
+											"type": "text"
+										}
+									]
+								},
+								"url": "{{domain}}/api/login"
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 05 May 2021 22:34:42 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Content-Length",
+									"value": "159"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"content\": \"Error authenticating, incorrect Email or Password\",\n    \"isSuccess\": false,\n    \"code\": 401,\n    \"errorMessage\": \"Error authenticating, incorrect Email or Password\"\n}"
+						},
+						{
+							"name": "Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "Joselen@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "12345678",
+											"type": "text"
+										}
+									]
+								},
+								"url": "{{domain}}/api/login"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Wed, 05 May 2021 22:46:47 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "14b13a80-1a9d-4a68-942c-37f7e92c71b9"
+						}
+					]
+				}
+			]
+		}
+	]
+}
