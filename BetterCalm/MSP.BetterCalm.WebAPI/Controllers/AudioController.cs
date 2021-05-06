@@ -65,14 +65,6 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             return Created($"api/Audio/{audioAdded.Name}", audioAdded);
         }
 
-        [HttpDelete()]
-        [ServiceFilter(typeof(FilterAuthentication))]
-        public IActionResult DeleteAudio([FromBody] AudioDto audio)
-        {
-            _audioService.DeleteAudio(audio.Id);
-            return Ok("Audio removed");
-        }
-
         [HttpDelete("{id}")]
         [ServiceFilter(typeof(FilterAuthentication))]
         public IActionResult DeleteAudio([FromRoute] int id)

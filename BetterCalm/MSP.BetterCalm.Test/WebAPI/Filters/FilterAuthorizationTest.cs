@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Security.Authentication;
 using Microsoft.AspNetCore.Http;
@@ -10,6 +11,7 @@ using Moq;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.Domain;
+using MSP.BetterCalm.WebAPI.Dtos;
 using MSP.BetterCalm.WebAPI.Filters;
 
 namespace MSP.BetterCalm.Test.WebAPI.Filters
@@ -50,9 +52,16 @@ namespace MSP.BetterCalm.Test.WebAPI.Filters
         }
         
         [TestMethod]
-        [ExpectedException(typeof(AuthenticationException))]
         public void TestFilterAuthorizationErrorNoToken()
         {
+            Exception exception = new NotFoundAdministrator();
+            ErrorDto response = new ErrorDto()
+            {
+                IsSuccess = false,
+                ErrorMessage = exception.Message,
+                Content = exception.Message,
+                Code = 401
+            };
             AuthorizationFilterContext actionContext = new AuthorizationFilterContext(
                 new ActionContext()
                 {
@@ -63,6 +72,8 @@ namespace MSP.BetterCalm.Test.WebAPI.Filters
                 new List<IFilterMetadata>()
             );
             filter.OnAuthorization(actionContext);
+            ObjectResult obj = actionContext.Result as ObjectResult;
+            Assert.AreEqual(obj.Value, response );
         }
         
         [TestMethod]

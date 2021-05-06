@@ -37,17 +37,19 @@ namespace MSP.BetterCalm.WebAPI.Filters
                     StatusCode = error.Code
                 };
             }
-
-            try
+            else
             {
-                administratorService.GetAdministratorByToken(token);
-            }
-            catch (NotFoundAdministrator)
-            {
-                context.Result= new ObjectResult(error)
+                try
                 {
-                    StatusCode = error.Code
-                };
+                    administratorService.GetAdministratorByToken(token);
+                }
+                catch (NotFoundAdministrator)
+                {
+                    context.Result = new ObjectResult(error)
+                    {
+                        StatusCode = error.Code
+                    };
+                }
             }
         }
     }

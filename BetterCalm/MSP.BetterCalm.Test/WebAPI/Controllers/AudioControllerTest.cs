@@ -183,27 +183,7 @@ namespace MSP.BetterCalm.Test.WebAPI
             mockAudioService.Setup(m => m.DeleteAudio(_audio.Id)).Throws(new KeyNotFoundException());
             AudioController.DeleteAudio(_audio.Id);
         }
-        
-        [TestMethod]
-        public void TestDeleteAudioFromBody()
-        {
-            mockAudioService.Setup(m => m.SetAudio(_audio)).Returns(_audio);
-            AudioController.CreateAudio(AudioDto);
-            mockAudioService.Setup(m => m.DeleteAudio(_audio.Id));
-            var result = AudioController.DeleteAudio(AudioDto);
-            var okResult = result as OkObjectResult;
-            var value = okResult.Value;
-            Assert.AreEqual("Audio removed",value);
-        }
-        
-        [TestMethod]
-        [ExpectedException(typeof(KeyNotFoundException))]
-        public void TestNoDeleteAudioFromBody()
-        {
-            mockAudioService.Setup(m => m.DeleteAudio(_audio.Id)).Throws(new KeyNotFoundException());
-            AudioController.DeleteAudio(AudioDto);
-        }
-        
+       
         [TestMethod]
         public void TestGetAudioById()
         {
