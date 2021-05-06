@@ -70,11 +70,32 @@ namespace MSP.BetterCalm.Test
         [TestMethod]
         public void GetSetPlaylistUrlImage()
         {
-            string playlistUrlImage = "UrlImage";
-            Playlist playlist = new Playlist();
-            playlist.UrlImage = "UrlImage";
-            string getplaylistUrlImage = playlist.UrlImage;
-            Assert.AreEqual(playlistUrlImage, getplaylistUrlImage);
+            string AudioUrlImage = "https://www.google.com/search?q=paisaje&tbm=isch&ved=2ahUKEwifk_70vbHwAhWHMrkGHdFZCwUQ2-cCegQIABAA&oq=paisaje&gs_lcp=CgNpbWcQAzIECCMQJzIHCAAQsQMQQzIKCAAQsQMQgwEQQzIHCAAQsQMQQzIHCAAQsQMQQzIHCAAQsQMQQzIECAAQQzIECAAQQzICCAAyAggAOgUIABCxAzoICAAQsQMQgwFQrfQDWPD7A2CE_QNoAHAAeACAAY4CiAHRCZIBBTAuNS4ymAEAoAEBqgELZ3dzLXdpei1pbWfAAQE&sclient=img&ei=cwGSYN-NCofl5OUP0bOtKA#imgrc=Mo3K6BpTEC_zGM";
+            Playlist audio = new Playlist();
+            audio.UrlImage = "https://www.google.com/search?q=paisaje&tbm=isch&ved=2ahUKEwifk_70vbHwAhWHMrkGHdFZCwUQ2-cCegQIABAA&oq=paisaje&gs_lcp=CgNpbWcQAzIECCMQJzIHCAAQsQMQQzIKCAAQsQMQgwEQQzIHCAAQsQMQQzIHCAAQsQMQQzIHCAAQsQMQQzIECAAQQzIECAAQQzICCAAyAggAOgUIABCxAzoICAAQsQMQgwFQrfQDWPD7A2CE_QNoAHAAeACAAY4CiAHRCZIBBTAuNS4ymAEAoAEBqgELZ3dzLXdpei1pbWfAAQE&sclient=img&ei=cwGSYN-NCofl5OUP0bOtKA#imgrc=Mo3K6BpTEC_zGM";
+            string getAudioUrlImage = audio.UrlImage;
+            Assert.AreEqual(AudioUrlImage, getAudioUrlImage);
+        }
+        
+        [TestMethod]
+        public void GetSetPlaylistEmptyUrlImage()
+        {
+            string AudioUrlImage = "";
+            Playlist audio = new Playlist();
+            audio.UrlImage = "";
+            string getAudioUrlImage = audio.UrlImage;
+            Assert.AreEqual(AudioUrlImage, getAudioUrlImage);
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(InvalidUrl), "")]
+        public void GetSetInalidPlaylistUrlImage()
+        {
+            string AudioUrlImage = "UrlImage";
+            Playlist audio = new Playlist();
+            audio.UrlImage = "UrlImage";
+            string getAudioUrlImage = audio.UrlImage;
+            Assert.AreEqual(AudioUrlImage, getAudioUrlImage);
         }
 
         [TestMethod]
@@ -193,7 +214,7 @@ namespace MSP.BetterCalm.Test
                 Id=1,
               Name  = "Entrena tu mente",
               Description = "para despejar",
-              UrlImage="url"
+              UrlImage=""
             };
             Assert.AreEqual(playlist, playlist);
         }
@@ -206,7 +227,7 @@ namespace MSP.BetterCalm.Test
                 Id=1,
                 Name  = "Entrena tu mente",
                 Description = "para despejar",
-                UrlImage="url"
+                UrlImage=""
             };
             Assert.AreNotEqual(playlist, null);
         }
@@ -226,7 +247,7 @@ namespace MSP.BetterCalm.Test
                 Id=1,
                 Name  = "Entrena tu mente",
                 Description = "para despejar",
-                UrlImage="url"
+                UrlImage=""
             };
             Assert.IsFalse( playlist.Equals(null));
         }
@@ -239,7 +260,7 @@ namespace MSP.BetterCalm.Test
                 Id=1,
                 Name  = "Entrena tu mente",
                 Description = "para despejar",
-                UrlImage="url"
+                UrlImage=""
             };
             Assert.IsFalse( playlist.Equals(new Audio()));
         }

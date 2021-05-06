@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Authentication.ExtendedProtection;
+﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
 
 namespace MSP.BetterCalm.Domain
@@ -14,18 +13,34 @@ namespace MSP.BetterCalm.Domain
         private string name;
         public string Name {get=>name; set=>SetName(value); }
         
+        private string description;
+        
+        public string Description {get=>description; set=>SetDescription(value); }
+
+        private string urlImage;
+        public string UrlImage {get=>urlImage; set=>SetUrlImage(value); }
+
         public void SetName(string vName)
         {
-            if (vName.Length>0)
+            if (vName.Length > 0)
                 name=vName;
             else
                 throw new InvalidNameLength();
         }
-        public string UrlImage {get; set; }
-
-        private string description;
-        public string Description {get=>description; set=>SetDescription(value); }
-
+        
+        private bool IsUrlValid(string url)
+        {
+            string pattern = @"^(http|https|ftp|)\://|[a-zA-Z0-9\-\.]+\.[a-zA-Z](:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*[^\.\,\)\(\s]$";
+            Regex reg = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            return reg.IsMatch(url);
+        }
+        private void SetUrlImage(string vUrl)
+        {
+            if (IsUrlValid(vUrl) || vUrl == "")
+                urlImage=vUrl;
+            else
+                throw new InvalidUrl();
+        }
         private void SetDescription(string vDescription)
         {
             if (vDescription.Length < 150)
@@ -37,6 +52,7 @@ namespace MSP.BetterCalm.Domain
         {
             return Name.ToLower() == name.ToLower();
         }
+        
         public bool IsSameCategoryName(string name)
         {
             foreach (var category in Categories)
@@ -58,7 +74,7 @@ namespace MSP.BetterCalm.Domain
         
         public override bool Equals(object obj)
         {
-            if (obj==null) return false;
+            if (obj == null) return false;
             if (obj.GetType() != GetType()) return false;
             return Id == ((Playlist) obj).Id;
         }

@@ -35,7 +35,6 @@ namespace MSP.BetterCalm.DataAccess
 
         public D Find(Predicate<D> condition)
         {
-
             List<T> dtos = entity.ToList();
             foreach (var dto in dtos)
             {
@@ -44,9 +43,7 @@ namespace MSP.BetterCalm.DataAccess
                 if (condResult)
                     return dDto;
             }
-
             throw new KeyNotFoundException();
-  
         }
 
         public D FindById(int id)
@@ -86,11 +83,6 @@ namespace MSP.BetterCalm.DataAccess
             entity.Remove(ObjectToDeleteDto);
             context.SaveChanges();
 
-        }
-
-        public void Set(List<D> objectToAdd)
-        {
-            throw new NotImplementedException();
         }
 
         public D Update(D OldObject, D UpdatedObject)

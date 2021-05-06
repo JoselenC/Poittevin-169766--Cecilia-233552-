@@ -80,7 +80,7 @@ namespace MSP.BetterCalm.DataAccess
                     meetings.Add(
                         new Meeting()
                         {
-                            Patient = new Patient(){ PatientId = meeting.PatientId},
+                            Patient = new Patient(){ Id = meeting.PatientId},
                             DateTime = meeting.DateTime
                         }
                     );
@@ -121,8 +121,8 @@ namespace MSP.BetterCalm.DataAccess
                             Psychologist = objToUpdate,
                             Problematic = problematic
                         };
-                        problematics.Add(psychologistProblematicDto);
                     }
+                    problematics.Add(psychologistProblematicDto);
                 }  
             }
             objToUpdate.Problematics = problematics;

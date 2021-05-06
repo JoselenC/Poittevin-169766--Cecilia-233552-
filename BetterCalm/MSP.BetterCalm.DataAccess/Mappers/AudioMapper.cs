@@ -78,7 +78,16 @@ namespace MSP.BetterCalm.DataAccess
                     categories.Add(category);
                 }
             }
+
+            var audio = CreateAudioDomain(obj, context, categories);
+
+            return audio;
+        }
+
+        private static Audio CreateAudioDomain(AudioDto obj, ContextDB context, List<Category> categories)
+        {
             DbSet<PlaylistAudioDto> playlistAudioSet = context.Set<PlaylistAudioDto>();
+            DbSet<PlaylistCategoryDto> playlistCategorySet = context.Set<PlaylistCategoryDto>();
             PlaylistAudioDto playlistAudioDto = playlistAudioSet.FirstOrDefault(x => x.AudioID == obj.AudioDtoID);
             Audio audio = new Audio()
             {
@@ -93,8 +102,25 @@ namespace MSP.BetterCalm.DataAccess
             if (playlistAudioDto == null)
                 audio.AssociatedToPlaylist = false;
             else
-                audio.AssociatedToPlaylist = true;
+            {
+                List<PlaylistAudioDto> playlistsAudios = playlistAudioSet.Where(x => x.AudioID == obj.AudioDtoID).ToList();
+                for (int i = 0; i < playlistsAudios.Count(); i++)
+                {
+                    List<PlaylistCategoryDto> playlistsCategories =playlistCategorySet.Where(x =>
+                        x.PlaylistID == playlistsAudios[i].PlaylistID).ToList();
 
+                    for (int j = 0; j < playlistsCategories.Count(); j++)
+                    {
+                        CategoryDto categoryDto=context.Categories.FirstOrDefault(x => x.CategoryDtoID == playlistsCategories[i].CategoryID);
+                        Category category = new CategoryMapper().DtoToDomain(categoryDto, context);
+                        if (categories.Contains(category))
+                        {
+                            audio.AssociatedToPlaylist = true;
+                            return audio;
+                        }
+                    }
+                }
+            }
             return audio;
         }
 
@@ -126,39 +152,29 @@ namespace MSP.BetterCalm.DataAccess
 
         private List<AudioCategoryDto> UpdateAudioCategories(AudioDto objToUpdate, Audio updatedObject, ContextDB context, CategoryMapper categoryMapper)
         {
-            List<AudioCategoryDto> diffListOldValuesCategory = objToUpdate.AudiosCategoriesDto.Where(x =>
-                updatedObject.Categories.Contains(categoryMapper.DtoToDomain(x.CategoryDto, context))).ToList();
-            List<Category> diffListNewValuesCategory = new List<Category>();
-
+            List<AudioCategoryDto> categoriesToDelete = objToUpdate.AudiosCategoriesDto.Where(x =>
+                x.AudioID == objToUpdate.AudioDtoID).ToList();
+            foreach (AudioCategoryDto audioCategory in categoriesToDelete)
+            {
+                context.Set<AudioCategoryDto>().Remove(audioCategory);
+                context.SaveChanges();
+            }
+            List<Category> newCategoriesToAdd = new List<Category>();
+            List<AudioCategoryDto> audiosCategoriesToAdd = new List<AudioCategoryDto>();
             if (updatedObject.Categories != null)
             {
                 foreach (var category in updatedObject.Categories)
                 {
-                    Category categoryToAdd = categoryMapper.DtoToDomain(context.Categories.FirstOrDefault(x => x.CategoryDtoID == category.Id || x.Name == category.Name), context);
-                   
-                    AudioCategoryDto audioCategoryDto = new AudioCategoryDto()
-                    {
-                        CategoryID = categoryToAdd.Id, AudioID = objToUpdate.AudioDtoID,
-                        CategoryDto = categoryMapper.DomainToDto(categoryToAdd, context), AudioDto = objToUpdate
-                    };
-                    
-                    bool contain = false;
-                    foreach (var audioCategory in objToUpdate.AudiosCategoriesDto)
-                    {
-                        if (audioCategory.CategoryID == audioCategoryDto.CategoryID &&
-                            audioCategory.AudioID == audioCategoryDto.AudioID)
-                            contain = true;
-                    }
-
-                    if (!contain)
-                        diffListNewValuesCategory.Add(categoryToAdd);
+                    Category categoryToAdd = categoryMapper.DtoToDomain(context.Categories
+                        .FirstOrDefault(x => x.CategoryDtoID == category.Id || x.Name == category.Name), context);
+                    newCategoriesToAdd.Add(categoryToAdd);
                 }
 
-                diffListOldValuesCategory.AddRange(diffListNewValuesCategory.Select(x => new AudioCategoryDto() {
+                audiosCategoriesToAdd.AddRange(newCategoriesToAdd.Select(x => new AudioCategoryDto() {
                     CategoryDto = categoryMapper.DomainToDto(x, context), CategoryID = x.Id,
                     AudioDto = objToUpdate, AudioID = objToUpdate.AudioDtoID}));
             }
-            return diffListOldValuesCategory;
+            return audiosCategoriesToAdd;;
         }
       }
 }

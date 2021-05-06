@@ -41,14 +41,14 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             return Ok(playlists);
         }
 
-        [HttpGet("category/name")]
+        [HttpGet("category")]
         public IActionResult GetPlaylistByCategoryName([FromQuery] string name)
         {
             List<Playlist> playlists = _playlistService.GetPlaylistByCategoryName(name);
             return Ok(playlists);
         }
 
-        [HttpGet("audio/name")]
+        [HttpGet("audio")]
         public IActionResult GetPlaylistByAudioName([FromQuery] string name)
         {
             List<Playlist> playlists = _playlistService.GetPlaylistByAudioName(name);
@@ -70,6 +70,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         }
 
         [HttpPost ("{id}")]
+        [ServiceFilter(typeof(FilterAuthentication))]
         public IActionResult AddNewAudioToPlaylist([FromBody] AudioDto audio, [FromRoute] int id)
         {
             Playlist playlist = _playlistService.GetPlaylistById(id);
@@ -77,11 +78,12 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             return Created($"api/Playlist/{playlist.Name}/Audio/{audioAdded.Name}", audioAdded);
         }
         
-        [HttpPost ("{idPlaylist}/Audios/{id}")]
+        [ServiceFilter(typeof(FilterAuthentication))]
+        [HttpPut ("{idPlaylist}/Audios/{id}")]
         public IActionResult AssociateAudioToPlaylist([FromRoute] int id, int idPlaylist)
         {
-            _playlistService.AssociateAudioToPlaylist(id,idPlaylist);
-            return Created($"api/Playlist/{idPlaylist}/Audio/{id}","The audio was added to the playlist");
+            Playlist playlist = _playlistService.AssociateAudioToPlaylist(id,idPlaylist);
+            return Created($"api/Playlist/{idPlaylist}/Audio/{id}", playlist);
         }
 
         [HttpPut("{id}")]

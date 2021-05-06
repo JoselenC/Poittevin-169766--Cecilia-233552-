@@ -12,9 +12,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
     [Route("api/Audio")]
     public class AudioController : ControllerBase
     {
-
         private IAudioService _audioService;
-
         public AudioController(IAudioService audioService)
         {
             this._audioService = audioService;
@@ -42,7 +40,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         }
 
 
-        [HttpGet("category/name")]
+        [HttpGet("Category/name")]
         public IActionResult GetAudiosByCategoryName([FromQuery] string name)
         {
             List<Audio> Audios = _audioService.GetAudiosByCategoryName(name);
@@ -60,20 +58,15 @@ namespace MSP.BetterCalm.WebAPI.Controllers
 
         
         [HttpPost]
+        [ServiceFilter(typeof(FilterAuthentication))]
         public IActionResult CreateAudio([FromBody] AudioDto audio)
         {
-            Audio audioAdded=_audioService.SetAudio(audio.CreateAudio());
-            return Created($"api/Audio/{audioAdded.Name}","Audio created");
-        }
-
-        [HttpDelete()]
-        public IActionResult DeleteAudio([FromBody] AudioDto audio)
-        {
-            _audioService.DeleteAudio(audio.Id);
-            return Ok("Audio removed");
+            Audio audioAdded = _audioService.SetAudio(audio.CreateAudio());
+            return Created($"api/Audio/{audioAdded.Name}", audioAdded);
         }
 
         [HttpDelete("{id}")]
+        [ServiceFilter(typeof(FilterAuthentication))]
         public IActionResult DeleteAudio([FromRoute] int id)
         {
             _audioService.DeleteAudio(id);
@@ -81,6 +74,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         }
 
         [HttpPut("{id}")]
+        [ServiceFilter(typeof(FilterAuthentication))]
         public IActionResult UpdateAudio([FromRoute] int id, [FromBody] AudioDto audioUpdated)
         {
             _audioService.UpdateAudioById(id, audioUpdated.CreateAudio());

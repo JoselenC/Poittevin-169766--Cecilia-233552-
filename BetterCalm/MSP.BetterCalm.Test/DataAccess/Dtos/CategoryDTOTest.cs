@@ -2,7 +2,6 @@
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.DataAccess;
-using MSP.BetterCalm.Domain;
 
 
 namespace MSP.BetterCalm.Test

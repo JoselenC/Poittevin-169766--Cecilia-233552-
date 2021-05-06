@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using MSP.BetterCalm.Domain;
 
@@ -14,7 +13,7 @@ namespace MSP.BetterCalm.DataAccess
             int patientId = 0;
             int psychologistId = 0;
             
-            PatientDto patientDto = context.Patients.Find(obj.Patient.PatientId);
+            PatientDto patientDto = context.Patients.Find(obj.Patient.Id);
             if (patientDto is null)
                 patientDto = patientMapper.DomainToDto(obj.Patient, context);
             else
@@ -43,7 +42,7 @@ namespace MSP.BetterCalm.DataAccess
                     LastName = patientDto.LastName,
                     BirthDay = patientDto.BirthDay,
                     Cellphone = patientDto.Cellphone,
-                    PatientId = patientDto.PatientDtoId
+                    Id = patientDto.PatientDtoId
                 };
             }
             return null;

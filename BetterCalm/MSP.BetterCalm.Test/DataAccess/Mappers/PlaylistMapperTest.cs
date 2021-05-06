@@ -175,7 +175,7 @@ namespace MSP.BetterCalm.Test
         public void UpdateTest()
         {
             Playlist actualPlaylist = RepoPlaylists.Find(x => x.Name == "Playlist");
-            actualPlaylist.Name = "Help";
+            actualPlaylist.Name="Help";
             Playlist updatedPlaylist = RepoPlaylists.Update(PlaylistTest, actualPlaylist);
             Assert.AreEqual(actualPlaylist, updatedPlaylist);
         }

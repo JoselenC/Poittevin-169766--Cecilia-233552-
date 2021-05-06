@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.DataAccess;
@@ -129,7 +127,7 @@ namespace MSP.BetterCalm.Test
         [TestMethod]
         public void UpdateTest()
         {
-            Audio actualAudio = RepoAudios.Find(x => x.Name =="Stand by me");
+            Audio actualAudio = RepoAudios.Find(x => x.Name=="Stand by me");
             actualAudio.Name = "Help";
             Audio updatedAudio = RepoAudios.Update(AudioTest, actualAudio);
             Assert.AreEqual(actualAudio, updatedAudio);

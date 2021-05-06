@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using MSP.BetterCalm.BusinessLogic;
+using MSP.BetterCalm.WebAPI.Filters;
 
 namespace MSP.BetterCalm.WebAPI.Controllers
 {
     [Route("api/Login")]
+    [FilterExceptions]
     public class LoginController: ControllerBase
     {
         private readonly IAdministratorService administratorService;

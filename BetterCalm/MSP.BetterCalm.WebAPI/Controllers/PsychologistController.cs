@@ -9,6 +9,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
     
     [ApiController]
     [FilterExceptions]
+    [ServiceFilter(typeof(FilterAuthentication))]
     [Route("api/Psychologist")]
     public class PsychologistController: ControllerBase
     {

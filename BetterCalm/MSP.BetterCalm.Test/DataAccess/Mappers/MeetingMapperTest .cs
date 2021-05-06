@@ -11,7 +11,8 @@ namespace MSP.BetterCalm.Test
     public class MeetingMapperTest
     {
         private DbContextOptions<ContextDB> options;
-        private DataBaseRepository<Meeting, MeetingDto> RepoMeetings;
+        private DataBaseRepository<Meeting, MeetingDto> repoMeetings;
+        private DataBaseRepository<Problematic, ProblematicDto> repoProb;
         private Meeting meetingTest;
         private Patient patient;
         private Psychologist psychologist;
@@ -24,15 +25,24 @@ namespace MSP.BetterCalm.Test
                 .EnableSensitiveDataLogging(true)
                 .UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
             context = new ContextDB(options);
-            RepoMeetings = new DataBaseRepository<Meeting, MeetingDto>(new MeetingMapper(), context.Meeting, context);
-
+            repoMeetings = new DataBaseRepository<Meeting, MeetingDto>(new MeetingMapper(), context.Meeting, context);
+            repoProb = new DataBaseRepository<Problematic, ProblematicDto>(new ProblematicMapper(), context.Problematics, context);
+            List<Problematic> problematics = new List<Problematic>()
+            {
+                new Problematic() {Name = "Prob1"},
+                new Problematic() {Name = "Prob2"},
+                new Problematic() {Name = "Prob3"}
+            };
+            problematics[0] = repoProb.Add(problematics[0]);
+            problematics[1] = repoProb.Add(problematics[1]);
+            problematics[2] = repoProb.Add(problematics[2]);
             Meeting meeting = new Meeting()
             {
                 DateTime = new DateTime(2011, 07, 15),
                 Patient = new Patient(){Name = "Patient1"},
-                Psychologist = new Psychologist() {Name = "psyco1"}
+                Psychologist = new Psychologist() {Name = "psyco1", Problematics = problematics}
             };
-            meetingTest = RepoMeetings.Add(meeting);
+            meetingTest = repoMeetings.Add(meeting);
             patient = meetingTest.Patient;
             psychologist = meetingTest.Psychologist;
         }
@@ -52,8 +62,8 @@ namespace MSP.BetterCalm.Test
                 Psychologist = psychologist,
                 DateTime = new DateTime(2011,07,16),
             };
-            meetingTest = RepoMeetings.Add(meetingTest);
-            Meeting actualMeeting = RepoMeetings.Find(x => 
+            meetingTest = repoMeetings.Add(meetingTest);
+            Meeting actualMeeting = repoMeetings.Find(x => 
                 x.Patient.Name == meetingTest.Patient.Name && 
                 x.Psychologist.Name == meetingTest.Psychologist.Name &&
                 x.DateTime == meetingTest.DateTime
@@ -64,7 +74,7 @@ namespace MSP.BetterCalm.Test
         [TestMethod]
         public void DtoToDomainTest()
         {
-            Meeting actualMeeting = RepoMeetings.Find(x => 
+            Meeting actualMeeting = repoMeetings.Find(x => 
                 x.Patient.Name == meetingTest.Patient.Name && 
                 x.Psychologist.Name == meetingTest.Psychologist.Name &&
                 x.DateTime == meetingTest.DateTime
@@ -76,7 +86,14 @@ namespace MSP.BetterCalm.Test
         [ExpectedException(typeof(NotImplementedException))]
         public void UpdateTest()
         {
-            RepoMeetings.Update(meetingTest, meetingTest);
+            repoMeetings.Update(meetingTest, meetingTest);
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(NotImplementedException), "")]
+        public void GetByIdTest()
+        {
+            repoMeetings.FindById(1);
         }
     }
 }

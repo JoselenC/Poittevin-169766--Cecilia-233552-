@@ -38,8 +38,8 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         [HttpPost]
         public IActionResult AddPatient(Patient patient)
         {
-            patientService.SetPatient(patient);
-            return Created($"api/patient/{patient.Name}", patient);
+            Patient returnPatient = patientService.SetPatient(patient);
+            return Created($"api/patient/{returnPatient.Name}", returnPatient);
         }
 
     }

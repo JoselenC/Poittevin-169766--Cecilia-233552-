@@ -8,13 +8,14 @@
 
         public override bool Equals(object obj)
         {
-            if (obj==null) return false;
+            if (obj == null) return false;
             if (obj.GetType() != GetType()) return false;
             return Id == ((Problematic)obj).Id;
         }
 
         public bool IsSameProblematicName(string problematicName)
         {
+            if (problematicName == null) return false;
             return Name.ToLower() == problematicName.ToLower();
         }
     }

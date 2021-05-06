@@ -17,6 +17,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         private PatientController patientController ;
         private List<Patient> patients;
         private Patient patient;
+        private List<Problematic> problematics;
         
         [TestInitialize]
         public void InitializeTest()
@@ -28,6 +29,19 @@ namespace MSP.BetterCalm.Test.WebAPI
             {
                 Name = "Juan"
             };
+            Problematic problematic = new Problematic()
+            {
+                Name = "prob1"
+            };
+            Problematic problematic2 = new Problematic()
+            {
+                Name = "prob2"
+            };
+            Problematic problematic3= new Problematic()
+            {
+                Name = "prob3"
+            };
+            problematics = new List<Problematic>() { problematic, problematic2, problematic3 };
             patients.Add(patient);
         }
 
@@ -44,7 +58,7 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestAddPatient()
         {
-            mockPatientService.Setup(x => x.SetPatient(patient));
+            mockPatientService.Setup(x => x.SetPatient(patient)).Returns(patient);
             var result = patientController.AddPatient(patient);
             var createdResult = result as CreatedResult;
             var realPatients = createdResult.Value;
@@ -54,27 +68,25 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestScheduleMeeting()
         {
-            Problematic problematic = new Problematic()
-            {
-                Name = "prob"
-            };
+            
             Psychologist psychologist = new Psychologist()
             {
-                Name = "psyco1"
+                Name = "psyco1",
+                Problematics = problematics
             };
             ScheduleMeetingDto scheduleMeetingDto = new ScheduleMeetingDto()
             {
                 Patient = patient,
-                Problematic = problematic
+                Problematic = problematics[0]
             };
             Meeting expectedMeeting = new Meeting()
             {
                 DateTime = DateTime.Today,
                 Patient = patient,
-                Psychologist = psychologist
+                Psychologist = psychologist,
             };
             mockPatientService.Setup(
-                x => x.ScheduleNewMeeting(patient, problematic)
+                x => x.ScheduleNewMeeting(patient, problematics[0])
                 ).Returns(expectedMeeting);
 
             var result = patientController.ScheduleMeeting(scheduleMeetingDto);

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
+﻿using System.Collections.Generic;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.Domain;
 
@@ -82,7 +80,7 @@ namespace MSP.BetterCalm.BusinessLogic
             }
             catch (KeyNotFoundException)
             {
-                throw new ObjectWasNotUpdated();
+                throw new NotFoundPlaylist();
             }
         }
 
@@ -120,7 +118,7 @@ namespace MSP.BetterCalm.BusinessLogic
             }
             catch (KeyNotFoundException)
             {
-                throw new ObjectWasNotDeleted();
+                throw new NotFoundPlaylist();
             }
         }
 
@@ -129,15 +127,7 @@ namespace MSP.BetterCalm.BusinessLogic
             try
             {
                 Playlist playlist = repository.Playlists.FindById(idPlaylist);
-                if (playlist.Categories != null)
-                {
-                    if (audio.Categories == null) audio.Categories = new List<Category>();
-                    foreach (var category in playlist.Categories)
-                    {
-                        audio.Categories.Add(category);
-                    }
-                }
-
+                AddCategoriesToSong(audio, playlist);
                 Audio audioToadd = _repositoryAudio.Audios.Add(audio);
                 Playlist oldPlaylist = repository.Playlists.FindById(idPlaylist);
                 oldPlaylist.Audios.Add(audioToadd);
@@ -150,7 +140,19 @@ namespace MSP.BetterCalm.BusinessLogic
             }
         }
 
-        public void  AssociateAudioToPlaylist(int idAudio, int idPlaylist)
+        private void AddCategoriesToSong(Audio audio, Playlist playlist)
+        {
+            if (playlist.Categories != null)
+            {
+                if (audio.Categories == null) audio.Categories = new List<Category>();
+                foreach (var category in playlist.Categories)
+                {
+                    audio.Categories.Add(category);
+                }
+            }
+        }
+
+        public Playlist AssociateAudioToPlaylist(int idAudio, int idPlaylist)
         {
             try
             {
@@ -158,7 +160,7 @@ namespace MSP.BetterCalm.BusinessLogic
                 Playlist playlist = repository.Playlists.FindById(idPlaylist);
                 Audio audioById = _repositoryAudio.Audios.FindById(idAudio);
                 playlist.Audios.Add(audioById);
-                repository.Playlists.Update(oldPlaylist, playlist);
+                return repository.Playlists.Update(oldPlaylist, playlist);
             }
             catch (KeyNotFoundException)
             {

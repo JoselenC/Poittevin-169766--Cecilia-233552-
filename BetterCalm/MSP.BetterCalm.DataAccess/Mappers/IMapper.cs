@@ -1,7 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
-
-namespace MSP.BetterCalm.DataAccess
+﻿namespace MSP.BetterCalm.DataAccess
 {
     public interface IMapper<D,T> where T: class 
     {

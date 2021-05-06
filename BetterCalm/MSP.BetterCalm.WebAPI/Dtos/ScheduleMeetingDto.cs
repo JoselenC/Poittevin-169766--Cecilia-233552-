@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.WebAPI.Dtos

@@ -27,7 +27,8 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        public void GetSetAudioUrlAudio()
+        [ExpectedException(typeof(InvalidUrl), "")]
+        public void GetSetInvalidAudioUrlAudio()
         {
             string urlAudioName = "urlAudioName";
             Audio audio = new Audio();
@@ -37,7 +38,48 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
+        public void GetSetAudioUrlEmptyAudio()
+        {
+            string urlAudioName = "";
+            Audio audio = new Audio();
+            audio.UrlAudio = "";
+            string getAudioUrlAudio = audio.UrlAudio;
+            Assert.AreEqual(urlAudioName, getAudioUrlAudio);
+        }
+        
+        [TestMethod]
+        public void GetSetAudioUrlAudio()
+        {
+            string urlAudioName = "https://www.youtube.com/watch?v=QDYfEBY9NM4";
+            Audio audio = new Audio();
+            audio.UrlAudio = "https://www.youtube.com/watch?v=QDYfEBY9NM4";
+            string getAudioUrlAudio = audio.UrlAudio;
+            Assert.AreEqual(urlAudioName, getAudioUrlAudio);
+        }
+        
+        [TestMethod]
         public void GetSetAudioUrlImage()
+        {
+            string AudioUrlImage = "https://www.google.com/search?q=paisaje&tbm=isch&ved=2ahUKEwifk_70vbHwAhWHMrkGHdFZCwUQ2-cCegQIABAA&oq=paisaje&gs_lcp=CgNpbWcQAzIECCMQJzIHCAAQsQMQQzIKCAAQsQMQgwEQQzIHCAAQsQMQQzIHCAAQsQMQQzIHCAAQsQMQQzIECAAQQzIECAAQQzICCAAyAggAOgUIABCxAzoICAAQsQMQgwFQrfQDWPD7A2CE_QNoAHAAeACAAY4CiAHRCZIBBTAuNS4ymAEAoAEBqgELZ3dzLXdpei1pbWfAAQE&sclient=img&ei=cwGSYN-NCofl5OUP0bOtKA#imgrc=Mo3K6BpTEC_zGM";
+            Audio audio = new Audio();
+            audio.UrlImage = "https://www.google.com/search?q=paisaje&tbm=isch&ved=2ahUKEwifk_70vbHwAhWHMrkGHdFZCwUQ2-cCegQIABAA&oq=paisaje&gs_lcp=CgNpbWcQAzIECCMQJzIHCAAQsQMQQzIKCAAQsQMQgwEQQzIHCAAQsQMQQzIHCAAQsQMQQzIHCAAQsQMQQzIECAAQQzIECAAQQzICCAAyAggAOgUIABCxAzoICAAQsQMQgwFQrfQDWPD7A2CE_QNoAHAAeACAAY4CiAHRCZIBBTAuNS4ymAEAoAEBqgELZ3dzLXdpei1pbWfAAQE&sclient=img&ei=cwGSYN-NCofl5OUP0bOtKA#imgrc=Mo3K6BpTEC_zGM";
+            string getAudioUrlImage = audio.UrlImage;
+            Assert.AreEqual(AudioUrlImage, getAudioUrlImage);
+        }
+        
+        [TestMethod]
+        public void GetSetAudioEmptyUrlImage()
+        {
+            string AudioUrlImage = "";
+            Audio audio = new Audio();
+            audio.UrlImage = "";
+            string getAudioUrlImage = audio.UrlImage;
+            Assert.AreEqual(AudioUrlImage, getAudioUrlImage);
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(InvalidUrl), "")]
+        public void GetSetInalidAudioUrlImage()
         {
             string AudioUrlImage = "UrlImage";
             Audio audio = new Audio();

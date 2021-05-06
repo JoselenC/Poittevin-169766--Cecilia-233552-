@@ -17,6 +17,9 @@ namespace MSP.BetterCalm.Test
         private Psychologist psychologistTest;
         private Problematic prob1;
         private Problematic prob2;
+        private Problematic prob3;
+        private Problematic prob4;
+        private List<Problematic> problematics;
 
         [TestInitialize]
         public  void TestFixtureSetup()
@@ -37,12 +40,24 @@ namespace MSP.BetterCalm.Test
                 Name = "test2"
             };
             prob2 = probRepo.Add(prob2);
+            prob3 = new Problematic()
+            {
+                Name = "test3"
+            };
+            prob3 = probRepo.Add(prob3);
+            prob4 = new Problematic()
+            {
+                Name = "test4"
+            };
+            prob4 = probRepo.Add(prob4);
+            problematics = new List<Problematic>() {prob1, prob2, prob3};
             psychologistTest = new Psychologist()
             {
                 Name = "Roberto",
                 LastName = "Alex",
                 Address = "PsyAddress",
-                WorksOnline = true
+                WorksOnline = true,
+                Problematics = problematics
             };
             psychologistTest = RepoPsychologists.Add(psychologistTest);
         }
@@ -58,13 +73,9 @@ namespace MSP.BetterCalm.Test
         {
             Psychologist psychologistTest = new Psychologist()
             {
-                Name = "Jose"
+                Name = "Jose",
+                Problematics = problematics
             };
-            List<Problematic> problematics = new List<Problematic>()
-            {
-               prob1, prob2
-            };
-            psychologistTest.Problematics = problematics;
             psychologistTest = RepoPsychologists.Add(psychologistTest);
             Psychologist actualPsychologist = RepoPsychologists.Find(x => x.Name == "Jose");
             Assert.AreEqual(psychologistTest, actualPsychologist);
@@ -76,16 +87,15 @@ namespace MSP.BetterCalm.Test
         {
             Psychologist psychologistTest = new Psychologist()
             {
-                Name = "Jose"
+                Name = "Jose",
+                Problematics = problematics
             };
-            List<Problematic> problematics = new List<Problematic>()
+
+            Problematic problematic = new Problematic()
             {
-                new Problematic()
-                {
-                    Name = "Problematic problematic"
-                }
+                Name = "Problematic problematic"
             };
-            psychologistTest.Problematics = problematics;
+            psychologistTest.Problematics.Add(problematic);
             RepoPsychologists.Add(psychologistTest);
         }
 
@@ -103,6 +113,23 @@ namespace MSP.BetterCalm.Test
             actualPsychologist.Name = "RobertoUpdated";
             Psychologist updatedPsychologist = RepoPsychologists.Update(psychologistTest, actualPsychologist);
             Assert.AreEqual(actualPsychologist, updatedPsychologist);
+        }
+        
+        [TestMethod]
+        public void UpdateProblematicTest()
+        {
+            Psychologist actualPsychologist = RepoPsychologists.Find(x => x.Name == "Roberto");
+            actualPsychologist.Problematics[^1] = prob4;
+            RepoPsychologists.Update(psychologistTest, actualPsychologist);
+            Psychologist updatedPsychologist = RepoPsychologists.Find(x => x.Name == "Roberto");
+            Assert.AreEqual(actualPsychologist, updatedPsychologist);
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(NotImplementedException), "")]
+        public void GetByIdTest()
+        {
+            RepoPsychologists.FindById(1);
         }
     }
 }

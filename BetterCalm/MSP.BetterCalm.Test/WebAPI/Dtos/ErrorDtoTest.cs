@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.WebAPI.Dtos;
 

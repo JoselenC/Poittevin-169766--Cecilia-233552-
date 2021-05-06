@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.DataAccess;
 using MSP.BetterCalm.Domain;
 
@@ -103,13 +101,6 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NotImplementedException), "")]
-        public void SetTest()
-        {
-            Categories.Set(AllCategories);
-        }
-
-        [TestMethod]
         public void UpdateTest()
         {
             Audio audio = new Audio() {Id=1,Name = "Let it be"};
@@ -118,7 +109,7 @@ namespace MSP.BetterCalm.Test
                 Id=1,
                 Name = "Musica",
                 Duration = 120,
-                UrlImage = "urlImage",
+                UrlImage = "",
                 Categories = new List<Category>()
             };
             Songs.Update(audio, audioToUdated);
