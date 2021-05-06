@@ -9,6 +9,7 @@ namespace MSP.BetterCalm.BusinessLogic
     public class PatientService : IPatientService
     {
         private ManagerPatientRepository patientRepository;
+        private ManagerProblematicRepository problematicRepository;
         private ManagerPsychologistRepository psychologistRepository;
         private ManagerMeetingRepository meetingRepository;
 
@@ -28,9 +29,9 @@ namespace MSP.BetterCalm.BusinessLogic
             return patientRepository.Patients.Get();
         }
 
-        public void SetPatient(Patient patient)
+        public Patient SetPatient(Patient patient)
         {
-            patientRepository.Patients.Add(patient);
+            return patientRepository.Patients.Add(patient);
         }
 
         public Meeting ScheduleNewMeeting(Patient patient, Problematic problematic)
@@ -42,7 +43,8 @@ namespace MSP.BetterCalm.BusinessLogic
                     throw new NotFoundPsychologist();
                 psychologists = psychologists.FindAll(x => 
                     x.Problematics != null && 
-                    x.Problematics.Contains(problematic));
+                    x.Problematics.Exists(x=> x.IsSameProblematicName(problematic.Name) || 
+                                              x.Id == problematic.Id));
                 psychologists = psychologists.OrderBy(
                     x => x.GetDayForNextMeetingOnWeek(DateTime.Today)).ToList();
 
@@ -57,7 +59,7 @@ namespace MSP.BetterCalm.BusinessLogic
 
                 string address;
                 if (psychologist.WorksOnline)
-                    address = $"https://bettercalm.com.uy/{psychologist.PsychologistId}_{patient.PatientId}/{Guid.NewGuid().ToString()}";
+                    address = $"https://bettercalm.com.uy/{psychologist.PsychologistId}_{patient.Id}/{Guid.NewGuid().ToString()}";
                 else
                     address = psychologist.Address;
                 
@@ -71,6 +73,10 @@ namespace MSP.BetterCalm.BusinessLogic
                 };
                 meetingRepository.Meetings.Add(meeting);
                 return meeting;
+            }
+            catch (InvalidOperationException)
+            {
+                throw new AlreadyMeetingException();
             }
             catch (KeyNotFoundException)
             {

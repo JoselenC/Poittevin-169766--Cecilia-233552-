@@ -54,7 +54,7 @@ namespace MSP.BetterCalm.Test.WebAPI.Filters
         [TestMethod]
         public void TestFilterAuthorizationErrorNoToken()
         {
-            Exception exception = new NotFoundAdministrator();
+            Exception exception = new AuthenticationException("You are not allowed to do this action");
             ErrorDto response = new ErrorDto()
             {
                 IsSuccess = false,
@@ -81,7 +81,7 @@ namespace MSP.BetterCalm.Test.WebAPI.Filters
         {
             DefaultHttpContext httpContext = new DefaultHttpContext();
             httpContext.Request.Headers["Authorization"] = "token";
-            Exception exception = new NotFoundAdministrator();
+            Exception exception = new AuthenticationException("You are not allowed to do this action");
             ErrorDto response = new ErrorDto()
             {
                 IsSuccess = false,

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using MSP.BetterCalm.BusinessLogic;
+using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.Test
@@ -135,6 +136,40 @@ namespace MSP.BetterCalm.Test
             Meeting actualMeeting = service.ScheduleNewMeeting(patient, problematics[0]);
             Assert.AreEqual(expectedMeeting, actualMeeting);
             psychologistMock.VerifyAll();
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(AlreadyMeetingException))]
+        public void TestScheduleNewMeetingAlreadyExistsMeeting()
+        {
+            Psychologist BusyPsychologist = new Psychologist()
+            {
+                Name = "BusyPerson",
+                Meetings = new List<Meeting>()
+                {
+                    new Meeting()
+                    {
+                        DateTime = new DateTime(1993, 7, 15),
+                        Patient = patient
+                    },
+                },
+                Problematics = problematics
+            };
+            DateTime nextDayMeeting = BusyPsychologist.GetDayForNextMeetingOnWeek(DateTime.Today);
+            Meeting expectedMeeting = new Meeting()
+            {
+                DateTime =nextDayMeeting,
+                Patient = patient,
+                Psychologist = BusyPsychologist
+            };
+            psychologistMock.Setup(
+                x => 
+                    x.Get()
+            ).Returns(new List<Psychologist>(){BusyPsychologist});
+            meetingMock.Setup(
+                x => x.Add(expectedMeeting)
+            ).Throws(new InvalidOperationException());
+            service.ScheduleNewMeeting(patient, problematics[0]);
         }
         
         [TestMethod]

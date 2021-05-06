@@ -80,7 +80,7 @@ namespace MSP.BetterCalm.DataAccess
                     meetings.Add(
                         new Meeting()
                         {
-                            Patient = new Patient(){ PatientId = meeting.PatientId},
+                            Patient = new Patient(){ Id = meeting.PatientId},
                             DateTime = meeting.DateTime
                         }
                     );

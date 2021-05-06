@@ -19,7 +19,7 @@ namespace MSP.BetterCalm.WebAPI.Filters
         }
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            Exception exception = new NotFoundAdministrator();
+            Exception exception = new AuthenticationException("You are not allowed to do this action");
             ErrorDto error=new ErrorDto()
             {
                 IsSuccess = false,

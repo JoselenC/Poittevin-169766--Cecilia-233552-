@@ -41,14 +41,14 @@ namespace MSP.BetterCalm.WebAPI.Controllers
             return Ok(playlists);
         }
 
-        [HttpGet("Category/name")]
+        [HttpGet("category")]
         public IActionResult GetPlaylistByCategoryName([FromQuery] string name)
         {
             List<Playlist> playlists = _playlistService.GetPlaylistByCategoryName(name);
             return Ok(playlists);
         }
 
-        [HttpGet("Audio/name")]
+        [HttpGet("audio")]
         public IActionResult GetPlaylistByAudioName([FromQuery] string name)
         {
             List<Playlist> playlists = _playlistService.GetPlaylistByAudioName(name);

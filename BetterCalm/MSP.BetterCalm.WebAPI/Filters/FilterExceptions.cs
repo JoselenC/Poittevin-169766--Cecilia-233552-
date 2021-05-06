@@ -32,7 +32,8 @@ namespace MSP.BetterCalm.WebAPI.Filters
             {
                 typeof(AlreadyExistThisAudio),
                 typeof(InvalidCategory),
-                typeof(InvalidProblematic)
+                typeof(InvalidProblematic),
+                typeof(AlreadyMeetingException)
 
             };
             List<Type> errors422 = new List<Type>()

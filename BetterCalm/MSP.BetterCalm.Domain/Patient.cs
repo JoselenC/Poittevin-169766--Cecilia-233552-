@@ -6,7 +6,7 @@ namespace MSP.BetterCalm.Domain
 {
     public class Patient: User
     {
-        public int PatientId { get; set; }
+        public int Id { get; set; }
         public string Cellphone { get; set; }
         public DateTime BirthDay { get; set; }
         public List<Meeting> Meetings{ get; set; }
@@ -16,7 +16,7 @@ namespace MSP.BetterCalm.Domain
         }
         protected bool Equals(Patient other)
         {
-            return PatientId == other.PatientId &&
+            return Id == other.Id &&
                    Name == other.Name &&
                    LastName == other.LastName &&
                    Cellphone == other.Cellphone &&

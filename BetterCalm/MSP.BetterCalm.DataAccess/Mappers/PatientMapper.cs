@@ -8,11 +8,16 @@ namespace MSP.BetterCalm.DataAccess
     {
         public PatientDto DomainToDto(Patient obj, ContextDB context)
         {
-            PatientDto patientDto = context.Patients.FirstOrDefault(x => x.Name == obj.Name);
+            PatientDto patientDto = context.Patients.FirstOrDefault(x => 
+                    x.Name == obj.Name && 
+                    x.LastName == obj.LastName &&
+                    x.Cellphone == obj.Cellphone &&
+                    x.BirthDay == obj.BirthDay
+            );
             if (patientDto is null)
                 patientDto = new PatientDto()
                 {
-                    PatientDtoId = obj.PatientId,
+                    PatientDtoId = obj.Id,
                     Name = obj.Name,
                     LastName = obj.LastName,
                     BirthDay = obj.BirthDay,
@@ -56,7 +61,7 @@ namespace MSP.BetterCalm.DataAccess
             }
             return new Patient()
             {
-                PatientId = obj.PatientDtoId,
+                Id = obj.PatientDtoId,
                 Name = obj.Name,
                 LastName = obj.LastName,
                 BirthDay = obj.BirthDay,
