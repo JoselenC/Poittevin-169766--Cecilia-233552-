@@ -214,10 +214,10 @@ namespace MSP.BetterCalm.DataAccess
         {
             List<PlaylistAudioDto> audiosToDelete = objToUpdate.PlaylistAudiosDto.Where(x =>
                 x.PlaylistID == objToUpdate.PlaylistDtoID).ToList();
-            DbSet<PlaylistAudioDto> playlistAudioSet = context.Set<PlaylistAudioDto>();
             foreach (PlaylistAudioDto playlistAudioDto in audiosToDelete)
             {
-                playlistAudioSet.Remove(playlistAudioDto);
+                context.Set<PlaylistAudioDto>().Remove(playlistAudioDto);
+                context.SaveChanges();
             }
             List<Audio> newAudiosToAdd = new List<Audio>();
             List<PlaylistAudioDto> playlistsAudiosToAdd = new List<PlaylistAudioDto>();
@@ -242,10 +242,10 @@ namespace MSP.BetterCalm.DataAccess
         {
             List<PlaylistCategoryDto> categoriesToDelete = objToUpdate.PlaylistCategoriesDto.Where(x =>
                 x.PlaylistID == objToUpdate.PlaylistDtoID).ToList();
-            DbSet<PlaylistCategoryDto> playlistCategorySet = context.Set<PlaylistCategoryDto>();
             foreach (PlaylistCategoryDto playlistCategory in categoriesToDelete)
             {
-                playlistCategorySet.Remove(playlistCategory);
+                context.Set<PlaylistCategoryDto>().Remove(playlistCategory);
+                context.SaveChanges();
             }
             List<Category> newCategoriesToAdd = new List<Category>();
             List<PlaylistCategoryDto> playlistsCategoriesToAdd = new List<PlaylistCategoryDto>();

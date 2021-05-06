@@ -154,10 +154,10 @@ namespace MSP.BetterCalm.DataAccess
         {
             List<AudioCategoryDto> categoriesToDelete = objToUpdate.AudiosCategoriesDto.Where(x =>
                 x.AudioID == objToUpdate.AudioDtoID).ToList();
-            DbSet<AudioCategoryDto> audioCategorySet = context.Set<AudioCategoryDto>();
             foreach (AudioCategoryDto audioCategory in categoriesToDelete)
             {
-                audioCategorySet.Remove(audioCategory);
+                context.Set<AudioCategoryDto>().Remove(audioCategory);
+                context.SaveChanges();
             }
             List<Category> newCategoriesToAdd = new List<Category>();
             List<AudioCategoryDto> audiosCategoriesToAdd = new List<AudioCategoryDto>();
