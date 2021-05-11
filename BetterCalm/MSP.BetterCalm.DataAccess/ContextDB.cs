@@ -10,6 +10,8 @@ namespace MSP.BetterCalm.DataAccess
         public DbSet<CategoryDto> Categories { get; set; }
         public DbSet<ProblematicDto> Problematics { get; set; }
         public DbSet<AudioDto> Audios { get; set; }
+        
+        public DbSet<VideoDto> Videos { get; set; }
         public DbSet<PatientDto> Patients { get; set; }
         public DbSet<PsychologistDto> Psychologists { get; set; }
         public DbSet<AdministratorDto> Administrators { get; set; }
@@ -33,6 +35,17 @@ namespace MSP.BetterCalm.DataAccess
                 .WithMany(c => c.PlaylistAudiosDto)
                 .HasForeignKey(mc => mc.AudioID);
             
+            modelBuilder.Entity<PlaylistVideoDto>()
+                .HasKey(mc => new { mc.PlaylistID, AudioID = mc.VideoID });
+            modelBuilder.Entity<PlaylistVideoDto>()
+                .HasOne(mc => mc.PlaylistDto)
+                .WithMany(m => m.PlaylistsVideosDto)
+                .HasForeignKey(mc => mc.PlaylistID);
+            modelBuilder.Entity<PlaylistVideoDto>()
+                .HasOne(mc => mc.VideoDto)
+                .WithMany(c => c.PlaylistVideosDto)
+                .HasForeignKey(mc => mc.VideoID);
+            
             modelBuilder.Entity<PlaylistCategoryDto>()
                 .HasKey(mc => new { mc.PlaylistID, mc.CategoryID });
             modelBuilder.Entity<PlaylistCategoryDto>()
@@ -54,6 +67,17 @@ namespace MSP.BetterCalm.DataAccess
                 .HasOne(mc => mc.AudioDto)
                 .WithMany(c => c.AudiosCategoriesDto)
                 .HasForeignKey(mc => mc.AudioID);
+            
+            modelBuilder.Entity<VideoCategoryDto>()
+                .HasKey(mc => new { AudioID = mc.VideoID, mc.CategoryID });
+            modelBuilder.Entity<VideoCategoryDto>()
+                .HasOne(mc => mc.CategoryDto)
+                .WithMany(m => m.VideosCategoriesDto)
+                .HasForeignKey(mc => mc.CategoryID);
+            modelBuilder.Entity<VideoCategoryDto>()
+                .HasOne(mc => mc.VideoDto)
+                .WithMany(c => c.VideosCategoriesDto)
+                .HasForeignKey(mc => mc.VideoID);
             
             modelBuilder.Entity<PsychologistProblematicDto>()
                 .HasKey(pp => new { pp.PsychologistId, pp.ProblematicId });
