@@ -1,4 +1,4 @@
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.DependencyInjection;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.Domain;
@@ -46,6 +46,7 @@ namespace MSP.BetterCalm.DataAccess
             services.AddScoped<IMapper<Psychologist, PsychologistDto>, PsychologistMapper>();
             services.AddScoped<IMapper<Administrator, AdministratorDto>, AdministratorMapper>();
             services.AddScoped<IMapper<Meeting, MeetingDto>, MeetingMapper>();
+            services.AddScoped<IMapper<Video, VideoDto>, VideoMapper>();
         }
         
         public void AddDbContext()
