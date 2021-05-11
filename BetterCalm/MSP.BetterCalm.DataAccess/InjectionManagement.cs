@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.DependencyInjection;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.Domain;
@@ -36,6 +36,7 @@ namespace MSP.BetterCalm.DataAccess
             services.AddScoped<ManagerPsychologistRepository,PsychologistRepository>();
             services.AddScoped<ManagerAdministratorRepository, AdministratorRepository>();
             services.AddScoped<ManagerMeetingRepository, MeetingRepository>();
+            services.AddScoped<ManagerVideoRepository, VideoRepository>();
             
             services.AddScoped<IMapper<Category, CategoryDto>,CategoryMapper>();
             services.AddScoped<IMapper<Problematic, ProblematicDto>,ProblematicMapper>();
