@@ -27,6 +27,7 @@ namespace MSP.BetterCalm.DataAccess
             services.AddScoped<IPlaylistService,PlaylistService>();
             services.AddScoped<IPsychologistService,PsychologistService>();
             services.AddScoped<IAdministratorService,AdministratorService>();
+            services.AddScoped<IVideoService,VideoService>();
 
             services.AddScoped<ManagerProblematicRepository,ProblematicRepository>();
             services.AddScoped<ManagerCategoryRepository,CategoryRepository>();
@@ -36,6 +37,7 @@ namespace MSP.BetterCalm.DataAccess
             services.AddScoped<ManagerPsychologistRepository,PsychologistRepository>();
             services.AddScoped<ManagerAdministratorRepository, AdministratorRepository>();
             services.AddScoped<ManagerMeetingRepository, MeetingRepository>();
+            services.AddScoped<ManagerVideoRepository, VideoRepository>();
             
             services.AddScoped<IMapper<Category, CategoryDto>,CategoryMapper>();
             services.AddScoped<IMapper<Problematic, ProblematicDto>,ProblematicMapper>();
@@ -45,6 +47,7 @@ namespace MSP.BetterCalm.DataAccess
             services.AddScoped<IMapper<Psychologist, PsychologistDto>, PsychologistMapper>();
             services.AddScoped<IMapper<Administrator, AdministratorDto>, AdministratorMapper>();
             services.AddScoped<IMapper<Meeting, MeetingDto>, MeetingMapper>();
+            services.AddScoped<IMapper<Video, VideoDto>, VideoMapper>();
         }
         
         public void AddDbContext()

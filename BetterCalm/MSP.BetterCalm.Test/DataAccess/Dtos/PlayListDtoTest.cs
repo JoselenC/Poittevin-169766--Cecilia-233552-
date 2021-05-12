@@ -64,5 +64,14 @@ namespace MSP.BetterCalm.Test
             ICollection<PlaylistCategoryDto> getPlaylistAudio= playlist.PlaylistCategoriesDto;
             CollectionAssert.AreEqual(getPlaylistAudio.ToList(), new List<PlaylistCategoryDto>());
         }
+        
+        [TestMethod]
+        public void GetSetPlaylistVideoDto()
+        {
+            PlaylistDto playlist = new PlaylistDto();
+            playlist.PlaylistsVideosDto = new List<PlaylistVideoDto>();
+            ICollection<PlaylistVideoDto> getPlaylistAudio= playlist.PlaylistsVideosDto;
+            CollectionAssert.AreEqual(getPlaylistAudio.ToList(), new List<PlaylistVideoDto>());
+        }
     }
 }

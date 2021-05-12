@@ -34,6 +34,14 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
+        public void GetSetVideoCategoryDto()
+        {
+            CategoryDto category = new CategoryDto();
+            category.VideosCategoriesDto = new List<VideoCategoryDto>();
+            CollectionAssert.AreEqual(category.VideosCategoriesDto.ToList(), new List<VideoCategoryDto>());
+        }
+        
+        [TestMethod]
         public void GetSetSongCategoryDto()
         {
             CategoryDto category = new CategoryDto();
@@ -41,5 +49,6 @@ namespace MSP.BetterCalm.Test
             ICollection<AudioCategoryDto> getcategorySong= category.AudiosCategoriesDto;
             CollectionAssert.AreEqual(getcategorySong.ToList(), new List<PlaylistCategoryDto>());
         }
+        
     }
 }
