@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {CategoryModule} from "./category/category.module";
 import {HttpClientModule} from "@angular/common/http";
+import {AddSongModule} from "./SongComponents/AddSong/add-song/add-song.module";
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import {HttpClientModule} from "@angular/common/http";
     BrowserModule,
     AppRoutingModule,
     CategoryModule,
-    HttpClientModule
+    HttpClientModule,
+    AddSongModule,
   ],
   providers: [CategoryService],
   bootstrap: [AppComponent]
