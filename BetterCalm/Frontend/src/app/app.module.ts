@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { CategoryService } from "./services/category.service";
+import { CategoryService } from "./services/Category/category.service";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {CategoryModule} from "./category/category.module";
