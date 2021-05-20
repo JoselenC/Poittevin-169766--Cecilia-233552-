@@ -1,0 +1,14 @@
+<div class="card shadow">
+  <div class="card-header border-0">
+    <h3 class="mb-0">Categories</h3>
+  </div>
+  <div class="table-responsive">
+    <table class="table align-items-center table-flush">
+     <tbody>
+      <tr *ngFor="let category of categories; let i = index">
+        <th scope="row"> {{category.name}} </th>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
