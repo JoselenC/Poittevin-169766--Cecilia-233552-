@@ -6,11 +6,19 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class CategoryService {
-  private WEB_API_URL: string = "https://localhost:5001/api/Category";
-  constructor(private http: HttpClient) {}
 
-  getCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>(this.WEB_API_URL);
-  };
+export class CategoryService {
+  private uri= '/api/Category';
+  private id: number=1;
+
+  constructor(private http: HttpClient) {
+  }
+
+  getCategories(): Observable<Array<Category>> {
+    return this.http.get<Array<Category>>(this.uri);
+  }
+
+  getBy (id:number): Observable<Category>{
+    return this.http.get<Category>(this.uri + '/' + id)
+  }
 }

@@ -5,11 +5,9 @@
   <div class="table-responsive">
     <table class="table align-items-center table-flush">
      <tbody>
-      <template [ngIf]="categories.length!=0">
       <tr *ngFor="let category of categories; let i = index">
         <th scope="row"> {{category.name}} </th>
       </tr>
-      </template>
       </tbody>
     </table>
   </div>

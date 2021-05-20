@@ -4,6 +4,7 @@ import { CategoryService } from "./services/category.service";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {CategoryModule} from "./category/category.module";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import {CategoryModule} from "./category/category.module";
     BrowserModule,
     AppRoutingModule,
     CategoryModule,
+    HttpClientModule
   ],
   providers: [CategoryService],
   bootstrap: [AppComponent]
