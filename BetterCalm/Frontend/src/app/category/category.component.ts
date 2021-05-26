@@ -27,5 +27,4 @@ export class CategoryComponent implements OnInit {
     this.categories = data;
   }
 
-
 }
