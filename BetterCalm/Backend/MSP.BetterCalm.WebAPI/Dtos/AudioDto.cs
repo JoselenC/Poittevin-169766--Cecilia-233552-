@@ -48,7 +48,6 @@ namespace MSP.BetterCalm.WebAPI.Dtos
         {
             Audio audio = new Audio()
             {
-                Id=Id,
                 Name = Name, 
                 Categories = Categories, 
                 Duration = SetDuration(), 

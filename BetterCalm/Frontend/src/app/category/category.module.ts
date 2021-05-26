@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import {CategoryComponent} from "./category.component";
 import {HttpClientModule} from "@angular/common/http";
 import {CategoryService} from "../services/Category/category.service";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatOptionModule} from "@angular/material/core";
+import {MaterialComponentsModule} from "../material.module";
 
 
 
@@ -14,6 +17,9 @@ import {CategoryService} from "../services/Category/category.service";
   imports: [
     CommonModule,
     HttpClientModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MaterialComponentsModule
   ],
   providers: [CategoryService],
 })
