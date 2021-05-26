@@ -1,0 +1,39 @@
+<mat-label>Add a new audio</mat-label>
+<br>
+<br>
+<p>
+  <mat-form-field appearance="legacy">
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Placeholder" [(ngModel)]="name">
+
+  </mat-form-field>
+</p>
+<p>
+  <mat-form-field appearance="legacy">
+    <mat-label>Author name</mat-label>
+    <input matInput placeholder="Placeholder" [(ngModel)]="authorName">
+  </mat-form-field>
+</p>
+<p>
+  <mat-form-field appearance="legacy">
+    <mat-label>Url image</mat-label>
+    <input matInput placeholder="Placeholder" [(ngModel)]="urlImage">
+  </mat-form-field>
+</p>
+<p>
+  <mat-form-field appearance="legacy">
+    <mat-label>Url audio</mat-label>
+    <input matInput placeholder="Placeholder" [(ngModel)]="urlAudio">
+  </mat-form-field>
+</p>
+<p>
+  <mat-form-field appearance="legacy">
+    <mat-label>Duration</mat-label>
+    <input matInput placeholder="Placeholder" [(ngModel)]="_duration">
+  </mat-form-field>
+</p>
+<br>
+<app-category></app-category>
+<button mat-raised-button color="primary" (click)="addAudio()">Add audio</button>
+
+
