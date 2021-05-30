@@ -5,7 +5,7 @@ import {AddAudioComponent} from "./add-audio.component";
 import {MaterialComponentsModule} from "../../material.module";
 import {FormsModule} from "@angular/forms";
 import {MatOptionModule} from "@angular/material/core";
-import {CategoryModule} from "../../category/category.module";
+import {CategoryModule} from "../../categoryComponents/category.module";
 
 @NgModule({
   declarations: [AddAudioComponent],
