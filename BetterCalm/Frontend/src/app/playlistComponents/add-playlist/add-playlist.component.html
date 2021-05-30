@@ -1,0 +1,28 @@
+<mat-label>Add a new playlist</mat-label>
+<br>
+<br>
+<p>
+  <mat-form-field appearance="legacy">
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Placeholder" [(ngModel)]="name">
+  </mat-form-field>
+</p>
+<p>
+  <mat-form-field appearance="legacy">
+    <mat-label>Description</mat-label>
+    <input matInput placeholder="Placeholder" [(ngModel)]="description">
+  </mat-form-field>
+</p>
+<p>
+  <mat-form-field appearance="legacy">
+    <mat-label>Url image</mat-label>
+    <input matInput placeholder="Placeholder" [(ngModel)]="urlImage">
+  </mat-form-field>
+</p>
+<br>
+<app-category></app-category>
+<br>
+<app-get-audios></app-get-audios>
+<button mat-raised-button color="primary" (click)="addPlaylist()">Add playlist</button>
+
+
