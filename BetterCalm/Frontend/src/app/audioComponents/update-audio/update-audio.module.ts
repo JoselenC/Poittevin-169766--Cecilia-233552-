@@ -6,7 +6,7 @@ import {MaterialComponentsModule} from "../../material.module";
 import {AudioService} from "../../services/Audio/audio.service";
 import {AddAudioModule} from "../add-audio/add-audio.module";
 import {FormsModule} from "@angular/forms";
-import {CategoryModule} from "../../category/category.module";
+import {CategoryModule} from "../../categoryComponents/category.module";
 
 
 
