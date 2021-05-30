@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {CategoryModule} from "./category/category.module";
+import {CategoryModule} from "./categoryComponents/category.module";
 import {HttpClientModule} from "@angular/common/http";
 import {AddAudioModule} from "./audioComponents/add-audio/add-audio.module";
 import {MatSliderModule} from "@angular/material/slider";
