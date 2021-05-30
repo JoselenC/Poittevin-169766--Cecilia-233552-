@@ -1,0 +1,10 @@
+<section class="example-section">
+   <span class="example-list-section">
+     <mat-label>Playlists</mat-label>
+    <ul>
+      <li *ngFor="let playlist of playlists">
+       <button mat-raised-button color="primary" (click)="DeletePlaylist(playlist)">{{playlist.name}}</button>
+      </li>
+    </ul>
+  </span>
+</section>
