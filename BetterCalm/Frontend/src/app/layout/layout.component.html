@@ -8,14 +8,48 @@ BetterCalm
      class="md-sidenav-left"
      mode="side"
      opened="true">
-    <mat-selection-list #shoes [multiple]="false">
-      <mat-list-option role="navigation" [routerLink]="['/patients']">
-        Patient
-      </mat-list-option>
-      <mat-list-option role="navigation" [routerLink]="['/psychologits']">
-        Psychologists
-      </mat-list-option>
-    </mat-selection-list>
+    <mat-list>
+      <mat-list-item role="navigation">
+        <a
+          [routerLink]="['/patients']"
+          class="nav-link"
+        >Patient</a>
+      </mat-list-item>
+      <mat-list-item role="navigation">
+        <a
+          [routerLink]="['/psychologits']"
+          class="nav-link"
+        >Psychologists</a>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <h3 mat-subheader>Playlist</h3>
+      <mat-list-item role="navigation">
+        <a
+          [routerLink]="['/playlists']"
+          class="nav-link"
+        > Playlist list </a>
+      </mat-list-item>
+      <mat-list-item role="navigation">
+        <a
+          [routerLink]="['/add-playlist']"
+          class="nav-link"
+        >Add Playlist</a>
+      </mat-list-item>
+
+      <h3 mat-subheader>Audio</h3>
+      <mat-list-item role="navigation">
+        <a
+          [routerLink]="['/audios']"
+          class="nav-link"
+        > Audio list </a>
+      </mat-list-item>
+      <mat-list-item role="navigation">
+        <a
+          [routerLink]="['/add-audio']"
+          class="nav-link"
+        >Add Audio</a>
+      </mat-list-item>
+    </mat-list>
     <!--this is a place for us to add side-nav code-->
   </mat-sidenav>
   <mat-sidenav-content>
