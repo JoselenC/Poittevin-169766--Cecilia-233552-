@@ -47,7 +47,7 @@ namespace MSP.BetterCalm.WebAPI
                 .AddJsonFile("appsettings.json")
                 .Build();
             var connectionString = configuration.GetConnectionString("@BetterCalmDB");
-            services.AddDbContext<ContextDB>(options =>
+            services.AddDbContext<ContextDb>(options =>
                 options.UseSqlServer(connectionString).UseLazyLoadingProxies());
         }
 

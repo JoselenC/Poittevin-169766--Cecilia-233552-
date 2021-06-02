@@ -1,6 +1,6 @@
 using System;
 
-namespace MSP.BetterCalm.DataAccess
+namespace MSP.BetterCalm.DataAccess.DtoObjects
 {
     public class MeetingDto
     {

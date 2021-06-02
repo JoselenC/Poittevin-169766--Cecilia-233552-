@@ -1,36 +1,36 @@
-using System;
 using System.Collections.Generic;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
+using MSP.BetterCalm.BusinessLogic.Managers;
 using MSP.BetterCalm.Domain;
 
-namespace MSP.BetterCalm.BusinessLogic
+namespace MSP.BetterCalm.BusinessLogic.Services
 {
     public class AdministratorService : IAdministratorService
     {
-        private ManagerAdministratorRepository repository;
-        private IGuidService guidService;
+        private ManagerAdministratorRepository _repository;
+        private IGuidService _guidService;
 
         public AdministratorService(ManagerAdministratorRepository vRepository, IGuidService vGuid)
         {
-            repository = vRepository;
-            guidService = vGuid;
+            _repository = vRepository;
+            _guidService = vGuid;
         }
 
         public List<Administrator> GetAdministrators()
         {
-            return repository.Administrators.Get();
+            return _repository.Administrators.Get();
         }
 
         public Administrator AddAdministrator(Administrator admin)
         {
-            return repository.Administrators.Add(admin);
+            return _repository.Administrators.Add(admin);
         }
         
         public void DeleteAdministratorById(int administratorId)
         {
             
             Administrator administrator = GetAdministratorsById(administratorId);
-            repository.Administrators.Delete(administrator);
+            _repository.Administrators.Delete(administrator);
 
         }
 
@@ -39,7 +39,7 @@ namespace MSP.BetterCalm.BusinessLogic
             try
             {
 
-                return repository.Administrators.Find(x => x.AdministratorId == administratorId);
+                return _repository.Administrators.Find(x => x.AdministratorId == administratorId);
             }
             catch (KeyNotFoundException)
             {
@@ -50,16 +50,16 @@ namespace MSP.BetterCalm.BusinessLogic
         public Administrator UpdateAdministrator(Administrator newAdministrator, int administratorId)
         {
             Administrator oldAdministrator = GetAdministratorsById(administratorId);
-            return repository.Administrators.Update(oldAdministrator, newAdministrator);
+            return _repository.Administrators.Update(oldAdministrator, newAdministrator);
         }
 
         public string Login(string email, string password)
         {
             try
             {
-                Administrator administrator = repository.Administrators.Find(
+                Administrator administrator = _repository.Administrators.Find(
                     x => x.Email == email && x.Password == password);
-                administrator.Token = guidService.NewGuid().ToString();
+                administrator.Token = _guidService.NewGuid().ToString();
                 UpdateAdministrator(administrator, administrator.AdministratorId);
                 return administrator.Token;
             }
@@ -73,7 +73,7 @@ namespace MSP.BetterCalm.BusinessLogic
         {
             try
             {
-                return repository.Administrators.Find(x => x.Token == token);
+                return _repository.Administrators.Find(x => x.Token == token);
             }
             catch (KeyNotFoundException)
             {

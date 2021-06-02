@@ -9,7 +9,7 @@ namespace MSP.BetterCalm.BusinessLogic
         void Delete(T objectToDelete);
         T Find(Predicate<T> condition);
         List<T> Get();
-        T Update(T OldObject, T UpdatedObject);
+        T Update(T oldObject, T updatedObject);
         T FindById(int id);
     }
 }

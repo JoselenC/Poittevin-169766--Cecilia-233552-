@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
+using MSP.BetterCalm.DataAccess.DtoObjects;
 using MSP.BetterCalm.Domain;
 
-namespace MSP.BetterCalm.DataAccess
+namespace MSP.BetterCalm.DataAccess.Mappers
 {
     public class PatientMapper: IMapper<Patient, PatientDto>
     {
-        public PatientDto DomainToDto(Patient obj, ContextDB context)
+        public PatientDto DomainToDto(Patient obj, ContextDb context)
         {
             PatientDto patientDto = context.Patients.FirstOrDefault(x => 
                     x.Name == obj.Name && 
@@ -27,7 +28,7 @@ namespace MSP.BetterCalm.DataAccess
             return patientDto;
         }
 
-        public Patient DtoToDomain(PatientDto obj, ContextDB context)
+        public Patient DtoToDomain(PatientDto obj, ContextDb context)
         {
             ProblematicMapper problematicMapper = new ProblematicMapper();
             context.Entry(obj).Collection("Meetings").Load();
@@ -43,7 +44,7 @@ namespace MSP.BetterCalm.DataAccess
                     foreach (var problematic in meeting.Psychologist.Problematics)
                     {
                         ProblematicDto problematicById =
-                            context.Problematics.FirstOrDefault(x => x.ProblematicDtoID == problematic.ProblematicId);
+                            context.Problematics.FirstOrDefault(x => x.ProblematicDtoId == problematic.ProblematicId);
                         if(problematicById!=null)
                             problematics.Add(problematicMapper.DtoToDomain(problematicById, context));
                     }
@@ -78,12 +79,12 @@ namespace MSP.BetterCalm.DataAccess
             };
         }
 
-        public Patient GetById(ContextDB context, int id)
+        public Patient GetById(ContextDb context, int id)
         {
             throw new System.NotImplementedException();
         }
 
-        public PatientDto UpdateDtoObject(PatientDto objToUpdate, Patient updatedObject, ContextDB context)
+        public PatientDto UpdateDtoObject(PatientDto objToUpdate, Patient updatedObject, ContextDb context)
         {
             objToUpdate.Name = updatedObject.Name;
             objToUpdate.LastName = updatedObject.LastName;

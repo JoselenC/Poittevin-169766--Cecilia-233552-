@@ -1,5 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.DataAccess;
+using MSP.BetterCalm.DataAccess.DtoObjects;
+using MSP.BetterCalm.DataAccess.Mappers;
+using MSP.BetterCalm.DataAccess.Repositories;
 using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.Test
@@ -11,7 +14,7 @@ namespace MSP.BetterCalm.Test
         public void MeetingRepositoryCreationCategoriesTypeTest()
         {
            
-            MeetingRepository meetingRepository = new MeetingRepository( new MeetingMapper(),new ContextDB());
+            MeetingRepository meetingRepository = new MeetingRepository( new MeetingMapper(),new ContextDb());
             Assert.IsInstanceOfType(meetingRepository.Meetings, typeof(DataBaseRepository<Meeting, MeetingDto>));
         }
     }

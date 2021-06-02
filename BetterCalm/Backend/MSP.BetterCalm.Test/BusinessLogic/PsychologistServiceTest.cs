@@ -4,25 +4,27 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
+using MSP.BetterCalm.BusinessLogic.Managers;
+using MSP.BetterCalm.BusinessLogic.Services;
 using MSP.BetterCalm.Domain;
 
-namespace MSP.BetterCalm.Test
+namespace MSP.BetterCalm.Test.BusinessLogic
 {
     [TestClass]
     public class PsychologistServiceTest
     {
         
-        private Mock<ManagerPsychologistRepository> repoMock;
-        private Mock<IRepository<Psychologist>> psychologistMock;
-        private PsychologistService service;
+        private Mock<ManagerPsychologistRepository> _repoMock;
+        private Mock<IRepository<Psychologist>> _psychologistMock;
+        private PsychologistService _service;
 
         [TestInitialize]
         public void TestFixtureSetup()
         {
-            repoMock = new Mock<ManagerPsychologistRepository>();
-            psychologistMock = new Mock<IRepository<Psychologist>>();
-            repoMock.Object.Psychologists = psychologistMock.Object;
-            service = new PsychologistService(repoMock.Object);
+            _repoMock = new Mock<ManagerPsychologistRepository>();
+            _psychologistMock = new Mock<IRepository<Psychologist>>();
+            _repoMock.Object.Psychologists = _psychologistMock.Object;
+            _service = new PsychologistService(_repoMock.Object);
         }
 
         [TestMethod]
@@ -36,12 +38,12 @@ namespace MSP.BetterCalm.Test
             {
                 psychologist
             };
-            psychologistMock.Setup(
+            _psychologistMock.Setup(
                 x => x.Get()
             ).Returns(psychologists);
-            List<Psychologist> actualPsychologists = service.GetPsychologists();
+            List<Psychologist> actualPsychologists = _service.GetPsychologists();
             CollectionAssert.AreEqual(psychologists, actualPsychologists);
-            psychologistMock.VerifyAll();
+            _psychologistMock.VerifyAll();
         }
         
         [TestMethod]
@@ -52,11 +54,11 @@ namespace MSP.BetterCalm.Test
                 Name = "psychologist1",
                 PsychologistId = 1
             };
-            psychologistMock.Setup(
+            _psychologistMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Psychologist>>())
             ).Returns(psychologist);
-            service.GetPsychologistsById(psychologist.PsychologistId);
-            psychologistMock.VerifyAll();
+            _service.GetPsychologistsById(psychologist.PsychologistId);
+            _psychologistMock.VerifyAll();
         }
         
         [TestMethod]
@@ -64,10 +66,10 @@ namespace MSP.BetterCalm.Test
         public void TestGetPsychologistByIdNotFound()
         {
 
-            psychologistMock.Setup(
+            _psychologistMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Psychologist>>())
             ).Throws(new KeyNotFoundException());
-            service.GetPsychologistsById(1);
+            _service.GetPsychologistsById(1);
         }
         
         [TestMethod]
@@ -77,36 +79,36 @@ namespace MSP.BetterCalm.Test
             {
                 Name = "psychologist1"
             };
-            psychologistMock.Setup(
+            _psychologistMock.Setup(
                 x => x.Add(psychologist)
             ).Returns(psychologist);
-            Psychologist createdPsychologist = service.SetPsychologist(psychologist);
+            Psychologist createdPsychologist = _service.SetPsychologist(psychologist);
             Assert.AreEqual(psychologist, createdPsychologist);
-            psychologistMock.VerifyAll();
+            _psychologistMock.VerifyAll();
         }
         
         [TestMethod]
         public void TestUpdatePsychologist()
         {
-            Psychologist OldPsychologist = new Psychologist()
+            Psychologist oldPsychologist = new Psychologist()
             {
                 PsychologistId = 2,
                 Name = "Psychologist1"
             };
-            Psychologist NewPsychologist = new Psychologist()
+            Psychologist newPsychologist = new Psychologist()
             {
                 PsychologistId = 2,
                 Name = "Psychologist32"
             };
-            psychologistMock.Setup(
+            _psychologistMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Psychologist>>())
-            ).Returns(OldPsychologist);
-            psychologistMock.Setup(
-                x => x.Update(OldPsychologist, NewPsychologist)
-            ).Returns(NewPsychologist);
-            Psychologist realUpdated = service.UpdatePsychologist(NewPsychologist, OldPsychologist.PsychologistId);
-            Assert.AreEqual(NewPsychologist, realUpdated);
-            psychologistMock.VerifyAll();
+            ).Returns(oldPsychologist);
+            _psychologistMock.Setup(
+                x => x.Update(oldPsychologist, newPsychologist)
+            ).Returns(newPsychologist);
+            Psychologist realUpdated = _service.UpdatePsychologist(newPsychologist, oldPsychologist.PsychologistId);
+            Assert.AreEqual(newPsychologist, realUpdated);
+            _psychologistMock.VerifyAll();
         }
         
 
@@ -118,14 +120,14 @@ namespace MSP.BetterCalm.Test
                 Name = "psychologist1",
                 PsychologistId = 1
             };
-            psychologistMock.Setup(
+            _psychologistMock.Setup(
                 x => x.Delete(psychologist)
             );
-            psychologistMock.Setup(
+            _psychologistMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Psychologist>>())
             ).Returns(psychologist);
-            service.DeletePsychologistById(psychologist.PsychologistId);
-            psychologistMock.VerifyAll();
+            _service.DeletePsychologistById(psychologist.PsychologistId);
+            _psychologistMock.VerifyAll();
         }
         
         [TestMethod]
@@ -133,10 +135,10 @@ namespace MSP.BetterCalm.Test
         public void TestDeletePsychologistNotFound()
         {
 
-            psychologistMock.Setup(
+            _psychologistMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Psychologist>>())
             ).Throws(new KeyNotFoundException());
-            service.DeletePsychologistById(1);
+            _service.DeletePsychologistById(1);
         }
     }
 }

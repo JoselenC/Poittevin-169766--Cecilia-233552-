@@ -4,27 +4,29 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
+using MSP.BetterCalm.BusinessLogic.Managers;
+using MSP.BetterCalm.BusinessLogic.Services;
 using MSP.BetterCalm.Domain;
 
-namespace MSP.BetterCalm.Test
+namespace MSP.BetterCalm.Test.BusinessLogic
 {
     [TestClass]
     public class AdministratorServiceTest
     {
-        private Mock<ManagerAdministratorRepository> repoMock;
-        private Mock<IRepository<Administrator>> administratorMock;
-        private Mock<IGuidService> guidServiceMock;
-        private IAdministratorService service;
+        private Mock<ManagerAdministratorRepository> _repoMock;
+        private Mock<IRepository<Administrator>> _administratorMock;
+        private Mock<IGuidService> _guidServiceMock;
+        private IAdministratorService _service;
         
 
         [TestInitialize]
         public void TestFixtureSetup()
         {
-            repoMock = new Mock<ManagerAdministratorRepository>();
-            administratorMock = new Mock<IRepository<Administrator>>();
-            guidServiceMock = new Mock<IGuidService>();
-            repoMock.Object.Administrators = administratorMock.Object;
-            service = new AdministratorService(repoMock.Object, guidServiceMock.Object);
+            _repoMock = new Mock<ManagerAdministratorRepository>();
+            _administratorMock = new Mock<IRepository<Administrator>>();
+            _guidServiceMock = new Mock<IGuidService>();
+            _repoMock.Object.Administrators = _administratorMock.Object;
+            _service = new AdministratorService(_repoMock.Object, _guidServiceMock.Object);
         }
 
         [TestMethod]
@@ -38,12 +40,12 @@ namespace MSP.BetterCalm.Test
             {
                 administrator
             };
-            administratorMock.Setup(
+            _administratorMock.Setup(
                 x => x.Get()
             ).Returns(administrators);
-            List<Administrator> actualAdministrators = service.GetAdministrators();
+            List<Administrator> actualAdministrators = _service.GetAdministrators();
             CollectionAssert.AreEqual(administrators, actualAdministrators);
-            administratorMock.VerifyAll();
+            _administratorMock.VerifyAll();
         }
         
         [TestMethod]
@@ -53,11 +55,11 @@ namespace MSP.BetterCalm.Test
             {
                 Name = "Patient1"
             };
-            administratorMock.Setup(
+            _administratorMock.Setup(
                 x => x.Add(admin)
             );
-            service.AddAdministrator(admin);
-            administratorMock.VerifyAll();
+            _service.AddAdministrator(admin);
+            _administratorMock.VerifyAll();
         }
         
         
@@ -69,11 +71,11 @@ namespace MSP.BetterCalm.Test
                 Name = "administrator1",
                 AdministratorId = 1
             };
-            administratorMock.Setup(
+            _administratorMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Administrator>>())
             ).Returns(administrator);
-            service.GetAdministratorsById(administrator.AdministratorId);
-            administratorMock.VerifyAll();
+            _service.GetAdministratorsById(administrator.AdministratorId);
+            _administratorMock.VerifyAll();
         }
         
         [TestMethod]
@@ -81,34 +83,34 @@ namespace MSP.BetterCalm.Test
         public void TestGetAdministratorByIdNotFound()
         {
 
-            administratorMock.Setup(
+            _administratorMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Administrator>>())
             ).Throws(new KeyNotFoundException());
-            service.GetAdministratorsById(1);
+            _service.GetAdministratorsById(1);
         }
 
         [TestMethod]
         public void TestUpdateAdministrator()
         {
-            Administrator OldAdministrator = new Administrator()
+            Administrator oldAdministrator = new Administrator()
             {
                 AdministratorId = 2,
                 Name = "Administrator1"
             };
-            Administrator NewAdministrator = new Administrator()
+            Administrator newAdministrator = new Administrator()
             {
                 AdministratorId = 2,
                 Name = "Administrator32"
             };
-            administratorMock.Setup(
+            _administratorMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Administrator>>())
-            ).Returns(OldAdministrator);
-            administratorMock.Setup(
-                x => x.Update(OldAdministrator, NewAdministrator)
-            ).Returns(NewAdministrator);
-            Administrator realUpdated = service.UpdateAdministrator(NewAdministrator, OldAdministrator.AdministratorId);
-            Assert.AreEqual(NewAdministrator, realUpdated);
-            administratorMock.VerifyAll();
+            ).Returns(oldAdministrator);
+            _administratorMock.Setup(
+                x => x.Update(oldAdministrator, newAdministrator)
+            ).Returns(newAdministrator);
+            Administrator realUpdated = _service.UpdateAdministrator(newAdministrator, oldAdministrator.AdministratorId);
+            Assert.AreEqual(newAdministrator, realUpdated);
+            _administratorMock.VerifyAll();
         }
         
 
@@ -120,24 +122,24 @@ namespace MSP.BetterCalm.Test
                 Name = "administrator1",
                 AdministratorId = 1
             };
-            administratorMock.Setup(
+            _administratorMock.Setup(
                 x => x.Delete(administrator)
             );
-            administratorMock.Setup(
+            _administratorMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Administrator>>())
             ).Returns(administrator);
-            service.DeleteAdministratorById(administrator.AdministratorId);
-            administratorMock.VerifyAll();
+            _service.DeleteAdministratorById(administrator.AdministratorId);
+            _administratorMock.VerifyAll();
         }
         
         [TestMethod]
         [ExpectedException(typeof(NotFoundAdministrator))]
         public void TestDeleteAdministratorNotFound()
         {
-            administratorMock.Setup(
+            _administratorMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Administrator>>())
             ).Throws(new KeyNotFoundException());
-            service.DeleteAdministratorById(1);
+            _service.DeleteAdministratorById(1);
         }
 
         [TestMethod]
@@ -154,23 +156,23 @@ namespace MSP.BetterCalm.Test
             };
             string expectedToken = "b46cacd9-2871-41fc-85ad-c62f888bdf3d";
             Guid token = new Guid(expectedToken);
-            administratorMock.Setup(
+            _administratorMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Administrator>>())
             ).Returns(administrator);
-            guidServiceMock.Setup(x => x.NewGuid()).Returns(token);
-            string realToken = service.Login(email, password);
+            _guidServiceMock.Setup(x => x.NewGuid()).Returns(token);
+            string realToken = _service.Login(email, password);
             Assert.AreEqual(expectedToken, realToken);
-            administratorMock.VerifyAll();
+            _administratorMock.VerifyAll();
         }
         
         [TestMethod]
         [ExpectedException(typeof(NotFoundAdminLoginError))]
         public void TestLoginAdministratorError()
         {
-            administratorMock.Setup(
+            _administratorMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Administrator>>())
             ).Throws(new KeyNotFoundException());
-            service.Login("email", "password");
+            _service.Login("email", "password");
         }
         
 
@@ -188,22 +190,22 @@ namespace MSP.BetterCalm.Test
             };
             string expectedToken = "b46cacd9-2871-41fc-85ad-c62f888bdf3d";
             Guid token = new Guid(expectedToken);
-            administratorMock.Setup(
+            _administratorMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Administrator>>())
             ).Returns(administrator);
-            Administrator actualAdministrator = service.GetAdministratorByToken(token.ToString());
+            Administrator actualAdministrator = _service.GetAdministratorByToken(token.ToString());
             Assert.AreEqual(administrator, actualAdministrator);
-            administratorMock.VerifyAll();
+            _administratorMock.VerifyAll();
         }
         
         [TestMethod]
         [ExpectedException(typeof(NotFoundAdministrator))]
         public void TestGetAdminByTokenError()
         {
-            administratorMock.Setup(
+            _administratorMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Administrator>>())
             ).Throws(new KeyNotFoundException());
-            service.GetAdministratorByToken("token");
+            _service.GetAdministratorByToken("token");
         }
     }
 }

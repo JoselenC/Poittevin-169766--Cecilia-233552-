@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using MSP.BetterCalm.BusinessLogic;
+using MSP.BetterCalm.BusinessLogic.Services;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.WebAPI.Controllers;
 using MSP.BetterCalm.WebAPI.Dtos;

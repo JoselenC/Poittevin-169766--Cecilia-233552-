@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.DataAccess;
+using MSP.BetterCalm.DataAccess.DtoObjects;
+using MSP.BetterCalm.DataAccess.Mappers;
+using MSP.BetterCalm.DataAccess.Repositories;
 using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.Test
@@ -11,8 +14,8 @@ namespace MSP.BetterCalm.Test
     [TestClass]
     public class PsychologistMapperTest
     {
-        private DbContextOptions<ContextDB> options;
-        private ContextDB context;
+        private DbContextOptions<ContextDb> options;
+        private ContextDb context;
         private DataBaseRepository<Psychologist, PsychologistDto> RepoPsychologists;
         private Psychologist psychologistTest;
         private Problematic prob1;
@@ -24,8 +27,8 @@ namespace MSP.BetterCalm.Test
         [TestInitialize]
         public  void TestFixtureSetup()
         {
-            options = new DbContextOptionsBuilder<ContextDB>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
-            context = new ContextDB(options);
+            options = new DbContextOptionsBuilder<ContextDb>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
+            context = new ContextDb(options);
             RepoPsychologists = new DataBaseRepository<Psychologist, PsychologistDto>(new PsychologistMapper(), context.Psychologists, context);
             DataBaseRepository<Problematic, ProblematicDto> probRepo =
                 new DataBaseRepository<Problematic, ProblematicDto>(new ProblematicMapper(), context.Problematics,

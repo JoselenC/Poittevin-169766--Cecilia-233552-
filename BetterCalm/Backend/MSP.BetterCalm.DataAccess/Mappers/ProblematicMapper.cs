@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Linq;
+using MSP.BetterCalm.DataAccess.DtoObjects;
 using MSP.BetterCalm.Domain;
 
-namespace MSP.BetterCalm.DataAccess
+namespace MSP.BetterCalm.DataAccess.Mappers
 {
     public class ProblematicMapper: IMapper<Problematic, ProblematicDto>
 
     {
-        public ProblematicDto DomainToDto(Problematic obj,ContextDB context)
+        public ProblematicDto DomainToDto(Problematic obj,ContextDb context)
         {
             ProblematicDto problematicDto = context.Problematics.FirstOrDefault(x => x.Name == obj.Name);
             if (problematicDto is null)
@@ -18,25 +19,25 @@ namespace MSP.BetterCalm.DataAccess
             return problematicDto;
         }
 
-        public Problematic DtoToDomain(ProblematicDto obj,ContextDB context)
+        public Problematic DtoToDomain(ProblematicDto obj,ContextDb context)
         {
             return new Problematic()
             {
-                Id=obj.ProblematicDtoID,
+                Id=obj.ProblematicDtoId,
                 Name = obj.Name
             };
         }
 
-        public Problematic GetById(ContextDB context, int id)
+        public Problematic GetById(ContextDb context, int id)
         {
             ProblematicDto problematicDto = context.Problematics
-                .FirstOrDefault(m => m.ProblematicDtoID == id);
+                .FirstOrDefault(m => m.ProblematicDtoId == id);
             if (problematicDto != null)
               return DtoToDomain(problematicDto,context);
             return null;
         }
 
-        public ProblematicDto UpdateDtoObject(ProblematicDto objToUpdate, Problematic updatedObject, ContextDB context)
+        public ProblematicDto UpdateDtoObject(ProblematicDto objToUpdate, Problematic updatedObject, ContextDb context)
         {
             throw new NotImplementedException();
         }

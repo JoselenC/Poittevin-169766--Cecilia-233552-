@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace MSP.BetterCalm.DataAccess
+namespace MSP.BetterCalm.DataAccess.DtoObjects
 {
     public class PsychologistDto: UserDto
     {

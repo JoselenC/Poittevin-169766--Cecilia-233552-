@@ -106,7 +106,7 @@ namespace MSP.BetterCalm.Test
         {
             Problematic problematic = new Problematic();
             problematic.Name = "Estres";
-            Assert.IsFalse( problematic.Equals(new Audio()));
+            Assert.IsFalse( problematic.Equals(new Content()));
         }
     }
 }

@@ -1,5 +1,5 @@
 
-namespace MSP.BetterCalm.DataAccess
+namespace MSP.BetterCalm.DataAccess.DtoObjects
 {
     public abstract class UserDto
     {
