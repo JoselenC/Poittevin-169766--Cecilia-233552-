@@ -1,8 +1,8 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MSP.BetterCalm.BusinessLogic;
+using MSP.BetterCalm.BusinessLogic.Services;
 
-namespace MSP.BetterCalm.Test
+namespace MSP.BetterCalm.Test.BusinessLogic
 {
     [TestClass]
     public class GuidServiceTest

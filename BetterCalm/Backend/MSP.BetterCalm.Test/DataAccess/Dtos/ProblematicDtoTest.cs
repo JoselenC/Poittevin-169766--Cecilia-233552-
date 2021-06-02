@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.DataAccess;
+using MSP.BetterCalm.DataAccess.DtoObjects;
 
 namespace MSP.BetterCalm.Test
 {
@@ -12,8 +13,8 @@ namespace MSP.BetterCalm.Test
         public void SetGetProblematicDtoId()
         {
             ProblematicDto problematicDto = new ProblematicDto();
-            problematicDto.ProblematicDtoID = 1;
-            Assert.AreEqual(1, problematicDto.ProblematicDtoID);
+            problematicDto.ProblematicDtoId = 1;
+            Assert.AreEqual(1, problematicDto.ProblematicDtoId);
         }
 
         [TestMethod]

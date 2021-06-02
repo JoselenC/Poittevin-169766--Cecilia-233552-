@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.DataAccess;
+using MSP.BetterCalm.DataAccess.DtoObjects;
+using MSP.BetterCalm.DataAccess.Mappers;
+using MSP.BetterCalm.DataAccess.Repositories;
 using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.Test
@@ -10,21 +13,21 @@ namespace MSP.BetterCalm.Test
     [TestClass]
     public class MeetingMapperTest
     {
-        private DbContextOptions<ContextDB> options;
+        private DbContextOptions<ContextDb> options;
         private DataBaseRepository<Meeting, MeetingDto> repoMeetings;
         private DataBaseRepository<Problematic, ProblematicDto> repoProb;
         private Meeting meetingTest;
         private Patient patient;
         private Psychologist psychologist;
-        private ContextDB context;
+        private ContextDb context;
 
         [TestInitialize]
         public  void TestFixtureSetup()
         {
-            options = new DbContextOptionsBuilder<ContextDB>()
+            options = new DbContextOptionsBuilder<ContextDb>()
                 .EnableSensitiveDataLogging(true)
                 .UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
-            context = new ContextDB(options);
+            context = new ContextDb(options);
             repoMeetings = new DataBaseRepository<Meeting, MeetingDto>(new MeetingMapper(), context.Meeting, context);
             repoProb = new DataBaseRepository<Problematic, ProblematicDto>(new ProblematicMapper(), context.Problematics, context);
             List<Problematic> problematics = new List<Problematic>()

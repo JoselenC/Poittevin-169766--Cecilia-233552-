@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.DataAccess;
+using MSP.BetterCalm.DataAccess.DtoObjects;
+using MSP.BetterCalm.DataAccess.Mappers;
+using MSP.BetterCalm.DataAccess.Repositories;
 using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.Test
@@ -10,17 +13,17 @@ namespace MSP.BetterCalm.Test
     [TestClass()]
     public class ProblematicMapperTest
     {
-        private DbContextOptions<ContextDB> options;
+        private DbContextOptions<ContextDb> options;
 
         public  DataBaseRepository<Problematic, ProblematicDto> Problematics;
         public  Problematic problematicTest;
-        private ContextDB context;
+        private ContextDb context;
 
         [TestInitialize]
         public  void TestFixtureSetup()
         {
-            options = new DbContextOptionsBuilder<ContextDB>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
-            context = new ContextDB(this.options);
+            options = new DbContextOptionsBuilder<ContextDb>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
+            context = new ContextDb(this.options);
             Problematics = new DataBaseRepository<Problematic, ProblematicDto>(new ProblematicMapper(), context.Problematics, context);
             problematicTest = new Problematic() {Id=1, Name = "Dormir"};
             Problematics.Add(problematicTest);
@@ -53,7 +56,7 @@ namespace MSP.BetterCalm.Test
         public void UpdateTest()
         {
             ProblematicMapper problematicMapper = new ProblematicMapper();
-            problematicMapper.UpdateDtoObject(new ProblematicDto(), new Problematic(), new ContextDB());
+            problematicMapper.UpdateDtoObject(new ProblematicDto(), new Problematic(), new ContextDb());
         }
         
         [TestMethod]

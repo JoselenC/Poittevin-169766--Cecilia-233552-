@@ -116,7 +116,7 @@ namespace MSP.BetterCalm.Test
                 DateTime = datetime,
                 Patient =patient
             };
-            Assert.IsFalse( meeting.Equals(new Audio()));
+            Assert.IsFalse( meeting.Equals(new Content()));
         }
         
         [TestMethod]

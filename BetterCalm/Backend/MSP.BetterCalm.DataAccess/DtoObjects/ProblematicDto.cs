@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 
-namespace MSP.BetterCalm.DataAccess
+namespace MSP.BetterCalm.DataAccess.DtoObjects
 {
     public class ProblematicDto
     {
-        public int ProblematicDtoID { get; set; }
+        public int ProblematicDtoId { get; set; }
         
         public string Name { get; set; }
         

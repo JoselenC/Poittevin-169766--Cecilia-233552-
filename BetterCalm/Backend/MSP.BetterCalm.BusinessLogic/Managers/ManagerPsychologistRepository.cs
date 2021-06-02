@@ -1,6 +1,6 @@
 using MSP.BetterCalm.Domain;
 
-namespace MSP.BetterCalm.BusinessLogic
+namespace MSP.BetterCalm.BusinessLogic.Managers
 {
     public class ManagerPsychologistRepository
     {

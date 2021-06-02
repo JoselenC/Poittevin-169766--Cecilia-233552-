@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
+using MSP.BetterCalm.BusinessLogic.Managers;
 using MSP.BetterCalm.Domain;
 
-namespace MSP.BetterCalm.BusinessLogic
+namespace MSP.BetterCalm.BusinessLogic.Services
 {
     public class CategoryService : ICategoryService
     {

@@ -1,18 +1,17 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using MSP.BetterCalm.DataAccess.DtoObjects;
 using MSP.BetterCalm.Domain;
 
-namespace MSP.BetterCalm.DataAccess
+namespace MSP.BetterCalm.DataAccess.Mappers
 {
     public class MeetingMapper: IMapper<Meeting, MeetingDto>
     {
-        public MeetingDto DomainToDto(Meeting obj, ContextDB context)
+        public MeetingDto DomainToDto(Meeting obj, ContextDb context)
         {
             PatientMapper patientMapper = new PatientMapper();
             PsychologistMapper psychologistMapper = new PsychologistMapper();
-            int patientId = 0;
-            int psychologistId = 0;
-            
+           
             PatientDto patientDto = context.Patients.Find(obj.Patient.Id);
             if (patientDto is null)
                 patientDto = patientMapper.DomainToDto(obj.Patient, context);
@@ -75,7 +74,7 @@ namespace MSP.BetterCalm.DataAccess
             return null;
         }
 
-        public Meeting DtoToDomain(MeetingDto obj, ContextDB context)
+        public Meeting DtoToDomain(MeetingDto obj, ContextDb context)
         {
             context.Entry(obj).Reference("Patient").Load();
             context.Entry(obj).Reference("Psychologist").Load();
@@ -88,12 +87,12 @@ namespace MSP.BetterCalm.DataAccess
             };
         }
 
-        public Meeting GetById(ContextDB context, int id)
+        public Meeting GetById(ContextDb context, int id)
         {
             throw new System.NotImplementedException();
         }
 
-        public MeetingDto UpdateDtoObject(MeetingDto objToUpdate, Meeting updatedObject, ContextDB context)
+        public MeetingDto UpdateDtoObject(MeetingDto objToUpdate, Meeting updatedObject, ContextDb context)
         {
             throw new System.NotImplementedException();
         }

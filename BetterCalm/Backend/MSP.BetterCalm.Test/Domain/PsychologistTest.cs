@@ -252,7 +252,7 @@ namespace MSP.BetterCalm.Test
             {
                 Address = "House 1234"
             };
-            Assert.IsFalse( psychologist.Equals(new Audio()));
+            Assert.IsFalse( psychologist.Equals(new Content()));
         }
         
         [TestMethod]

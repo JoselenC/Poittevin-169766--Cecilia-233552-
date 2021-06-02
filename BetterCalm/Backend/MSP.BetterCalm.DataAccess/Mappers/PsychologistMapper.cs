@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
+using MSP.BetterCalm.DataAccess.DtoObjects;
 using MSP.BetterCalm.Domain;
 
-namespace MSP.BetterCalm.DataAccess
+namespace MSP.BetterCalm.DataAccess.Mappers
 {
     public class PsychologistMapper: IMapper<Psychologist, PsychologistDto>
     {
-        public PsychologistDto DomainToDto(Psychologist obj, ContextDB context)
+        public PsychologistDto DomainToDto(Psychologist obj, ContextDb context)
         {
             PsychologistDto psychologistDto = context.Psychologists.FirstOrDefault(
                 x => x.PsychologistDtoId == obj.PsychologistId
@@ -42,7 +43,7 @@ namespace MSP.BetterCalm.DataAccess
             return psychologistDto;
         }
 
-        public Psychologist DtoToDomain(PsychologistDto obj, ContextDB context)
+        public Psychologist DtoToDomain(PsychologistDto obj, ContextDb context)
         {
             Psychologist psychologist = new Psychologist()
             {
@@ -63,7 +64,7 @@ namespace MSP.BetterCalm.DataAccess
                     problematics.Add(
                         new Problematic()
                         {
-                            Id = psychologistProblematicDto.Problematic.ProblematicDtoID,
+                            Id = psychologistProblematicDto.Problematic.ProblematicDtoId,
                             Name = psychologistProblematicDto.Problematic.Name
                         }
                     );
@@ -90,12 +91,12 @@ namespace MSP.BetterCalm.DataAccess
             return psychologist;
         }
 
-        public Psychologist GetById(ContextDB context, int id)
+        public Psychologist GetById(ContextDb context, int id)
         {
             throw new System.NotImplementedException();
         }
 
-        public PsychologistDto UpdateDtoObject(PsychologistDto objToUpdate, Psychologist updatedObject, ContextDB context)
+        public PsychologistDto UpdateDtoObject(PsychologistDto objToUpdate, Psychologist updatedObject, ContextDb context)
         {
             objToUpdate.Name = updatedObject.Name ?? objToUpdate.Name;
             objToUpdate.LastName = updatedObject.LastName ?? objToUpdate.LastName;
@@ -111,7 +112,7 @@ namespace MSP.BetterCalm.DataAccess
                     if (problematic is null)
                         throw new ArgumentException("Problematics creation is not allowed");
                     PsychologistProblematicDto psychologistProblematicDto = context.PsychologistProblematic.FirstOrDefault(
-                        x => x.ProblematicId == problematic.ProblematicDtoID &&
+                        x => x.ProblematicId == problematic.ProblematicDtoId &&
                              x.PsychologistId == objToUpdate.PsychologistDtoId
                     );
                     if (psychologistProblematicDto is null)

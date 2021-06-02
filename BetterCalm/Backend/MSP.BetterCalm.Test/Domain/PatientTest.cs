@@ -100,7 +100,7 @@ namespace MSP.BetterCalm.Test
                 BirthDay = new DateTime(1993, 7, 15),
                 Cellphone = "09123981"
             };
-            Assert.IsFalse(patient.Equals(new Audio()));
+            Assert.IsFalse(patient.Equals(new Content()));
         }
         [TestMethod]
         public void EqualsTest()

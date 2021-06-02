@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.DataAccess;
+using MSP.BetterCalm.DataAccess.DtoObjects;
 
 
 namespace MSP.BetterCalm.Test
@@ -13,8 +14,8 @@ namespace MSP.BetterCalm.Test
         public void SetGetCategoryDtoId()
         {
             CategoryDto categoryDto = new CategoryDto();
-            categoryDto.CategoryDtoID = 1;
-            Assert.AreEqual(1, categoryDto.CategoryDtoID);
+            categoryDto.CategoryDtoId = 1;
+            Assert.AreEqual(1, categoryDto.CategoryDtoId);
         }
 
         [TestMethod]
@@ -33,20 +34,13 @@ namespace MSP.BetterCalm.Test
             CollectionAssert.AreEqual(category.PlaylistCategoriesDto.ToList(), new List<PlaylistCategoryDto>());
         }
         
-        [TestMethod]
-        public void GetSetVideoCategoryDto()
-        {
-            CategoryDto category = new CategoryDto();
-            category.VideosCategoriesDto = new List<VideoCategoryDto>();
-            CollectionAssert.AreEqual(category.VideosCategoriesDto.ToList(), new List<VideoCategoryDto>());
-        }
         
         [TestMethod]
         public void GetSetSongCategoryDto()
         {
             CategoryDto category = new CategoryDto();
-            category.AudiosCategoriesDto = new List<AudioCategoryDto>();
-            ICollection<AudioCategoryDto> getcategorySong= category.AudiosCategoriesDto;
+            category.ContentsCategoriesDto = new List<ContentCategoryDto>();
+            ICollection<ContentCategoryDto> getcategorySong= category.ContentsCategoriesDto;
             CollectionAssert.AreEqual(getcategorySong.ToList(), new List<PlaylistCategoryDto>());
         }
         

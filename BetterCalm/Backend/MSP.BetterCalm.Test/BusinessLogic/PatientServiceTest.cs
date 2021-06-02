@@ -4,58 +4,60 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
+using MSP.BetterCalm.BusinessLogic.Managers;
+using MSP.BetterCalm.BusinessLogic.Services;
 using MSP.BetterCalm.Domain;
 
-namespace MSP.BetterCalm.Test
+namespace MSP.BetterCalm.Test.BusinessLogic
 {
     [TestClass]
     public class PatientServiceTest
     {
-        private Mock<ManagerPatientRepository> repoMock;
-        private Mock<IRepository<Patient>> patientMock;
-        private PatientService service;
+        private Mock<ManagerPatientRepository> _repoMock;
+        private Mock<IRepository<Patient>> _patientMock;
+        private PatientService _service;
         
-        private Mock<ManagerPsychologistRepository> psyRepoMock;
-        private Mock<IRepository<Psychologist>> psychologistMock;
+        private Mock<ManagerPsychologistRepository> _psyRepoMock;
+        private Mock<IRepository<Psychologist>> _psychologistMock;
 
-        private Mock<IRepository<Meeting>> meetingMock;
-        private Mock<ManagerMeetingRepository> meetingRepoMock;
+        private Mock<IRepository<Meeting>> _meetingMock;
+        private Mock<ManagerMeetingRepository> _meetingRepoMock;
 
-        private Patient patient;
-        private List<Problematic> problematics;
-        private Psychologist psychologist;
+        private Patient _patient;
+        private List<Problematic> _problematics;
+        private Psychologist _psychologist;
 
         [TestInitialize]
         public void TestFixtureSetup()
         {
-            repoMock = new Mock<ManagerPatientRepository>();
-            patientMock = new Mock<IRepository<Patient>>();
-            repoMock.Object.Patients = patientMock.Object;
+            _repoMock = new Mock<ManagerPatientRepository>();
+            _patientMock = new Mock<IRepository<Patient>>();
+            _repoMock.Object.Patients = _patientMock.Object;
             
-            psyRepoMock = new Mock<ManagerPsychologistRepository>();
-            psychologistMock = new Mock<IRepository<Psychologist>>();
-            psyRepoMock.Object.Psychologists = psychologistMock.Object;
+            _psyRepoMock = new Mock<ManagerPsychologistRepository>();
+            _psychologistMock = new Mock<IRepository<Psychologist>>();
+            _psyRepoMock.Object.Psychologists = _psychologistMock.Object;
             
-            meetingRepoMock = new Mock<ManagerMeetingRepository>();
-            meetingMock = new Mock<IRepository<Meeting>>();
-            meetingRepoMock.Object.Meetings = meetingMock.Object;
+            _meetingRepoMock = new Mock<ManagerMeetingRepository>();
+            _meetingMock = new Mock<IRepository<Meeting>>();
+            _meetingRepoMock.Object.Meetings = _meetingMock.Object;
             
-            service = new PatientService(repoMock.Object, psyRepoMock.Object, meetingRepoMock.Object);
+            _service = new PatientService(_repoMock.Object, _psyRepoMock.Object, _meetingRepoMock.Object);
             
-            patient = new Patient()
+            _patient = new Patient()
             {
                 Name = "Patient1"
             };
-            problematics = new List<Problematic>()
+            _problematics = new List<Problematic>()
             {
                 new Problematic() {Name = "Prob1"},
                 new Problematic() {Name = "Prob2"},
                 new Problematic() {Name = "Prob3"}
             };
-            psychologist = new Psychologist()
+            _psychologist = new Psychologist()
             {
                 Name = "psychologist1",
-                Problematics = problematics
+                Problematics = _problematics
             };
 
         }
@@ -71,12 +73,12 @@ namespace MSP.BetterCalm.Test
             {
                 patient
             };
-            patientMock.Setup(
+            _patientMock.Setup(
                 x => x.Get()
             ).Returns(patients);
-            List<Patient> actualPatients = service.GetPatients();
+            List<Patient> actualPatients = _service.GetPatients();
             CollectionAssert.AreEqual(patients, actualPatients);
-            patientMock.VerifyAll();
+            _patientMock.VerifyAll();
         }
                 
         [TestMethod]
@@ -87,11 +89,11 @@ namespace MSP.BetterCalm.Test
                 Name = "patient1",
                 Id = 1
             };
-            patientMock.Setup(
+            _patientMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Patient>>())
             ).Returns(patient);
-            service.GetPatientsById(patient.Id);
-            patientMock.VerifyAll();
+            _service.GetPatientsById(patient.Id);
+            _patientMock.VerifyAll();
         }
         
         [TestMethod]
@@ -99,10 +101,10 @@ namespace MSP.BetterCalm.Test
         public void TestGetPatientByIdNotFound()
         {
 
-            patientMock.Setup(
+            _patientMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Patient>>())
             ).Throws(new KeyNotFoundException());
-            service.GetPatientsById(1);
+            _service.GetPatientsById(1);
         }
         
         [TestMethod]
@@ -112,11 +114,11 @@ namespace MSP.BetterCalm.Test
             {
                 Name = "Patient1"
             };
-            patientMock.Setup(
+            _patientMock.Setup(
                 x => x.Add(patient)
             );
-            service.SetPatient(patient);
-            patientMock.VerifyAll();
+            _service.SetPatient(patient);
+            _patientMock.VerifyAll();
         }
 
         private List<Meeting> GetMeetingsForDays(int amountDays)
@@ -142,33 +144,33 @@ namespace MSP.BetterCalm.Test
         [TestMethod]
         public void TestScheduleNewMeetingOnNextWeek()
         {
-            Psychologist BusyPsychologist = new Psychologist()
+            Psychologist busyPsychologist = new Psychologist()
             {
                 Name = "BusyPerson",
                 Meetings = GetMeetingsForDays(1),
-                Problematics = problematics
+                Problematics = _problematics
             };
-            DateTime nextDayMeeting = BusyPsychologist.GetDayForNextMeetingOnWeek(DateTime.Today);
+            DateTime nextDayMeeting = busyPsychologist.GetDayForNextMeetingOnWeek(DateTime.Today);
             Meeting expectedMeeting = new Meeting()
             {
                 DateTime =nextDayMeeting,
-                Patient = patient,
-                Psychologist = BusyPsychologist
+                Patient = _patient,
+                Psychologist = busyPsychologist
             };
-            psychologistMock.Setup(
+            _psychologistMock.Setup(
                 x => 
                     x.Get()
-            ).Returns(new List<Psychologist>(){BusyPsychologist});
-            Meeting actualMeeting = service.ScheduleNewMeeting(patient, problematics[0]);
+            ).Returns(new List<Psychologist>(){busyPsychologist});
+            Meeting actualMeeting = _service.ScheduleNewMeeting(_patient, _problematics[0]);
             Assert.AreEqual(expectedMeeting, actualMeeting);
-            psychologistMock.VerifyAll();
+            _psychologistMock.VerifyAll();
         }
         
         [TestMethod]
         [ExpectedException(typeof(AlreadyMeetingException))]
         public void TestScheduleNewMeetingAlreadyExistsMeeting()
         {
-            Psychologist BusyPsychologist = new Psychologist()
+            Psychologist busyPsychologist = new Psychologist()
             {
                 Name = "BusyPerson",
                 Meetings = new List<Meeting>()
@@ -176,26 +178,26 @@ namespace MSP.BetterCalm.Test
                     new Meeting()
                     {
                         DateTime = new DateTime(1993, 7, 15),
-                        Patient = patient
+                        Patient = _patient
                     },
                 },
-                Problematics = problematics
+                Problematics = _problematics
             };
-            DateTime nextDayMeeting = BusyPsychologist.GetDayForNextMeetingOnWeek(DateTime.Today);
+            DateTime nextDayMeeting = busyPsychologist.GetDayForNextMeetingOnWeek(DateTime.Today);
             Meeting expectedMeeting = new Meeting()
             {
                 DateTime =nextDayMeeting,
-                Patient = patient,
-                Psychologist = BusyPsychologist
+                Patient = _patient,
+                Psychologist = busyPsychologist
             };
-            psychologistMock.Setup(
+            _psychologistMock.Setup(
                 x => 
                     x.Get()
-            ).Returns(new List<Psychologist>(){BusyPsychologist});
-            meetingMock.Setup(
+            ).Returns(new List<Psychologist>(){busyPsychologist});
+            _meetingMock.Setup(
                 x => x.Add(expectedMeeting)
             ).Throws(new InvalidOperationException());
-            service.ScheduleNewMeeting(patient, problematics[0]);
+            _service.ScheduleNewMeeting(_patient, _problematics[0]);
         }
         
         [TestMethod]
@@ -206,78 +208,78 @@ namespace MSP.BetterCalm.Test
                 Name = "BusyPerson",
                 Meetings = GetMeetingsForDays(1),
                 CreationDate = DateTime.Today,
-                Problematics = problematics
+                Problematics = _problematics
             };
             Psychologist oldBusyPsychologist = new Psychologist()
             {
                 Name = "BusyPerson",
                 Meetings = GetMeetingsForDays(1),
                 CreationDate = DateTime.Today.AddDays(-2),
-                Problematics = problematics
+                Problematics = _problematics
             };
             DateTime nextDayMeeting = oldBusyPsychologist.GetDayForNextMeetingOnWeek(DateTime.Today);
             Meeting expectedMeeting = new Meeting()
             {
                 DateTime =nextDayMeeting,
-                Patient = patient,
+                Patient = _patient,
                 Psychologist = oldBusyPsychologist
             };
-            psychologistMock.Setup(
+            _psychologistMock.Setup(
                 x => 
                     x.Get()
             ).Returns(new List<Psychologist>(){newBusyPsychologist, oldBusyPsychologist});
-            Meeting actualMeeting = service.ScheduleNewMeeting(patient, problematics[0]);
+            Meeting actualMeeting = _service.ScheduleNewMeeting(_patient, _problematics[0]);
             Assert.AreEqual(expectedMeeting, actualMeeting);
-            psychologistMock.VerifyAll();
+            _psychologistMock.VerifyAll();
         }
         
         [TestMethod]
         public void TestScheduleNewMeetingOn2NextWeeks()
         {
-            Psychologist BusyPsychologist = new Psychologist()
+            Psychologist busyPsychologist = new Psychologist()
             {
                 Name = "BusyPerson",
                 Meetings = GetMeetingsForDays(14),
-                Problematics = problematics
+                Problematics = _problematics
             };
-            DateTime nextDayMeeting = BusyPsychologist.GetDayForNextMeetingOnWeek(DateTime.Today);
+            DateTime nextDayMeeting = busyPsychologist.GetDayForNextMeetingOnWeek(DateTime.Today);
             Meeting expectedMeeting = new Meeting()
             {
                 DateTime =nextDayMeeting,
-                Patient = patient,
-                Psychologist = BusyPsychologist
+                Patient = _patient,
+                Psychologist = busyPsychologist
             };
-            psychologistMock.Setup(
+            _psychologistMock.Setup(
                 x => 
                     x.Get()
-            ).Returns(new List<Psychologist>(){BusyPsychologist});
-            Meeting actualMeeting = service.ScheduleNewMeeting(patient, problematics[0]);
+            ).Returns(new List<Psychologist>(){busyPsychologist});
+            Meeting actualMeeting = _service.ScheduleNewMeeting(_patient, _problematics[0]);
             Assert.AreEqual(expectedMeeting, actualMeeting);
-            psychologistMock.VerifyAll();
+            _psychologistMock.VerifyAll();
         }
         
         [TestMethod]
         public void TestUpdatePatient()
         {
-            Patient OldPatient = new Patient()
+            Patient oldPatient = new Patient()
             {
                 Id = 2,
                 Name = "Patient1"
             };
-            Patient NewPatient = new Patient()
+            Patient newPatient = new Patient()
             {
                 Id = 2,
                 Name = "Patient32"
             };
-            patientMock.Setup(
+            _patientMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Patient>>())
-            ).Returns(OldPatient);
-            patientMock.Setup(
-                x => x.Update(OldPatient, NewPatient)
-            ).Returns(NewPatient);
-            Patient realUpdated = service.UpdatePatient(NewPatient, OldPatient.Id);
-            Assert.AreEqual(NewPatient, realUpdated);
-            patientMock.VerifyAll();
+            ).Returns(oldPatient);
+            _patientMock.Setup(
+                x => x.Update(oldPatient, newPatient)
+            ).Returns(newPatient);
+            Patient realUpdated = _service.UpdatePatient(newPatient, oldPatient.Id);
+            Assert.AreEqual(newPatient, realUpdated);
+            _patientMock.VerifyAll();
         }
         
 
@@ -289,14 +291,14 @@ namespace MSP.BetterCalm.Test
                 Name = "patient1",
                 Id = 1
             };
-            patientMock.Setup(
+            _patientMock.Setup(
                 x => x.Delete(patient)
             );
-            patientMock.Setup(
+            _patientMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Patient>>())
             ).Returns(patient);
-            service.DeletePatientById(patient.Id);
-            patientMock.VerifyAll();
+            _service.DeletePatientById(patient.Id);
+            _patientMock.VerifyAll();
         }
         
         [TestMethod]
@@ -304,10 +306,10 @@ namespace MSP.BetterCalm.Test
         public void TestDeletePatientNotFound()
         {
 
-            patientMock.Setup(
+            _patientMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Patient>>())
             ).Throws(new KeyNotFoundException());
-            service.DeletePatientById(1);
+            _service.DeletePatientById(1);
         }
 
     }
