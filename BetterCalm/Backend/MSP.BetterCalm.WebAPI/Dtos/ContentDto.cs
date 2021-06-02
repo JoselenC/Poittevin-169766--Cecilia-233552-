@@ -6,31 +6,23 @@ using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.WebAPI.Dtos
 {
-    public class AudioDto
+    public class ContentDto
     {
-        
         public int Id { get; set; }
-       
         public List<Category> Categories {get; set; }
-
-        private string name;
-        public string Name { get;set; }
-        
-        public string Duration { get; set; }
-        
         public string AuthorName {get; set; }
-        
+        public string Name { get;set; }
+        public string Duration { get; set; }
         public string UrlImage {get; set; }
-        
-        public string UrlAudio {get; set; }
-
+        public string UrlArchive {get; set; }
         private bool IsDurationValid(string duration)
         {
             string pattern = @"^([0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9])[hms]$";
             Regex reg = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
             return reg.IsMatch(duration);
         }
-        private int SetDuration()
+
+        public int SetDuration()
         {
             if (IsDurationValid(Duration.ToLower()))
             {
@@ -43,56 +35,55 @@ namespace MSP.BetterCalm.WebAPI.Dtos
             }
             throw new InvalidDurationFormat();
         }
-
-        public Audio CreateAudio()
+        public Content CreateContent()
         {
-            Audio audio = new Audio()
+            Content content = new Content()
             {
                 Name = Name, 
                 Categories = Categories, 
                 Duration = SetDuration(), 
                 AuthorName = AuthorName,
-                UrlAudio = UrlAudio, 
+                UrlArchive = UrlArchive, 
                 UrlImage = UrlImage
             };
-            return audio;
+            return content;
         }
         
-        public AudioDto CreateAudioDto(Audio audio)
+        public ContentDto CreateContentDto(Content content)
         {
             double duration = 0;
             string durationFormat = "0m";
-            if (audio.Duration != 0)
+            if (content.Duration != 0)
             {
-                duration = (audio.Duration / 60);
+                duration = (content.Duration / 60);
                 if (duration <= 60)
                 {
                     durationFormat = duration.ToString() + "m";
                 }
                 else
                 {
-                    duration = (audio.Duration / 60) / 60;
+                    duration = (content.Duration / 60) / 60;
                     durationFormat = duration.ToString() + "h";
                 }
             }
-            AudioDto audioReturn = new AudioDto()
+            ContentDto contentReturn = new ContentDto()
             {
-                Id = audio.Id,
-                Name = audio.Name, 
-                Categories = audio.Categories, 
+                Id = content.Id,
+                Name = content.Name, 
+                Categories = content.Categories, 
                 Duration = durationFormat, 
-                AuthorName = audio.AuthorName,
-                UrlAudio = audio.UrlAudio, 
-                UrlImage = audio.UrlImage
+                AuthorName = content.AuthorName,
+                UrlArchive = content.UrlArchive, 
+                UrlImage = content.UrlImage
             };
-            return audioReturn;
+            return contentReturn;
         }
         
         public override bool Equals(object obj)
         {
             if (obj==null) return false;
             if (obj.GetType() != GetType()) return false;
-            return Id == ((AudioDto) obj).Id;
+            return Id == ((ContentDto) obj).Id;
         }
     }
 }

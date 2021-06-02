@@ -48,11 +48,11 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
-        public void GetSetPlaylistUrlAudio()
+        public void GetSetPlaylistUrlContent()
         {
-            string description = "urlAudioName";
+            string description = "urlContentName";
             Playlist playlist = new Playlist();
-            playlist.Description = "urlAudioName";
+            playlist.Description = "urlContentName";
             string getPlaylistDescription = playlist.Description;
             Assert.AreEqual(description, getPlaylistDescription);
         }
@@ -70,32 +70,32 @@ namespace MSP.BetterCalm.Test
         [TestMethod]
         public void GetSetPlaylistUrlImage()
         {
-            string AudioUrlImage = "https://www.google.com/search?q=paisaje&tbm=isch&ved=2ahUKEwifk_70vbHwAhWHMrkGHdFZCwUQ2-cCegQIABAA&oq=paisaje&gs_lcp=CgNpbWcQAzIECCMQJzIHCAAQsQMQQzIKCAAQsQMQgwEQQzIHCAAQsQMQQzIHCAAQsQMQQzIHCAAQsQMQQzIECAAQQzIECAAQQzICCAAyAggAOgUIABCxAzoICAAQsQMQgwFQrfQDWPD7A2CE_QNoAHAAeACAAY4CiAHRCZIBBTAuNS4ymAEAoAEBqgELZ3dzLXdpei1pbWfAAQE&sclient=img&ei=cwGSYN-NCofl5OUP0bOtKA#imgrc=Mo3K6BpTEC_zGM";
-            Playlist audio = new Playlist();
-            audio.UrlImage = "https://www.google.com/search?q=paisaje&tbm=isch&ved=2ahUKEwifk_70vbHwAhWHMrkGHdFZCwUQ2-cCegQIABAA&oq=paisaje&gs_lcp=CgNpbWcQAzIECCMQJzIHCAAQsQMQQzIKCAAQsQMQgwEQQzIHCAAQsQMQQzIHCAAQsQMQQzIHCAAQsQMQQzIECAAQQzIECAAQQzICCAAyAggAOgUIABCxAzoICAAQsQMQgwFQrfQDWPD7A2CE_QNoAHAAeACAAY4CiAHRCZIBBTAuNS4ymAEAoAEBqgELZ3dzLXdpei1pbWfAAQE&sclient=img&ei=cwGSYN-NCofl5OUP0bOtKA#imgrc=Mo3K6BpTEC_zGM";
-            string getAudioUrlImage = audio.UrlImage;
-            Assert.AreEqual(AudioUrlImage, getAudioUrlImage);
+            string ContentUrlImage = "https://www.google.com/search?q=paisaje&tbm=isch&ved=2ahUKEwifk_70vbHwAhWHMrkGHdFZCwUQ2-cCegQIABAA&oq=paisaje&gs_lcp=CgNpbWcQAzIECCMQJzIHCAAQsQMQQzIKCAAQsQMQgwEQQzIHCAAQsQMQQzIHCAAQsQMQQzIHCAAQsQMQQzIECAAQQzIECAAQQzICCAAyAggAOgUIABCxAzoICAAQsQMQgwFQrfQDWPD7A2CE_QNoAHAAeACAAY4CiAHRCZIBBTAuNS4ymAEAoAEBqgELZ3dzLXdpei1pbWfAAQE&sclient=img&ei=cwGSYN-NCofl5OUP0bOtKA#imgrc=Mo3K6BpTEC_zGM";
+            Playlist Content = new Playlist();
+            Content.UrlImage = "https://www.google.com/search?q=paisaje&tbm=isch&ved=2ahUKEwifk_70vbHwAhWHMrkGHdFZCwUQ2-cCegQIABAA&oq=paisaje&gs_lcp=CgNpbWcQAzIECCMQJzIHCAAQsQMQQzIKCAAQsQMQgwEQQzIHCAAQsQMQQzIHCAAQsQMQQzIHCAAQsQMQQzIECAAQQzIECAAQQzICCAAyAggAOgUIABCxAzoICAAQsQMQgwFQrfQDWPD7A2CE_QNoAHAAeACAAY4CiAHRCZIBBTAuNS4ymAEAoAEBqgELZ3dzLXdpei1pbWfAAQE&sclient=img&ei=cwGSYN-NCofl5OUP0bOtKA#imgrc=Mo3K6BpTEC_zGM";
+            string getContentUrlImage = Content.UrlImage;
+            Assert.AreEqual(ContentUrlImage, getContentUrlImage);
         }
         
         [TestMethod]
         public void GetSetPlaylistEmptyUrlImage()
         {
-            string AudioUrlImage = "";
-            Playlist audio = new Playlist();
-            audio.UrlImage = "";
-            string getAudioUrlImage = audio.UrlImage;
-            Assert.AreEqual(AudioUrlImage, getAudioUrlImage);
+            string ContentUrlImage = "";
+            Playlist Content = new Playlist();
+            Content.UrlImage = "";
+            string getContentUrlImage = Content.UrlImage;
+            Assert.AreEqual(ContentUrlImage, getContentUrlImage);
         }
         
         [TestMethod]
         [ExpectedException(typeof(InvalidUrl), "")]
         public void GetSetInalidPlaylistUrlImage()
         {
-            string AudioUrlImage = "UrlImage";
-            Playlist audio = new Playlist();
-            audio.UrlImage = "UrlImage";
-            string getAudioUrlImage = audio.UrlImage;
-            Assert.AreEqual(AudioUrlImage, getAudioUrlImage);
+            string ContentUrlImage = "UrlImage";
+            Playlist Content = new Playlist();
+            Content.UrlImage = "UrlImage";
+            string getContentUrlImage = Content.UrlImage;
+            Assert.AreEqual(ContentUrlImage, getContentUrlImage);
         }
 
         [TestMethod]
@@ -109,13 +109,13 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
-        public void GetSetPlaylistAudios()
+        public void GetSetPlaylistContents()
         {
-            List<Audio> Audios = new List<Audio>();
+            List<Content> Contents = new List<Content>();
             Playlist playlist = new Playlist();
-            playlist.Audios = Audios;
-            List<Audio> getAudios = playlist.Audios;
-            Assert.AreEqual(Audios, getAudios);
+            playlist.Contents = Contents;
+            List<Content> getContents = playlist.Contents;
+            Assert.AreEqual(Contents, getContents);
         }
         
         [TestMethod]
@@ -167,43 +167,43 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
-        public void IsSameAudioName()
+        public void IsSameContentName()
         {
             Playlist playlist = new Playlist();
-            playlist.Audios = new List<Audio>()
+            playlist.Contents = new List<Content>()
             {
-                new Audio(){
+                new Content(){
             
                     Categories = new List<Category>(),
                     Name = "Let it be",
                     AuthorName = "John Lennon",
                     Duration = 12,
-                    UrlAudio = "",
+                    UrlArchive = "",
                     UrlImage = ""
                 }
             };
             string categoryName = "Let it be";
-            Assert.IsTrue(playlist.IsSameAudioName(categoryName));
+            Assert.IsTrue(playlist.IsSameContentName(categoryName));
         }
 
         [TestMethod]
-        public void IsDifferentAudioName()
+        public void IsDifferentContentName()
         {
             Playlist playlist = new Playlist();
-            playlist.Audios = new List<Audio>()
+            playlist.Contents = new List<Content>()
             {
-                new Audio(){
+                new Content(){
             
                 Categories = new List<Category>(),
                 Name = "Stand by me",
                 AuthorName = "John Lennon",
                 Duration = 12,
-                UrlAudio = "",
+                UrlArchive = "",
                 UrlImage = ""
                 }
             };
             string categoryName = "Let it be";
-            Assert.IsFalse(playlist.IsSameAudioName(categoryName));
+            Assert.IsFalse(playlist.IsSameContentName(categoryName));
         }
         
         [TestMethod]
@@ -262,7 +262,7 @@ namespace MSP.BetterCalm.Test
                 Description = "para despejar",
                 UrlImage=""
             };
-            Assert.IsFalse( playlist.Equals(new Audio()));
+            Assert.IsFalse( playlist.Equals(new Content()));
         }
        
     }

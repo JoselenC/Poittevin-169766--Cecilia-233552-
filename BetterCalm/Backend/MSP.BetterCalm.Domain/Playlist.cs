@@ -8,14 +8,14 @@ namespace MSP.BetterCalm.Domain
     {
         public int Id { get; set; }
         public List<Category> Categories {get; set; }
-        public List<Audio> Audios {get; set; }
+        public List<Content> Contents {get; set; }
         
-        private string name;
-        public string Name {get=>name; set=>SetName(value); }
+        private string _name;
+        public string Name {get=>_name; set=>SetName(value); }
         
-        private string description;
+        private string _description;
         
-        public string Description {get=>description; set=>SetDescription(value); }
+        public string Description {get=>_description; set=>SetDescription(value); }
 
         private string urlImage;
         public string UrlImage {get=>urlImage; set=>SetUrlImage(value); }
@@ -23,7 +23,7 @@ namespace MSP.BetterCalm.Domain
         public void SetName(string vName)
         {
             if (vName.Length > 0)
-                name=vName;
+                _name=vName;
             else
                 throw new InvalidNameLength();
         }
@@ -44,7 +44,7 @@ namespace MSP.BetterCalm.Domain
         private void SetDescription(string vDescription)
         {
             if (vDescription.Length < 150)
-                description = vDescription;
+                _description = vDescription;
             else
              throw new InvalidDescriptionLength();
         }
@@ -62,9 +62,9 @@ namespace MSP.BetterCalm.Domain
             }
             return false;
         }
-        public bool IsSameAudioName(string name)
+        public bool IsSameContentName(string name)
         {
-            foreach (var song in Audios)
+            foreach (var song in Contents)
             {
                 if (song.Name.ToLower() == name.ToLower())
                     return true;

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 
-namespace MSP.BetterCalm.DataAccess
+namespace MSP.BetterCalm.DataAccess.DtoObjects
 {
     public class PlaylistDto
     {
-        public int PlaylistDtoID { get; set; }
+        public int PlaylistDtoId { get; set; }
         
         public string Name {get; set; }
         
@@ -14,8 +14,6 @@ namespace MSP.BetterCalm.DataAccess
         
         public ICollection<PlaylistCategoryDto> PlaylistCategoriesDto { get; set; }
         
-        public ICollection<PlaylistAudioDto> PlaylistAudiosDto { get; set; }
-        
-        public ICollection<PlaylistVideoDto> PlaylistsVideosDto { get; set; }
+        public ICollection<PlaylistContentDto> PlaylistContentsDto { get; set; }
     }
 }

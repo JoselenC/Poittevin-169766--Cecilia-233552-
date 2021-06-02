@@ -1,17 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MSP.BetterCalm.DataAccess
+namespace MSP.BetterCalm.DataAccess.DtoObjects
 {
     public class CategoryDto
     {
-        public int CategoryDtoID { get; set; } 
+        public int CategoryDtoId { get; set; } 
         public string Name { get; set; }
         
         public ICollection<PlaylistCategoryDto> PlaylistCategoriesDto { get; set; }
         
-        public ICollection<AudioCategoryDto> AudiosCategoriesDto { get; set; }
-        
-        public ICollection<VideoCategoryDto> VideosCategoriesDto { get; set; }
+        public ICollection<ContentCategoryDto> ContentsCategoriesDto { get; set; }
     }
 }

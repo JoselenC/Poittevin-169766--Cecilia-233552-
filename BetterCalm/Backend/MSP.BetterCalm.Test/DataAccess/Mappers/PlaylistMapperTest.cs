@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.DataAccess;
+using MSP.BetterCalm.DataAccess.DtoObjects;
+using MSP.BetterCalm.DataAccess.Mappers;
+using MSP.BetterCalm.DataAccess.Repositories;
 using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.Test
@@ -10,58 +13,58 @@ namespace MSP.BetterCalm.Test
     [TestClass]
     public class PlaylistMapperTest
     {
-        private DbContextOptions<ContextDB> options;
-        private ContextDB context;
+        private DbContextOptions<ContextDb> options;
+        private ContextDb context;
         private DataBaseRepository<Playlist, PlaylistDto> RepoPlaylists;
         private Playlist PlaylistTest;
         private Category category1;
         private Category category2;
-        private Audio AudioTest;
-        private Audio AudioTest2;
+        private Content _contentTest;
+        private Content _contentTest2;
 
         [TestInitialize]
         public void TestFixtureSetup()
         {
-            options = new DbContextOptionsBuilder<ContextDB>().UseInMemoryDatabase(databaseName: "BetterCalmDB")
+            options = new DbContextOptionsBuilder<ContextDb>().UseInMemoryDatabase(databaseName: "BetterCalmDB")
                 .Options;
-            context = new ContextDB(options);
+            context = new ContextDb(options);
             RepoPlaylists = new DataBaseRepository<Playlist, PlaylistDto>(new PlaylistMapper(), context.Playlists, context);
             DataBaseRepository<Category, CategoryDto> categRepo = new DataBaseRepository<Category, CategoryDto>(
                 new CategoryMapper(), context.Categories,
                 context);
-            DataBaseRepository<Audio, AudioDto> audioRepo = new DataBaseRepository<Audio, AudioDto>(new AudioMapper(), context.Audios,
+            DataBaseRepository<Content, ContentDto> ContentRepo = new DataBaseRepository<Content, ContentDto>(new ContentMapper(), context.Contents,
                 context);
             category1 = new Category() {Name = "Musica",Id=1};
             categRepo.Add(category1);
             category2 = new Category() {Name = "Dormir",Id=2};
             categRepo.Add(category2);
-            AudioTest = new Audio() {
+            _contentTest = new Content() {
                 Id=1,
                 Name = "Stand by me",
                 AuthorName = "John Lennon",
                 Duration = 120,
-                UrlAudio = "",
+                UrlArchive = "",
                 UrlImage = "",
                 Categories = new List<Category>(){category1}
             };
-            AudioTest2 = new Audio() {
+            _contentTest2 = new Content() {
                 Id=2,
                 Name = "Help",
                 AuthorName = "The beatles",
                 Duration = 120,
-                UrlAudio = "",
+                UrlArchive = "",
                 UrlImage = "",
                 Categories = new List<Category>(){category2}
             };
-            audioRepo.Add(AudioTest);
-            audioRepo.Add(AudioTest2);
+            ContentRepo.Add(_contentTest);
+            ContentRepo.Add(_contentTest2);
             PlaylistTest = new Playlist()
             {
                 Id=1,
                 Name = "Playlist",
                 Description = "description",
                 UrlImage = "",
-                Audios = new List<Audio>(){AudioTest},
+                Contents = new List<Content>(){_contentTest},
                 Categories = new List<Category>() {category1}
             };
             RepoPlaylists.Add(PlaylistTest);
@@ -82,13 +85,13 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        public void DomainToDtoNewAudioTest()
+        public void DomainToDtoNewContentTest()
         {
-            Audio audio = new Audio() {
+            Content content = new Content() {
                 Name = "Let it be",
                 AuthorName = "The beatles",
                 Duration = 120,
-                UrlAudio = "",
+                UrlArchive = "",
                 UrlImage = ""
             };
             Playlist playlist = new Playlist()
@@ -97,7 +100,7 @@ namespace MSP.BetterCalm.Test
                 Name = "Playlist",
                 Description = "description",
                 UrlImage = "",
-                Audios = new List<Audio>(){audio},
+                Contents = new List<Content>(){content},
                 Categories = new List<Category>() {category1}
             };
             RepoPlaylists.Add(playlist);
@@ -106,10 +109,10 @@ namespace MSP.BetterCalm.Test
         }
 
         [TestMethod]
-        public void DomainToDtoAudioEmptyAtributesTest()
+        public void DomainToDtoContentEmptyAtributesTest()
         {
-            Audio audio = new Audio() {
-                Name = "Audio",
+            Content content = new Content() {
+                Name = "Content",
                 Categories = new List<Category>() {category2}
             };
             Playlist playlist = new Playlist()
@@ -118,7 +121,7 @@ namespace MSP.BetterCalm.Test
                 Name = "Playlist",
                 Description = "description",
                 UrlImage = "",
-                Audios = new List<Audio>(){audio},
+                Contents = new List<Content>(){content},
                 Categories = new List<Category>() {category1}
             };
             RepoPlaylists.Add(playlist);
@@ -136,7 +139,7 @@ namespace MSP.BetterCalm.Test
                 Name = "Playlist",
                 Description = "description",
                 UrlImage = "",
-                Audios = new List<Audio>(){AudioTest2},
+                Contents = new List<Content>(){_contentTest2},
                 Categories = new List<Category>() {category1}
             };
             List<Category> Categories = new List<Category>()
@@ -187,7 +190,7 @@ namespace MSP.BetterCalm.Test
             {
                 Id = 2,
                 Name = "Playlist",
-                Audios = new List<Audio>(),
+                Contents = new List<Content>(),
                 Categories = new List<Category>()
             };
             RepoPlaylists.Add(Playlist);
@@ -195,7 +198,7 @@ namespace MSP.BetterCalm.Test
             {
                 Id = 2,
                 Name = "ToUpdate",
-                Audios = new List<Audio>(){AudioTest2},
+                Contents = new List<Content>(){_contentTest2},
                 Categories = new List<Category>() {category2, category1}
             };
             Playlist updatedPlaylist = RepoPlaylists.Update(Playlist, actualPlaylist);
@@ -211,7 +214,7 @@ namespace MSP.BetterCalm.Test
                 Name = "Playlist",
                 Description = "description",
                 UrlImage = "",
-                Audios = new List<Audio>(){AudioTest2},
+                Contents = new List<Content>(){_contentTest2},
                 Categories = new List<Category>() {category2}
             };
             Playlist updatedPlaylist = RepoPlaylists.Update(PlaylistTest, actualPlaylist);
@@ -227,7 +230,7 @@ namespace MSP.BetterCalm.Test
                 Name = "Playlist",
                 Description = "description",
                 UrlImage = "",
-                Audios = new List<Audio>(){AudioTest},
+                Contents = new List<Content>(){_contentTest},
                 Categories = new List<Category>() {category1}
             };
             Playlist playlist = RepoPlaylists.FindById(1);
@@ -244,7 +247,7 @@ namespace MSP.BetterCalm.Test
                 Name = "Playlist",
                 Description = "description",
                 UrlImage = "",
-                Audios = new List<Audio>(){AudioTest},
+                Contents = new List<Content>(){_contentTest},
                 Categories = new List<Category>() {category1}
             };
             Playlist playlist = RepoPlaylists.FindById(10);

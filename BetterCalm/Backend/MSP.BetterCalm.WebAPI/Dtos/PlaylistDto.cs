@@ -9,7 +9,7 @@ namespace MSP.BetterCalm.WebAPI.Dtos
         
         public List<Category> Categories {get; set; }
         
-        public List<Audio> Audios {get; set; }
+        public List<Content> Contents {get; set; }
         
         public string Name {get; set; }
         
@@ -22,7 +22,7 @@ namespace MSP.BetterCalm.WebAPI.Dtos
             Playlist playlist= new Playlist()
             {
                 Id=Id,Name = Name, Categories = Categories, Description = Description, UrlImage = UrlImage,
-                Audios = Audios
+                Contents = Contents
             };
             return playlist;
         }

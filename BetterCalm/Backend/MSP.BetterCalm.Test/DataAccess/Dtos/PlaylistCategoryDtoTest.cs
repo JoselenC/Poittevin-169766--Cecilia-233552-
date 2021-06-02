@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.DataAccess;
+using MSP.BetterCalm.DataAccess.DtoObjects;
 
 namespace MSP.BetterCalm.Test
 {
@@ -10,16 +11,16 @@ namespace MSP.BetterCalm.Test
         public void GetSetPlaylistId()
         {
             PlaylistCategoryDto playlistCategory = new PlaylistCategoryDto();
-            playlistCategory.PlaylistID = 1;
-            Assert.AreEqual(1, playlistCategory.PlaylistID);
+            playlistCategory.PlaylistId = 1;
+            Assert.AreEqual(1, playlistCategory.PlaylistId);
         }
         
         [TestMethod]
         public void GetSetCategoryId()
         {
             PlaylistCategoryDto playlistCategory = new PlaylistCategoryDto();
-            playlistCategory.CategoryID = 1;
-            Assert.AreEqual(1, playlistCategory.CategoryID);
+            playlistCategory.CategoryId = 1;
+            Assert.AreEqual(1, playlistCategory.CategoryId);
         }
         
         [TestMethod]

@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using MSP.BetterCalm.BusinessLogic;
+using MSP.BetterCalm.DataAccess.Mappers;
 using EntityState = Microsoft.EntityFrameworkCore.EntityState;
 
-namespace MSP.BetterCalm.DataAccess
+namespace MSP.BetterCalm.DataAccess.Repositories
 {
     public class DataBaseRepository<D, T> : IRepository<D> where T : class
     {
         private IMapper<D, T> mapper;
-        private ContextDB context;
+        private ContextDb context;
         private DbSet<T> entity;
 
-        public DataBaseRepository(IMapper<D, T> mapper, DbSet<T> entity, ContextDB context)
+        public DataBaseRepository(IMapper<D, T> mapper, DbSet<T> entity, ContextDb context)
         {
             this.entity = entity;
             this.mapper = mapper;
@@ -22,15 +23,15 @@ namespace MSP.BetterCalm.DataAccess
 
         public List<D> Get()
         {
-            List<D> Dlist = new List<D>();
+            List<D> dlist = new List<D>();
             foreach (T item in entity.ToList())
             {
                 var x = mapper.DtoToDomain(item, context);
                 if(x!=null)
-                Dlist.Add(x);
+                    dlist.Add(x);
             }
 
-            return Dlist;
+            return dlist;
         }
 
         public D Find(Predicate<D> condition)
@@ -56,39 +57,38 @@ namespace MSP.BetterCalm.DataAccess
        
         public D Add(D objectToAdd)
         {
-            var TDto = mapper.DomainToDto(objectToAdd, context);
-            if (context.Entry(TDto).State == (EntityState) EntityState.Detached)
-                entity.Add(TDto);
+            var dto = mapper.DomainToDto(objectToAdd, context);
+            if (context.Entry(dto).State == (EntityState) EntityState.Detached)
+                entity.Add(dto);
             context.SaveChanges();
-            var domainObj = mapper.DtoToDomain(TDto, context);
+            var domainObj = mapper.DtoToDomain(dto, context);
             return domainObj;
         }
 
         private T FindDto(Predicate<D> condition)
         {
-            List<T> TDtos = entity.ToList();
-            foreach (var TDto in TDtos)
+            List<T> dtos = entity.ToList();
+            foreach (var dto in dtos)
             {
-                var DDto = mapper.DtoToDomain(TDto, context);
-                var condResult = condition(DDto);
+                var dDto = mapper.DtoToDomain(dto, context);
+                var condResult = condition(dDto);
                 if (condResult)
-                    return TDto;
+                    return dto;
             }
             throw new KeyNotFoundException();
         }
 
         public void Delete(D objectToDelete)
         {
-            var ObjectToDeleteDto = FindDto(x => x.Equals(objectToDelete));
-            entity.Remove(ObjectToDeleteDto);
+            var objectToDeleteDto = FindDto(x => x.Equals(objectToDelete));
+            entity.Remove(objectToDeleteDto);
             context.SaveChanges();
-
         }
 
-        public D Update(D OldObject, D UpdatedObject)
+        public D Update(D oldObject, D updatedObject)
         {
-            T objToUpdate = FindDto(x => x.Equals(OldObject));
-            T returnObject = mapper.UpdateDtoObject(objToUpdate, UpdatedObject, context);
+            T objToUpdate = FindDto(x => x.Equals(oldObject));
+            T returnObject = mapper.UpdateDtoObject(objToUpdate, updatedObject, context);
             context.SaveChanges();
             return mapper.DtoToDomain(returnObject, context);
         }

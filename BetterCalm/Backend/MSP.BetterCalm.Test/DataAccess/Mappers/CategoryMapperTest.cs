@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.DataAccess;
+using MSP.BetterCalm.DataAccess.DtoObjects;
+using MSP.BetterCalm.DataAccess.Mappers;
+using MSP.BetterCalm.DataAccess.Repositories;
 using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.Test
@@ -10,16 +13,16 @@ namespace MSP.BetterCalm.Test
     [TestClass]
     public class CategoryMapperTest
     {
-        private DbContextOptions<ContextDB> options;
-        private ContextDB context;
+        private DbContextOptions<ContextDb> options;
+        private ContextDb context;
         public  DataBaseRepository<Category, CategoryDto> Categories;
         public  Category categoryTest;
 
         [TestInitialize]
         public  void TestFixtureSetup()
         {
-            options = new DbContextOptionsBuilder<ContextDB>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
-            context = new ContextDB(this.options); 
+            options = new DbContextOptionsBuilder<ContextDb>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
+            context = new ContextDb(this.options); 
             Categories = new DataBaseRepository<Category, CategoryDto>(new CategoryMapper(), context.Categories, context);
             categoryTest = new Category() {Id=1, Name = "Dormir",};
             Categories.Add(categoryTest);
@@ -68,7 +71,7 @@ namespace MSP.BetterCalm.Test
         public void UpdateTest()
         {
             CategoryMapper categoryMapper = new CategoryMapper();
-            categoryMapper.UpdateDtoObject(new CategoryDto(), new Category(),new ContextDB());
+            categoryMapper.UpdateDtoObject(new CategoryDto(), new Category(),new ContextDb());
         }
         
         
