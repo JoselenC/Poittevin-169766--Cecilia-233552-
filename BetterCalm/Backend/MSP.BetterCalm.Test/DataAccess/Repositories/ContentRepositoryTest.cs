@@ -8,13 +8,13 @@ using MSP.BetterCalm.Domain;
 namespace MSP.BetterCalm.Test
 {
     [TestClass]
-    public class PlayListRepositoryTest
+    public class ContentRepositoryTest
     {
         [TestMethod]
-        public void CategoryRepositoryCreationCategoriesTypeTest()
+        public void ContentRepositoryCreationCategoriesTypeTest()
         {
-            PlaylistRepository playlistRepository = new PlaylistRepository( new PlaylistMapper(),new ContextDb());
-            Assert.IsInstanceOfType(playlistRepository.Playlists, typeof(DataBaseRepository<Playlist, PlaylistDto>));
+            ContentRepository ContentRepository = new ContentRepository(new ContentMapper(),new ContextDb());
+            Assert.IsInstanceOfType(ContentRepository.Contents, typeof(DataBaseRepository<Content, ContentDto>));
         }
     }
 }

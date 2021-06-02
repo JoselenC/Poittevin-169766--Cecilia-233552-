@@ -107,7 +107,7 @@ namespace MSP.BetterCalm.Test
         {
             Category category = new Category();
             category.Name = "Yoga";
-            Assert.IsFalse( category.Equals(new Audio()));
+            Assert.IsFalse( category.Equals(new Content()));
         }
     }
 }

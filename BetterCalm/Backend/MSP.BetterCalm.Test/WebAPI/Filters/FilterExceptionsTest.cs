@@ -114,9 +114,9 @@ namespace MSP.BetterCalm.Test.WebAPI.Filters
         }
         
         [TestMethod]
-        public void AlreadyExistThisAudioTest()
+        public void AlreadyExistThisContentTest()
         {
-            exceptionContext.Exception = new AlreadyExistThisAudio();
+            exceptionContext.Exception = new AlreadyExistThisContent();
             response = new ErrorDto()
             {
                 IsSuccess = false,
@@ -131,25 +131,7 @@ namespace MSP.BetterCalm.Test.WebAPI.Filters
             ErrorDto error = (ErrorDto) objResult.Value;
             Assert.AreEqual(errorDto, error);
         }
-        
-        [TestMethod]
-        public void AlreadyExistThisVideoTest()
-        {
-            exceptionContext.Exception = new AlreadyExistVideo();
-            response = new ErrorDto()
-            {
-                IsSuccess = false,
-                ErrorMessage = exceptionContext.Exception.Message,
-                Content = exceptionContext.Exception.Message,
-                Code = 409
-            };
-            result = new ObjectResult(response) {StatusCode = response.Code};
-            filter.OnException(exceptionContext);
-            ObjectResult objResult = (ObjectResult) exceptionContext.Result;
-            ErrorDto errorDto = (ErrorDto) result.Value;
-            ErrorDto error = (ErrorDto) objResult.Value;
-            Assert.AreEqual(errorDto, error);
-        }
+   
 
         [TestMethod]
         public void KeyNotFoundExceptionTest()
@@ -228,9 +210,9 @@ namespace MSP.BetterCalm.Test.WebAPI.Filters
         }
         
         [TestMethod]
-        public void NotFoundAudioTest()
+        public void NotFoundContentTest()
         {
-            exceptionContext.Exception = new NotFoundAudio();
+            exceptionContext.Exception = new NotFoundContent();
             response = new ErrorDto()
             {
                 IsSuccess = false,
@@ -245,26 +227,6 @@ namespace MSP.BetterCalm.Test.WebAPI.Filters
             ErrorDto error = (ErrorDto) objResult.Value;
             Assert.AreEqual(errorDto, error);
         }
-        
-        [TestMethod]
-        public void NotFoundVideoTest()
-        {
-            exceptionContext.Exception = new NotFoundVideo();
-            response = new ErrorDto()
-            {
-                IsSuccess = false,
-                ErrorMessage = exceptionContext.Exception.Message,
-                Content = exceptionContext.Exception.Message,
-                Code = 404
-            };
-            result = new ObjectResult(response) {StatusCode = response.Code};
-            filter.OnException(exceptionContext);
-            ObjectResult objResult = (ObjectResult) exceptionContext.Result;
-            ErrorDto errorDto = (ErrorDto) result.Value;
-            ErrorDto error = (ErrorDto) objResult.Value;
-            Assert.AreEqual(errorDto, error);
-        }
-
         
         [TestMethod]
         public void NotFoundPlaylistTest()

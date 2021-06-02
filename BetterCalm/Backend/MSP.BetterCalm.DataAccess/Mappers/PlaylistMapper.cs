@@ -2,14 +2,15 @@
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
+using MSP.BetterCalm.DataAccess.DtoObjects;
 using MSP.BetterCalm.Domain;
 
-namespace MSP.BetterCalm.DataAccess
+namespace MSP.BetterCalm.DataAccess.Mappers
 {
     public class PlaylistMapper:IMapper<Playlist,PlaylistDto>
     {
         
-        private List<CategoryDto> createCategories(List<Category> categories, ContextDB context)
+        private List<CategoryDto> createCategories(List<Category> categories, ContextDb context)
         {
               
             List<CategoryDto> categoriesDto = new List<CategoryDto>();
@@ -18,7 +19,7 @@ namespace MSP.BetterCalm.DataAccess
             {
                 foreach (Category category in categories)
                 {
-                    CategoryDto categoryDto= categoriesSet.FirstOrDefault(x => x.CategoryDtoID == category.Id || x.Name==category.Name);
+                    CategoryDto categoryDto= categoriesSet.FirstOrDefault(x => x.CategoryDtoId == category.Id || x.Name==category.Name);
                     if (categoryDto == null)
                     {
                         throw new InvalidCategory();
@@ -29,21 +30,21 @@ namespace MSP.BetterCalm.DataAccess
             return categoriesDto;
         }
         
-        private List<AudioDto> createAudios(List<Audio> audios,  List<Category> categories,ContextDB context)
+        private List<ContentDto> createContents(List<Content> contents,  List<Category> categories,ContextDb context)
         {
               
-            List<AudioDto> audiosDto = new List<AudioDto>();
-            DbSet<AudioDto> audiosSet = context.Set<AudioDto>();
-            if (!(audios is null))
+            List<ContentDto> contentsDto = new List<ContentDto>();
+            DbSet<ContentDto> contentsSet = context.Set<ContentDto>();
+            if (!(contents is null))
             {
-                foreach (Audio audio in audios)
+                foreach (Content content in contents)
                 {
-                    AudioDto audioDto= audiosSet.FirstOrDefault(x => x.AudioDtoID == audio.Id || (x.Name==audio.Name && x.AuthorName==audio.AuthorName ));
-                    if (audioDto == null)
+                    ContentDto contentDto= contentsSet.FirstOrDefault(x => x.ContentDtoId == content.Id || (x.Name==content.Name && x.AuthorName==content.AuthorName ));
+                    if (contentDto == null)
                     {
-                        if (audio.Name != null && audio.Name != "")
+                        if (!string.IsNullOrEmpty(content.Name))
                         {
-                            audioDto = CreateAudio(categories, context, audio);
+                            contentDto = CreateContent(categories, context, content);
                         }
                         else
                         {
@@ -51,35 +52,35 @@ namespace MSP.BetterCalm.DataAccess
                         }
                     }
 
-                    audiosDto.Add(audioDto);
+                    contentsDto.Add(contentDto);
                 }
             }
-            return audiosDto;
+            return contentsDto;
         }
 
-        private static AudioDto CreateAudio(List<Category> categories, ContextDB context, Audio audio)
+        private static ContentDto CreateContent(List<Category> categories, ContextDb context, Content content)
         {
-            AudioDto audioDto;
-            List<AudioCategoryDto> audioCategoryDtos = new List<AudioCategoryDto>();
+            List<ContentCategoryDto> contentCategoryDtos = new List<ContentCategoryDto>();
 
-            audioDto = new AudioDto()
+            var contentDto = new ContentDto()
             {
-                AuthorName = audio.AuthorName ?? "",
-                Name = audio.Name,
-                Duration = audio.Duration,
-                UrlAudio = audio.UrlAudio ?? "",
-                UrlImage = audio.UrlImage ?? ""
+                AuthorName = content.AuthorName ?? "",
+                Name = content.Name,
+                Duration = content.Duration,
+                UrlArchive = content.UrlArchive ?? "",
+                UrlImage = content.UrlImage ?? "",
+                Type= content.Type ?? ""
             };
-            if (audio.Categories != null)
+            if (content.Categories != null)
             {
-                foreach (var categoryaudio in audio.Categories)
+                foreach (var categoryContent in content.Categories)
                 {
-                    if (categoryaudio.Id != 0)
+                    if (categoryContent.Id != 0)
                     {
-                        audioCategoryDtos.Add(new AudioCategoryDto()
+                        contentCategoryDtos.Add(new ContentCategoryDto()
                         {
-                            AudioDto = audioDto,
-                            CategoryDto = new CategoryMapper().DomainToDto(categoryaudio, context)
+                            ContentDto = contentDto,
+                            CategoryDto = new CategoryMapper().DomainToDto(categoryContent, context)
                         });
                     }
                 }
@@ -90,23 +91,23 @@ namespace MSP.BetterCalm.DataAccess
                 foreach (var category in categories)
                 {
                     CategoryDto categoryToAdd = context.Categories
-                        .FirstOrDefault(x => x.CategoryDtoID == category.Id || x.Name==category.Name);
-                    audioCategoryDtos.Add(new AudioCategoryDto()
+                        .FirstOrDefault(x => x.CategoryDtoId == category.Id || x.Name==category.Name);
+                    contentCategoryDtos.Add(new ContentCategoryDto()
                     {
-                        AudioDto = audioDto,
+                        ContentDto = contentDto,
                         CategoryDto = categoryToAdd
                     });
                 }
             }
 
-            audioDto.AudiosCategoriesDto = audioCategoryDtos;
-            return audioDto;
+            contentDto.ContentsCategoriesDto = contentCategoryDtos;
+            return contentDto;
         }
 
-        public PlaylistDto DomainToDto(Playlist obj, ContextDB context)
+        public PlaylistDto DomainToDto(Playlist obj, ContextDb context)
         {
             PlaylistDto playlistDto = context.Playlists
-                .FirstOrDefault(x => x.PlaylistDtoID == obj.Id);
+                .FirstOrDefault(x => x.PlaylistDtoId == obj.Id);
             
             if (playlistDto is null)
             {
@@ -121,16 +122,16 @@ namespace MSP.BetterCalm.DataAccess
             }
             else
             {
-                context.Entry(playlistDto).Collection("PlaylistAudiosDto").Load();
+                context.Entry(playlistDto).Collection("PlaylistContentsDto").Load();
                 context.Entry(playlistDto).Collection("PlaylistCategoriesDto").Load();
                 context.Entry(playlistDto).State = EntityState.Modified;
             }
              
-            List<AudioDto> audios= createAudios(obj.Audios, obj.Categories, context);
-            playlistDto.PlaylistAudiosDto = new List<PlaylistAudioDto>();
-            foreach (var audioDto in audios)
+            List<ContentDto> contents= createContents(obj.Contents, obj.Categories, context);
+            playlistDto.PlaylistContentsDto = new List<PlaylistContentDto>();
+            foreach (var contentDto in contents)
             {
-                playlistDto.PlaylistAudiosDto.Add(new PlaylistAudioDto(){PlaylistDto = playlistDto, AudioDto = audioDto});
+                playlistDto.PlaylistContentsDto.Add(new PlaylistContentDto(){PlaylistDto = playlistDto, ContentDto = contentDto});
             }
             
             List<CategoryDto> categories= createCategories(obj.Categories, context);
@@ -143,7 +144,7 @@ namespace MSP.BetterCalm.DataAccess
             return playlistDto;
         }
 
-        public Playlist DtoToDomain(PlaylistDto obj, ContextDB context)
+        public Playlist DtoToDomain(PlaylistDto obj, ContextDb context)
         {
             CategoryMapper categoryMapper = new CategoryMapper();
             List<Category> categories = new List<Category>();
@@ -152,91 +153,91 @@ namespace MSP.BetterCalm.DataAccess
             {
                 foreach (PlaylistCategoryDto playlistCategoryDto in obj.PlaylistCategoriesDto)
                 { 
-                    Category category=categoryMapper.GetById(context,playlistCategoryDto.CategoryID);
+                    Category category=categoryMapper.GetById(context,playlistCategoryDto.CategoryId);
                     if(category!=null)
                         categories.Add(category);
                 }
             }
-            AudioMapper audioMapper = new AudioMapper();
-            List<Audio> audios = new List<Audio>();
-            context.Entry(obj).Collection("PlaylistAudiosDto").Load();
-            if (!(obj.PlaylistAudiosDto is null))
+            ContentMapper contentMapper = new ContentMapper();
+            List<Content> contents = new List<Content>();
+            context.Entry(obj).Collection("PlaylistContentsDto").Load();
+            if (!(obj.PlaylistContentsDto is null))
             {
-                foreach (PlaylistAudioDto playlistAudioDto in obj.PlaylistAudiosDto)
+                foreach (PlaylistContentDto playlistContentDto in obj.PlaylistContentsDto)
                 { 
-                    Audio audio=audioMapper.GetById(context,playlistAudioDto.AudioID);
-                    if(audio!=null)
-                    audios.Add(audio);
+                    Content content=contentMapper.GetById(context,playlistContentDto.ContentId);
+                    if(content!=null)
+                        contents.Add(content);
                 }
             }
 
             return new Playlist()
             {
-                Id = obj.PlaylistDtoID,
+                Id = obj.PlaylistDtoId,
                 Description = obj.Description,
                 Name = obj.Name,
                 Categories = categories,
-                Audios = audios,
+                Contents = contents,
                 UrlImage = obj.UrlImage
             };
         }
 
-        public Playlist GetById(ContextDB context, int id)
+        public Playlist GetById(ContextDb context, int id)
         {
-            PlaylistDto playlistDto = context.Playlists.FirstOrDefault(x => x.PlaylistDtoID == id);
+            PlaylistDto playlistDto = context.Playlists.FirstOrDefault(x => x.PlaylistDtoId == id);
             if (playlistDto != null)
                return DtoToDomain(playlistDto, context);
             return null;
         }
 
-        public PlaylistDto UpdateDtoObject(PlaylistDto objToUpdate, Playlist updatedObject, ContextDB context)
+        public PlaylistDto UpdateDtoObject(PlaylistDto objToUpdate, Playlist updatedObject, ContextDb context)
         {
             CategoryMapper categoryMapper = new CategoryMapper();
-            AudioMapper audioMapper = new AudioMapper();
+            ContentMapper contentMapper = new ContentMapper();
 
             objToUpdate.Name = updatedObject.Name ?? objToUpdate.Name;
             objToUpdate.Description = updatedObject.Description ?? objToUpdate.Description;
             objToUpdate.UrlImage = updatedObject.UrlImage ?? objToUpdate.UrlImage;
             var diffListOldValuesCategory = UpdatePlaylistCategory(objToUpdate, updatedObject, context, categoryMapper);
             objToUpdate.PlaylistCategoriesDto = diffListOldValuesCategory;
-            var diffListOldValuesAudio = UpdatePlaylistAudios(objToUpdate, updatedObject, context, audioMapper);
-            objToUpdate.PlaylistAudiosDto = diffListOldValuesAudio;
+            var diffListOldValuesContent = UpdatePlaylistContents(objToUpdate, updatedObject, context, contentMapper);
+            objToUpdate.PlaylistContentsDto = diffListOldValuesContent;
             return objToUpdate;
         }
 
-        private static List<PlaylistAudioDto> UpdatePlaylistAudios(PlaylistDto objToUpdate, Playlist updatedObject, ContextDB context,
-            AudioMapper audioMapper)
+        private static List<PlaylistContentDto> UpdatePlaylistContents(PlaylistDto objToUpdate, Playlist updatedObject, ContextDb context,
+            ContentMapper contentMapper)
         {
-            List<PlaylistAudioDto> audiosToDelete = objToUpdate.PlaylistAudiosDto.Where(x =>
-                x.PlaylistID == objToUpdate.PlaylistDtoID).ToList();
-            foreach (PlaylistAudioDto playlistAudioDto in audiosToDelete)
+            List<PlaylistContentDto> contentsToDelete = objToUpdate.PlaylistContentsDto.Where(x =>
+                x.PlaylistId == objToUpdate.PlaylistDtoId).ToList();
+            foreach (PlaylistContentDto playlistContentDto in contentsToDelete)
             {
-                context.Set<PlaylistAudioDto>().Remove(playlistAudioDto);
+                context.Set<PlaylistContentDto>().Remove(playlistContentDto);
                 context.SaveChanges();
             }
-            List<Audio> newAudiosToAdd = new List<Audio>();
-            List<PlaylistAudioDto> playlistsAudiosToAdd = new List<PlaylistAudioDto>();
-            if (updatedObject.Audios != null)
+            List<Content> newContentsToAdd = new List<Content>();
+            List<PlaylistContentDto> playlistsContentsToAdd = new List<PlaylistContentDto>();
+            if (updatedObject.Contents != null)
             {
-                foreach (var audio in updatedObject.Audios)
+                foreach (var content in updatedObject.Contents)
                 {
-                    Audio audioToAdd = audioMapper.DtoToDomain(context.Audios
-                        .FirstOrDefault(x => x.AudioDtoID == audio.Id || x.Name == audio.Name), context);
-                    newAudiosToAdd.Add(audioToAdd);
+                    Content contentToAdd = contentMapper.DtoToDomain(context.Contents
+                        .FirstOrDefault(x => x.ContentDtoId == content.Id || x.Name == content.Name), context);
+                    newContentsToAdd.Add(contentToAdd);
                 }
 
-                playlistsAudiosToAdd.AddRange(newAudiosToAdd.Select(x => new PlaylistAudioDto() {
-                    AudioDto = audioMapper.DomainToDto(x, context), AudioID = x.Id,
-                    PlaylistDto = objToUpdate, PlaylistID = objToUpdate.PlaylistDtoID}));
+                playlistsContentsToAdd.AddRange(newContentsToAdd.Select(x => new PlaylistContentDto() {
+                    ContentDto = contentMapper.DomainToDto(x, context), ContentId = x.Id,
+                    PlaylistDto = objToUpdate, PlaylistId = objToUpdate.PlaylistDtoId}));
             }
-            return playlistsAudiosToAdd;
+            return playlistsContentsToAdd;
         }
 
-        private static List<PlaylistCategoryDto> UpdatePlaylistCategory(PlaylistDto objToUpdate, Playlist updatedObject, ContextDB context,
+        private static List<PlaylistCategoryDto> UpdatePlaylistCategory(PlaylistDto objToUpdate, Playlist updatedObject, ContextDb context,
             CategoryMapper categoryMapper)
         {
             List<PlaylistCategoryDto> categoriesToDelete = objToUpdate.PlaylistCategoriesDto.Where(x =>
-                x.PlaylistID == objToUpdate.PlaylistDtoID).ToList();
+                x.PlaylistId == objToUpdate.PlaylistDtoId).ToList();
             foreach (PlaylistCategoryDto playlistCategory in categoriesToDelete)
             {
                 context.Set<PlaylistCategoryDto>().Remove(playlistCategory);
@@ -249,13 +250,13 @@ namespace MSP.BetterCalm.DataAccess
                 foreach (var category in updatedObject.Categories)
                 {
                     Category categoryToAdd = categoryMapper.DtoToDomain(context.Categories
-                        .FirstOrDefault(x => x.CategoryDtoID == category.Id || x.Name == category.Name), context);
+                        .FirstOrDefault(x => x.CategoryDtoId == category.Id || x.Name == category.Name), context);
                     newCategoriesToAdd.Add(categoryToAdd);
                 }
 
                 playlistsCategoriesToAdd.AddRange(newCategoriesToAdd.Select(x => new PlaylistCategoryDto() {
-                        CategoryDto = categoryMapper.DomainToDto(x, context), CategoryID = x.Id,
-                        PlaylistDto = objToUpdate, PlaylistID = objToUpdate.PlaylistDtoID}));
+                        CategoryDto = categoryMapper.DomainToDto(x, context), CategoryId = x.Id,
+                        PlaylistDto = objToUpdate, PlaylistId = objToUpdate.PlaylistDtoId}));
             }
             return playlistsCategoriesToAdd;
         }

@@ -5,31 +5,30 @@ using MSP.BetterCalm.BusinessLogic.Exceptions;
 
 namespace MSP.BetterCalm.Domain
 {
-    public class Audio
+    public class Content
     {
         public int Id { get; set; }
-        public List<Category> Categories {get; set; }
-        public bool AssociatedToPlaylist { get; set; }
         
-        private string name;
-        public string Name {get=>name; set=>SetName(value); }
-        public double Duration { get; set; }
-        public string AuthorName {get; set; }
-        
-        private string urlImage;
-        public string UrlImage {get=>urlImage; set=>SetUrlImage(value); }   
-        
-        private string urlAudio;
-        public string UrlAudio {get=>urlAudio; set=>SetUrlAudio(value); }
-        
+        private string _name;
+        public string Name {get=>_name; set=>SetName(value); }
         private void SetName(string vName)
         {
             if (vName.Length>0)
-                name = vName;
+                _name = vName;
             else
                 throw new InvalidNameLength();
         }
+        public double Duration { get; set; }
+        
+           
+        private string _urlImage;
+        public string UrlImage {get=>_urlImage; set=>SetUrlImage(value); }   
+        
+        private string _urlArchive;
+        public string UrlArchive {get=>_urlArchive; set=>SetUrlContent(value); }
 
+        
+        public string Type { get; set; }
         private bool IsUrlValid(string url)
         {
             string pattern =
@@ -41,22 +40,26 @@ namespace MSP.BetterCalm.Domain
         private void SetUrlImage(string vUrl)
         {
             if (IsUrlValid(vUrl) || vUrl == "")
-                urlImage=vUrl;
+                _urlImage=vUrl;
             else
                 throw new InvalidUrl();
         }
         
-        private void SetUrlAudio(string vUrl)
+        private void SetUrlContent(string vUrl)
         {
             if (IsUrlValid(vUrl) || vUrl == "")
-                urlAudio=vUrl;
+                _urlArchive=vUrl;
             else
                 throw new InvalidUrl();
         }
+        public List<Category> Categories {get; set; }
+        public bool AssociatedToPlaylist { get; set; }
+        public string AuthorName {get; set; }
+
         
-        public bool IsSameAudioName(string audioName)
+        public bool IsSameContentName(string contentName)
         {
-            return Name.ToLower() == audioName.ToLower();
+            return Name.ToLower() == contentName.ToLower();
         }
         
         public bool IsSameAuthorName(string authorName)
@@ -68,14 +71,14 @@ namespace MSP.BetterCalm.Domain
         {
             if (obj == null) return false;
             if (obj.GetType() != GetType()) return false;
-            return Id == ((Audio) obj).Id;
+            return Id == ((Content) obj).Id;
         }
 
-        public bool IsSameCategoryName(string categroyName)
+        public bool IsSameCategoryName(string categoryName)
         {
             foreach (var category in Categories)
             {
-                if (category.IsSameCategoryName(categroyName))
+                if (category.IsSameCategoryName(categoryName))
                     return true;
             }
             return false;

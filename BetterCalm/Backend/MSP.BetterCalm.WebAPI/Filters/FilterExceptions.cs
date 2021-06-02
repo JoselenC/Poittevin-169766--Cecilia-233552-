@@ -20,8 +20,7 @@ namespace MSP.BetterCalm.WebAPI.Filters
             List<Type> errors404 = new List<Type>()
             {
                 typeof(NotFoundId),
-                typeof(NotFoundAudio),
-                typeof(NotFoundVideo),
+                typeof(NotFoundContent),
                 typeof(NotFoundPlaylist),
                 typeof(NotFoundCategory),
                 typeof(NotFoundAdministrator),
@@ -31,8 +30,7 @@ namespace MSP.BetterCalm.WebAPI.Filters
             };
             List<Type> errors409 = new List<Type>()
             {
-                typeof(AlreadyExistThisAudio),
-                typeof(AlreadyExistVideo),
+                typeof(AlreadyExistThisContent),
                 typeof(InvalidCategory),
                 typeof(InvalidProblematic),
                 typeof(AlreadyMeetingException)

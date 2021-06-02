@@ -2,6 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.DataAccess;
+using MSP.BetterCalm.DataAccess.DtoObjects;
+using MSP.BetterCalm.DataAccess.Mappers;
+using MSP.BetterCalm.DataAccess.Repositories;
 using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.Test
@@ -9,10 +12,10 @@ namespace MSP.BetterCalm.Test
    [TestClass]
     public class DataBaseRepositoryTest
     {
-        private DbContextOptions<ContextDB> options;
-        private ContextDB context;
+        private DbContextOptions<ContextDb> options;
+        private ContextDb context;
         private DataBaseRepository<Category, CategoryDto> Categories;
-        private DataBaseRepository<Audio, AudioDto> Songs;
+        private DataBaseRepository<Content, ContentDto> Songs;
         private DataBaseRepository<Problematic, ProblematicDto> Problematics;
         private List<Category> AllCategories;
         private Category category;
@@ -20,17 +23,17 @@ namespace MSP.BetterCalm.Test
         [TestInitialize]
         public void TestFixtureSetup()
         {
-            options = new DbContextOptionsBuilder<ContextDB>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
-            context = new ContextDB(options); 
+            options = new DbContextOptionsBuilder<ContextDb>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
+            context = new ContextDb(options); 
             Categories = new DataBaseRepository<Category, CategoryDto>(new CategoryMapper(), context.Categories, context);
             Problematics = new DataBaseRepository<Problematic, ProblematicDto>(new ProblematicMapper(), context.Problematics, context);
             AllCategories = new List<Category>();
             category = new Category { Id=1,Name = "Dormir"};
             category = Categories.Add(category);
             AllCategories.Add(category);
-            Songs=new DataBaseRepository<Audio, AudioDto>(new AudioMapper(), context.Audios, context);
-            Audio audio = new Audio() { Id=1, Name = "Let it be"};
-            Songs.Add(audio);
+            Songs=new DataBaseRepository<Content, ContentDto>(new ContentMapper(), context.Contents, context);
+            Content content = new Content() { Id=1, Name = "Let it be"};
+            Songs.Add(content);
         }
 
         [TestCleanup]
@@ -103,8 +106,8 @@ namespace MSP.BetterCalm.Test
         [TestMethod]
         public void UpdateTest()
         {
-            Audio audio = new Audio() {Id=1,Name = "Let it be"};
-            Audio audioToUdated = new Audio()
+            Content content = new Content() {Id=1,Name = "Let it be"};
+            Content contentToUdated = new Content()
             {
                 Id=1,
                 Name = "Musica",
@@ -112,11 +115,11 @@ namespace MSP.BetterCalm.Test
                 UrlImage = "",
                 Categories = new List<Category>()
             };
-            Songs.Update(audio, audioToUdated);
+            Songs.Update(content, contentToUdated);
 
-            Audio realAudioUpdated = Songs.Find(x => x.Name == "Musica");
+            Content realContentUpdated = Songs.Find(x => x.Name == "Musica");
 
-            Assert.AreEqual(audioToUdated, realAudioUpdated);
+            Assert.AreEqual(contentToUdated, realContentUpdated);
         }
         
         
@@ -124,28 +127,28 @@ namespace MSP.BetterCalm.Test
         [ExpectedException(typeof(KeyNotFoundException), "")]
         public void NoUpdateTest()
         {
-            Audio audio = new Audio() {Id=19,Name = "Muscia2"};
-            Audio audioToUdated = new Audio()
+            Content content = new Content() {Id=19,Name = "Muscia2"};
+            Content contentToUdated = new Content()
             {
                 Id=18,
                 Name = "Musica",
             };
-            Songs.Update(audio, audioToUdated);
+            Songs.Update(content, contentToUdated);
         }
         
         [TestMethod]
         public void FindByIdTest()
         {
-            Audio realAudioUpdated =  Songs.FindById(1);
-            Assert.IsNotNull(realAudioUpdated);
+            Content realContentUpdated =  Songs.FindById(1);
+            Assert.IsNotNull(realContentUpdated);
         }
         
         [TestMethod]
         [ExpectedException(typeof(KeyNotFoundException), "")]
         public void NoFindByIdTest()
         {
-            Audio realAudioUpdated =  Songs.FindById(33);
-            Assert.IsNotNull(realAudioUpdated);
+            Content realContentUpdated =  Songs.FindById(33);
+            Assert.IsNotNull(realContentUpdated);
         }
       
     }

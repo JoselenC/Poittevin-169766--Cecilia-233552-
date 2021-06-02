@@ -1,41 +1,42 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.DataAccess;
+using MSP.BetterCalm.DataAccess.DtoObjects;
 
 namespace MSP.BetterCalm.Test
 {
     [TestClass]
-    public class PlaylistAudioDtoTest
+    public class PlaylistContentDtoTest
     {
         [TestMethod]
         public void GetSetPlaylistId()
         {
-            PlaylistAudioDto playlistAudio = new PlaylistAudioDto();
-            playlistAudio.PlaylistID = 1;
-            Assert.AreEqual(1, playlistAudio.PlaylistID);
+            PlaylistContentDto playlistContent = new PlaylistContentDto();
+            playlistContent.PlaylistId = 1;
+            Assert.AreEqual(1, playlistContent.PlaylistId);
         }
         
         [TestMethod]
-        public void GetSetAudioId()
+        public void GetSetContentId()
         {
-            PlaylistAudioDto playlistAudio = new PlaylistAudioDto();
-            playlistAudio.AudioID = 1;
-            Assert.AreEqual(1, playlistAudio.AudioID);
+            PlaylistContentDto playlistContent = new PlaylistContentDto();
+            playlistContent.ContentId = 1;
+            Assert.AreEqual(1, playlistContent.ContentId);
         }
         
         [TestMethod]
         public void GetSetCategoryDto()
         {
-            PlaylistAudioDto playlistAudio = new PlaylistAudioDto();
-            playlistAudio.PlaylistDto = new PlaylistDto();
-            Assert.AreEqual(playlistAudio.PlaylistDto, playlistAudio.PlaylistDto);
+            PlaylistContentDto playlistContent = new PlaylistContentDto();
+            playlistContent.PlaylistDto = new PlaylistDto();
+            Assert.AreEqual(playlistContent.PlaylistDto, playlistContent.PlaylistDto);
         }
         
         [TestMethod]
-        public void GetSetAudioDto()
+        public void GetSetContentDto()
         {
-            PlaylistAudioDto playlistAudio = new PlaylistAudioDto();
-            playlistAudio.AudioDto = new AudioDto();
-            Assert.AreEqual(playlistAudio.AudioDto, playlistAudio.AudioDto);
+            PlaylistContentDto playlistContent = new PlaylistContentDto();
+            playlistContent.ContentDto = new ContentDto();
+            Assert.AreEqual(playlistContent.ContentDto, playlistContent.ContentDto);
         }
     }
 }

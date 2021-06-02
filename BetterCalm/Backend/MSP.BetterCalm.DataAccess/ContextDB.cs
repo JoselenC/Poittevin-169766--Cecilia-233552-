@@ -2,16 +2,15 @@
 using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using MSP.BetterCalm.DataAccess.DtoObjects;
 
 namespace MSP.BetterCalm.DataAccess
 {
-    public class ContextDB: DbContext
+    public class ContextDb: DbContext
     { 
         public DbSet<CategoryDto> Categories { get; set; }
         public DbSet<ProblematicDto> Problematics { get; set; }
-        public DbSet<AudioDto> Audios { get; set; }
-        
-        public DbSet<VideoDto> Videos { get; set; }
+        public DbSet<ContentDto> Contents { get; set; }
         public DbSet<PatientDto> Patients { get; set; }
         public DbSet<PsychologistDto> Psychologists { get; set; }
         public DbSet<AdministratorDto> Administrators { get; set; }
@@ -19,65 +18,44 @@ namespace MSP.BetterCalm.DataAccess
         public DbSet<PsychologistProblematicDto> PsychologistProblematic { get; set; }
         public DbSet<MeetingDto> Meeting { get; set; }
 
-        public ContextDB() { }
-        public ContextDB(DbContextOptions<ContextDB> options): base(options) { }
+        public ContextDb() { }
+        public ContextDb(DbContextOptions<ContextDb> options): base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           modelBuilder.Entity<PlaylistAudioDto>()
-                .HasKey(mc => new { mc.PlaylistID, AudioID = mc.AudioID });
-            modelBuilder.Entity<PlaylistAudioDto>()
+           modelBuilder.Entity<PlaylistContentDto>()
+                .HasKey(mc => new { PlaylistID = mc.PlaylistId, ContentID = mc.ContentId });
+            modelBuilder.Entity<PlaylistContentDto>()
                 .HasOne(mc => mc.PlaylistDto)
-                .WithMany(m => m.PlaylistAudiosDto)
-                .HasForeignKey(mc => mc.PlaylistID);
-            modelBuilder.Entity<PlaylistAudioDto>()
-                .HasOne(mc => mc.AudioDto)
-                .WithMany(c => c.PlaylistAudiosDto)
-                .HasForeignKey(mc => mc.AudioID);
+                .WithMany(m => m.PlaylistContentsDto)
+                .HasForeignKey(mc => mc.PlaylistId);
+            modelBuilder.Entity<PlaylistContentDto>()
+                .HasOne(mc => mc.ContentDto)
+                .WithMany(c => c.PlaylistContentsDto)
+                .HasForeignKey(mc => mc.ContentId);
             
-            modelBuilder.Entity<PlaylistVideoDto>()
-                .HasKey(mc => new { mc.PlaylistID, AudioID = mc.VideoID });
-            modelBuilder.Entity<PlaylistVideoDto>()
-                .HasOne(mc => mc.PlaylistDto)
-                .WithMany(m => m.PlaylistsVideosDto)
-                .HasForeignKey(mc => mc.PlaylistID);
-            modelBuilder.Entity<PlaylistVideoDto>()
-                .HasOne(mc => mc.VideoDto)
-                .WithMany(c => c.PlaylistVideosDto)
-                .HasForeignKey(mc => mc.VideoID);
             
             modelBuilder.Entity<PlaylistCategoryDto>()
-                .HasKey(mc => new { mc.PlaylistID, mc.CategoryID });
+                .HasKey(mc => new { PlaylistID = mc.PlaylistId, CategoryID = mc.CategoryId });
             modelBuilder.Entity<PlaylistCategoryDto>()
                 .HasOne(mc => mc.PlaylistDto)
                 .WithMany(m => m.PlaylistCategoriesDto)
-                .HasForeignKey(mc => mc.PlaylistID);
+                .HasForeignKey(mc => mc.PlaylistId);
             modelBuilder.Entity<PlaylistCategoryDto>()
                 .HasOne(mc => mc.CategoryDto)
                 .WithMany(c => c.PlaylistCategoriesDto)
-                .HasForeignKey(mc => mc.CategoryID);
+                .HasForeignKey(mc => mc.CategoryId);
             
-            modelBuilder.Entity<AudioCategoryDto>()
-                .HasKey(mc => new { AudioID = mc.AudioID, mc.CategoryID });
-            modelBuilder.Entity<AudioCategoryDto>()
+            modelBuilder.Entity<ContentCategoryDto>()
+                .HasKey(mc => new { ContentID = mc.ContentId, CategoryID = mc.CategoryId });
+            modelBuilder.Entity<ContentCategoryDto>()
                 .HasOne(mc => mc.CategoryDto)
-                .WithMany(m => m.AudiosCategoriesDto)
-                .HasForeignKey(mc => mc.CategoryID);
-            modelBuilder.Entity<AudioCategoryDto>()
-                .HasOne(mc => mc.AudioDto)
-                .WithMany(c => c.AudiosCategoriesDto)
-                .HasForeignKey(mc => mc.AudioID);
-            
-            modelBuilder.Entity<VideoCategoryDto>()
-                .HasKey(mc => new { AudioID = mc.VideoID, mc.CategoryID });
-            modelBuilder.Entity<VideoCategoryDto>()
-                .HasOne(mc => mc.CategoryDto)
-                .WithMany(m => m.VideosCategoriesDto)
-                .HasForeignKey(mc => mc.CategoryID);
-            modelBuilder.Entity<VideoCategoryDto>()
-                .HasOne(mc => mc.VideoDto)
-                .WithMany(c => c.VideosCategoriesDto)
-                .HasForeignKey(mc => mc.VideoID);
+                .WithMany(m => m.ContentsCategoriesDto)
+                .HasForeignKey(mc => mc.CategoryId);
+            modelBuilder.Entity<ContentCategoryDto>()
+                .HasOne(mc => mc.ContentDto)
+                .WithMany(c => c.ContentsCategoriesDto)
+                .HasForeignKey(mc => mc.ContentId);
             
             modelBuilder.Entity<PsychologistProblematicDto>()
                 .HasKey(pp => new { pp.PsychologistId, pp.ProblematicId });

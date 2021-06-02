@@ -1,13 +1,13 @@
-﻿namespace MSP.BetterCalm.DataAccess
+﻿namespace MSP.BetterCalm.DataAccess.Mappers
 {
     public interface IMapper<D,T> where T: class 
     {
-        T DomainToDto(D obj,ContextDB context);
+        T DomainToDto(D obj,ContextDb context);
 
-        D DtoToDomain(T obj,ContextDB context);
+        D DtoToDomain(T obj,ContextDb context);
         
-        D GetById(ContextDB context, int id);
+        D GetById(ContextDb context, int id);
 
-        T UpdateDtoObject (T objToUpdate, D updatedObject,ContextDB context);
+        T UpdateDtoObject (T objToUpdate, D updatedObject,ContextDb context);
     }
 }
