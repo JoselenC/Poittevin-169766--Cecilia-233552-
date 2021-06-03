@@ -39,7 +39,7 @@ namespace MSP.BetterCalm.DataAccess.Mappers
             {
                 foreach (Content content in contents)
                 {
-                    ContentDto contentDto= contentsSet.FirstOrDefault(x => x.ContentDtoId == content.Id || (x.Name==content.Name && x.AuthorName==content.AuthorName ));
+                    ContentDto contentDto= contentsSet.FirstOrDefault(x => x.ContentDtoId == content.Id || (x.Name==content.Name && x.AuthorName==content.CreatorName ));
                     if (contentDto == null)
                     {
                         if (!string.IsNullOrEmpty(content.Name))
@@ -64,7 +64,7 @@ namespace MSP.BetterCalm.DataAccess.Mappers
 
             var contentDto = new ContentDto()
             {
-                AuthorName = content.AuthorName ?? "",
+                AuthorName = content.CreatorName ?? "",
                 Name = content.Name,
                 Duration = content.Duration,
                 UrlArchive = content.UrlArchive ?? "",

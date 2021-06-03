@@ -41,7 +41,7 @@ namespace MSP.BetterCalm.DataAccess.Mappers
                     ContentDtoId = obj.Id,
                     Name = obj.Name,
                     Duration = obj.Duration,
-                    AuthorName = obj.AuthorName ?? "",
+                    AuthorName = obj.CreatorName ?? "",
                     UrlArchive = obj.UrlArchive ?? "",
                     UrlImage = obj.UrlImage ?? "",
                     Type = obj.Type  ?? ""
@@ -89,7 +89,7 @@ namespace MSP.BetterCalm.DataAccess.Mappers
             Content content = new Content()
             {
                 Id = obj.ContentDtoId,
-                AuthorName = obj.AuthorName,
+                CreatorName = obj.AuthorName,
                 Name = obj.Name,
                 Categories = categories,
                 Duration = obj.Duration,
@@ -139,7 +139,7 @@ namespace MSP.BetterCalm.DataAccess.Mappers
             objToUpdate.Duration = updatedObject.Duration;
             objToUpdate.UrlArchive = updatedObject.UrlArchive ?? objToUpdate.UrlArchive;
             objToUpdate.UrlImage = updatedObject.UrlImage ?? objToUpdate.UrlImage;
-            objToUpdate.AuthorName = updatedObject.AuthorName ?? objToUpdate.AuthorName;
+            objToUpdate.AuthorName = updatedObject.CreatorName ?? objToUpdate.AuthorName;
             objToUpdate.Type = updatedObject.Type ?? objToUpdate.Type;
             objToUpdate.ContentsCategoriesDto= UpdateContentCategories(objToUpdate, updatedObject, context, categoryMapper);
             return objToUpdate;
