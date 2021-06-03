@@ -7,8 +7,17 @@
     <p mat-line *ngIf="patient.meetings.length > 0 "> Amount of meetings: {{ patient.meetings.length}}</p>
   </mat-list-option>
 </mat-selection-list>
-<button mat-fab color="primary" id="add-button" matTooltip="Add customer" class="add-button">
+
+<a [routerLink]="['/add-patient']">
+<button
+  mat-fab
+  color="primary"
+  id="add-button"
+  matTooltip="Add customer"
+  class="add-button"
+
+>
   <i class="material-icons" >add</i>
 </button>
-
+</a>
 
