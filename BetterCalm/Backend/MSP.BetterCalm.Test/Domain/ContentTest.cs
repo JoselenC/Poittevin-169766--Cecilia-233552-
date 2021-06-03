@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.Domain;
+using MSP.BetterCalm.Domain.Exceptions;
 
 namespace MSP.BetterCalm.Test
 {
@@ -16,6 +17,25 @@ namespace MSP.BetterCalm.Test
             content.Name = "Let it be";
             string getContentName = content.Name;
             Assert.AreEqual(ContentName, getContentName);
+        }
+        
+        [TestMethod]
+        public void GetSetType()
+        {
+            string ContentName = "audio";
+            Content content = new Content();
+            content.Type = "audio";
+            string getContentName = content.Type;
+            Assert.AreEqual(ContentName, getContentName);
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(InvalidContentType), "")]
+        public void GetSetInvalidType()
+        {
+            string ContentName = "aaaa";
+            Content content = new Content();
+            content.Type = "audio";
         }
         
         [TestMethod]
@@ -123,8 +143,8 @@ namespace MSP.BetterCalm.Test
         {
             string authorName = "Paul McCartney";
             Content content = new Content();
-            content.AuthorName = authorName;
-            string getAuthorName= content.AuthorName;
+            content.CreatorName = authorName;
+            string getAuthorName= content.CreatorName;
             Assert.AreEqual(authorName, getAuthorName);
         }
         
@@ -160,7 +180,7 @@ namespace MSP.BetterCalm.Test
         public void IsSameAuthorName()
         {
             Content content = new Content();
-            content.AuthorName = "Ringo Starr";
+            content.CreatorName = "Ringo Starr";
             string authorName =  "Ringo Starr";
             Assert.IsTrue(content.IsSameAuthorName(authorName));
         }
@@ -169,7 +189,7 @@ namespace MSP.BetterCalm.Test
         public void IsDifferentAuthorNae()
         {
             Content content = new Content();
-            content.AuthorName =  "Ringo Starr";
+            content.CreatorName =  "Ringo Starr";
             string authorName = "John Lennon";
             Assert.IsFalse(content.IsSameAuthorName(authorName));
         }
@@ -208,7 +228,7 @@ namespace MSP.BetterCalm.Test
         public void EqualsNull()
         {
             Content content = new Content();
-            content.AuthorName =  "Ringo Starr";
+            content.CreatorName =  "Ringo Starr";
             Assert.IsFalse( content.Equals(null));
         }
         
@@ -216,7 +236,7 @@ namespace MSP.BetterCalm.Test
         public void EqualsDiffType()
         {
             Content content = new Content();
-            content.AuthorName =  "Ringo Starr";
+            content.CreatorName =  "Ringo Starr";
             Assert.IsFalse( content.Equals(new Category()));
         }
     }

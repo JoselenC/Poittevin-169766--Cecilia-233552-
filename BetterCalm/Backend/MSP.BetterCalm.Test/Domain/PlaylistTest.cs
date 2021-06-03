@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.Domain;
+using MSP.BetterCalm.Domain.Exceptions;
 
 namespace MSP.BetterCalm.Test
 {
@@ -176,7 +177,7 @@ namespace MSP.BetterCalm.Test
             
                     Categories = new List<Category>(),
                     Name = "Let it be",
-                    AuthorName = "John Lennon",
+                    CreatorName = "John Lennon",
                     Duration = 12,
                     UrlArchive = "",
                     UrlImage = ""
@@ -196,7 +197,7 @@ namespace MSP.BetterCalm.Test
             
                 Categories = new List<Category>(),
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 12,
                 UrlArchive = "",
                 UrlImage = ""
