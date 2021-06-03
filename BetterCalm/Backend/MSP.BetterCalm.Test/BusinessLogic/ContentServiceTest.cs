@@ -17,7 +17,6 @@ namespace MSP.BetterCalm.Test.BusinessLogic
         private Mock<ManagerContentRepository> _repoMock;
         private Mock<IRepository<Content>> _contentsMock;
         private ContentService _contentservice;
-        private ContextDb _context = new ContextDb();
 
         [TestInitialize]
         public void TestFixtureSetup()
