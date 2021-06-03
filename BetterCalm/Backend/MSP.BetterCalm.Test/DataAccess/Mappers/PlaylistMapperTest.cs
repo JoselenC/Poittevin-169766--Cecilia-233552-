@@ -41,20 +41,22 @@ namespace MSP.BetterCalm.Test
             _contentTest = new Content() {
                 Id=1,
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 120,
                 UrlArchive = "",
                 UrlImage = "",
-                Categories = new List<Category>(){category1}
+                Categories = new List<Category>(){category1},
+                Type= "video"
             };
             _contentTest2 = new Content() {
                 Id=2,
                 Name = "Help",
-                AuthorName = "The beatles",
+                CreatorName = "The beatles",
                 Duration = 120,
                 UrlArchive = "",
                 UrlImage = "",
-                Categories = new List<Category>(){category2}
+                Categories = new List<Category>(){category2},
+                Type= "video"
             };
             ContentRepo.Add(_contentTest);
             ContentRepo.Add(_contentTest2);
@@ -65,7 +67,7 @@ namespace MSP.BetterCalm.Test
                 Description = "description",
                 UrlImage = "",
                 Contents = new List<Content>(){_contentTest},
-                Categories = new List<Category>() {category1}
+                Categories = new List<Category>() {category1},
             };
             RepoPlaylists.Add(PlaylistTest);
         }
@@ -89,10 +91,11 @@ namespace MSP.BetterCalm.Test
         {
             Content content = new Content() {
                 Name = "Let it be",
-                AuthorName = "The beatles",
+                CreatorName = "The beatles",
                 Duration = 120,
                 UrlArchive = "",
-                UrlImage = ""
+                UrlImage = "",
+                Type= "video"
             };
             Playlist playlist = new Playlist()
             {
@@ -113,7 +116,8 @@ namespace MSP.BetterCalm.Test
         {
             Content content = new Content() {
                 Name = "Content",
-                Categories = new List<Category>() {category2}
+                Categories = new List<Category>() {category2},
+                Type= "video"
             };
             Playlist playlist = new Playlist()
             {
@@ -122,7 +126,7 @@ namespace MSP.BetterCalm.Test
                 Description = "description",
                 UrlImage = "",
                 Contents = new List<Content>(){content},
-                Categories = new List<Category>() {category1}
+                Categories = new List<Category>() {category1},
             };
             RepoPlaylists.Add(playlist);
             Playlist actualPlaylist = RepoPlaylists.Find(x => x.Name == "Playlist");

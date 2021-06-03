@@ -43,7 +43,8 @@ namespace MSP.BetterCalm.Test.WebAPI
                 AuthorName = "John Lennon",
                 Duration = "120s",
                 UrlArchive = "",
-                UrlImage = ""
+                UrlImage = "",
+                Type="audio",
             };
         }
         
@@ -148,7 +149,7 @@ namespace MSP.BetterCalm.Test.WebAPI
             Content content = new Content() { Id = 1,
                 Categories = new List<Category>(),
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 120,
                 UrlArchive = "",
                 UrlImage = ""};

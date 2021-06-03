@@ -11,6 +11,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\ImporterJson\ImporterJson.csproj" />
+      <ProjectReference Include="..\ImporterXml\ImporterXml.csproj" />
       <ProjectReference Include="..\MSP.BetterCalm.DataAccess\MSP.BetterCalm.DataAccess.csproj" />
       <ProjectReference Include="..\MSP.BetterCalm.Domain\MSP.BetterCalm.Domain.csproj" />
       <ProjectReference Include="..\MSP.BetterCalm.WebAPI\MSP.BetterCalm.WebAPI.csproj" />
