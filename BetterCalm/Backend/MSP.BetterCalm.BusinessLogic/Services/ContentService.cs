@@ -25,6 +25,14 @@ namespace MSP.BetterCalm.BusinessLogic.Services
             return contents;
         }
 
+        public void SetContents(List<Content> contents)
+        {
+            foreach (var content in contents)
+            {
+                SetContent(content);
+            }
+        }
+
         private bool AlreadyExistThisContent(Content content)
         {
             try
