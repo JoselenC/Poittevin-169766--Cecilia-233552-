@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
+using MSP.BetterCalm.Domain.Exceptions;
 
 namespace MSP.BetterCalm.Domain
 {
@@ -19,16 +20,29 @@ namespace MSP.BetterCalm.Domain
                 throw new InvalidNameLength();
         }
         public double Duration { get; set; }
-        
-           
+
         private string _urlImage;
         public string UrlImage {get=>_urlImage; set=>SetUrlImage(value); }   
         
         private string _urlArchive;
         public string UrlArchive {get=>_urlArchive; set=>SetUrlContent(value); }
 
-        
-        public string Type { get; set; }
+        private string _type;
+        public string Type { get => _type; set => SetType(value); }
+
+        private void SetType(string value)
+        {
+            if (value == "audio" || value == "video")
+            {
+                _type=value;
+            }
+            else
+            {
+                throw new InvalidContentType();
+            }
+        }
+
+
         private bool IsUrlValid(string url)
         {
             string pattern =
@@ -54,7 +68,7 @@ namespace MSP.BetterCalm.Domain
         }
         public List<Category> Categories {get; set; }
         public bool AssociatedToPlaylist { get; set; }
-        public string AuthorName {get; set; }
+        public string CreatorName {get; set; }
 
         
         public bool IsSameContentName(string contentName)
@@ -64,7 +78,7 @@ namespace MSP.BetterCalm.Domain
         
         public bool IsSameAuthorName(string authorName)
         {
-            return authorName.ToLower() == AuthorName.ToLower();
+            return authorName.ToLower() == CreatorName.ToLower();
         }
         
         public override bool Equals(object obj)
