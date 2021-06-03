@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MSP.BetterCalm.BusinessLogic.Exceptions
+namespace MSP.BetterCalm.Domain.Exceptions
 {
     public class InvalidDescriptionLength: Exception
     {

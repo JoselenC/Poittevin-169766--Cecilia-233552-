@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
+using MSP.BetterCalm.Domain.Exceptions;
 
 namespace MSP.BetterCalm.Domain
 {
