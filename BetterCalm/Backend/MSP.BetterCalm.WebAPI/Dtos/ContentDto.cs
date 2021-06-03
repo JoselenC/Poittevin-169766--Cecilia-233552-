@@ -15,6 +15,7 @@ namespace MSP.BetterCalm.WebAPI.Dtos
         public string Duration { get; set; }
         public string UrlImage {get; set; }
         public string UrlArchive {get; set; }
+        public string Type { get; set; }
         private bool IsDurationValid(string duration)
         {
             string pattern = @"^([0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9]?[0-9])[hms]$";
@@ -42,9 +43,10 @@ namespace MSP.BetterCalm.WebAPI.Dtos
                 Name = Name, 
                 Categories = Categories, 
                 Duration = SetDuration(), 
-                AuthorName = AuthorName,
+                CreatorName = AuthorName,
                 UrlArchive = UrlArchive, 
-                UrlImage = UrlImage
+                UrlImage = UrlImage,
+                Type= Type
             };
             return content;
         }
@@ -72,9 +74,10 @@ namespace MSP.BetterCalm.WebAPI.Dtos
                 Name = content.Name, 
                 Categories = content.Categories, 
                 Duration = durationFormat, 
-                AuthorName = content.AuthorName,
+                AuthorName = content.CreatorName,
                 UrlArchive = content.UrlArchive, 
-                UrlImage = content.UrlImage
+                UrlImage = content.UrlImage,
+                Type=content.Type
             };
             return contentReturn;
         }
