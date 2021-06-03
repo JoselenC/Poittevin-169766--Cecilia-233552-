@@ -34,10 +34,11 @@ namespace MSP.BetterCalm.Test.WebAPI
                 Id = 1,
                 Categories = new List<Category>(),
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 120,
                 UrlArchive = "",
-                UrlImage = ""
+                UrlImage = "",
+                Type = "audio"
             };
             Contents.Add(_content);
             ContentDto = new ContentDto()
@@ -48,7 +49,8 @@ namespace MSP.BetterCalm.Test.WebAPI
                 AuthorName = "John Lennon",
                 Duration = "120s",
                 UrlArchive = "",
-                UrlImage = ""
+                UrlImage = "",
+                Type = "audio"
             };
             ContentsDtos = new List<ContentDto>();
             foreach (Content Content in Contents)
@@ -116,16 +118,18 @@ namespace MSP.BetterCalm.Test.WebAPI
                 AuthorName = "John Lennon",
                 Duration = "12s",
                 UrlArchive = "",
-                UrlImage = ""
+                UrlImage = "",
+                Type = "audio"
             };
             Content content = new Content()
             {
                 Categories = new List<Category>(),
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 12,
                 UrlArchive = "",
-                UrlImage = ""
+                UrlImage = "",
+                Type = "audio"
             };
             mockContentService.Setup(m => m.SetContent(content)).Returns(content);
             var result = ContentController.CreateContent(expectedContent);
@@ -202,7 +206,8 @@ namespace MSP.BetterCalm.Test.WebAPI
                 AuthorName = "John Lennon",
                 Duration = "2m",
                 UrlArchive = "",
-                UrlImage = ""
+                UrlImage = "",
+                Type = "audio"
             };
             mockContentService.Setup(m => m.GetContentById(1)).Returns(_content);
             var result = ContentController.GetContentById(1);

@@ -37,10 +37,11 @@ namespace MSP.BetterCalm.Test
             _contentTest = new Content() {
                 Id = 1,
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 120,
                 UrlArchive = "",
                 UrlImage = "",
+                Type = "audio",
                 Categories = new List<Category>(){_category1}
             };
             _repoContents.Add(_contentTest);
@@ -69,10 +70,11 @@ namespace MSP.BetterCalm.Test
                 Id = 0,
                 Categories =  new List<Category>(),
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 120,
                 UrlArchive = "",
-                UrlImage = ""
+                UrlImage = "",
+                Type = "audio"
             };
             List<Category> Categories = new List<Category>()
             {
@@ -98,10 +100,11 @@ namespace MSP.BetterCalm.Test
             _contentTest = new Content() {
                 Id = 1,
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 120,
                 UrlArchive = "",
                 UrlImage = "",
+                Type = "audio",
                 Categories = new List<Category>(){_category1}
             };
             _repoContents.Add(_contentTest);
@@ -116,10 +119,11 @@ namespace MSP.BetterCalm.Test
                 AssociatedToPlaylist = true,
                 Id = 1,
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 120,
                 UrlArchive = "",
                 UrlImage = "",
+                Type = "audio",
                 Categories = new List<Category>(){_category1}
             };
             _repoContents.Add(_contentTest);
@@ -142,10 +146,11 @@ namespace MSP.BetterCalm.Test
             Content content =new Content() {
                 Id = 1,
                 Name = "Help",
-                AuthorName = "The beatles",
+                CreatorName = "The beatles",
                 Duration = 121,
                 UrlArchive = "",
                 UrlImage = "",
+                Type = "audio",
                 Categories = new List<Category>(){_category2,_category1}
             };
             _repoContents.Add(content);
@@ -165,10 +170,11 @@ namespace MSP.BetterCalm.Test
             Content actualContent =new Content() {
                 Id = 1,
                 Name = "Help",
-                AuthorName = "The beatles",
+                CreatorName = "The beatles",
                 Duration = 121,
                 UrlArchive = "",
                 UrlImage = "",
+                Type = "audio",
                 Categories = new List<Category>(){_category2}
             };
             Content updatedContent = _repoContents.Update(_contentTest, actualContent);

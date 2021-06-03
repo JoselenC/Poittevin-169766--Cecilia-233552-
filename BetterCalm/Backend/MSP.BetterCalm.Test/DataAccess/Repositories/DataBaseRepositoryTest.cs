@@ -32,7 +32,7 @@ namespace MSP.BetterCalm.Test
             category = Categories.Add(category);
             AllCategories.Add(category);
             Songs=new DataBaseRepository<Content, ContentDto>(new ContentMapper(), context.Contents, context);
-            Content content = new Content() { Id=1, Name = "Let it be"};
+            Content content = new Content() { Id=1, Name = "Let it be",Type="audio"};
             Songs.Add(content);
         }
 

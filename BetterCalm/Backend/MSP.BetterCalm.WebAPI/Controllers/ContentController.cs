@@ -14,16 +14,16 @@ namespace MSP.BetterCalm.WebAPI.Controllers
     [Route("api/Content")]
     public class ContentController : ControllerBase
     {
-        private IContentService _ContentService;
-        public ContentController(IContentService ContentService)
+        private IContentService _contentService;
+        public ContentController(IContentService contentService)
         {
-            this._ContentService = ContentService;
+            this._contentService = contentService;
         }
         
         [HttpGet]
         public IActionResult GetAll()
         {
-            List<Content> contents = _ContentService.GetContents();
+            List<Content> contents = _contentService.GetContents();
             List<ContentDto> contentDtos = contents.Select(content => new ContentDto().CreateContentDto(content)).ToList();
             return Ok(contentDtos);
         }
@@ -31,7 +31,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         [HttpGet("name")]
         public IActionResult GetContentsByName([FromQuery] string name)
         {
-            List<Content> contents = _ContentService.GetContentsByName(name);
+            List<Content> contents = _contentService.GetContentsByName(name);
             List<ContentDto> contentDtos = contents.Select(content => new ContentDto().CreateContentDto(content)).ToList();
             return Ok(contentDtos);
         }
@@ -39,7 +39,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         [HttpGet("author")]
         public IActionResult GetContentsByAuthor([FromQuery] string author)
         {
-            List<Content> contents = _ContentService.GetContentsByAuthor(author);
+            List<Content> contents = _contentService.GetContentsByAuthor(author);
             List<ContentDto> contentDtos = contents.Select(content => new ContentDto().CreateContentDto(content)).ToList();
             return Ok(contentDtos);        }
 
@@ -47,7 +47,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         [HttpGet("Category")]
         public IActionResult GetContentsByCategoryName([FromQuery] string name)
         {
-            List<Content> contents = _ContentService.GetContentsByCategoryName(name);
+            List<Content> contents = _contentService.GetContentsByCategoryName(name);
             List<ContentDto> contentDtos = contents.Select(content => new ContentDto().CreateContentDto(content)).ToList();
             return Ok(contentDtos);
         }
@@ -56,7 +56,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult GetContentById([FromRoute] int id)
         {
-            Content contentById = _ContentService.GetContentById(id);
+            Content contentById = _contentService.GetContentById(id);
             ContentDto content = new ContentDto().CreateContentDto(contentById);
             return Ok(content);
         }
@@ -66,7 +66,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         [ServiceFilter(typeof(FilterAuthentication))]
         public IActionResult CreateContent([FromBody] ContentDto content)
         {
-            Content contentAdded = _ContentService.SetContent(content.CreateContent());
+            Content contentAdded = _contentService.SetContent(content.CreateContent());
             ContentDto contentDto = new ContentDto().CreateContentDto(contentAdded);
             return Created($"api/Content/{contentAdded.Name}", contentDto);
         }
@@ -75,7 +75,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         [ServiceFilter(typeof(FilterAuthentication))]
         public IActionResult DeleteContent([FromRoute] int id)
         {
-            _ContentService.DeleteContent(id);
+            _contentService.DeleteContent(id);
             return Ok("Content removed");
         }
 
@@ -83,7 +83,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         [ServiceFilter(typeof(FilterAuthentication))]
         public IActionResult UpdateContent([FromRoute] int id, [FromBody] ContentDto contentUpdated)
         {
-            _ContentService.UpdateContentById(id, contentUpdated.CreateContent());
+            _contentService.UpdateContentById(id, contentUpdated.CreateContent());
             return Ok("Content Updated");
         }
     }
