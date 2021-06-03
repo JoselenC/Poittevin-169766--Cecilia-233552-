@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
+using MSP.BetterCalm.Domain.Exceptions;
+using MSP.BetterCalm.Importer;
 using MSP.BetterCalm.WebAPI.Dtos;
 using MSP.BetterCalm.WebAPI.Filters;
 
@@ -41,6 +43,44 @@ namespace MSP.BetterCalm.Test.WebAPI.Filters
         public void InvalidNameLengthTest()
         {
             exceptionContext.Exception = new InvalidNameLength();
+            response = new ErrorDto()
+            {
+                IsSuccess = false,
+                ErrorMessage = exceptionContext.Exception.Message,
+                Content = exceptionContext.Exception.Message,
+                Code = 422
+            };
+            result = new ObjectResult(response) {StatusCode = response.Code};
+            filter.OnException(exceptionContext);
+            ObjectResult objResult = (ObjectResult) exceptionContext.Result;
+            ErrorDto errorDto = (ErrorDto) result.Value;
+            ErrorDto error = (ErrorDto) objResult.Value;
+            Assert.AreEqual(errorDto, error);
+        }
+        
+        [TestMethod]
+        public void InvalidTypeTest()
+        {
+            exceptionContext.Exception = new InvalidType();
+            response = new ErrorDto()
+            {
+                IsSuccess = false,
+                ErrorMessage = exceptionContext.Exception.Message,
+                Content = exceptionContext.Exception.Message,
+                Code = 422
+            };
+            result = new ObjectResult(response) {StatusCode = response.Code};
+            filter.OnException(exceptionContext);
+            ObjectResult objResult = (ObjectResult) exceptionContext.Result;
+            ErrorDto errorDto = (ErrorDto) result.Value;
+            ErrorDto error = (ErrorDto) objResult.Value;
+            Assert.AreEqual(errorDto, error);
+        }
+        
+        [TestMethod]
+        public void InvalidContentTypeTest()
+        {
+            exceptionContext.Exception = new InvalidContentType();
             response = new ErrorDto()
             {
                 IsSuccess = false,
