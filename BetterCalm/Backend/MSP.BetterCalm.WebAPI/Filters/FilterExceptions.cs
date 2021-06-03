@@ -4,6 +4,8 @@ using System.Security.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
+using MSP.BetterCalm.Domain.Exceptions;
+using MSP.BetterCalm.Importer;
 using MSP.BetterCalm.WebAPI.Dtos;
 
 namespace MSP.BetterCalm.WebAPI.Filters
@@ -39,9 +41,11 @@ namespace MSP.BetterCalm.WebAPI.Filters
             List<Type> errors422 = new List<Type>()
             {
                 typeof(InvalidNameLength),
+                typeof(InvalidContentType),
                 typeof(InvalidDescriptionLength),
                 typeof(InvalidDurationFormat),
                 typeof(InvalidUrl),
+                typeof(InvalidType)
             };
 
             ErrorDto response = new ErrorDto()
