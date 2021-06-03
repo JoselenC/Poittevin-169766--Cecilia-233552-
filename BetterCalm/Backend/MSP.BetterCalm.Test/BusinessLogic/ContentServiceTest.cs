@@ -53,7 +53,7 @@ namespace MSP.BetterCalm.Test.BusinessLogic
         [TestMethod]
         public void FindContentByAuthor()
         {
-            Content content1 = new Content() {Name = "Stand by me", AuthorName = "John Lennon"};
+            Content content1 = new Content() {Name = "Stand by me", CreatorName = "John Lennon"};
             _contentsMock.Setup(x => x.Find(It.IsAny<Predicate<Content>>())).Returns(content1);
             List<Content> contents = new List<Content>() {content1};
             _contentsMock.Setup(x => x.Get()).Returns(contents);
@@ -65,7 +65,7 @@ namespace MSP.BetterCalm.Test.BusinessLogic
         [ExpectedException(typeof(NotFoundContent), "")]
         public void NoFindContentByAuthor()
         {
-            Content content1 = new Content() {Name = "Stand by me", AuthorName = "John Lennon"};
+            Content content1 = new Content() {Name = "Stand by me", CreatorName = "John Lennon"};
             _contentsMock.Setup(x => x.Find(It.IsAny<Predicate<Content>>())).Returns(content1);
             List<Content> contents = new List<Content>() {content1};
             _contentsMock.Setup(x => x.Get()).Returns(contents);
@@ -86,7 +86,7 @@ namespace MSP.BetterCalm.Test.BusinessLogic
                     category
                 },
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 12,
                 UrlArchive = "",
                 UrlImage = ""
@@ -105,7 +105,7 @@ namespace MSP.BetterCalm.Test.BusinessLogic
             {
                 Id=4,
                 Name = "Let it be",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 12,
                 UrlArchive = "",
                 UrlImage = ""
@@ -115,13 +115,49 @@ namespace MSP.BetterCalm.Test.BusinessLogic
         }
 
         [TestMethod]
+        [ExpectedException(typeof(AlreadyExistThisContent), "")]
+        public void SetcontentsList()
+        {    
+            Content content = new Content()
+            {
+                Id=4,
+                Name = "Let it be",
+                CreatorName = "John Lennon",
+                Duration = 12,
+                UrlArchive = "",
+                UrlImage = ""
+            };
+            List<Content> contents = new List<Content>() {content};
+            _contentsMock.Setup(x => x.FindById(3)).Throws(new AlreadyExistThisContent());
+            _contentservice.SetContents(contents);
+        }
+        [TestMethod]
+        public void SetListContentsTest()
+        {    
+            Content content = new Content()
+            {
+                Id=1,
+                Name = "Help",
+                CreatorName = "John Lennon",
+                Duration = 12,
+                UrlArchive = "",
+                UrlImage = ""
+            };
+            _contentsMock.Setup(x => x.Add(content)).Returns(content);
+            _contentsMock.Setup(x => x.FindById(content.Id)).Throws(new KeyNotFoundException());
+            List<Content> contents = new List<Content>() {content};
+            _contentsMock.Setup(x => x.Get()).Returns(contents);
+            _contentservice.SetContents(contents);
+            CollectionAssert.AreEqual(contents,_contentservice.GetContents());
+        }
+        [TestMethod]
         public void SetContentTest()
         {    
             Content content = new Content()
             {
                 Id=1,
                 Name = "Help",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 12,
                 UrlArchive = "",
                 UrlImage = ""
@@ -140,7 +176,7 @@ namespace MSP.BetterCalm.Test.BusinessLogic
             {
                 Id=4,
                 Name = "Let it be",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 12,
                 UrlArchive = "",
                 UrlImage = ""
@@ -179,7 +215,7 @@ namespace MSP.BetterCalm.Test.BusinessLogic
                     category
                 },
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 12,
                 UrlArchive = "",
                 UrlImage = ""
@@ -212,7 +248,7 @@ namespace MSP.BetterCalm.Test.BusinessLogic
                 Id = 1,
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 12,
                 UrlArchive = "",
                 UrlImage = ""
@@ -222,7 +258,7 @@ namespace MSP.BetterCalm.Test.BusinessLogic
                 Id = 1,
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Let it be",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 12,
                 UrlArchive = "",
                 UrlImage = ""
@@ -244,7 +280,7 @@ namespace MSP.BetterCalm.Test.BusinessLogic
             {
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 12,
                 UrlArchive = "",
                 UrlImage = ""
@@ -261,7 +297,7 @@ namespace MSP.BetterCalm.Test.BusinessLogic
             {
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 12,
                 UrlArchive = "",
                 UrlImage = ""
@@ -279,7 +315,7 @@ namespace MSP.BetterCalm.Test.BusinessLogic
                 Id=3,
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 12,
                 UrlArchive = "",
                 UrlImage = ""
@@ -297,7 +333,7 @@ namespace MSP.BetterCalm.Test.BusinessLogic
                 Id=3,
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 12,
                 UrlArchive = "",
                 UrlImage = ""
@@ -314,7 +350,7 @@ namespace MSP.BetterCalm.Test.BusinessLogic
                 Id=2,
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 12,
                 UrlArchive = "",
                 UrlImage = ""
@@ -336,7 +372,7 @@ namespace MSP.BetterCalm.Test.BusinessLogic
             {
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Let it be",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 12,
                 UrlArchive = "",
                 UrlImage = ""
@@ -353,7 +389,7 @@ namespace MSP.BetterCalm.Test.BusinessLogic
             {
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Let it be",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 12,
                 UrlArchive = "",
                 UrlImage = ""
@@ -371,7 +407,7 @@ namespace MSP.BetterCalm.Test.BusinessLogic
                 Id=2,
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 12,
                 UrlArchive = "",
                 UrlImage = ""
@@ -391,7 +427,7 @@ namespace MSP.BetterCalm.Test.BusinessLogic
                 Id=2,
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 12,
                 UrlArchive = "",
                 UrlImage = ""
@@ -410,7 +446,7 @@ namespace MSP.BetterCalm.Test.BusinessLogic
                 Id=2,
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 12,
                 UrlArchive = "",
                 UrlImage = ""
@@ -427,7 +463,7 @@ namespace MSP.BetterCalm.Test.BusinessLogic
             {
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Let it e",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 12,
                 UrlArchive = "",
                 UrlImage = ""
