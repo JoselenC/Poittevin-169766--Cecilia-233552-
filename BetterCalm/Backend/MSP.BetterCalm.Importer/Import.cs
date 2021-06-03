@@ -6,7 +6,6 @@ namespace MSP.BetterCalm.Importer
     {
         public string Name { get; set; }
         public List<Parameter> Parameters { get; set; }
-        
         public string Path { get; set; }
 
     }
