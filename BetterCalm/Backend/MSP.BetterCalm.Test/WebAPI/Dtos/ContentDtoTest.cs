@@ -109,10 +109,11 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
                 Id=2,
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 120,
                 UrlArchive = "",
-                UrlImage = ""
+                UrlImage = "",
+                Type = "audio"
             };
             ContentDto contentDtoExpected = new ContentDto()
             {
@@ -122,7 +123,8 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
                 AuthorName = "John Lennon",
                 Duration = "2m",
                 UrlArchive = "",
-                UrlImage = ""
+                UrlImage = "",
+                Type = "audio"
             };
             ContentDto contentDto = new ContentDto().CreateContentDto(content);
             Assert.AreEqual(contentDtoExpected, contentDto);
@@ -136,10 +138,11 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
                 Id=2,
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 60*60*60,
                 UrlArchive = "",
-                UrlImage = ""
+                UrlImage = "",
+                Type = "audio"
             };
             ContentDto contentDtoExpected = new ContentDto()
             {
@@ -149,7 +152,8 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
                 AuthorName = "John Lennon",
                 Duration = "60h",
                 UrlArchive = "",
-                UrlImage = ""
+                UrlImage = "",
+                Type = "audio"
             };
             ContentDto contentDto = new ContentDto().CreateContentDto(content);
             Assert.AreEqual(contentDtoExpected, contentDto);
@@ -166,7 +170,8 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
                 AuthorName = "John Lennon",
                 Duration = "2m",
                 UrlArchive = "",
-                UrlImage = ""
+                UrlImage = "",
+                Type = "audio"
             };
             Assert.IsFalse(ContentdtoExpected.Equals(null));
         }
@@ -182,7 +187,8 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
                 AuthorName = "John Lennon",
                 Duration = "2m",
                 UrlArchive = "",
-                UrlImage = ""
+                UrlImage = "",
+                Type = "audio"
             };
             Assert.IsFalse(ContentdtoExpected.Equals(new Category()));
         }
@@ -199,7 +205,8 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
                 AuthorName = "John Lennon",
                 Duration = "12000sq",
                 UrlArchive = "",
-                UrlImage = ""
+                UrlImage = "",
+                Type = "audio"
             };
             Content contentDto = ContentdtoExpected.CreateContent();
         }
@@ -215,17 +222,19 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
                 AuthorName = "John Lennon",
                 Duration = "12000s",
                 UrlArchive = "",
-                UrlImage = ""
+                UrlImage = "",
+                Type = "audio"
             };
             Content content = new Content()
             {
                 Id=0,
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 12000,
                 UrlArchive = "",
-                UrlImage = ""
+                UrlImage = "",
+                Type = "audio"
             };
             Content contentDto = ContentdtoExpected.CreateContent();
             Assert.AreEqual(content, contentDto);
@@ -242,17 +251,19 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
                 AuthorName = "John Lennon",
                 Duration = "1200H",
                 UrlArchive = "",
-                UrlImage = ""
+                UrlImage = "",
+                Type = "audio"
             };
             Content content = new Content()
             {
                 Id=0,
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 1200,
                 UrlArchive = "",
-                UrlImage = ""
+                UrlImage = "",
+                Type = "audio"
             };
             Content contentDto = ContentdtoExpected.CreateContent();
             Assert.AreEqual(content, contentDto);
@@ -269,17 +280,19 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
                 AuthorName = "John Lennon",
                 Duration = "100m",
                 UrlArchive = "",
-                UrlImage = ""
+                UrlImage = "",
+                Type = "audio"
             };
             Content content = new Content()
             {
                 Id=0,
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 10*60,
                 UrlArchive = "",
-                UrlImage = ""
+                UrlImage = "",
+                Type = "audio"
             };
             Content contentDto = ContentdtoExpected.CreateContent();
             Assert.AreEqual(content, contentDto);
@@ -296,17 +309,19 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
                 AuthorName = "John Lennon",
                 Duration = "10h",
                 UrlArchive = "",
-                UrlImage = ""
+                UrlImage = "",
+                Type = "audio"
             };
             Content content = new Content()
             {
                 Id=0,
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = 10*60*60,
                 UrlArchive = "",
-                UrlImage = ""
+                UrlImage = "",
+                Type = "audio"
             };
             Content contentDto = ContentdtoExpected.CreateContent();
             Assert.AreEqual(content, contentDto);
