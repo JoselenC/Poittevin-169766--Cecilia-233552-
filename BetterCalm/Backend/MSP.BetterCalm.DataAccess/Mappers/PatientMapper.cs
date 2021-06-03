@@ -53,6 +53,7 @@ namespace MSP.BetterCalm.DataAccess
                         new Meeting()
                         {
                             DateTime = meeting.DateTime,
+                            Address = meeting.Address,
                             Psychologist = new Psychologist()
                             {
                                 Name = meeting.Psychologist.Name,

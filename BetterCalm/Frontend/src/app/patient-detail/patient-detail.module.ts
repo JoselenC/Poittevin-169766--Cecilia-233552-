@@ -4,37 +4,32 @@ import {MatCardModule} from '@angular/material/card';
 
 import {RouterModule, Routes} from '@angular/router';
 import {LayoutComponent} from '../layout/layout.component';
-import {PatientComponent} from './patient.component';
-import {LayoutModule} from '../layout/layout.module';
+import {PatientDetailComponent} from './patient-detail.component';
 import {MatListModule} from '@angular/material/list';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 const routes: Routes = [
   {
-    path: 'patients',
+    path: 'patients/:patientId',
     component: LayoutComponent,
     children: [
-      { path: '', component: PatientComponent },
+      { path: '', component: PatientDetailComponent },
     ]
   },
 ];
 
 
 @NgModule({
-  declarations: [PatientComponent],
+  declarations: [ PatientDetailComponent ],
   imports: [
     CommonModule,
-    LayoutModule,
     RouterModule.forChild(routes),
     MatCardModule,
     MatListModule,
-    MatIconModule,
-    MatButtonModule
+    MatSidenavModule
   ],
   exports: [
     RouterModule
   ]
 })
-export class PatientModule { }
+export class PatientDetailModule { }

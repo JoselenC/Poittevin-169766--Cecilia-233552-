@@ -18,6 +18,7 @@ import { PatientModule } from './patient/patient.module';
 import {PsychologistModule} from './psychologist/psychologist.module';
 import {GetPlaylistsModule} from './playlistComponents/get-playlists/get-playlists.module';
 import {AddPlaylistModule} from './playlistComponents/add-playlist/add-playlist.module';
+import {PatientDetailModule} from './patient-detail/patient-detail.module';
 
 const routes: Routes = [
   {
@@ -40,6 +41,7 @@ const routes: Routes = [
     LayoutModule,
     // Patient
     PatientModule,
+    PatientDetailModule,
     // Psychologist
     PsychologistModule,
     // Category

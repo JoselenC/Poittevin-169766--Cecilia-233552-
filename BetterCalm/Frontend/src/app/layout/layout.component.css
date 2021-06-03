@@ -4,8 +4,6 @@ mat-sidenav-container, mat-sidenav-content, mat-sidenav {
 mat-sidenav {
   width: 250px;
 }
-
-.nav-link {
-  color: rgba(0,0,0,.87);
-  text-decoration: none;
+.container {
+  padding: 20px;
 }
