@@ -3,8 +3,8 @@
     <mat-icon mat-list-icon> account_box</mat-icon>
     <h3 mat-line> {{patient.name}}, {{patient.lastName}} </h3>
     <p mat-line> {{patient.cellphone}} </p>
-    <p mat-line *ngIf="patient.meetings.length == 0 "> This patient has no meetings</p>
-    <p mat-line *ngIf="patient.meetings.length > 0 "> Amount of meetings: {{ patient.meetings.length}}</p>
+    <p mat-line *ngIf="patient.meetings!.length == 0 "> This patient has no meetings</p>
+    <p mat-line *ngIf="patient.meetings!.length > 0 "> Amount of meetings: {{ patient.meetings!.length}}</p>
   </mat-list-option>
 </mat-selection-list>
 

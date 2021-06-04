@@ -12,8 +12,12 @@ import {MatButtonModule} from '@angular/material/button';
 import { AddPatientComponent } from './add-patient/add-patient.component';
 import {PatientDetailComponent} from './patient-detail/patient-detail.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
+import {MatInputModule} from '@angular/material/input';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {FlexModule} from '@angular/flex-layout';
 
 
 const routes: Routes = [
@@ -49,6 +53,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     LayoutModule,
+    MatNativeDateModule,
     MatCardModule,
     MatListModule,
     MatIconModule,
@@ -57,6 +62,10 @@ const routes: Routes = [
     MatFormFieldModule,
     ReactiveFormsModule,
     MatSelectModule,
+    MatInputModule,
+    MatDatepickerModule,
+    FlexModule,
+    FormsModule,
   ],
   exports: [
     RouterModule
