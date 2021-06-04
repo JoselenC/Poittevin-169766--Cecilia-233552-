@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {AudioService} from "../../services/Audio/audio.service";
-import {Audio} from "../../models/Audio";
+import {Component, OnInit} from '@angular/core';
+import {AudioService} from '../../services/Audio/audio.service';
+import {Audio} from '../../models/Audio';
 
 @Component({
   selector: 'app-get-audios',
@@ -9,9 +9,10 @@ import {Audio} from "../../models/Audio";
 })
 export class GetAudiosComponent implements OnInit {
 
-  public audios:Audio[]=[]
+  public audios: Audio[] = [];
 
-  constructor(private audioService:AudioService) { }
+  constructor(private audioService: AudioService) {
+  }
 
   ngOnInit(): void {
     this.audioService.getAll()
@@ -20,6 +21,7 @@ export class GetAudiosComponent implements OnInit {
         ((error: any) => alert(error.message))
       );
   }
+
   private result(data: Array<Audio>): void {
     this.audios = data;
   }

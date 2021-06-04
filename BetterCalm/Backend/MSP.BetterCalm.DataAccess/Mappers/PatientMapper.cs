@@ -54,6 +54,7 @@ namespace MSP.BetterCalm.DataAccess.Mappers
                         new Meeting()
                         {
                             DateTime = meeting.DateTime,
+                            Address = meeting.Address,
                             Psychologist = new Psychologist()
                             {
                                 Name = meeting.Psychologist.Name,

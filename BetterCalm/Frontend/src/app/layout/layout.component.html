@@ -1,0 +1,47 @@
+<mat-toolbar color="primary">
+BetterCalm
+</mat-toolbar>
+
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav
+     class="md-sidenav-left"
+     mode="side"
+     opened="true">
+    <mat-nav-list>
+      <a mat-list-item [routerLink]="['/patients']">
+        Patient
+      </a>
+      <a mat-list-item [routerLink]="['/psychologits']">
+        Psychologists
+      </a>
+      <mat-divider></mat-divider>
+      <h3 mat-subheader>Playlist</h3>
+      <a mat-list-item [routerLink]="['/playlists']">
+        Playlist list
+      </a>
+      <a mat-list-item [routerLink]="['/add-playlist']">
+        Add Playlist
+      </a>
+
+      <h3 mat-subheader>Audio</h3>
+      <a mat-list-item [routerLink]="['/audios']">
+        Audio list
+      </a>
+      <a mat-list-item [routerLink]="['/add-audio']">
+        Add Audio
+      </a>
+    </mat-nav-list>
+    <!--this is a place for us to add side-nav code-->
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <!--in here all the content must reside. We will add a navigation header as well-->
+    <mat-sidenav-container>
+      <div class="container">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-container>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+

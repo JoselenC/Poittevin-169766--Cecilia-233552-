@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {Playlist} from "../../models/Playlist";
-import {PlaylistService} from "../../services/Playlist/playlist.service";
+import {Component, OnInit} from '@angular/core';
+import {Playlist} from '../../models/Playlist';
+import {PlaylistService} from '../../services/Playlist/playlist.service';
 
 
 @Component({
@@ -10,9 +10,10 @@ import {PlaylistService} from "../../services/Playlist/playlist.service";
 })
 export class GetPlaylistsComponent implements OnInit {
 
-  public playlists:Playlist[]=[]
+  public playlists: Playlist[] = [];
 
-  constructor(private playlistService:PlaylistService) { }
+  constructor(private playlistService: PlaylistService) {
+  }
 
   ngOnInit(): void {
     this.playlistService.getAll()
@@ -21,6 +22,7 @@ export class GetPlaylistsComponent implements OnInit {
         ((error: any) => alert(error.message))
       );
   }
+
   private result(data: Array<Playlist>): void {
     this.playlists = data;
   }
