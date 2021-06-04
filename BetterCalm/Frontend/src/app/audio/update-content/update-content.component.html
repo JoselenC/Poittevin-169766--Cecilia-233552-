@@ -1,0 +1,50 @@
+﻿<br>
+<br>
+<mat-label>Contents</mat-label>
+<br>
+<br>
+      <mat-form-field appearance="fill">
+        <mat-label>Contents</mat-label>
+        <mat-select (selectionChange)="contentId=($event.value)">
+          <mat-option *ngFor="let content of contents" [value]=(content.id)>
+            {{content.name}}
+           </mat-option>
+         </mat-select>
+      </mat-form-field>
+      <p>
+        <mat-form-field appearance="legacy">
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="Placeholder" [(ngModel)]="name">
+
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="legacy">
+          <mat-label>Author name</mat-label>
+          <input matInput placeholder="Placeholder" [(ngModel)]="authorName">
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="legacy">
+          <mat-label>Url image</mat-label>
+          <input matInput placeholder="Placeholder" [(ngModel)]="urlImage">
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="legacy">
+          <mat-label>Url content</mat-label>
+          <input matInput placeholder="Placeholder" [(ngModel)]="urlContent">
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="legacy">
+          <mat-label>Duration</mat-label>
+          <input matInput placeholder="Placeholder" [(ngModel)]="duration">
+        </mat-form-field>
+      </p>
+      <br>
+      <app-category></app-category>
+      <button mat-raised-button color="primary" (click)="updateContent(contentId)">Update content</button>
+
+
+

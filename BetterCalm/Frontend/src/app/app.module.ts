@@ -8,16 +8,16 @@ import {FormFieldAppearanceExample} from './material.component';
 
 import {LayoutModule} from './layout/layout.module';
 import { AppComponent } from './app.component';
-import {CategoryModule} from './categoryComponents/category.module';
-import {AddAudioModule} from './audioComponents/add-audio/add-audio.module';
-import {GetAudiosModule} from './audioComponents/get-audios/get-audios.module';
-import {DeleteAudioModule} from './audioComponents/delete-audio/delete-audio.module';
-import {UpdateAudioModule} from './audioComponents/update-audio/update-audio.module';
+import {CategoryModule} from './category/category.module';
+import {AddAudioModule} from './audio/add-content/add-content.module';
+import {GetContentsModule} from './audio/get-contents/get-contents.module';
+import {DeleteContentModule} from './audio/delete-content/delete-content.module';
+import {UpdateContentModule} from './audio/update-content/update-content.module';
 
 import { PatientModule } from './patient/patient.module';
 import {PsychologistModule} from './psychologist/psychologist.module';
-import {GetPlaylistsModule} from './playlistComponents/get-playlists/get-playlists.module';
-import {AddPlaylistModule} from './playlistComponents/add-playlist/add-playlist.module';
+import {GetPlaylistsModule} from './playlist/get-playlists/get-playlists.module';
+import {AddPlaylistModule} from './playlist/add-playlist/add-playlist.module';
 
 const routes: Routes = [
   {
@@ -42,15 +42,15 @@ const routes: Routes = [
     PatientModule,
     // Psychologist
     PsychologistModule,
-    // Category
+    // category
     CategoryModule,
-    // Audio
-    GetAudiosModule,
+    // content
+    GetContentsModule,
     AddAudioModule,
-    GetAudiosModule,
-    DeleteAudioModule,
-    UpdateAudioModule,
-    // Playlist
+    GetContentsModule,
+    DeleteContentModule,
+    UpdateContentModule,
+    // playlist
     GetPlaylistsModule,
     AddPlaylistModule,
     // Router
