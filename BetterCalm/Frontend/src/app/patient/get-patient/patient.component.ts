@@ -11,8 +11,10 @@ import {Router} from '@angular/router';
 export class PatientComponent implements OnInit {
   public patients: Patient[] = [];
 
-  constructor(private patientService: PatientService,
-              private router: Router) {
+  constructor(
+    private patientService: PatientService,
+    private router: Router
+  ) {
   }
 
   ngOnInit(): void {
@@ -25,6 +27,13 @@ export class PatientComponent implements OnInit {
 
   private result(data: Array<Patient>): void {
     this.patients = data;
+  }
+
+  delete(id: number): void {
+    this.patientService.delete(id).subscribe(
+      (error: any) => alert(error)
+    );
+    this.patients = this.patients.filter(p => p.id !== id);
   }
 
   navigateTo(patientId: number): void {
