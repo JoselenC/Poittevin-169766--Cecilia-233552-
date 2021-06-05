@@ -1,0 +1,29 @@
+<div *ngIf="playlist != undefined">
+  <div class="mat-headline">
+    <h1> {{playlist.name}}</h1>
+    <div class="mat-subheading-1"> description:  {{playlist.description}} </div>
+    <img src="{{playlist.urlImage}}" width="300" height="300" >
+  </div>
+  <mat-divider></mat-divider>
+  <h2>Audios</h2>
+  <mat-selection-list class="cl" *ngFor="let content of playlist.contents" multiple="false">
+    <mat-list-option>
+      <h3 matLine> {{content.name}}</h3>
+      <p matLine> {{content.creatorName }}</p>
+      <p matLine> {{content.urlArchive}}</p>
+      <p matLine> {{content.urlImage}}</p>
+      <p matLine> {{content.duration}}</p>
+      <img src="{{content.urlImage}}" width="300" height="300" >
+    </mat-list-option>
+  </mat-selection-list>
+
+  <h2>Categories</h2>
+  <mat-selection-list class="cl" *ngFor="let category of playlist.categories" multiple="false">
+    <mat-list-option>
+      <h3 matLine> {{category.name}}</h3>
+    </mat-list-option>
+  </mat-selection-list>
+</div>
+<div *ngIf="playlist == undefined">
+  404 playlist not found
+</div>
