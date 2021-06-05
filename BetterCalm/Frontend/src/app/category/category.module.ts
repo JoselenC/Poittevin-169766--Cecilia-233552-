@@ -19,7 +19,7 @@ import {MaterialComponentsModule} from '../material.module';
     HttpClientModule,
     MatFormFieldModule,
     MatOptionModule,
-    MaterialComponentsModule
+    MaterialComponentsModule,
   ],
   providers: [CategoryService],
 })
