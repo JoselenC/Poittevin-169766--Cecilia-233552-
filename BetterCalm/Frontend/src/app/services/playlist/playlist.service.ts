@@ -48,11 +48,8 @@ export class PlaylistService {
       'Content-Type': 'application/json'
     });
     const options = {headers};
-    const httpRequest = this.http.delete<Playlist>(this.uri + '/' + id, options)
-      .pipe(catchError(this.handleError));
-    return httpRequest;
+    return this.http.delete<Playlist>(this.uri + '/' + id, options);
   }
-
   // tslint:disable-next-line:typedef
   private handleError(error: HttpErrorResponse) {
     return throwError(error.error);

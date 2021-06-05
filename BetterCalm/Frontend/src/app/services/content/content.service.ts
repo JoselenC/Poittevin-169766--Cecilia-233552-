@@ -3,6 +3,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {Content} from '../../models/Content';
 import {catchError} from 'rxjs/operators';
+import {Playlist} from '../../models/Playlist';
 
 
 @Injectable({
@@ -47,10 +48,8 @@ export class ContentService {
     headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
-    const options = { headers};
-    const httpRequest = this.http.delete<Content>(this.uri + '/' + id, options)
-      .pipe(catchError(this.handleError));
-    return httpRequest;
+    const options = {headers};
+    return this.http.delete<Content>(this.uri + '/' + id, options);
   }
 
   // tslint:disable-next-line:typedef

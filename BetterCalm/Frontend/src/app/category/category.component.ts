@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from '../models/Category';
 import { CategoryService } from '../services/category/category.service';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -14,7 +15,10 @@ export class CategoryComponent implements OnInit {
 
   public categories: Category[] = [];
 
-  constructor(private categoryService: CategoryService) { }
+  constructor(
+    private categoryService: CategoryService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.categoryService.getCategories()
@@ -27,4 +31,7 @@ export class CategoryComponent implements OnInit {
     this.categories = data;
   }
 
+  navigateTo(categoryId: number): void {
+    this.router.navigate(['category', categoryId]);
+  }
 }
