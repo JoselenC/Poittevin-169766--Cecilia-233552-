@@ -1,39 +1,26 @@
-<mat-label>Add a new audio</mat-label>
-<br>
-<br>
-<p>
-  <mat-form-field appearance="legacy">
-    <mat-label>Name</mat-label>
-    <input matInput placeholder="Placeholder" [(ngModel)]="name">
-
-  </mat-form-field>
-</p>
-<p>
-  <mat-form-field appearance="legacy">
-    <mat-label>Author name</mat-label>
-    <input matInput placeholder="Placeholder" [(ngModel)]="authorName">
-  </mat-form-field>
-</p>
-<p>
-  <mat-form-field appearance="legacy">
-    <mat-label>Url image</mat-label>
-    <input matInput placeholder="Placeholder" [(ngModel)]="urlImage">
-  </mat-form-field>
-</p>
-<p>
-  <mat-form-field appearance="legacy">
-    <mat-label>Url audio</mat-label>
-    <input matInput placeholder="Placeholder" [(ngModel)]="urlContent">
-  </mat-form-field>
-</p>
-<p>
-  <mat-form-field appearance="legacy">
-    <mat-label>Duration</mat-label>
-    <input matInput placeholder="Placeholder" [(ngModel)]="duration">
-  </mat-form-field>
-</p>
-<br>
-<app-category></app-category>
-<button mat-raised-button color="primary" (click)="addContent()">Add audio</button>
-
-
+<h3>Add new content</h3>
+<form class="standardForm">
+  <div fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="space-between start" >
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" placeholder="Jose" min="3" name="name" [(ngModel)]="name">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Url image</mat-label>
+        <input matInput type="text" placeholder="Pedro" min="3" name="lastName" [(ngModel)]="urlContent">
+      </mat-form-field>
+    </div>
+    <mat-form-field appearance="outline">
+      <mat-label>Url image</mat-label>
+      <input matInput type="text" placeholder="My house 1234" min="9" name="address" [(ngModel)]="urlImage">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Categories</mat-label>
+      <mat-select [formControl]="cat" multiple>
+        <mat-option *ngFor="let category of categories" [value]="category">{{category}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="addContent()">Add</button>
+  </div>
+</form>
