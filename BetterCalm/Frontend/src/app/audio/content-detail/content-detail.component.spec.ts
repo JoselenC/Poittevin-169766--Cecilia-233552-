@@ -1,20 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ContentDetailComponent} from './content-detail.component';
 
-import { DeleteContentComponent } from './delete-content.component';
-
-describe('DeleteComponentComponent', () => {
-  let component: DeleteContentComponent;
-  let fixture: ComponentFixture<DeleteContentComponent>;
+describe('ContentDetailComponent', () => {
+  let component: ContentDetailComponent;
+  let fixture: ComponentFixture<ContentDetailComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DeleteContentComponent ]
+      declarations: [ ContentDetailComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DeleteContentComponent);
+    fixture = TestBed.createComponent(ContentDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
