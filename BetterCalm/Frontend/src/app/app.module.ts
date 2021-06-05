@@ -9,15 +9,11 @@ import {FormFieldAppearanceExample} from './material.component';
 import {LayoutModule} from './layout/layout.module';
 import { AppComponent } from './app.component';
 import {CategoryModule} from './category/category.module';
-import {AddAudioModule} from './audio/add-content/add-content.module';
-import {GetContentsModule} from './audio/get-contents/get-contents.module';
-import {DeleteContentModule} from './audio/delete-content/delete-content.module';
-import {UpdateContentModule} from './audio/update-content/update-content.module';
+import {ContentModule} from './audio/content.module';
 
 import { PatientModule } from './patient/patient.module';
 import {PsychologistModule} from './psychologist/psychologist.module';
-import {GetPlaylistsModule} from './playlist/get-playlists/get-playlists.module';
-import {AddPlaylistModule} from './playlist/add-playlist/add-playlist.module';
+import {PlaylistModule} from './playlist/playlist.module';
 
 const routes: Routes = [
   {
@@ -45,14 +41,9 @@ const routes: Routes = [
     // category
     CategoryModule,
     // content
-    GetContentsModule,
-    AddAudioModule,
-    GetContentsModule,
-    DeleteContentModule,
-    UpdateContentModule,
+    ContentModule,
     // playlist
-    GetPlaylistsModule,
-    AddPlaylistModule,
+    PlaylistModule,
     // Router
     RouterModule.forRoot(routes),
   ],
