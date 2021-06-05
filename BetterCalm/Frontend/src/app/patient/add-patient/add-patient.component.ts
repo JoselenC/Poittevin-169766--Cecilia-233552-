@@ -24,9 +24,9 @@ export class AddPatientComponent implements OnInit {
   addPatient(): void {
     const patient = new Patient(
       0,
-      this.name!,
-      this.lastName!,
-      this.cellphone!,
+      this.name,
+      this.lastName,
+      this.cellphone,
       undefined
     );
     this.patientService.add(patient).subscribe(
