@@ -7,6 +7,7 @@
     <button mat-icon-button (click)="filtrar()">
       <mat-icon class="mat-24">search</mat-icon>
     </button>
+
   </div>
 </mat-form-field>
 
@@ -20,6 +21,11 @@
     <button mat-icon-button (click)="delete(content.id)">
       <mat-icon class="mat-24">delete</mat-icon>
     </button>
+    <a [routerLink]="['/update-content/' + content.id]">
+      <button mat-icon-button >
+        <mat-icon class="mat-24">edit</mat-icon>
+      </button>
+    </a>
   </mat-list-item>
 </mat-selection-list>
 

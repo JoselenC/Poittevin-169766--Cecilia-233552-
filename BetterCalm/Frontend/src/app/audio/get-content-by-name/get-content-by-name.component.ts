@@ -31,11 +31,11 @@ export class GetContentByNameComponent implements OnInit {
     this.contents = data;
   }
 
-  navigateTo(contentId: number): void {
+  navigateTo(contentId?: number): void {
     this.router.navigate(['contents', contentId]);
   }
 
-  delete(id: number): void {
+  delete(id?: number): void {
     this.contentService.delete(id).subscribe(
       (error: any) => alert(error)
     );
