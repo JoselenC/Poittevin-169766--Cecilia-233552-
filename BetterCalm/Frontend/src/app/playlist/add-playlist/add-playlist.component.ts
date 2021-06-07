@@ -30,9 +30,10 @@ export class AddPlaylistComponent implements OnInit {
   categories: Category[] | undefined;
   cat = new FormControl();
   catGroup ?: FormGroup;
-  contents: Content[]| undefined;
+  contents: Content[]| undefined ;
   cont = new FormControl();
   contGroup ?: FormGroup;
+  click?: boolean;
 
   ngOnInit(): void {
     this.categoryService.getCategories().subscribe(
@@ -51,7 +52,7 @@ export class AddPlaylistComponent implements OnInit {
     this.categories = data;
   }
 
-  private getContents(data: Array<Content>): void {
+  getContents(data: Array<Content>): void {
     this.contents = data;
   }
 
@@ -67,22 +68,28 @@ export class AddPlaylistComponent implements OnInit {
     });
   }
 
-
+ reloadContents(): void{
+   this.serviceContent.getAll().subscribe(
+     ((data: Array<Content>) => this.getContents(data)),
+     ((error: any) => alert(error.message))
+   );
+   this.initFormContents()
+ }
   addPlaylist(): void{
     const playlist = new Playlist(
       this.id,
       this.name,
       this.urlImage,
       this.description,
-      this.cat.value.map((x: Category) => (new Category(0, x.name))),
-      this.cont.value.map((x: Content ) => ( new Content (0, x.name, x.creatorName, x.type,
-        x.urlImage, x.duration, x.categories, x.urlArchive)))
+      this.cat.value.map((x: any) => (new Category(0, x))),
+      this.cont.value.map((x: any ) => ( new Content(x, x.name, x.creatorName, x.type, x.urlImage, x.duration, x.categories, x.urlArchive)))
     );
     this.servicePlaylist.add(playlist).subscribe(
       (data: Playlist) => this.result(data),
       (error: any) => alert(error)
     );
   }
+
   // tslint:disable-next-line:typedef
   private result(data: Playlist) {
     this.router.navigate(['/playlists']);

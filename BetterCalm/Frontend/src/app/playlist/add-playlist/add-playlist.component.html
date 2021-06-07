@@ -1,5 +1,5 @@
-<h3>Add new playlist</h3>
 <form class="standardForm">
+  <h3>Add new playlist</h3>
   <div fxLayout="column">
     <div fxLayout="row" fxLayoutAlign="space-between start" >
       <mat-form-field appearance="outline">
@@ -24,23 +24,31 @@
     <div>
       <mat-form-field appearance="outline">
         <mat-label>Contents</mat-label>
-        <mat-select [formControl]="cont" multiple>
-          <mat-option *ngFor="let content of contents" [value]="content.name">{{content.name}}</mat-option>
+        <mat-select [formControl]="cont" multiple (openedChange)="reloadContents()">
+          <mat-option *ngFor="let content of contents" [value]="content.id">{{content.name}}</mat-option>
         </mat-select>
       </mat-form-field>
-      <a [routerLink]="['/add-content']">
+      <a>
         <button
           mat-fab
           color="primary"
           id="add-button"
           matTooltip="Add content"
           class="add-button"
+          (click)="click=true"
+
         >
           <mat-icon>add</mat-icon>
         </button>
+        <div *ngIf="click == true">
+          <app-add-content-to-playlist></app-add-content-to-playlist>
+
+        </div>
       </a>
 
     </div>
+    <br>
+    <br>
     <button mat-raised-button color="primary" (click)="addPlaylist()">Add</button>
   </div>
 </form>
