@@ -1,4 +1,4 @@
-<form class="standardForm" name="form" style="display: block" >
+<form class="standardForm" name="form" style="display: initial" >
   <h3>Add new content</h3>
   <div fxLayout="column">
       <mat-form-field appearance="outline">
@@ -29,7 +29,7 @@
         <mat-option *ngFor="let type of types" [value]="type">{{type}}</mat-option>
       </mat-select>
     </mat-form-field>
-    <button mat-raised-button color="primary" (click)="addContent()" (click)="ocultarForm('form')">Add new content</button>
+    <button mat-raised-button color="primary" (click)="addContent()" (click)="hideForm('form')">Add new content</button>
 
   </div>
 </form>

@@ -16,13 +16,7 @@ namespace MSP.BetterCalm.BusinessLogic.Services
         
         public List<Content> GetContents()
         {
-            List<Content> contents = new List<Content>();
-            foreach (var content in _repository.Contents.Get())
-            {
-                if(!content.AssociatedToPlaylist)
-                    contents.Add(content);
-            }
-            return contents;
+            return _repository.Contents.Get();
         }
 
         public void SetContents(List<Content> contents)

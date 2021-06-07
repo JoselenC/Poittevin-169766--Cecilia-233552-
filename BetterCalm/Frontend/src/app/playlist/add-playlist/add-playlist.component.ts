@@ -36,6 +36,7 @@ export class AddPlaylistComponent implements OnInit {
   click?: boolean;
 
   ngOnInit(): void {
+
     this.categoryService.getCategories().subscribe(
       ((data: Array<Category>) => this.getCategories(data)),
       ((error: any) => alert(error.message))
@@ -73,7 +74,7 @@ export class AddPlaylistComponent implements OnInit {
      ((data: Array<Content>) => this.getContents(data)),
      ((error: any) => alert(error.message))
    );
-   this.initFormContents()
+   this.initFormContents();
  }
   addPlaylist(): void{
     const playlist = new Playlist(
@@ -93,6 +94,10 @@ export class AddPlaylistComponent implements OnInit {
   // tslint:disable-next-line:typedef
   private result(data: Playlist) {
     this.router.navigate(['/playlists']);
+  }
+
+  showComponent(name: string): void{
+    document.getElementsByName(name)[0].style.display = 'block';
   }
 
 }

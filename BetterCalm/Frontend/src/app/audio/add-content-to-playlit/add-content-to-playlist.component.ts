@@ -16,7 +16,7 @@ export class AddContentToPlaylistComponent implements OnInit {
     private serviceContent: ContentService,
     private serviceCategory: CategoryService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
   ) {}
 
   id = 0;
@@ -29,8 +29,6 @@ export class AddContentToPlaylistComponent implements OnInit {
   categories: Category[]| undefined;
   cat = new FormControl();
   catGroup ?: FormGroup;
-  ocultar = 'false';
-  @Input() character: any = {};
 
   types: Array<string> = [
     'audio',
@@ -41,7 +39,6 @@ export class AddContentToPlaylistComponent implements OnInit {
   typGroup ?: FormGroup;
 
   ngOnInit(): void {
-    document.getElementsByName('form')[0].style.visibility = 'visible';
     this.serviceCategory.getCategories().subscribe(
       ((data: Array<Category>) => this.getResult(data)),
       ((error: any) => alert(error.message))
@@ -66,8 +63,7 @@ export class AddContentToPlaylistComponent implements OnInit {
     });
   }
 
-
-  ocultarForm(name: string): void {
+  hideForm(name: string): void {
     document.getElementsByName(name)[0].style.display = 'none';
   }
 
