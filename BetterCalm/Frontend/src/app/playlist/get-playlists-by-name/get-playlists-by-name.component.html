@@ -20,6 +20,11 @@
     <button mat-icon-button (click)="delete(playlist.id)">
       <mat-icon class="mat-20">delete</mat-icon>
     </button>
+    <a [routerLink]="['/update-playlist/' + playlist.id]">
+      <button mat-icon-button >
+        <mat-icon class="mat-24">edit</mat-icon>
+      </button>
+    </a>
   </mat-list-item>
 </mat-selection-list>
 
