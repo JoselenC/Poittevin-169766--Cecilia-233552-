@@ -15,19 +15,50 @@ BetterCalm
       <a mat-list-item [routerLink]="['/psychologits']">
         Psychologists
       </a>
+
       <mat-divider></mat-divider>
-      <h3 mat-subheader>Playlist</h3>
-      <a mat-list-item [routerLink]="['/playlists']">
-        Playlists
-      </a>
+      <mat-accordion>
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+           Playlists
+          </mat-expansion-panel-header>
+          <a mat-list-item [routerLink]="['/playlists']">
+            See all
+          </a>
+          <a mat-list-item [routerLink]="['/get-playlists-by-name']">
+            Filter by name
+          </a>
+          <a mat-list-item [routerLink]="['/get-playlists-by-category']">
+            Filter by category
+          </a>
+          <a mat-list-item [routerLink]="['/get-playlists-by-content']">
+            Filter by content
+          </a>
+        </mat-expansion-panel>
+      </mat-accordion>
       <a mat-list-item [routerLink]="['/add-playlist']">
         Add Playlist
       </a>
-
       <h3 mat-subheader>Content</h3>
-      <a mat-list-item [routerLink]="['/contents']">
-        Contents
-      </a>
+      <mat-accordion>
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            Contents
+          </mat-expansion-panel-header>
+          <a mat-list-item [routerLink]="['/contents']">
+            See all
+          </a>
+          <a mat-list-item [routerLink]="['/get-content-by-name']">
+            Filter by name
+          </a>
+          <a mat-list-item [routerLink]="['/get-content-by-category']">
+            Filter by category
+          </a>
+          <a mat-list-item [routerLink]="['/get-content-by-author']">
+            Filter by author
+          </a>
+        </mat-expansion-panel>
+      </mat-accordion>
       <a mat-list-item [routerLink]="['/add-content']">
         Add Content
       </a>
