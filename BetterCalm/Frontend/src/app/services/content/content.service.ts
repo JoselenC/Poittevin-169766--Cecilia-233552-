@@ -28,7 +28,7 @@ export class ContentService {
   }
 
   getByCategoryName(name: string): Observable<Content[]> {
-    return this.http.get<Content[]>(this.uri + '/Category?Category=' + name);
+    return this.http.get<Content[]>(this.uri + '/Category?name=' + name);
   }
 
   getByAuthorName(name: string): Observable<Content[]> {
@@ -55,7 +55,7 @@ export class ContentService {
     return httpRequest;
   }
 
-  delete(id: number): Observable<Content> {
+  delete(id?: number): Observable<Content> {
     let headers: HttpHeaders;
     headers = new HttpHeaders({
       'Content-Type': 'application/json'

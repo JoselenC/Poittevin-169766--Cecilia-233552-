@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Content} from '../../models/Content';
 import {ContentService} from '../../services/content/content.service';
 import {Router} from '@angular/router';
@@ -34,6 +34,7 @@ export class AddContentComponent implements OnInit {
     'audio',
     'video'
   ];
+
   typ = new FormControl();
   typGroup ?: FormGroup;
 
@@ -64,16 +65,7 @@ export class AddContentComponent implements OnInit {
 
 
   addContent(): void {
-    const content = new Content (
-      this.id,
-      this.name,
-      this.authorName,
-      this.urlContent,
-      this.urlImage,
-      this.duration,
-      this.cat.value.map((x: any) => (new Category(0, x))),
-      this.typ.value.toString()
-    );
+    const content = new Content(this.id, this.name, this.authorName, this.urlContent, this.urlImage, this.duration, this.cat.value.map((x: any) => (new Category(0, x))), this.typ.value.toString());
     this.serviceContent.newContent(content).subscribe(
       (data: Content) => this.result(data),
       (error: any) => {

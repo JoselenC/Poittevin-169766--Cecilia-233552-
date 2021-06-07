@@ -27,11 +27,11 @@ export class PlaylistService {
   }
 
   getByContentName(name: string): Observable<Playlist[]> {
-    return this.http.get<Playlist[]>(this.uri + '/content?content=' + name);
+    return this.http.get<Playlist[]>(this.uri + '/content?name=' + name);
   }
 
   getByCategoryName(name: string): Observable<Playlist[]> {
-    return this.http.get<Playlist[]>(this.uri + '/category?category=' + name);
+    return this.http.get<Playlist[]>(this.uri + '/category?name=' + name);
   }
 
   add(playlist: Playlist): Observable<Playlist> {

@@ -26,6 +26,8 @@ import {GetContentByNameComponent} from './get-content-by-name/get-content-by-na
 import {GetContentByCategoryComponent} from './get-content-by-category/get-content-by-category.component';
 import {GetPlaylistsByCategoryComponent} from '../playlist/get-playlists-by-category/get-playlists-by-category.component';
 import {GetContentByAuthorComponent} from './get-content-by-author/get-content-by-author.component';
+import {AddContentToPlaylistComponent} from './add-content-to-playlit/add-content-to-playlist.component';
+import {UpdateContentComponent} from './update-content/update-content.component';
 
 
 
@@ -52,6 +54,13 @@ const routes: Routes = [
     ]
   },
   {
+    path: 'update-content/:contentId',
+    component: LayoutComponent,
+    children: [
+      { path: '', component: UpdateContentComponent },
+    ]
+  },
+  {
     path: 'get-content-by-name',
     component: LayoutComponent,
     children: [
@@ -72,6 +81,13 @@ const routes: Routes = [
       { path: '', component: GetContentByAuthorComponent },
     ]
   },
+  {
+    path: 'add-content-to-playlist',
+    component: LayoutComponent,
+    children: [
+      { path: '', component: AddContentToPlaylistComponent },
+    ]
+  },
 ];
 
 @NgModule({
@@ -81,7 +97,9 @@ const routes: Routes = [
     AddContentComponent,
     GetContentByNameComponent,
     GetContentByCategoryComponent,
-    GetContentByAuthorComponent
+    GetContentByAuthorComponent,
+    AddContentToPlaylistComponent,
+    UpdateContentComponent
   ],
   imports: [
     CommonModule,
@@ -108,7 +126,8 @@ const routes: Routes = [
   providers: [ContentService],
   exports: [
     RouterModule,
-    AddContentComponent
+    AddContentComponent,
+    AddContentToPlaylistComponent
   ]
 })
 export class ContentModule { }
