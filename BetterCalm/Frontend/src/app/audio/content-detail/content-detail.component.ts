@@ -21,7 +21,7 @@ export class ContentDetailComponent implements OnInit {
     const routeParams = this.route.snapshot.paramMap;
     const contentId = Number(routeParams.get('contentId'));
 
-    this.contentService.getBy(contentId).subscribe(
+    this.contentService.getById(contentId).subscribe(
       content => {
         this.content = content;
         console.log(this.content);

@@ -4,3 +4,9 @@
   right: 50px;
   position: fixed;
 }
+
+.mat-list-item {
+  height: auto !important;
+  border-bottom: 50px;
+}
+

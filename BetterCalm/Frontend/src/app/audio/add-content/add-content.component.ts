@@ -26,19 +26,39 @@ export class AddContentComponent implements OnInit {
   urlImage = '';
   duration = '';
   data = Content;
-  categories: Array<string> = [
-    'Musica'
-  ];
+  categories: Category[]| undefined;
   cat = new FormControl();
   catGroup ?: FormGroup;
 
+  types: Array<string> = [
+    'audio',
+    'video'
+  ];
+  typ = new FormControl();
+  typGroup ?: FormGroup;
+
   ngOnInit(): void {
+    this.serviceCategory.getCategories().subscribe(
+      ((data: Array<Category>) => this.getResult(data)),
+      ((error: any) => alert(error.message))
+    );
     this.initFormCategories();
+    this.initFormTypes();
+  }
+
+  private getResult(data: Array<Category>): void {
+    this.categories = data;
   }
 
   initFormCategories(): void {
     this.catGroup = this.formBuilder.group({
       categoriesToString: this.cat
+    });
+  }
+
+  initFormTypes(): void {
+    this.typGroup = this.formBuilder.group({
+      typesToString: this.typ
     });
   }
 
@@ -52,6 +72,7 @@ export class AddContentComponent implements OnInit {
       this.urlImage,
       this.duration,
       this.cat.value.map((x: any) => (new Category(0, x))),
+      this.typ.value.toString()
     );
     this.serviceContent.newContent(content).subscribe(
       (data: Content) => this.result(data),

@@ -20,10 +20,12 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {FlexModule} from '@angular/flex-layout';
 import {ContentDetailComponent} from './content-detail/content-detail.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {AddPlaylistComponent} from '../playlist/add-playlist/add-playlist.component';
 import {AddContentComponent} from './add-content/add-content.component';
-import {UpdateContentComponent} from './update-content/update-content.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {GetContentByNameComponent} from './get-content-by-name/get-content-by-name.component';
+import {GetContentByCategoryComponent} from './get-content-by-category/get-content-by-category.component';
+import {GetPlaylistsByCategoryComponent} from '../playlist/get-playlists-by-category/get-playlists-by-category.component';
+import {GetContentByAuthorComponent} from './get-content-by-author/get-content-by-author.component';
 
 
 
@@ -50,10 +52,24 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'update-content',
+    path: 'get-content-by-name',
     component: LayoutComponent,
     children: [
-      { path: '', component: UpdateContentComponent },
+      { path: '', component: GetContentByNameComponent },
+    ]
+  },
+  {
+    path: 'get-content-by-category',
+    component: LayoutComponent,
+    children: [
+      { path: '', component: GetContentByCategoryComponent },
+    ]
+  },
+  {
+    path: 'get-content-by-author',
+    component: LayoutComponent,
+    children: [
+      { path: '', component: GetContentByAuthorComponent },
     ]
   },
 ];
@@ -62,8 +78,10 @@ const routes: Routes = [
   declarations: [
     GetContentsComponent,
     ContentDetailComponent,
-    UpdateContentComponent,
-    AddContentComponent
+    AddContentComponent,
+    GetContentByNameComponent,
+    GetContentByCategoryComponent,
+    GetContentByAuthorComponent
   ],
   imports: [
     CommonModule,
@@ -89,7 +107,8 @@ const routes: Routes = [
   ],
   providers: [ContentService],
   exports: [
-    RouterModule
+    RouterModule,
+    AddContentComponent
   ]
 })
 export class ContentModule { }
