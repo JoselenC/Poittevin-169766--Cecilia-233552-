@@ -18,6 +18,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {FlexModule} from '@angular/flex-layout';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { AddMeetingComponent } from './add-meeting/add-meeting.component';
 
 
 const routes: Routes = [
@@ -42,31 +44,40 @@ const routes: Routes = [
       { path: '', component: AddPatientComponent },
     ]
   },
+  {
+    path: 'patients/:patientId/add-meeting',
+    component: LayoutComponent,
+    children: [
+      { path: '', component: AddMeetingComponent },
+    ]
+  },
 ];
 
 @NgModule({
   declarations: [
     PatientComponent,
     PatientDetailComponent,
-    AddPatientComponent
+    AddPatientComponent,
+    AddMeetingComponent
   ],
-  imports: [
-    CommonModule,
-    LayoutModule,
-    MatNativeDateModule,
-    MatCardModule,
-    MatListModule,
-    MatIconModule,
-    MatButtonModule,
-    RouterModule.forChild(routes),
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    MatInputModule,
-    MatDatepickerModule,
-    FlexModule,
-    FormsModule,
-  ],
+    imports: [
+        CommonModule,
+        LayoutModule,
+        MatNativeDateModule,
+        MatCardModule,
+        MatListModule,
+        MatIconModule,
+        MatButtonModule,
+        RouterModule.forChild(routes),
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        MatSelectModule,
+        MatInputModule,
+        MatDatepickerModule,
+        FlexModule,
+        FormsModule,
+        MatTooltipModule,
+    ],
   exports: [
     RouterModule
   ]

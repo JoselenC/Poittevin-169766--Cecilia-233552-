@@ -4,22 +4,24 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Patient} from '../../models/Patient';
 import {catchError} from 'rxjs/operators';
 import {Playlist} from '../../models/Playlist';
+import {ScheduleMeeting} from '../../models/ScheduleMeeting';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PatientService {
-  private uri = '/api/patient';
+  private patientUri = '/api/patient';
+  private scheduleUri = this.patientUri + '/schedule/';
 
   constructor(private http: HttpClient) {
   }
 
   getAll(): Observable<Patient[]> {
-    return this.http.get<Patient[]>(this.uri);
+    return this.http.get<Patient[]>(this.patientUri);
   }
 
   getById(id: number): Observable<Patient> {
-    return this.http.get<Patient>(this.uri + '/' + id);
+    return this.http.get<Patient>(this.patientUri + '/' + id);
   }
 
   add(patient: Patient): Observable<Patient> {
@@ -27,7 +29,16 @@ export class PatientService {
       'Content-Type': 'application/json',
     });
     const options = {headers};
-    return this.http.post<Patient>(this.uri, patient, options);
+    return this.http.post<Patient>(this.patientUri, patient, options);
+  }
+
+  scheduleMeeting(schedule: ScheduleMeeting): Observable<any> {
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    const options = {headers};
+    return this.http.post<ScheduleMeeting>(this.scheduleUri, schedule, options);
   }
 
   delete(id: number): Observable<Patient> {
@@ -36,7 +47,7 @@ export class PatientService {
       'Content-Type': 'application/json'
     });
     const options = {headers};
-    return this.http.delete<Patient>(this.uri + '/' + id, options);
+    return this.http.delete<Patient>(this.patientUri + '/' + id, options);
   }
 
 }

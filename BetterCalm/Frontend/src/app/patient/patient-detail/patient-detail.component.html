@@ -12,6 +12,17 @@
       <p matLine> {{meeting.address}}</p>
     </mat-list-option>
   </mat-selection-list>
+  <a [routerLink]="['/patients/' + patient.id + '/add-meeting']">
+    <button
+      mat-fab
+      color="primary"
+      id="add-button"
+      matTooltip="Add new meeting"
+      class="add-button"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+  </a>
 </div>
 <div *ngIf="patient == undefined">
   404 patient not found

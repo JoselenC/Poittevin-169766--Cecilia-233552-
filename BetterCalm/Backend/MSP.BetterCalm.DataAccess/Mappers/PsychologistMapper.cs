@@ -81,7 +81,11 @@ namespace MSP.BetterCalm.DataAccess.Mappers
                     meetings.Add(
                         new Meeting()
                         {
-                            Patient = new Patient(){ Id = meeting.PatientId},
+                            Patient = new Patient()
+                            {
+                                Id = meeting.PatientId,
+                                Name = meeting.Patient.Name
+                            },
                             DateTime = meeting.DateTime
                         }
                     );
