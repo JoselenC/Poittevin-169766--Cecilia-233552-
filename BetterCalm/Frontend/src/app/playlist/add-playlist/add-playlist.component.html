@@ -1,0 +1,46 @@
+<h3>Add new playlist</h3>
+<form class="standardForm">
+  <div fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="space-between start" >
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" placeholder="favorites songs" min="3" name="name" [(ngModel)]="name">
+      </mat-form-field>
+    </div>
+    <mat-form-field appearance="outline">
+      <mat-label>Url image</mat-label>
+      <input matInput type="text" placeholder="https://pagina.com/content.jpg" min="9" name="address" [(ngModel)]="urlImage">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Description</mat-label>
+      <input matInput type="text" placeholder="My favorites songs" min="9" name="address" [(ngModel)]="description">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Categories</mat-label>
+      <mat-select [formControl]="cat" multiple>
+        <mat-option *ngFor="let category of categories" [value]="category.name">{{category.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Contents</mat-label>
+        <mat-select [formControl]="cont" multiple>
+          <mat-option *ngFor="let content of contents" [value]="content.name">{{content.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <a [routerLink]="['/add-content']">
+        <button
+          mat-fab
+          color="primary"
+          id="add-button"
+          matTooltip="Add content"
+          class="add-button"
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+      </a>
+
+    </div>
+    <button mat-raised-button color="primary" (click)="addPlaylist()">Add</button>
+  </div>
+</form>

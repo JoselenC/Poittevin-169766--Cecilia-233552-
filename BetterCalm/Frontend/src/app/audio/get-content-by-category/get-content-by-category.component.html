@@ -1,0 +1,41 @@
+<mat-form-field>
+  <div fxLayout="row" fxLayoutAlign="space-between start" >
+    <mat-form-field appearance="outline">
+      <mat-label>Search by category name</mat-label>
+      <input matInput type="text" placeholder="category name" min="1" name="category name" [(ngModel)]="filter">
+    </mat-form-field>
+    <button mat-icon-button (click)="filtrar()">
+      <mat-icon class="mat-24">search</mat-icon>
+    </button>
+
+  </div>
+</mat-form-field>
+
+<mat-selection-list multiple="false">
+  <mat-list-item *ngFor="let content of contents" >
+    <mat-list-option (click)="navigateTo(content.id)">
+      <h3 mat-line> {{content.name}} </h3>
+      <p mat-line> {{content.creatorName}} </p>
+      <img src="{{content.urlImage}}" width="50" height="50" alt="">
+    </mat-list-option>
+    <button mat-icon-button (click)="delete(content.id)">
+      <mat-icon class="mat-24">delete</mat-icon>
+    </button>
+    <a [routerLink]="['/update-content/' + content.id]">
+      <button mat-icon-button >
+        <mat-icon class="mat-24">edit</mat-icon>
+      </button>
+    </a>
+  </mat-list-item>
+</mat-selection-list>
+
+<a [routerLink]="['/add-content']">
+  <button
+    mat-fab
+    color="primary"
+    id="add-button"
+    matTooltip="Add customer"
+    class="add-button">
+    <mat-icon>add</mat-icon>
+  </button>
+</a>

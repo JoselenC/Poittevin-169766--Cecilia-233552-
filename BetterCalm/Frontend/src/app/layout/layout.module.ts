@@ -8,6 +8,10 @@ import {MatIconModule} from '@angular/material/icon';
 import {LayoutComponent} from './layout.component';
 import {RouterModule} from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatTreeModule} from '@angular/material/tree';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatOptionModule} from '@angular/material/core';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -20,7 +24,11 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     MatSidenavModule,
     MatListModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatTreeModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MatExpansionModule,
   ],
   exports: [
     LayoutComponent

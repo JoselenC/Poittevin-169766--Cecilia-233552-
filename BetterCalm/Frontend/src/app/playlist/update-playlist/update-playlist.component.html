@@ -1,0 +1,54 @@
+<form class="standardForm">
+  <h3>Update playlist</h3>
+  <div fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="space-between start" >
+      <mat-form-field appearance="outline">
+        <mat-label>{{playlist?.name}}</mat-label>
+        <input matInput type="text" placeholder="favorites songs" min="3" name="name" [(ngModel)]="name">
+      </mat-form-field>
+    </div>
+    <mat-form-field appearance="outline">
+      <mat-label>{{playlist?.urlImage}}</mat-label>
+      <input matInput type="text" placeholder="https://pagina.com/content.jpg" min="9" name="address" [(ngModel)]="urlImage">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{playlist?.description}}</mat-label>
+      <input matInput type="text" placeholder="My favorites songs" min="9" name="address" [(ngModel)]="description">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Categories</mat-label>
+      <mat-select [formControl]="cat" multiple>
+        <mat-option *ngFor="let category of categories" [value]="category.name">{{category.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Contents</mat-label>
+        <mat-select [formControl]="cont" multiple (openedChange)="reloadContents()">
+          <mat-option *ngFor="let content of contents" [value]="content.id">{{content.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <a>
+        <button
+          mat-fab
+          color="primary"
+          id="add-button"
+          matTooltip="Add content"
+          class="add-button"
+          (click)="click=true"
+
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+        <div *ngIf="click == true">
+          <app-add-content-to-playlist></app-add-content-to-playlist>
+
+        </div>
+      </a>
+
+    </div>
+    <br>
+    <br>
+    <button mat-raised-button color="primary" (click)="updatePlaylist()">Add</button>
+  </div>
+</form>

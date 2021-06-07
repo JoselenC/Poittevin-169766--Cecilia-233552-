@@ -8,16 +8,12 @@ import {FormFieldAppearanceExample} from './material.component';
 
 import {LayoutModule} from './layout/layout.module';
 import { AppComponent } from './app.component';
-import {CategoryModule} from './categoryComponents/category.module';
-import {AddAudioModule} from './audioComponents/add-audio/add-audio.module';
-import {GetAudiosModule} from './audioComponents/get-audios/get-audios.module';
-import {DeleteAudioModule} from './audioComponents/delete-audio/delete-audio.module';
-import {UpdateAudioModule} from './audioComponents/update-audio/update-audio.module';
+import {CategoryModule} from './category/category.module';
+import {ContentModule} from './audio/content.module';
 
 import { PatientModule } from './patient/patient.module';
 import {PsychologistModule} from './psychologist/psychologist.module';
-import {GetPlaylistsModule} from './playlistComponents/get-playlists/get-playlists.module';
-import {AddPlaylistModule} from './playlistComponents/add-playlist/add-playlist.module';
+import {PlaylistModule} from './playlist/playlist.module';
 
 const routes: Routes = [
   {
@@ -42,17 +38,12 @@ const routes: Routes = [
     PatientModule,
     // Psychologist
     PsychologistModule,
-    // Category
+    // category
     CategoryModule,
-    // Audio
-    GetAudiosModule,
-    AddAudioModule,
-    GetAudiosModule,
-    DeleteAudioModule,
-    UpdateAudioModule,
-    // Playlist
-    GetPlaylistsModule,
-    AddPlaylistModule,
+    // content
+    ContentModule,
+    // playlist
+    PlaylistModule,
     // Router
     RouterModule.forRoot(routes),
   ],

@@ -7,3 +7,7 @@ mat-sidenav {
 .container {
   padding: 20px;
 }
+
+.mat-form-field {
+  margin-right: 4px;
+}
