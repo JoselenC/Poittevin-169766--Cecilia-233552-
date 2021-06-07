@@ -1,21 +1,22 @@
-﻿import {Category} from "./Category";
-import {Audio} from "./Audio";
+﻿import {Category} from './Category';
+import {Content} from './Content';
 
 export class Playlist {
-  id!:number;
+  id: number;
   name: string;
   urlImage: string;
-  categories:Array<Category>;
-  audios: Array<Audio>;
-  description:string;
+  categories: Array<Category>;
+  contents: Array<Content>;
+  description: string;
 
-  constructor(id:number,name:string,urlImage:string,description:string){
-    this.id=id;
-    this.categories=new Array<Category>();
-    this.audios= new Array<Audio>();
+  constructor(id: number, name: string , urlImage: string ,
+              description: string, categories: Array<Category>, contents: Array<Content>){
+    this.id = id;
+    this.categories = categories;
+    this.contents = contents;
     this.name = name;
-    this.urlImage=urlImage;
-    this.description=description
+    this.urlImage = urlImage;
+    this.description = description;
   }
 
 }
