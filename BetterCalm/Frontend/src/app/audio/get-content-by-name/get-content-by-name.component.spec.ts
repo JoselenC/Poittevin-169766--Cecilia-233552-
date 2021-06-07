@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UpdatePlaylistComponent } from './update-playlist.component';
+import { GetContentByNameComponent } from './get-content-by-name.component';
 
-describe('UpdatePlaylistComponent', () => {
-  let component: UpdatePlaylistComponent;
-  let fixture: ComponentFixture<UpdatePlaylistComponent>;
+describe('GetContentByNameComponent', () => {
+  let component: GetContentByNameComponent;
+  let fixture: ComponentFixture<GetContentByNameComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UpdatePlaylistComponent ]
+      declarations: [ GetContentByNameComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UpdatePlaylistComponent);
+    fixture = TestBed.createComponent(GetContentByNameComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
