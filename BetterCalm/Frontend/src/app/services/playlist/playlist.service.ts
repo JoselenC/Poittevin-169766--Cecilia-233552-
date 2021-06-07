@@ -18,8 +18,20 @@ export class PlaylistService {
     return this.http.get<Playlist[]>(this.uri);
   }
 
-  getBy(id: number): Observable<Playlist> {
+  getById(id: number): Observable<Playlist> {
     return this.http.get<Playlist>(this.uri + '/' + id);
+  }
+
+  getByName(name: string): Observable<Playlist[]> {
+    return this.http.get<Playlist[]>(this.uri + '/name?name=' + name);
+  }
+
+  getByContentName(name: string): Observable<Playlist[]> {
+    return this.http.get<Playlist[]>(this.uri + '/content?content=' + name);
+  }
+
+  getByCategoryName(name: string): Observable<Playlist[]> {
+    return this.http.get<Playlist[]>(this.uri + '/category?category=' + name);
   }
 
   add(playlist: Playlist): Observable<Playlist> {

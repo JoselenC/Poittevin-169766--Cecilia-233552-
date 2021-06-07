@@ -19,8 +19,20 @@ export class ContentService {
     return this.http.get<Content[]>(this.uri);
   }
 
-  getBy(id: number): Observable<Content> {
+  getById(id: number): Observable<Content> {
     return this.http.get<Content>(this.uri + '/' + id);
+  }
+
+  getByName(name: string): Observable<Content[]> {
+    return this.http.get<Content[]>(this.uri + '/name?name=' + name);
+  }
+
+  getByCategoryName(name: string): Observable<Content[]> {
+    return this.http.get<Content[]>(this.uri + '/Category?Category=' + name);
+  }
+
+  getByAuthorName(name: string): Observable<Content[]> {
+    return this.http.get<Content[]>(this.uri + '/author?author=' + name);
   }
 
   newContent(content: Content): Observable<Content> {
