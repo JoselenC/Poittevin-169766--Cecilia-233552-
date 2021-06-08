@@ -14,19 +14,25 @@ namespace MSP.BetterCalm.Test.BusinessLogic
     {
         
         private Mock<ManagerContentRepository> _repoMock;
+        private Mock<ManagerPlaylistRepository> _repoPlaylitMock;
         private Mock<IRepository<Content>> _contentsMock;
+        private Mock<IRepository<Playlist>> _playlistMock;
         private ContentService _contentservice;
         private ImportService _importService;
+        private PlaylistService _playlistService;
 
         [TestInitialize]
         public void TestFixtureSetup()
         {
             _repoMock = new Mock<ManagerContentRepository>();
+            _repoPlaylitMock = new Mock<ManagerPlaylistRepository>();
+            _playlistMock= new Mock<IRepository<Playlist>>();
             _contentsMock = new Mock<IRepository<Content>>();
             _repoMock.Object.Contents =  _contentsMock.Object;
+            _repoPlaylitMock.Object.Playlists = _playlistMock.Object;
+            _playlistService = new PlaylistService(_repoPlaylitMock.Object, _repoMock.Object);
             _contentservice = new ContentService(_repoMock.Object);
-            _importService = new ImportService(_contentservice);
-            _importService._path=@"../../../../MSP.BetterCalm.WebAPI/Parser/";
+            _importService = new ImportService(_contentservice,_playlistService);
         }
         
         [TestMethod]
@@ -54,7 +60,7 @@ namespace MSP.BetterCalm.Test.BusinessLogic
                 Parameters = new List<Parameter>() {new Parameter() {Name = "Path", Type = "string"}},
                 Path = "../MSP.BetterCalm.WebAPI/Parser/"
             };
-            List<Content> contents=_importService.ImportContent(import);
+            _importService.ImportContent(import);
             
         }
     }
