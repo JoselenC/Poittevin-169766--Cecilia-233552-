@@ -40,7 +40,7 @@ namespace MSP.BetterCalm.Test.WebAPI
                 Id = 1,
                 Categories = new List<Category>(),
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = "120s",
                 UrlArchive = "",
                 UrlImage = "",
