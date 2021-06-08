@@ -16,6 +16,7 @@ import {PsychologistModule} from './psychologist/psychologist.module';
 import {PlaylistModule} from './playlist/playlist.module';
 import {LoginModule} from './login/login.module';
 import {AuthInterceptor} from './interceptors/auth.interceptor';
+import {ImportContentModule} from './import/import-content.module';
 
 const routes: Routes = [
   {
@@ -42,6 +43,7 @@ const routes: Routes = [
     ContentModule,
     PlaylistModule,
     LoginModule,
+    ImportContentModule,
     RouterModule.forRoot(routes),
   ],
   exports: [

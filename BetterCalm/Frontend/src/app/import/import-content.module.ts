@@ -7,6 +7,9 @@ import {RouterModule, Routes} from '@angular/router';
 import {LayoutComponent} from '../layout/layout.component';
 import {LayoutModule} from '../layout/layout.module';
 import {HttpClientModule} from '@angular/common/http';
+import {FlexModule} from '@angular/flex-layout';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
 
 const routes: Routes = [
   {
@@ -27,6 +30,9 @@ const routes: Routes = [
     MatFormFieldModule,
     FormsModule,
     RouterModule.forChild(routes),
+    FlexModule,
+    MatInputModule,
+    MatButtonModule,
   ],
   exports: [
     RouterModule
