@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.BusinessLogic.Services;
+using MSP.BetterCalm.WebAPI.Dtos;
 using MSP.BetterCalm.WebAPI.Filters;
 
 namespace MSP.BetterCalm.WebAPI.Controllers
 {
-    [Route("api/Login")]
+    [ApiController]
     [FilterExceptions]
+    [Route("api/Login")]
     public class LoginController: ControllerBase
     {
         private readonly IAdministratorService administratorService;
@@ -17,9 +19,10 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         }
         
         [HttpPost]
-        public IActionResult Login(string email, string password)
+        public IActionResult Login(LoginDto loginDto)
         {
-            return Ok(administratorService.Login(email, password));
+            loginDto.token = administratorService.Login(loginDto.email, loginDto.password);
+            return Ok(loginDto);
         }
     }
 }

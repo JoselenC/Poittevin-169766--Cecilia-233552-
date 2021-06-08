@@ -6,6 +6,7 @@ using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.BusinessLogic.Services;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.WebAPI.Controllers;
+using MSP.BetterCalm.WebAPI.Dtos;
 
 namespace MSP.BetterCalm.Test.WebAPI
 {
@@ -13,10 +14,10 @@ namespace MSP.BetterCalm.Test.WebAPI
     public class LoginControllerTest
     {
         private Mock<IAdministratorService> mockAdministratorService;
-        private LoginController loginController ;
+        private LoginController loginController;
         private List<Administrator> administrators;
         private Administrator administrator;
-        
+
         [TestInitialize]
         public void InitializeTest()
         {
@@ -35,15 +36,19 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestLoginSuccess()
         {
-            string email = "me@email.com";
-            string password = "strongPass";
+            LoginDto loginDto = new LoginDto()
+            {
+                email = "me@email.com",
+                password = "strongPass",
+                token = "LoggedToken"
+            };
             mockAdministratorService.Setup(
-                x => x.Login(email, password)
-                ).Returns("LogedToken");
-            var result = loginController.Login(email, password);
+                x => x.Login(loginDto.email, loginDto.password)
+            ).Returns("LoggedToken");
+            var result = loginController.Login(loginDto);
             var okResult = result as OkObjectResult;
-            var realToken = okResult.Value;
-            Assert.AreEqual(realToken, "LogedToken");
+            var realLoginDto = okResult.Value;
+            Assert.AreEqual(realLoginDto, loginDto);
         }
     }
 }
