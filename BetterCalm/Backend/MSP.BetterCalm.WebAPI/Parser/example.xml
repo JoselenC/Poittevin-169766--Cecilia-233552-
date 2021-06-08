@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <ListContentModels>
+            <name>Help</name>
+            <duration>120m</duration>
+            <UrlImage />
+            <UrlArchive />
+            <type>audio</type>
+            <creatorName>The beatles</creatorName>           
+            <Categories>
+                    <name>Dormir</name>
+            </Categories>
+            <Playlists>
+                    <name>Beatles's songs</name>
+                    <description>beatles's songs</description>
+                    <UrlImage>https://cdn.culturagenial.com/es/imagenes/let-it-be-0-cke.jpg</UrlImage>
+                    <Categories>                        
+                            <name>Musica</name>                        
+                    </Categories>
+                    <name>Old songs</name>
+                    <description>old songs</description>
+                    <UrlImage />
+                    <Categories>                        
+                            <name>Dormir</name>                        
+                    </Categories>                                
+            </Playlists>
+            <name>Let it be</name>
+            <duration>120m</duration>
+            <UrlImage>https://cdn.culturagenial.com/es/imagenes/let-it-be-0-cke.jpg</UrlImage>
+            <UrlArchive>https://www.youtube.com/watch?v=QDYfEBY9NM4</UrlArchive>
+            <type>video</type>
+            <creatorName>The beatles</creatorName>          
+            <Categories>                
+                    <name>Musica</name>
+            </Categories>
+    </ListContentModels>
+</root>

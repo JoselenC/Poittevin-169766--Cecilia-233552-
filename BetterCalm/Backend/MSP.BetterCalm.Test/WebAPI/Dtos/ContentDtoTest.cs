@@ -86,8 +86,8 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
         {
             string authorName = "Paul McCartney";
             ContentDto content = new ContentDto();
-            content.AuthorName = authorName;
-            string getAuthorName= content.AuthorName;
+            content.CreatorName = authorName;
+            string getAuthorName= content.CreatorName;
             Assert.AreEqual(authorName, getAuthorName);
         }
         
@@ -120,7 +120,7 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
                 Id=2,
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = "2m",
                 UrlArchive = "",
                 UrlImage = "",
@@ -149,7 +149,7 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
                 Id=2,
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = "60h",
                 UrlArchive = "",
                 UrlImage = "",
@@ -167,7 +167,7 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
                 Id=0,
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = "2m",
                 UrlArchive = "",
                 UrlImage = "",
@@ -184,7 +184,7 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
                 Id=0,
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = "2m",
                 UrlArchive = "",
                 UrlImage = "",
@@ -202,7 +202,7 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
                 Id=2,
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = "12000sq",
                 UrlArchive = "",
                 UrlImage = "",
@@ -219,7 +219,7 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
                 Id=0,
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = "12000s",
                 UrlArchive = "",
                 UrlImage = "",
@@ -248,7 +248,7 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
                 Id=0,
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = "1200H",
                 UrlArchive = "",
                 UrlImage = "",
@@ -277,7 +277,7 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
                 Id=0,
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = "100m",
                 UrlArchive = "",
                 UrlImage = "",
@@ -306,7 +306,7 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
                 Id=0,
                 Categories = new List<Category>() {new Category() {Name = "Dormir"}},
                 Name = "Stand by me",
-                AuthorName = "John Lennon",
+                CreatorName = "John Lennon",
                 Duration = "10h",
                 UrlArchive = "",
                 UrlImage = "",
