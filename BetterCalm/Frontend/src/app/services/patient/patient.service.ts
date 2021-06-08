@@ -25,29 +25,15 @@ export class PatientService {
   }
 
   add(patient: Patient): Observable<Patient> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-    const options = {headers};
-    return this.http.post<Patient>(this.patientUri, patient, options);
+    return this.http.post<Patient>(this.patientUri, patient);
   }
 
   scheduleMeeting(schedule: ScheduleMeeting): Observable<any> {
-
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-    const options = {headers};
-    return this.http.post<ScheduleMeeting>(this.scheduleUri, schedule, options);
+    return this.http.post<ScheduleMeeting>(this.scheduleUri, schedule);
   }
 
   delete(id: number): Observable<Patient> {
-    let headers: HttpHeaders;
-    headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
-    const options = {headers};
-    return this.http.delete<Patient>(this.patientUri + '/' + id, options);
+    return this.http.delete<Patient>(this.patientUri + '/' + id);
   }
 
 }

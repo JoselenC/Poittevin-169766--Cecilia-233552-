@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
 import {Playlist} from '../../models/Playlist';
-import {catchError} from 'rxjs/operators';
 
 
 @Injectable({
@@ -35,35 +34,14 @@ export class PlaylistService {
   }
 
   add(playlist: Playlist): Observable<Playlist> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-    const options = {headers};
-    const httpRequest = this.http.post<any>(this.uri, playlist, options)
-      .pipe(catchError(this.handleError));
-    return httpRequest;
+    return this.http.post<any>(this.uri, playlist);
   }
 
   update(id: number, playlist: Playlist): Observable<Playlist> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
-    const options = {headers};
-    const httpRequest = this.http.put<Playlist>(this.uri + '/' + id, playlist, options)
-      .pipe(catchError(this.handleError));
-    return httpRequest;
+    return this.http.put<Playlist>(this.uri + '/' + id, playlist);
   }
 
   delete(id: number): Observable<Playlist> {
-    let headers: HttpHeaders;
-    headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
-    const options = {headers};
-    return this.http.delete<Playlist>(this.uri + '/' + id, options);
-  }
-  // tslint:disable-next-line:typedef
-  private handleError(error: HttpErrorResponse) {
-    return throwError(error.error);
+    return this.http.delete<Playlist>(this.uri + '/' + id);
   }
 }
