@@ -112,7 +112,6 @@ const routes: Routes = [
     MatListModule,
     MatIconModule,
     MatButtonModule,
-    RouterModule.forChild(routes),
     MatFormFieldModule,
     ReactiveFormsModule,
     MatSelectModule,

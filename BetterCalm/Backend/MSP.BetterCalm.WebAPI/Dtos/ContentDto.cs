@@ -10,7 +10,7 @@ namespace MSP.BetterCalm.WebAPI.Dtos
     {
         public int Id { get; set; }
         public List<Category> Categories {get; set; }
-        public string AuthorName {get; set; }
+        public string CreatorName {get; set; }
         public string Name { get;set; }
         public string Duration { get; set; }
         public string UrlImage {get; set; }
@@ -43,7 +43,7 @@ namespace MSP.BetterCalm.WebAPI.Dtos
                 Name = Name, 
                 Categories = Categories, 
                 Duration = SetDuration(), 
-                CreatorName = AuthorName,
+                CreatorName = CreatorName,
                 UrlArchive = UrlArchive, 
                 UrlImage = UrlImage,
                 Type= Type
@@ -74,7 +74,7 @@ namespace MSP.BetterCalm.WebAPI.Dtos
                 Name = content.Name, 
                 Categories = content.Categories, 
                 Duration = durationFormat, 
-                AuthorName = content.CreatorName,
+                CreatorName = content.CreatorName,
                 UrlArchive = content.UrlArchive, 
                 UrlImage = content.UrlImage,
                 Type=content.Type

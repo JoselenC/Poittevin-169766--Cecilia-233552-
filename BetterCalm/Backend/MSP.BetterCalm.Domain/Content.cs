@@ -69,7 +69,6 @@ namespace MSP.BetterCalm.Domain
         public List<Category> Categories {get; set; }
         public bool AssociatedToPlaylist { get; set; }
         public string CreatorName {get; set; }
-
         
         public bool IsSameContentName(string contentName)
         {
