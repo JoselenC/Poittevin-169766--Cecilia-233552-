@@ -1,0 +1,14 @@
+<h3>Import new content</h3>
+<form class="standardForm"  >
+  <div fxLayout="column">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput type="text" placeholder="Json" min="1" name="name" [(ngModel)]="name">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Path</mat-label>
+      <input matInput type="text" placeholder="c:/carpeta/archivo.json" name="path" [(ngModel)]="path">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="importContent()">Import</button>
+  </div>
+</form>

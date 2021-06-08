@@ -1,6 +1,32 @@
-﻿{
-    "Content": {
-       
-            "Name": "Music"        
+{
+  "ListContentModels": [
+    {
+      "name": "Help",
+      "duration": "120m",
+      "creatorName": "The beatles",
+      "UrlImage": "",
+      "UrlArchive": "",
+      "type": "audio",
+      "Categories":[{"name":"Dormir"}],
+      "Playlists":[
+        {"name":"Beatles's songs","description":"beatles's songs","UrlImage":"https://cdn.culturagenial.com/es/imagenes/let-it-be-0-cke.jpg","Categories":[{"name": "Musica"}]},
+        {"name":"Old songs","description":"old songs","UrlImage":"","Categories":[{"name": "Dormir"}]}
+      ]
+    },
+    {
+      "name": "Let it be",
+      "duration": "120m",
+      "creatorName": "The beatles",
+      "UrlImage": "https://cdn.culturagenial.com/es/imagenes/let-it-be-0-cke.jpg",
+      "UrlArchive": "https://www.youtube.com/watch?v=QDYfEBY9NM4",
+      "type": "video",
+      "Categories": [
+        {
+          "name": "Musica"
+        }
+      ]
     }
+  ]
 }
+
+

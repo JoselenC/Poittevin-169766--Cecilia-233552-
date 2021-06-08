@@ -9,7 +9,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
 {
     [ApiController]
     [FilterExceptions]
-    [Route("api/Import")]
+    [Route("api/import")]
     public class ImportController:ControllerBase 
     {
         private readonly IImportService importService;
@@ -37,7 +37,8 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         {
             Import import = new Import() {Name = importDto.Name, 
                 Path = importDto.Path ,Parameters = importService.GetParameters()};
-            return Ok(importService.ImportContent(import));
+            importService.ImportContent(import);
+            return Ok("The new content was successfully imported");
         }
     }
 }
