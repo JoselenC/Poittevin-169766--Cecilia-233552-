@@ -27,7 +27,6 @@ export class PsychologyComponent implements OnInit {
 
   private result(data: Array<Psychology>): void {
     this.psychologies = data;
-    console.log(this.psychologies);
   }
 
   delete(id: number): void {

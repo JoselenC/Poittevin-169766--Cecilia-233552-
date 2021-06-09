@@ -5,10 +5,10 @@ import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-patient',
-  templateUrl: './patient.component.html',
-  styleUrls: ['./patient.component.css']
+  templateUrl: './get-patient.component.html',
+  styleUrls: ['./get-patient.component.css']
 })
-export class PatientComponent implements OnInit {
+export class GetPatientComponent implements OnInit {
   public patients: Patient[] = [];
 
   constructor(

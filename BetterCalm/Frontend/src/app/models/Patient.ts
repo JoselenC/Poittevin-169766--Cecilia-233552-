@@ -1,7 +1,7 @@
 import {Meeting} from './Meeting';
 
 export class Patient {
-  id : number;
+  id: number;
   name ?: string;
   lastName ?: string;
   cellphone ?: string;

@@ -1,0 +1,25 @@
+<mat-selection-list multiple="false">
+  <mat-list-item *ngFor="let administrator of administrators" >
+    <mat-list-option (click)="navigateTo(administrator.administratorId)">
+      <mat-icon mat-list-icon> account_box</mat-icon>
+      <h3 mat-line> {{administrator.name}}, {{administrator.lastName}} </h3>
+      <p mat-line> {{administrator.token}} </p>
+    </mat-list-option>
+    <button mat-icon-button (click)="delete(administrator.administratorId)">
+      <mat-icon class="mat-24">delete</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-selection-list>
+
+<a [routerLink]="['/add-admin']">
+  <button
+    mat-fab
+    color="primary"
+    id="add-button"
+    matTooltip="Add new administrator"
+    class="add-button"
+
+  >
+    <mat-icon>add</mat-icon>
+  </button>
+</a>

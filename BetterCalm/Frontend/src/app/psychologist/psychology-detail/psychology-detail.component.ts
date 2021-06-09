@@ -25,7 +25,6 @@ export class PsychologyDetailComponent implements OnInit {
     this.psychologyService.getById(psychologyId).subscribe(
       psychology => {
         this.psychology = psychology;
-        console.log(this.psychology);
       }
     );
   }

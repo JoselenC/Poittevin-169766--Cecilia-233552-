@@ -47,7 +47,6 @@ export class UpdateContentComponent implements OnInit {
     this.serviceContent.getById(contentId).subscribe(
       content => {
         this.content = content;
-        console.log(this.content);
       }
     );
     this.name = this.content?.name;
