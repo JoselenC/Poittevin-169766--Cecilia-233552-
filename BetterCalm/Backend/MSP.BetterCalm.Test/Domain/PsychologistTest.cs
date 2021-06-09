@@ -32,6 +32,16 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
+        public void GetSetRate()
+        {
+            Psychologist psychologist = new Psychologist
+            {
+                Rate = Rates.Deluex
+            };
+            Assert.AreEqual(Rates.Deluex, psychologist.Rate);
+        }
+        
+        [TestMethod]
         public void GetSetLastName()
         {
             Psychologist psychologist = new Psychologist
