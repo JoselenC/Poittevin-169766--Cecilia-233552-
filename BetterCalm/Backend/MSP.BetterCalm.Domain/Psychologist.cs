@@ -11,6 +11,8 @@ namespace MSP.BetterCalm.Domain
         public string Address { get; set; }
         public bool WorksOnline { get; set; }
 
+        public Rates Rate { get; set; }
+
         private List<Problematic> problematics;
         public List<Problematic> Problematics{ get=>problematics; set => SetProblematics(value); }
         public List<Meeting> Meetings{ get; set; }
