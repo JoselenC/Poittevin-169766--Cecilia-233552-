@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
 import {Content} from '../../models/Content';
-import {catchError} from 'rxjs/operators';
-import {Playlist} from '../../models/Playlist';
 
 
 @Injectable({
@@ -36,36 +34,15 @@ export class ContentService {
   }
 
   newContent(content: Content): Observable<Content> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
-    const options = {headers};
-    const httpRequest = this.http.post<any>(this.uri, content, options)
-      .pipe(catchError(this.handleError));
-    return httpRequest;
+    return this.http.post<any>(this.uri, content);
   }
 
   update(id: number, content: Content): Observable<Content> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
-    const options = {headers};
-    const httpRequest = this.http.put<Content>(this.uri + '/' + id, content, options)
-      .pipe(catchError(this.handleError));
-    return httpRequest;
+    return this.http.put<Content>(this.uri + '/' + id, content);
   }
 
   delete(id?: number): Observable<Content> {
-    let headers: HttpHeaders;
-    headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
-    const options = {headers};
-    return this.http.delete<Content>(this.uri + '/' + id, options);
+    return this.http.delete<Content>(this.uri + '/' + id);
   }
 
-  // tslint:disable-next-line:typedef
-  private handleError(error: HttpErrorResponse) {
-    return throwError(error.error);
-  }
 }

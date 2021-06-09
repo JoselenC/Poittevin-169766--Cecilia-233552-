@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Problematic} from '../../models/Problematic';
 import {ScheduleMeeting} from '../../models/ScheduleMeeting';
 import {Patient} from '../../models/Patient';
@@ -28,6 +28,7 @@ export class AddMeetingComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private formBuilder: FormBuilder,
     private patientService: PatientService
   ) {
@@ -42,7 +43,6 @@ export class AddMeetingComponent implements OnInit {
       (data: any) => this.result(data),
       (error: any) => {
         console.log(error);
-        alert(error);
       }
     );
   }
@@ -54,8 +54,8 @@ export class AddMeetingComponent implements OnInit {
   }
 
   result(data: any): void {
+    this.router.navigate(['patients', this.patientId]);
     console.log(data);
-    alert(data);
   }
 
   initFormProblematics(): void {

@@ -16,7 +16,6 @@ BetterCalm
         Psychologists
       </a>
 
-      <mat-divider></mat-divider>
       <mat-accordion>
         <mat-expansion-panel hideToggle>
           <mat-expansion-panel-header>
@@ -34,12 +33,11 @@ BetterCalm
           <a mat-list-item [routerLink]="['/get-playlists-by-content']">
             Filter by content
           </a>
+          <a mat-list-item [routerLink]="['/add-playlist']">
+            Add Playlist
+          </a>
         </mat-expansion-panel>
       </mat-accordion>
-      <a mat-list-item [routerLink]="['/add-playlist']">
-        Add Playlist
-      </a>
-      <h3 mat-subheader>Content</h3>
       <mat-accordion>
         <mat-expansion-panel hideToggle>
           <mat-expansion-panel-header>
@@ -57,14 +55,17 @@ BetterCalm
           <a mat-list-item [routerLink]="['/get-content-by-author']">
             Filter by author
           </a>
+          <a mat-list-item [routerLink]="['/add-content']">
+            Add Content
+          </a>
         </mat-expansion-panel>
       </mat-accordion>
-      <a mat-list-item [routerLink]="['/add-content']">
-        Add Content
-      </a>
       <mat-divider></mat-divider>
       <a mat-list-item [routerLink]="['/import-content']">
         Import
+      </a>
+      <a mat-list-item [routerLink]="['/login']">
+        Login
       </a>
     </mat-nav-list>
     <!--this is a place for us to add side-nav code-->
