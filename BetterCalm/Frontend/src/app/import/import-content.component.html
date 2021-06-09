@@ -2,8 +2,10 @@
 <form class="standardForm"  >
   <div fxLayout="column">
     <mat-form-field appearance="outline">
-      <mat-label>Name</mat-label>
-      <input matInput type="text" placeholder="Json" min="1" name="name" [(ngModel)]="name">
+      <mat-label>Names</mat-label>
+      <mat-select [formControl]="import" multiple >
+        <mat-option *ngFor="let imp of importNames" [value]="imp">{{imp}}</mat-option>
+      </mat-select>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Path</mat-label>
