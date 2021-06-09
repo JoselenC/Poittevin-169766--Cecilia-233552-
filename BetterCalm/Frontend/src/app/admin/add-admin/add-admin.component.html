@@ -1,0 +1,25 @@
+<h3>Add new patient</h3>
+<form class="standardForm">
+  <div fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="space-between start" >
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" placeholder="Jose" min="3" name="name" [(ngModel)]="name">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input matInput type="text" placeholder="Pedro" min="3" name="lastName" [(ngModel)]="lastName">
+      </mat-form-field>
+    </div>
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" placeholder="email@email.com" min="3" name="email" [(ngModel)]="email">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" placeholder="pass" min="9" name="password" [(ngModel)]="password">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="addAdministrator()">Add</button>
+  </div>
+</form>

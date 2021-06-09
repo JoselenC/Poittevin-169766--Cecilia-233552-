@@ -1,0 +1,11 @@
+<div *ngIf="administrator != undefined">
+  <div class="mat-headline">
+    <h1> {{administrator.name}} {{ administrator.lastName }}</h1>
+    <div class="mat-subheading-1"> email: {{administrator.email}} </div>
+    <div class="mat-subheading-1"> password: {{administrator.password}} </div>
+    <div class="mat-subheading-1"> token: {{administrator.token}} </div>
+  </div>
+</div>
+<div *ngIf="administrator == undefined">
+  404 administrator not found
+</div>

@@ -24,7 +24,6 @@ export class PlaylistDetailComponent implements OnInit {
     this.playlistService.getById(playlistId).subscribe(
       playlist => {
         this.playlist = playlist;
-        console.log(this.playlist);
       }
     );
   }

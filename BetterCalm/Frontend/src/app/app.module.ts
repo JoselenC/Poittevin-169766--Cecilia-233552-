@@ -17,6 +17,7 @@ import {PlaylistModule} from './playlist/playlist.module';
 import {LoginModule} from './login/login.module';
 import {AuthInterceptor} from './interceptors/auth.interceptor';
 import {ImportContentModule} from './import/import-content.module';
+import {AdminModule} from './admin/admin.module';
 
 const routes: Routes = [
   {
@@ -44,6 +45,7 @@ const routes: Routes = [
     PlaylistModule,
     LoginModule,
     ImportContentModule,
+    AdminModule,
     RouterModule.forRoot(routes),
   ],
   exports: [

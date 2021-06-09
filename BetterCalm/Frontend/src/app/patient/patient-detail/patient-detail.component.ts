@@ -24,7 +24,6 @@ export class PatientDetailComponent implements OnInit {
     this.patientService.getById(patientId).subscribe(
       patient => {
         this.patient = patient;
-        console.log(this.patient);
       }
     );
   }

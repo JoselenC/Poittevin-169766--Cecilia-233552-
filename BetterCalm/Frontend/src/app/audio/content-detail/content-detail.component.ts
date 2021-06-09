@@ -24,7 +24,6 @@ export class ContentDetailComponent implements OnInit {
     this.contentService.getById(contentId).subscribe(
       content => {
         this.content = content;
-        console.log(this.content);
       }
     );
   }
