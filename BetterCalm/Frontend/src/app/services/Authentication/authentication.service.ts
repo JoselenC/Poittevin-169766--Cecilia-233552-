@@ -22,10 +22,19 @@ export class AuthenticationService {
       loginData,
       options
     ).subscribe(
-      (token: any) => {
-        localStorage.setItem('token', token.token);
+      (data: any) => {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('authData', JSON.stringify(data));
       }
     );
+  }
+
+  getLoginData(): LoginData|undefined  {
+    const localData: string|null = localStorage.getItem('authData') ;
+    if (localData) {
+      return JSON.parse(localData);
+    }
+    return undefined;
   }
 
   getAuthorizationToken(): string {

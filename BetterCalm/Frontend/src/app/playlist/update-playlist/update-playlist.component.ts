@@ -45,7 +45,6 @@ export class UpdatePlaylistComponent implements OnInit {
     this.servicePlaylist.getById(playlistId).subscribe(
       playlist => {
         this.playlist = playlist;
-        console.log(this.playlist);
       }
     );
     this.categoryService.getCategories().subscribe(

@@ -1,5 +1,6 @@
-<mat-toolbar color="primary">
-BetterCalm
+<mat-toolbar fxLayout="row" color="primary" style="width: 100%">
+  <div fxFlexAlign="start center" >BetterCalm</div>
+  <div fxFlex fxLayoutAlign="end center" *ngIf="loggedData" > {{loggedData.email}}</div>
 </mat-toolbar>
 
 
@@ -15,7 +16,9 @@ BetterCalm
       <a mat-list-item [routerLink]="['/psychologits']">
         Psychologists
       </a>
-
+      <a mat-list-item [routerLink]="['/admins']">
+        Administrator
+      </a>
       <mat-accordion>
         <mat-expansion-panel hideToggle>
           <mat-expansion-panel-header>

@@ -4,7 +4,7 @@ import {MatCardModule} from '@angular/material/card';
 
 import {RouterModule, Routes} from '@angular/router';
 import {LayoutComponent} from '../layout/layout.component';
-import {PatientComponent} from './get-patient/patient.component';
+import {GetPatientComponent} from './get-patient/get-patient.component';
 import {LayoutModule} from '../layout/layout.module';
 import {MatListModule} from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
@@ -27,7 +27,7 @@ const routes: Routes = [
     path: 'patients',
     component: LayoutComponent,
     children: [
-      { path: '', component: PatientComponent },
+      { path: '', component: GetPatientComponent },
     ]
   },
   {
@@ -55,7 +55,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    PatientComponent,
+    GetPatientComponent,
     PatientDetailComponent,
     AddPatientComponent,
     AddMeetingComponent
