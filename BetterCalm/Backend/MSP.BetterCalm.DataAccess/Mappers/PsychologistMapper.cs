@@ -21,7 +21,8 @@ namespace MSP.BetterCalm.DataAccess.Mappers
                     Name = obj.Name,
                     LastName = obj.LastName,
                     Address = obj.Address,
-                    WorksOnline = obj.WorksOnline
+                    WorksOnline = obj.WorksOnline,
+                    Rate = obj.Rate
                 };
             List<PsychologistProblematicDto> problematics = new List<PsychologistProblematicDto>();
             if(obj.Problematics != null){
@@ -52,7 +53,8 @@ namespace MSP.BetterCalm.DataAccess.Mappers
                 Name = obj.Name,
                 LastName = obj.LastName,
                 Address = obj.Address,
-                WorksOnline = obj.WorksOnline
+                WorksOnline = obj.WorksOnline,
+                Rate = obj.Rate
             };
             context.Entry(obj).Collection("Problematics").Load();
             List<Problematic> problematics = new List<Problematic>();
@@ -106,6 +108,7 @@ namespace MSP.BetterCalm.DataAccess.Mappers
             objToUpdate.LastName = updatedObject.LastName ?? objToUpdate.LastName;
             objToUpdate.Address = updatedObject.Address ?? objToUpdate.Address;
             objToUpdate.WorksOnline = updatedObject.WorksOnline;
+            objToUpdate.Rate = updatedObject.Rate;
 
             List<PsychologistProblematicDto> problematics = new List<PsychologistProblematicDto>();
             if (!(updatedObject.Problematics is null))
