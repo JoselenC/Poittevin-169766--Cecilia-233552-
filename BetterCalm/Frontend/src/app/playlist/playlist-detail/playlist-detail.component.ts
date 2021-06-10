@@ -10,6 +10,7 @@ import {PlaylistService} from '../../services/playlist/playlist.service';
 })
 export class PlaylistDetailComponent implements OnInit {
   playlist: Playlist | undefined;
+  public url = 'https://i.pinimg.com/originals/90/e3/41/90e34121229253d293dcd6e8e40b6f44.jpg';
 
   constructor(
     private route: ActivatedRoute,

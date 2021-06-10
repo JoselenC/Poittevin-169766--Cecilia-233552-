@@ -2,10 +2,15 @@
   <div class="mat-headline">
     <h1> {{playlist.name}}</h1>
     <div class="mat-subheading-1"> description:  {{playlist.description}} </div>
-    <img src="{{playlist.urlImage}}" width="300" height="300" >
+    <p mat-line *ngIf="playlist.urlImage!.length<1 || playlist.urlImage==null">
+      <img src="{{url}}" width="300" height="300" alt="">
+    </p>
+    <p mat-line *ngIf="playlist.urlImage!.length > 0 ">
+      <img src="{{playlist.urlImage}}" width="300" height="300" alt="">
+    </p>
   </div>
   <mat-divider></mat-divider>
-  <h2>Audios</h2>
+  <h2>Contents</h2>
   <mat-selection-list class="cl" *ngFor="let content of playlist.contents" multiple="false">
     <mat-list-option>
       <h3 matLine> {{content.name}}</h3>
