@@ -25,6 +25,7 @@ import {GetPlaylistsByNameComponent} from './get-playlists-by-name/get-playlists
 import {GetPlaylistsByContentComponent} from './get-playlists-by-content/get-playlists-by-name.component';
 import {GetPlaylistsByCategoryComponent} from './get-playlists-by-category/get-playlists-by-category.component';
 import {UpdatePlaylistComponent} from './update-playlist/update-playlist.component';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 const routes: Routes = [
   {
@@ -88,26 +89,27 @@ const routes: Routes = [
     GetPlaylistsByCategoryComponent,
     UpdatePlaylistComponent
   ],
-  imports: [
-    CommonModule,
-    LayoutModule,
-    MatNativeDateModule,
-    MatCardModule,
-    MatListModule,
-    MatIconModule,
-    MatButtonModule,
-    RouterModule.forChild(routes),
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    MatInputModule,
-    MatDatepickerModule,
-    FlexModule,
-    FormsModule,
-    CategoryModule,
-    MatTooltipModule,
-    ContentModule,
-  ],
+    imports: [
+        CommonModule,
+        LayoutModule,
+        MatNativeDateModule,
+        MatCardModule,
+        MatListModule,
+        MatIconModule,
+        MatButtonModule,
+        RouterModule.forChild(routes),
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        MatSelectModule,
+        MatInputModule,
+        MatDatepickerModule,
+        FlexModule,
+        FormsModule,
+        CategoryModule,
+        MatTooltipModule,
+        ContentModule,
+        MatGridListModule,
+    ],
   exports: [
     RouterModule
   ]

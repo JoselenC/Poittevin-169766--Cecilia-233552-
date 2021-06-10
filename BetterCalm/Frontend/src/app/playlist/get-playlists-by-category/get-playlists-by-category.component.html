@@ -15,11 +15,18 @@
 </mat-form-field>
 
 <mat-selection-list multiple="false">
-  <mat-list-item *ngFor="let playlist of playlists" >
+  <mat-grid-list cols=4 rowHeight="1.2:1" >
+    <mat-grid-tile *ngFor="let playlist of playlists" >
+      <div>
     <mat-list-option (click)="navigateTo(playlist.id)">
       <h3 mat-line> {{playlist.name}} </h3>
       <p mat-line> {{playlist.description}} </p>
-      <img src="{{playlist.urlImage}}" width="50" height="50" alt="">
+      <p mat-line *ngIf="playlist.urlImage!.length<1 || playlist.urlImage==null">
+        <img src="{{url}}" width="200" height="200" alt="">
+      </p>
+      <p mat-line *ngIf="playlist.urlImage!.length > 0 ">
+        <img src="{{playlist.urlImage}}" width="210" height="210" alt="">
+      </p>
     </mat-list-option>
     <button mat-icon-button (click)="delete(playlist.id)">
       <mat-icon class="mat-24">delete</mat-icon>
@@ -29,7 +36,9 @@
         <mat-icon class="mat-24">edit</mat-icon>
       </button>
     </a>
-  </mat-list-item>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
 </mat-selection-list>
 
 <a [routerLink]="['/add-playlist']">

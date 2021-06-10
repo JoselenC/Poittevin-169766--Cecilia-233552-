@@ -18,6 +18,6 @@ export class CategoryService {
   }
 
   getBy(id: number): Observable<Category>{
-    return this.http.get<Category>(this.uri + '/' + id)
+    return this.http.get<Category>(this.uri + '/' + id);
   }
 }

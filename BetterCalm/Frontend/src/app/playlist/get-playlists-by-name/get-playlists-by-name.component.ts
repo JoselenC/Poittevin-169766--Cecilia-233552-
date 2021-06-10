@@ -13,7 +13,7 @@ export class GetPlaylistsByNameComponent implements OnInit {
 
   public playlists: Playlist[] = [];
   filter = '';
-
+  public url = 'https://i.pinimg.com/originals/90/e3/41/90e34121229253d293dcd6e8e40b6f44.jpg';
   constructor(
     private playlistService: PlaylistService,
     private router: Router

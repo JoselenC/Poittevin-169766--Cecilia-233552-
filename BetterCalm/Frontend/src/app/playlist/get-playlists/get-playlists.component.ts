@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./get-playlists.component.css']
 })
 export class GetPlaylistsComponent implements OnInit {
-
+  public url = 'https://i.pinimg.com/originals/90/e3/41/90e34121229253d293dcd6e8e40b6f44.jpg';
   public playlists: Playlist[] = [];
 
   constructor(
