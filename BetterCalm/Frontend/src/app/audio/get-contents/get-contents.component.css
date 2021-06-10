@@ -10,3 +10,8 @@
   border-bottom: 50px;
 }
 
+mat-grid-tile {
+  background: #AEBDE9   ;
+  border: solid 30px white;
+  padding-top: 310px !important;
+}

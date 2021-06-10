@@ -13,7 +13,7 @@ export class GetContentByCategoryComponent implements OnInit {
 
   contents: Array<Content> | undefined;
   filter = '';
-
+  public url = 'https://cdn3.iconfinder.com/data/icons/audio-visual-acquicons/512/Eighth-Note-Double.png';
   constructor(
     private contentService: ContentService,
     private router: Router
