@@ -1,4 +1,4 @@
-<form class="standardForm" id="form">
+<form class="standardForm" id="playlist-form">
   <h3>Add new playlist</h3>
   <div fxLayout="column">
     <div fxLayout="row" fxLayoutAlign="space-between start" >
@@ -36,13 +36,13 @@
           id="add-button"
           matTooltip="Add content"
           class="add-button"
-          (click)="showComponent('addContent')"
+          (click)="showComponent('form')"
         > <mat-icon>add</mat-icon>
         </button>
       </a>
 
     </div>
-    <div name="addContent" style="display: none" >
+    <div name="addContent">
       <app-add-content-to-playlist></app-add-content-to-playlist>
     </div>
     <br>
