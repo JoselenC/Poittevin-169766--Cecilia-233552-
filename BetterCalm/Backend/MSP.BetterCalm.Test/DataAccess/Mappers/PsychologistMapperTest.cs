@@ -60,7 +60,8 @@ namespace MSP.BetterCalm.Test
                 LastName = "Alex",
                 Address = "PsyAddress",
                 WorksOnline = true,
-                Problematics = problematics
+                Problematics = problematics,
+                Rate = Rates.Cheap
             };
             psychologistTest = RepoPsychologists.Add(psychologistTest);
         }
