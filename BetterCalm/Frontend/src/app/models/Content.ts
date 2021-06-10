@@ -10,8 +10,9 @@ export class Content {
   duration: string | undefined;
   type: string | undefined;
 
-  constructor(id: number, name: string | undefined, authorName: string | undefined, urlAudio: string | undefined,
-              urlImage: string | undefined, duration: string | undefined, categories: Array<Category>, type: string){
+  constructor(id: number| undefined, name: string | undefined, authorName: string | undefined, urlAudio: string | undefined,
+              urlImage: string | undefined, duration: string | undefined,
+              categories: Array<Category>| undefined, type: string| undefined){
     this.id = id;
     this.categories = categories;
     this.name = name;

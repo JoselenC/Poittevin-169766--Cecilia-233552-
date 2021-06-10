@@ -3,9 +3,20 @@
     <h1> {{content.name}}</h1>
     <div class="mat-subheading-1"> Duration:  {{content.duration}} </div>
     <div class="mat-subheading-1"> Creator name:  {{content.creatorName}} </div>
-    <img src="{{content.urlImage}}" width="300" height="300" >
-    <video src="{{content.urlArchive}}" width="300" height="300" >
-    </video>
+    <div class="mat-subheading-1"> Type:  {{content.type}} {{content.urlArchive}}</div>
+    <div [innerHTML]="content.urlArchive"></div>
+    <p mat-line *ngIf="content.type == 'video' && (content.urlArchive!.length>0 || content.urlArchive!=null) ">
+        <iframe width="560" height="315"  [src]="getEmbebedUrl()" frameborder="0" allowfullscreen
+      ></iframe>
+    </p>
+    <p mat-line *ngIf="content.type=='audio' && content.urlImage!.length<1 || content.urlImage==null">
+        <img src="{{url}}" width="300" height="300" alt="">
+  </p>
+    <p mat-line *ngIf="content.type=='audio' && content.urlImage!.length > 0 ">
+      <img src="{{content.urlImage}}" width="300" height="300" alt="">
+    </p>
+
+
   </div>
   <mat-divider></mat-divider>
 

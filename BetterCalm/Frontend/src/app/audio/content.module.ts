@@ -28,6 +28,7 @@ import {GetPlaylistsByCategoryComponent} from '../playlist/get-playlists-by-cate
 import {GetContentByAuthorComponent} from './get-content-by-author/get-content-by-author.component';
 import {AddContentToPlaylistComponent} from './add-content-to-playlit/add-content-to-playlist.component';
 import {UpdateContentComponent} from './update-content/update-content.component';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 
 
@@ -121,6 +122,7 @@ const routes: Routes = [
     FormsModule,
     MatTooltipModule,
     MatSlideToggleModule,
+    MatGridListModule,
   ],
   providers: [ContentService],
   exports: [
