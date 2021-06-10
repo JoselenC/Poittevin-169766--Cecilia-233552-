@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MSP.BetterCalm.DataAccess;
 using MSP.BetterCalm.DataAccess.DtoObjects;
+using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.Test
 {
@@ -27,6 +28,16 @@ namespace MSP.BetterCalm.Test
                 Address = "House 1234"
             };
             Assert.AreEqual("House 1234", psychologist.Address);
+        }
+        
+        [TestMethod]
+        public void GetSetRate()
+        {
+            PsychologistDto psychologist = new PsychologistDto
+            {
+                Rate = Rates.Cheap
+            };
+            Assert.AreEqual(Rates.Cheap, psychologist.Rate);
         }
         
         [TestMethod]
