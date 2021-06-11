@@ -26,5 +26,15 @@ namespace MSP.BetterCalm.Test.WebAPI.Dtos
             };
             Assert.AreEqual("Prob1", scheduleMeeting.Problematic.Name);
         }
+        
+        [TestMethod]
+        public void GetSetDuration()
+        {
+            ScheduleMeetingDto scheduleMeeting = new ScheduleMeetingDto
+            {
+                Duration = 1
+            };
+            Assert.AreEqual(1, scheduleMeeting.Duration);
+        }
     }
 }
