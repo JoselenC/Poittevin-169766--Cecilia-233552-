@@ -1,4 +1,5 @@
 using System;
+using MSP.BetterCalm.Domain.Exceptions;
 
 namespace MSP.BetterCalm.Domain
 {
@@ -9,7 +10,42 @@ namespace MSP.BetterCalm.Domain
         public Patient Patient { get; set; }
         public DateTime DateTime { get; set; }
         public string Address { get; set; }
+        private Times _duration { get; set; }
+        public double Duration { get => durationGet(); set => durationSet(value); }
 
+        private void durationSet(double durationValue)
+        {
+            switch (durationValue)
+            {
+                case 2:
+                    _duration = Times.Long;
+                    break;
+                case 1.5:
+                    _duration = Times.Medium;
+                    break;
+                case 1:
+                    _duration = Times.Short;
+                    break;
+                default:
+                    throw new InvalidMeetingDuration(); 
+            }
+        }
+        
+        private double durationGet()
+        {
+            switch (_duration)
+            {
+                case Times.Long:
+                    return 2;
+                case Times.Medium:
+                    return 1.5;
+                case Times.Short:
+                    return 1;
+                default:
+                    throw new InvalidMeetingDuration(); 
+            }
+        }
+        
         protected bool Equals(Meeting other)
         {
             return Equals(Psychologist, other.Psychologist) && 
