@@ -6,5 +6,7 @@ namespace MSP.BetterCalm.WebAPI.Dtos
     {
         public Patient Patient { get; set; }
         public Problematic Problematic { get; set; }
+        
+        public decimal Duration { get; set; }
     }
 }
