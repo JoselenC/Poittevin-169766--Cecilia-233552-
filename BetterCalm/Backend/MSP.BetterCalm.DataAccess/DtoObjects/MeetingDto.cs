@@ -10,5 +10,6 @@ namespace MSP.BetterCalm.DataAccess.DtoObjects
         public virtual PatientDto Patient { get; set; }
         public DateTime DateTime { get; set; }
         public string Address { get; set; }
+        public double Duration { get; set; }
     }
 }

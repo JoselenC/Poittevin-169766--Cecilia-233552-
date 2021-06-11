@@ -28,7 +28,8 @@ namespace MSP.BetterCalm.DataAccess.Mappers
                 DateTime = obj.DateTime,
                 Patient = patientDto,
                 Psychologist = psychologistDto,
-                Address = obj.Address
+                Address = obj.Address,
+                Duration = obj.Duration
             };
         }
 
@@ -82,6 +83,7 @@ namespace MSP.BetterCalm.DataAccess.Mappers
             {
                 DateTime = obj.DateTime,
                 Address = obj.Address,
+                Duration = obj.Duration,
                 Patient = DtoToDomainPatientWithoutMeetings(obj.Patient),
                 Psychologist = DtoToDomainpPsychologistWithoutMeetings(obj.Psychologist)
             };
