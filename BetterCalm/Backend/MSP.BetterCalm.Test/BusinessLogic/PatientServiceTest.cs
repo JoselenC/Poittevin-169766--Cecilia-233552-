@@ -161,7 +161,7 @@ namespace MSP.BetterCalm.Test.BusinessLogic
                 x => 
                     x.Get()
             ).Returns(new List<Psychologist>(){busyPsychologist});
-            Meeting actualMeeting = _service.ScheduleNewMeeting(_patient, _problematics[0]);
+            Meeting actualMeeting = _service.ScheduleNewMeeting(_patient, _problematics[0], 1);
             Assert.AreEqual(expectedMeeting, actualMeeting);
             _psychologistMock.VerifyAll();
         }
@@ -197,7 +197,7 @@ namespace MSP.BetterCalm.Test.BusinessLogic
             _meetingMock.Setup(
                 x => x.Add(expectedMeeting)
             ).Throws(new InvalidOperationException());
-            _service.ScheduleNewMeeting(_patient, _problematics[0]);
+            _service.ScheduleNewMeeting(_patient, _problematics[0], 1);
         }
         
         [TestMethod]
@@ -228,7 +228,7 @@ namespace MSP.BetterCalm.Test.BusinessLogic
                 x => 
                     x.Get()
             ).Returns(new List<Psychologist>(){newBusyPsychologist, oldBusyPsychologist});
-            Meeting actualMeeting = _service.ScheduleNewMeeting(_patient, _problematics[0]);
+            Meeting actualMeeting = _service.ScheduleNewMeeting(_patient, _problematics[0], 1);
             Assert.AreEqual(expectedMeeting, actualMeeting);
             _psychologistMock.VerifyAll();
         }
@@ -253,7 +253,7 @@ namespace MSP.BetterCalm.Test.BusinessLogic
                 x => 
                     x.Get()
             ).Returns(new List<Psychologist>(){busyPsychologist});
-            Meeting actualMeeting = _service.ScheduleNewMeeting(_patient, _problematics[0]);
+            Meeting actualMeeting = _service.ScheduleNewMeeting(_patient, _problematics[0], 1);
             Assert.AreEqual(expectedMeeting, actualMeeting);
             _psychologistMock.VerifyAll();
         }

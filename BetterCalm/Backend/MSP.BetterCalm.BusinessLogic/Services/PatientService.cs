@@ -49,7 +49,7 @@ namespace MSP.BetterCalm.BusinessLogic.Services
             return patientRepository.Patients.Add(patient);
         }
 
-        public Meeting ScheduleNewMeeting(Patient patient, Problematic problematic)
+        public Meeting ScheduleNewMeeting(Patient patient, Problematic problematic, double duration)
         {
             if (patient.Id != 0)
             {
@@ -88,7 +88,8 @@ namespace MSP.BetterCalm.BusinessLogic.Services
                     Address = address,
                     DateTime = date,
                     Patient = patient,
-                    Psychologist = psychologist
+                    Psychologist = psychologist,
+                    Duration = duration
                 };
                 meetingRepository.Meetings.Add(meeting);
                 return meeting;
