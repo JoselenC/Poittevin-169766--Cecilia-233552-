@@ -1,5 +1,6 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MSP.BetterCalm.Domain.Exceptions;
 using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.Test
@@ -33,6 +34,29 @@ namespace MSP.BetterCalm.Test
                 Psychologist = psychologist
             };
             Assert.AreEqual(meeting.Psychologist, psychologist);
+        }
+        
+        [TestMethod]
+        public void GetSetDuration()
+        {
+
+            Meeting meeting = new Meeting()
+            {
+                Duration = 1
+            };
+            Assert.AreEqual(meeting.Duration, 1);
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(InvalidMeetingDuration))]
+        public void GetSetDurationInvalid()
+        {
+
+            Meeting meeting = new Meeting()
+            {
+                Duration = 1.3
+            };
+            Assert.AreEqual(meeting.Duration, 1);
         }
         
         [TestMethod]

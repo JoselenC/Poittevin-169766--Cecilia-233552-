@@ -20,6 +20,16 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
+        public void GetSetMeetingDuration()
+        {
+            MeetingDto meeting = new MeetingDto()
+            {
+                Duration = 1
+            };
+            Assert.AreEqual(1, meeting.Duration);
+        }
+        
+        [TestMethod]
         public void GetSetPsychologistId()
         {
             MeetingDto meeting = new MeetingDto()
