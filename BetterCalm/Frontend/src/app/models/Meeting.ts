@@ -7,14 +7,22 @@ export class Meeting {
   psychologist: Psychology;
   dateTime: Date;
   address: string;
+  duration: number;
 
 
-  constructor(id: number, patient: Patient, psychologist: Psychology, dateTime: Date, address: string){
+  constructor(
+    id: number,
+    patient: Patient,
+    psychologist: Psychology,
+    dateTime: Date,
+    address: string,
+    duration: number
+  ) {
     this.id = id;
     this.patient = patient;
     this.psychologist = psychologist;
     this.dateTime = dateTime;
-    this.address = address
+    this.address = address;
+    this.duration = duration;
   }
-
 }

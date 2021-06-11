@@ -38,7 +38,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         public IActionResult ScheduleMeeting([FromBody] ScheduleMeetingDto scheduleMeetingDto)
         {
             Meeting meeting = patientService.ScheduleNewMeeting(scheduleMeetingDto.Patient, 
-                scheduleMeetingDto.Problematic, 0);
+                scheduleMeetingDto.Problematic, scheduleMeetingDto.Duration);
             return Created($"api/patient/schedule", meeting);
         }
         

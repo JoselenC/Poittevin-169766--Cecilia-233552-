@@ -22,6 +22,7 @@ export class PsychologyService {
   }
 
   add(psychology: Psychology): Observable<Psychology> {
+    console.log(psychology);
     return this.http.post<Psychology>(this.uri, psychology);
   }
 

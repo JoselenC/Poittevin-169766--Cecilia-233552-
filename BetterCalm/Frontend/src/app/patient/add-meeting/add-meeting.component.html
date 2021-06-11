@@ -7,6 +7,12 @@
         <mat-option *ngFor="let problem of problematics" [value]="problem">{{problem}}</mat-option>
       </mat-select>
     </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Duration</mat-label>
+      <mat-select [formControl]="durations">
+        <mat-option *ngFor="let duration of durationsValues" [value]="duration">{{duration}}</mat-option>
+      </mat-select>
+    </mat-form-field>
     <button mat-raised-button color="primary" (click)="addSchedule()">Add</button>
   </div>
 </form>
