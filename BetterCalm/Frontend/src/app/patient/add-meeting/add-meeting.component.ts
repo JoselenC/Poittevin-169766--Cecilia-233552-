@@ -26,6 +26,16 @@ export class AddMeetingComponent implements OnInit {
   problematicGroup ?: FormGroup;
   patientId !: number;
 
+  durationsValues: Array<number> = [
+    1,
+    1.5,
+    2
+  ];
+  durations = new FormControl();
+  durationGroup ?: FormGroup;
+
+
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -38,6 +48,7 @@ export class AddMeetingComponent implements OnInit {
     const schedule = new ScheduleMeeting(
       new Patient(this.patientId, 'pedro'),
       new Problematic(0, this.problems.value),
+      this.durations.value
     );
     this.patientService.scheduleMeeting(schedule).subscribe(
       (data: any) => this.result(data),
@@ -50,17 +61,20 @@ export class AddMeetingComponent implements OnInit {
   ngOnInit(): void {
     const routeParams = this.route.snapshot.paramMap;
     this.patientId = Number(routeParams.get('patientId'));
-    this.initFormProblematics();
+    this.initFormSelectors();
   }
 
   result(data: any): void {
     this.router.navigate(['patients', this.patientId]);
-    console.log(data);
   }
 
-  initFormProblematics(): void {
+  initFormSelectors(): void {
     this.problematicGroup = this.formBuilder.group({
       problemsToString: this.problems
+    });
+
+    this.durationGroup = this.formBuilder.group({
+      durationsToString: this.durations
     });
   }
 

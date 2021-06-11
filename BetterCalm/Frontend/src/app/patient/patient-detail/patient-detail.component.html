@@ -8,7 +8,7 @@
   <mat-selection-list class="cl" *ngFor="let meeting of patient.meetings" multiple="false">
     <mat-list-option>
       <h3 matLine> {{meeting.psychologist.name}}</h3>
-      <p matLine> {{meeting.dateTime | date:'short' }}</p>
+      <p matLine> {{meeting.dateTime | date:'short' }} - {{ meeting.duration}}hs</p>
       <p matLine> {{meeting.address}}</p>
     </mat-list-option>
   </mat-selection-list>

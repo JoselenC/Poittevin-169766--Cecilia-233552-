@@ -12,10 +12,10 @@ import {Problematic} from '../../models/Problematic';
 })
 
 export class AddPsychologyComponent implements OnInit {
-  name ?: string;
-  lastName ?: string;
-  address ?: string;
-  worksOnline  ?: boolean;
+  name !: string;
+  lastName !: string;
+  address !: string;
+  worksOnline  !: boolean;
   problematics: Array<string> = [
     'Depresión',
     'Estrés',
@@ -29,6 +29,15 @@ export class AddPsychologyComponent implements OnInit {
   problems = new FormControl();
   problematicGroup ?: FormGroup;
 
+  rates: Array<number> = [
+    500,
+    750,
+    1000,
+    2000
+  ];
+  rate = new FormControl();
+  rateGroup ?: FormGroup;
+
   constructor(
     private psychologyService: PsychologyService,
     private router: Router,
@@ -39,10 +48,11 @@ export class AddPsychologyComponent implements OnInit {
   addPsychology(): void {
     const psychology = new Psychology(
       0,
-      this.name!,
-      this.lastName!,
-      this.address!,
-      this.worksOnline!,
+      this.name,
+      this.lastName,
+      this.address,
+      this.worksOnline,
+      this.rate.value,
       this.problems.value.map((x: any) => (new Problematic(0, x))),
       undefined
     );
@@ -60,12 +70,16 @@ export class AddPsychologyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initFormProblematics();
+    this.initForm();
   }
 
-  initFormProblematics(): void {
+  initForm(): void {
     this.problematicGroup = this.formBuilder.group({
       problemsToString: this.problems
+    });
+
+    this.rateGroup = this.formBuilder.group({
+      rateToString: this.rates
     });
   }
 }

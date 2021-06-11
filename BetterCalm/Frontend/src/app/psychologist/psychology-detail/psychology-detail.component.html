@@ -3,12 +3,12 @@
     <h1> {{psychology.name}} {{ psychology.lastName }}</h1>
     <div class="mat-subheading-1" *ngIf="psychology.worksOnline"> Works Online! </div>
     <div class="mat-subheading-1" *ngIf="!psychology.worksOnline"> Works face-to-face! </div>
+    <div class="mat-subheading-1">Hourly rate: {{psychology.rate}}</div>
     <div class="mat-subheading-1" >
       <span *ngFor="let problem of psychology.problematics; let last=last">
         {{problem.name}} <ng-container *ngIf="!last">,</ng-container>
       </span>
     </div>
-
   </div>
   <mat-divider></mat-divider>
   <h2>Meetings</h2>

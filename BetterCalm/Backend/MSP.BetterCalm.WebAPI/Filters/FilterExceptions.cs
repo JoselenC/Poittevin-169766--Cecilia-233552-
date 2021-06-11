@@ -40,6 +40,7 @@ namespace MSP.BetterCalm.WebAPI.Filters
             };
             List<Type> errors422 = new List<Type>()
             {
+                typeof(InvalidMeetingDuration),
                 typeof(InvalidNameLength),
                 typeof(InvalidContentType),
                 typeof(InvalidDescriptionLength),
