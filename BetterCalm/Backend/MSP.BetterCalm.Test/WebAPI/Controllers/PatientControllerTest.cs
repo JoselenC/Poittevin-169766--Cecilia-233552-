@@ -102,7 +102,7 @@ namespace MSP.BetterCalm.Test.WebAPI
                 Psychologist = psychologist,
             };
             mockPatientService.Setup(
-                x => x.ScheduleNewMeeting(patient, problematics[0])
+                x => x.ScheduleNewMeeting(patient, problematics[0], 0)
                 ).Returns(expectedMeeting);
 
             var result = patientController.ScheduleMeeting(scheduleMeetingDto);

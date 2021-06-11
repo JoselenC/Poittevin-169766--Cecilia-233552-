@@ -9,7 +9,7 @@ namespace MSP.BetterCalm.BusinessLogicInterface
 
         Patient SetPatient(Patient patient);
         Patient GetPatientsById(int patientId);
-        Meeting ScheduleNewMeeting(Patient patient, Problematic problematic);
+        Meeting ScheduleNewMeeting(Patient patient, Problematic problematic, double duration);
         void DeletePatientById(int patientId);
         Patient UpdatePatient(Patient newPatient, int patientId);
     }
