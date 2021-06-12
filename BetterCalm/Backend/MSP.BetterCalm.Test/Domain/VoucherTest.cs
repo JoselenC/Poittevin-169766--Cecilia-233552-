@@ -21,6 +21,16 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
+        public void GetSetVoucherId()
+        {
+            Voucher voucher = new Voucher()
+            {
+                VoucherId = 1
+            };
+            Assert.AreEqual(voucher.VoucherId, 1);
+        }
+        
+        [TestMethod]
         public void GetSetPsychologist()
         {
             Psychologist psychologist = new Psychologist()
