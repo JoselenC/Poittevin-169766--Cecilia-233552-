@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -52,17 +53,10 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
+        [ExpectedException(typeof(NotImplementedException))]
         public void GetById()
         {
-            Voucher realVoucher = Vouchers.FindById(1);
-            Assert.AreEqual(voucherTest, realVoucher);
-        }
-        
-        [TestMethod]
-        [ExpectedException(typeof(KeyNotFoundException), "")]
-        public void GetByIdNull()
-        {
-            Vouchers.FindById(3);
+            Vouchers.FindById(1);
         }
     }
 }
