@@ -11,9 +11,9 @@ namespace MSP.BetterCalm.Domain
         public DateTime DateTime { get; set; }
         public string Address { get; set; }
         private Times _duration { get; set; }
-        public double Duration { get => durationGet(); set => durationSet(value); }
+        public double Duration { get => DurationGet(); set => DurationSet(value); }
 
-        private void durationSet(double durationValue)
+        private void DurationSet(double durationValue)
         {
             switch (durationValue)
             {
@@ -31,7 +31,7 @@ namespace MSP.BetterCalm.Domain
             }
         }
         
-        private double durationGet()
+        private double DurationGet()
         {
             switch (_duration)
             {
