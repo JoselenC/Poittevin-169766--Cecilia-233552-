@@ -5,7 +5,7 @@ using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.BusinessLogic.Services
 {
-    public class VoucherService
+    public class VoucherService : IVoucherService
     {
         private ManagerVoucherRepository repository;
         public VoucherService(ManagerVoucherRepository vRepository)

@@ -33,6 +33,7 @@ namespace MSP.BetterCalm.DataAccess
             services.AddScoped<IPlaylistService,PlaylistService>();
             services.AddScoped<IPsychologistService,PsychologistService>();
             services.AddScoped<IAdministratorService,AdministratorService>();
+            services.AddScoped<IVoucherService,VoucherService>();
             services.AddScoped<IImportService,ImportService>();
             
             services.AddScoped<ManagerProblematicRepository,ProblematicRepository>();
@@ -43,6 +44,7 @@ namespace MSP.BetterCalm.DataAccess
             services.AddScoped<ManagerPsychologistRepository,PsychologistRepository>();
             services.AddScoped<ManagerAdministratorRepository, AdministratorRepository>();
             services.AddScoped<ManagerMeetingRepository, MeetingRepository>();
+            services.AddScoped<ManagerVoucherRepository, VoucherRepository>();
            
             services.AddScoped<IMapper<Category, CategoryDto>,CategoryMapper>();
             services.AddScoped<IMapper<Problematic, ProblematicDto>,ProblematicMapper>();
@@ -51,6 +53,7 @@ namespace MSP.BetterCalm.DataAccess
             services.AddScoped<IMapper<Patient, PatientDto>, PatientMapper>();
             services.AddScoped<IMapper<Psychologist, PsychologistDto>, PsychologistMapper>();
             services.AddScoped<IMapper<Administrator, AdministratorDto>, AdministratorMapper>();
+            services.AddScoped<IMapper<Voucher, VoucherDto>, VoucherMapper>();
             services.AddScoped<IMapper<Meeting, MeetingDto>, MeetingMapper>();
        }
         

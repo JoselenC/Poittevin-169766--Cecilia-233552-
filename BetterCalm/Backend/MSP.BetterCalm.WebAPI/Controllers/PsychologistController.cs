@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.BusinessLogic.Services;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.WebAPI.Filters;
