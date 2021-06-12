@@ -17,6 +17,7 @@ namespace MSP.BetterCalm.DataAccess
         public DbSet<PlaylistDto> Playlists { get; set; }
         public DbSet<PsychologistProblematicDto> PsychologistProblematic { get; set; }
         public DbSet<MeetingDto> Meeting { get; set; }
+        public DbSet<VoucherDto> Vouchers { get; set; }
 
         public ContextDb() { }
         public ContextDb(DbContextOptions<ContextDb> options): base(options) { }
