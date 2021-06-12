@@ -15,7 +15,6 @@ namespace MSP.BetterCalm.Test.WebAPI
     [TestClass]
     public class CategoryControllerTest
     {
-
         private Mock<ICategoryService> mockCategoryService;
         private CategoryController categoryController ;
         private List<Category> categories;
