@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -11,21 +10,21 @@ using MSP.BetterCalm.Domain;
 namespace MSP.BetterCalm.Test
 {
     [TestClass]
-    public class CategoryMapperTest
+    public class VoucherMapperTest
     {
         private DbContextOptions<ContextDb> options;
         private ContextDb context;
-        public  DataBaseRepository<Category, CategoryDto> Categories;
-        public  Category categoryTest;
+        public DataBaseRepository<Voucher, VoucherDto> Vouchers;
+        public Voucher voucherTest;
 
         [TestInitialize]
         public  void TestFixtureSetup()
         {
             options = new DbContextOptionsBuilder<ContextDb>().UseInMemoryDatabase(databaseName: "BetterCalmDB").Options;
             context = new ContextDb(this.options); 
-            Categories = new DataBaseRepository<Category, CategoryDto>(new CategoryMapper(), context.Categories, context);
-            categoryTest = new Category() {Id=1, Name = "Dormir",};
-            Categories.Add(categoryTest);
+            Vouchers = new DataBaseRepository<Voucher, VoucherDto>(new VoucherMapper(), context.Vouchers, context);
+            voucherTest = new Voucher() {VoucherId=1};
+            Vouchers.Add(voucherTest);
             
         }
         
@@ -38,40 +37,32 @@ namespace MSP.BetterCalm.Test
         [TestMethod]
         public void DomainToDtoTest()
         {
-            Category categoryTest = new Category() {Id=2, Name = "Yoga"};
-            Categories.Add(categoryTest);
-            Category realCategory = Categories.Find(x => x.Name == "Yoga");
-            Assert.AreEqual(categoryTest, realCategory);
+            Voucher voucherTest = new Voucher() {VoucherId=2};
+            Vouchers.Add(voucherTest);
+            Voucher realVoucher = Vouchers.Find(x => x.VoucherId == 2);
+            Assert.AreEqual(voucherTest, realVoucher);
             
         }
 
         [TestMethod]
         public void DtoToDomainTest()
         {
-            Category realCategory = Categories.Find(x => x.Name == "Dormir");
-            Assert.AreEqual(categoryTest, realCategory);
+            Voucher realVoucher = Vouchers.Find(x => x.VoucherId == 1);
+            Assert.AreEqual(voucherTest, realVoucher);
         }
         
         [TestMethod]
         public void GetById()
         {
-            Category realCategory = Categories.FindById(1);
-            Assert.AreEqual(categoryTest, realCategory);
+            Voucher realVoucher = Vouchers.FindById(1);
+            Assert.AreEqual(voucherTest, realVoucher);
         }
         
         [TestMethod]
         [ExpectedException(typeof(KeyNotFoundException), "")]
         public void GetByIdNull()
         {
-            Categories.FindById(2);
-        }
-        
-        [TestMethod]
-        [ExpectedException(typeof(NotImplementedException), "")]
-        public void UpdateTest()
-        {
-            CategoryMapper categoryMapper = new CategoryMapper();
-            categoryMapper.UpdateDtoObject(new CategoryDto(), new Category(),new ContextDb());
+            Vouchers.FindById(3);
         }
     }
 }
