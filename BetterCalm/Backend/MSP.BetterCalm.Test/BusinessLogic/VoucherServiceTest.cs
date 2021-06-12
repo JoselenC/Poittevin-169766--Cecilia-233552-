@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using MSP.BetterCalm.BusinessLogic;
+using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.BusinessLogic.Managers;
 using MSP.BetterCalm.BusinessLogic.Services;
 using MSP.BetterCalm.Domain;

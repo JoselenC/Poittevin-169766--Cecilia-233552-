@@ -26,9 +26,9 @@ namespace MSP.BetterCalm.Test
         {
             VoucherDto voucher = new VoucherDto()
             {
-                VoucherId = 1
+                VoucherDtoId = 1
             };
-            Assert.AreEqual(voucher.VoucherId, 1);
+            Assert.AreEqual(voucher.VoucherDtoId, 1);
         }
         
         [TestMethod]
