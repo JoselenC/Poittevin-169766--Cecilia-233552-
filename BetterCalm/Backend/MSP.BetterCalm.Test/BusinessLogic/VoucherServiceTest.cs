@@ -18,7 +18,6 @@ namespace MSP.BetterCalm.Test.BusinessLogic
         private Mock<ManagerVoucherRepository> repoMock;
 
         private Patient patient;
-        private Psychologist psychology;
         private Voucher voucher;
 
         [TestInitialize]
@@ -33,15 +32,10 @@ namespace MSP.BetterCalm.Test.BusinessLogic
             {
                 Name = "Patient1"
             };
-            psychology = new Psychologist()
-            {
-                Name = "Psyco1"
-            };
             voucher = new Voucher()
             {
                 VoucherId = 1,
                 Patient = patient,
-                Psychologist = psychology,
                 Discount = Discounts.Medium,
                 MeetingsAmount = 2,
                 Status = Status.Pending

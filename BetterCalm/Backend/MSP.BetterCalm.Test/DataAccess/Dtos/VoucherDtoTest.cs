@@ -30,21 +30,7 @@ namespace MSP.BetterCalm.Test
             };
             Assert.AreEqual(voucher.VoucherDtoId, 1);
         }
-        
-        [TestMethod]
-        public void GetSetPsychologist()
-        {
-            PsychologistDto psychologist = new PsychologistDto()
-            {
-                Name = "Test1"
-            };
-            VoucherDto voucher = new VoucherDto()
-            {
-                Psychologist = psychologist
-            };
-            Assert.AreEqual(voucher.Psychologist, psychologist);
-        }
-        
+
         [TestMethod]
         public void GetSetMeetingAmount()
         {
