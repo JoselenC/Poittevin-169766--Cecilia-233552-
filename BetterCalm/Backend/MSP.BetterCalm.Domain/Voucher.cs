@@ -1,4 +1,5 @@
 using System;
+using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.Domain.Exceptions;
 
 namespace MSP.BetterCalm.Domain
@@ -7,15 +8,19 @@ namespace MSP.BetterCalm.Domain
     {
         public int VoucherId { get; set; }
         public Patient Patient { get; set; }
-        public int MeetingsAmount { get; set; }
+        private int _meetingAmount { get; set; } = 1;
+        public int MeetingsAmount
+        {
+            get => _meetingAmount;
+            set => SetMeetingsAmount(value);
+        }
+
         public Status Status { get; set; } = Status.NotReady;
-        public Discounts Discount { get; set; }
+        public Discounts Discount { get; set; } = Discounts.Low;
+
         protected bool Equals(Voucher other)
         {
-            return VoucherId == other.VoucherId && 
-                   MeetingsAmount == other.MeetingsAmount && 
-                   Status == other.Status &&
-                   Discount == other.Discount;
+            return VoucherId == other.VoucherId;
         }
 
         public override bool Equals(object obj)
@@ -26,9 +31,18 @@ namespace MSP.BetterCalm.Domain
             return Equals((Voucher) obj);
         }
 
-        public override int GetHashCode()
+        public void SetMeetingsAmount(int value)
         {
-            return HashCode.Combine(VoucherId, MeetingsAmount, (int) Status, (int) Discount);
+            _meetingAmount = value;
+            if (Status == Status.Approved || Status == Status.Rejected || Status == Status.Used)
+            {
+                throw new VoucherAlreadyClosed();
+            }
+
+            if (value >= 5)
+            {
+                Status = Status.Pending;
+            }
         }
     }
 }
