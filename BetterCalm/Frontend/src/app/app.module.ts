@@ -18,6 +18,7 @@ import {LoginModule} from './login/login.module';
 import {AuthInterceptor} from './interceptors/auth.interceptor';
 import {ImportContentModule} from './import/import-content.module';
 import {AdminModule} from './admin/admin.module';
+import {VoucherModule} from './voucher/voucher.module';
 
 const routes: Routes = [
   {
@@ -46,6 +47,7 @@ const routes: Routes = [
     LoginModule,
     ImportContentModule,
     AdminModule,
+    VoucherModule,
     RouterModule.forRoot(routes),
   ],
   exports: [
