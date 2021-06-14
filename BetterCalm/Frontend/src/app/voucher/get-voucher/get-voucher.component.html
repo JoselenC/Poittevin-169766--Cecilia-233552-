@@ -1,1 +1,18 @@
-<p>get-voucher works!</p>
+<h3 *ngIf="vouchers.length != 0"> All this vouchers are pending for a response</h3>
+<mat-selection-list multiple="false" *ngIf="vouchers.length != 0">
+  <mat-list-item *ngFor="let voucher of vouchers" >
+    <mat-list-option (click)="navigateTo(voucher.voucherId)">
+      <mat-icon mat-list-icon> account_box</mat-icon>
+      <h3 mat-line> Patient: {{voucher.patient.name}}, {{voucher.patient.lastName}} </h3>
+      <p mat-line> Amount of meetings: {{voucher.meetingsAmount}} </p>
+    </mat-list-option>
+    <button mat-icon-button (click)="approve(voucher)">
+      <mat-icon class="mat-24">done</mat-icon>
+    </button>
+    <button mat-icon-button (click)="reject(voucher)">
+      <mat-icon class="mat-24">close</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-selection-list>
+
+<h3 *ngIf="vouchers.length == 0" fxLayoutAlign="center"> All vouchers processed </h3>
