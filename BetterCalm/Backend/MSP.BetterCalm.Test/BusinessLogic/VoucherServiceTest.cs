@@ -19,6 +19,7 @@ namespace MSP.BetterCalm.Test.BusinessLogic
 
         private Patient patient;
         private Voucher voucher;
+        private Voucher voucherNotGet;
 
         [TestInitialize]
         public void TestFixtureSetup()
@@ -40,6 +41,14 @@ namespace MSP.BetterCalm.Test.BusinessLogic
                 MeetingsAmount = 2,
                 Status = Status.Pending
             };
+            voucherNotGet = new Voucher()
+            {
+                VoucherId = 1,
+                Patient = patient,
+                Discount = Discounts.Medium,
+                MeetingsAmount = 2,
+                Status = Status.Approved
+            };
         }
 
         [TestMethod]
@@ -47,13 +56,14 @@ namespace MSP.BetterCalm.Test.BusinessLogic
         {
             List<Voucher> vouchers = new List<Voucher>
             {
-                voucher
+                voucher,
+                voucherNotGet
             };
             voucherMock.Setup(
                 x => x.Get()
             ).Returns(vouchers);
             List<Voucher> actualVouchers = service.GetVouchers();
-            CollectionAssert.AreEqual(vouchers, actualVouchers);
+            CollectionAssert.AreEqual(new []{voucher}, actualVouchers);
             voucherMock.VerifyAll();
         }
         
@@ -77,18 +87,7 @@ namespace MSP.BetterCalm.Test.BusinessLogic
             ).Throws(new KeyNotFoundException());
             service.GetVouchersById(1);
         }
-        
-        [TestMethod]
-        public void TestAddVoucher()
-        {
-            voucherMock.Setup(
-                x => x.Add(voucher)
-            ).Returns(voucher);
-            Voucher createdVoucher = service.SetVoucher(voucher);
-            Assert.AreEqual(voucher, createdVoucher);
-            voucherMock.VerifyAll();
-        }
-        
+                
         [TestMethod]
         public void TestUpdateVoucher()
         {
@@ -107,30 +106,20 @@ namespace MSP.BetterCalm.Test.BusinessLogic
             Assert.AreEqual(newVoucher, realUpdated);
             voucherMock.VerifyAll();
         }
-
-        [TestMethod]
-        public void TestDeleteVoucher()
-        {
-
-            voucherMock.Setup(
-                x => x.Delete(voucher)
-            );
-            voucherMock.Setup(
-                x => x.Find(It.IsAny<Predicate<Voucher>>())
-            ).Returns(voucher);
-            service.DeleteVoucherById(voucher.VoucherId);
-            voucherMock.VerifyAll();
-        }
         
         [TestMethod]
-        [ExpectedException(typeof(NotFoundVoucher))]
-        public void TestDeleteVoucherNotFound()
+        [ExpectedException(typeof(NotImplementedException))]
+        public void TestAddVoucher()
         {
+            service.SetVoucher(voucher);
+        }
 
-            voucherMock.Setup(
-                x => x.Find(It.IsAny<Predicate<Voucher>>())
-            ).Throws(new KeyNotFoundException());
-            service.DeleteVoucherById(1);
+        [TestMethod]
+        [ExpectedException(typeof(NotImplementedException))]
+
+        public void TestDeleteVoucher()
+        {
+            service.DeleteVoucherById(voucher.VoucherId);
         }
     }
 }

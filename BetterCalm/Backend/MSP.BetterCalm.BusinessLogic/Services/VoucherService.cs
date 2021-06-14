@@ -15,7 +15,9 @@ namespace MSP.BetterCalm.BusinessLogic.Services
 
         public List<Voucher> GetVouchers()
         {
-            return repository.Vouchers.Get();
+            return repository.Vouchers.Get().FindAll(
+                x => x.Status == Status.Pending
+                );
         }
 
         public Voucher GetVouchersById(int voucherId)
@@ -32,7 +34,7 @@ namespace MSP.BetterCalm.BusinessLogic.Services
 
         public Voucher SetVoucher(Voucher voucher)
         {
-            return repository.Vouchers.Add(voucher);
+            throw new System.NotImplementedException();
         }
 
         public Voucher UpdateVoucher(Voucher newVoucher, int voucherId)
@@ -43,8 +45,7 @@ namespace MSP.BetterCalm.BusinessLogic.Services
 
         public void DeleteVoucherById(int voucherVoucherId)
         {
-            Voucher psychologist = GetVouchersById(voucherVoucherId);
-            repository.Vouchers.Delete(psychologist);
+            throw new System.NotImplementedException();
         }
     }
 }
