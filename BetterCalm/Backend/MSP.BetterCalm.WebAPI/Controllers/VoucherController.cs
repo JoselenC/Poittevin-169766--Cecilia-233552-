@@ -5,15 +5,15 @@ using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.WebAPI.Filters;
 
 namespace MSP.BetterCalm.WebAPI.Controllers
-{    
+{
     [ApiController]
     [FilterExceptions]
     // [ServiceFilter(typeof(FilterAuthentication))]
     [Route("api/Voucher")]
-    public class VoucherController: ControllerBase
+    public class VoucherController : ControllerBase
     {
         private IVoucherService _voucherService;
-        
+
         public VoucherController(IVoucherService voucherService)
         {
             this._voucherService = voucherService;
@@ -31,6 +31,16 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         {
             Voucher voucherById = _voucherService.GetVouchersById(id);
             return Ok(voucherById);
+        }
+
+        [HttpPut("{VoucherId}")]
+        public OkObjectResult UpdateVoucher(
+            [FromBody] Voucher voucher,
+            [FromRoute] int VoucherId
+        )
+        {
+            Voucher updatedVoucher = _voucherService.UpdateVoucher(voucher, VoucherId);
+            return Ok(updatedVoucher);
         }
     }
 }

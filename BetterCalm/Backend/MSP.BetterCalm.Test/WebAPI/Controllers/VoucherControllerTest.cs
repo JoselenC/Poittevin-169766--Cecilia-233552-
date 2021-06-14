@@ -53,5 +53,17 @@ namespace MSP.BetterCalm.Test.WebAPI.Controllers
             mockVoucherService.Setup(m => m.GetVouchersById(1)).Throws(new NotFoundId());
             voucherController.GetVoucherById(1);
         }
+        
+        [TestMethod]
+        public void TestUpdateVoucherById()
+        {
+            mockVoucherService.Setup(
+                x => x.UpdateVoucher(voucher, voucher.VoucherId)
+            ).Returns(voucher);
+            var result = voucherController.UpdateVoucher(voucher, voucher.VoucherId);
+            var createdResult = result as OkObjectResult;
+            var realPsycho = createdResult.Value;
+            Assert.AreEqual(realPsycho, voucher);
+        }
     }
 }
