@@ -4,6 +4,7 @@ namespace MSP.BetterCalm.Domain
     {
         Approved,
         Rejected,
+        Used,
         Pending,
         NotReady
     }

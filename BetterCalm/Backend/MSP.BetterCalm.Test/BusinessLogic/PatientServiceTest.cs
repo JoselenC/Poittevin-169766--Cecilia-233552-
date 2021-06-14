@@ -22,6 +22,9 @@ namespace MSP.BetterCalm.Test.BusinessLogic
 
         private Mock<IRepository<Meeting>> _meetingMock;
         private Mock<ManagerMeetingRepository> _meetingRepoMock;
+        
+        private Mock<IRepository<Voucher>> _voucherMock;
+        private Mock<ManagerVoucherRepository> _voucherRepoMock;
 
         private Patient _patient;
         private List<Problematic> _problematics;
@@ -42,7 +45,16 @@ namespace MSP.BetterCalm.Test.BusinessLogic
             _meetingMock = new Mock<IRepository<Meeting>>();
             _meetingRepoMock.Object.Meetings = _meetingMock.Object;
             
-            _service = new PatientService(_repoMock.Object, _psyRepoMock.Object, _meetingRepoMock.Object);
+            _voucherRepoMock = new Mock<ManagerVoucherRepository>();
+            _voucherMock = new Mock<IRepository<Voucher>>();
+            _voucherRepoMock.Object.Vouchers = _voucherMock.Object;
+            
+            _service = new PatientService(
+                _repoMock.Object, 
+                _psyRepoMock.Object, 
+                _meetingRepoMock.Object,
+                _voucherRepoMock.Object
+            );
             
             _patient = new Patient()
             {
@@ -142,7 +154,43 @@ namespace MSP.BetterCalm.Test.BusinessLogic
         }
         
         [TestMethod]
-        public void TestScheduleNewMeetingOnNextWeek()
+        public void TestScheduleNewMeetingOnNextWeekPatientWithId()
+        {
+            Patient patient = new Patient()
+            {
+                Id = 2,
+                Name = "Patient1"
+            };
+            Psychologist busyPsychologist = new Psychologist()
+            {
+                Name = "BusyPerson",
+                Meetings = GetMeetingsForDays(1),
+                Problematics = _problematics
+            };
+            DateTime nextDayMeeting = busyPsychologist.GetDayForNextMeetingOnWeek(DateTime.Today);
+            Meeting expectedMeeting = new Meeting()
+            {
+                DateTime =nextDayMeeting,
+                Patient = patient,
+                Psychologist = busyPsychologist
+            };
+            _patientMock.Setup(
+                x => x.Find(It.IsAny<Predicate<Patient>>())
+            ).Returns(patient);
+            _psychologistMock.Setup(
+                x => 
+                    x.Get()
+            ).Returns(new List<Psychologist>(){busyPsychologist});
+            _voucherMock.Setup(
+                x => x.Find(It.IsAny<Predicate<Voucher>>())
+            ).Returns(new Voucher());
+            Meeting actualMeeting = _service.ScheduleNewMeeting(patient, _problematics[0], 1);
+            Assert.AreEqual(expectedMeeting, actualMeeting);
+            _psychologistMock.VerifyAll();
+        }
+        
+        [TestMethod]
+        public void TestScheduleNewMeetingWithNewVoucher()
         {
             Psychologist busyPsychologist = new Psychologist()
             {
@@ -161,10 +209,14 @@ namespace MSP.BetterCalm.Test.BusinessLogic
                 x => 
                     x.Get()
             ).Returns(new List<Psychologist>(){busyPsychologist});
+            _voucherMock.Setup(
+                x => x.Find(It.IsAny<Predicate<Voucher>>())
+            ).Throws(new KeyNotFoundException());
             Meeting actualMeeting = _service.ScheduleNewMeeting(_patient, _problematics[0], 1);
             Assert.AreEqual(expectedMeeting, actualMeeting);
             _psychologistMock.VerifyAll();
         }
+        
         
         [TestMethod]
         [ExpectedException(typeof(AlreadyMeetingException))]
@@ -201,6 +253,17 @@ namespace MSP.BetterCalm.Test.BusinessLogic
         }
         
         [TestMethod]
+        [ExpectedException(typeof(NotFoundPsychologist))]
+        public void TestScheduleNewMeetingNotFoundPsychologist()
+        {
+            _psychologistMock.Setup(
+                x => 
+                    x.Get()
+            );
+            _service.ScheduleNewMeeting(_patient, _problematics[0], 1);
+        }
+        
+        [TestMethod]
         public void TestScheduleNewMeetingWithOlderPsychology()
         {
             Psychologist newBusyPsychologist = new Psychologist()
@@ -228,6 +291,9 @@ namespace MSP.BetterCalm.Test.BusinessLogic
                 x => 
                     x.Get()
             ).Returns(new List<Psychologist>(){newBusyPsychologist, oldBusyPsychologist});
+            _voucherMock.Setup(
+                x => x.Find(It.IsAny<Predicate<Voucher>>())
+            ).Returns(new Voucher());
             Meeting actualMeeting = _service.ScheduleNewMeeting(_patient, _problematics[0], 1);
             Assert.AreEqual(expectedMeeting, actualMeeting);
             _psychologistMock.VerifyAll();
@@ -253,6 +319,9 @@ namespace MSP.BetterCalm.Test.BusinessLogic
                 x => 
                     x.Get()
             ).Returns(new List<Psychologist>(){busyPsychologist});
+            _voucherMock.Setup(
+                x => x.Find(It.IsAny<Predicate<Voucher>>())
+            ).Returns(new Voucher());
             Meeting actualMeeting = _service.ScheduleNewMeeting(_patient, _problematics[0], 1);
             Assert.AreEqual(expectedMeeting, actualMeeting);
             _psychologistMock.VerifyAll();

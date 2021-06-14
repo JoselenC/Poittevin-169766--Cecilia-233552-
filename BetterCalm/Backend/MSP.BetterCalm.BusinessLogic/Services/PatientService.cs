@@ -13,16 +13,18 @@ namespace MSP.BetterCalm.BusinessLogic.Services
         private ManagerProblematicRepository problematicRepository;
         private ManagerPsychologistRepository psychologistRepository;
         private ManagerMeetingRepository meetingRepository;
-
+        private ManagerVoucherRepository voucherRepository;
         public PatientService(
             ManagerPatientRepository vRepository, 
             ManagerPsychologistRepository vPsyRepo,
-            ManagerMeetingRepository vMeetingRepo
-            )
+            ManagerMeetingRepository vMeetingRepo,
+            ManagerVoucherRepository vVoucherRepo
+        )
         {
             patientRepository = vRepository;
             psychologistRepository = vPsyRepo;
             meetingRepository = vMeetingRepo;
+            voucherRepository = vVoucherRepo;
         }
 
         public List<Patient> GetPatients()
@@ -47,6 +49,29 @@ namespace MSP.BetterCalm.BusinessLogic.Services
         public Patient SetPatient(Patient patient)
         {
             return patientRepository.Patients.Add(patient);
+        }
+
+        private void CreateOrUpdateVoucher(Patient patient)
+        {
+            try
+            {
+                Voucher voucher = voucherRepository.Vouchers.Find(
+                    x => (x.Status == Status.NotReady ||
+                          x.Status == Status.Pending)  &&
+                         x.Patient.Id == patient.Id
+                );
+                voucher.MeetingsAmount += 1;
+                voucherRepository.Vouchers.Update(voucher, voucher);
+            }
+            catch (KeyNotFoundException)
+            {
+                voucherRepository.Vouchers.Add(
+                    new Voucher()
+                    {
+                        Patient = patient
+                    }
+                );
+            }
         }
 
         public Meeting ScheduleNewMeeting(Patient patient, Problematic problematic, double duration)
@@ -77,12 +102,8 @@ namespace MSP.BetterCalm.BusinessLogic.Services
                 DateTime date = new DateTime(auxDate.Year, auxDate.Month, auxDate.Day, 0, 0, 0);
 
                 string address;
-                if (psychologist.WorksOnline)
-                    address = $"https://bettercalm.com.uy/{psychologist.PsychologistId}_{patient.Id}/{Guid.NewGuid().ToString()}";
-                else
-                    address = psychologist.Address;
+                address = CreateAddress(patient, psychologist);
                 
-
                 Meeting meeting = new Meeting()
                 {
                     Address = address,
@@ -92,6 +113,7 @@ namespace MSP.BetterCalm.BusinessLogic.Services
                     Duration = duration
                 };
                 meetingRepository.Meetings.Add(meeting);
+                CreateOrUpdateVoucher(patient);
                 return meeting;
             }
             catch (InvalidOperationException)
@@ -103,7 +125,17 @@ namespace MSP.BetterCalm.BusinessLogic.Services
                 throw new NotFoundPsychologist();
             }
         }
-        
+
+        private static string CreateAddress(Patient patient, Psychologist psychologist)
+        {
+            string address;
+            if (psychologist.WorksOnline)
+                address = $"https://bettercalm.com.uy/{psychologist.PsychologistId}_{patient.Id}/{Guid.NewGuid().ToString()}";
+            else
+                address = psychologist.Address;
+            return address;
+        }
+
         public void DeletePatientById(int patientId)
         {
             

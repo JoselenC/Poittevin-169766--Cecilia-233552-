@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.Test
@@ -40,6 +41,18 @@ namespace MSP.BetterCalm.Test
                 MeetingsAmount = 3
             };
             Assert.AreEqual(voucher.MeetingsAmount, 3);
+        }
+        
+        [TestMethod]
+        [ExpectedException(typeof(VoucherAlreadyClosed))]
+        public void GetSetMeetingAmountVoucherClosed()
+        {
+
+            Voucher voucher = new Voucher()
+            {
+                Status = Status.Rejected,
+                MeetingsAmount = 9
+            };
         }
         
         [TestMethod]
