@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {VoucherService} from '../../services/voucher/voucher.service';
 import {Voucher} from '../../models/Voucher';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {VoucherSelectPercentageComponent} from '../voucher-select-percetage/voucher-select-percentage.component';
 
 @Component({
   selector: 'app-get-voucher',
@@ -13,7 +15,8 @@ export class GetVoucherComponent implements OnInit {
 
   constructor(
     private voucherService: VoucherService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) {
   }
 
@@ -31,7 +34,13 @@ export class GetVoucherComponent implements OnInit {
 
   private result(data: Array<Voucher>): void {
     this.vouchers = data;
-    console.log(this.vouchers);
+  }
+
+  openDialog(): MatDialogRef<VoucherSelectPercentageComponent> {
+    return this.dialog.open(VoucherSelectPercentageComponent, {
+      width: '250px',
+      data: 25,
+    });
   }
 
   navigateTo(voucherId: number): void {
@@ -39,9 +48,16 @@ export class GetVoucherComponent implements OnInit {
   }
 
   approve(voucher: Voucher): void {
-    this.voucherService.approve(voucher).subscribe(
-      (data: any) => {
-        this.getVouchers();
+    this.openDialog().afterClosed().subscribe(
+      (discount: any) => {
+        voucher.discount = discount;
+        if (discount) {
+          this.voucherService.approve(voucher).subscribe(
+            (_: any) => {
+              this.getVouchers();
+            }
+          );
+        }
       }
     );
   }
