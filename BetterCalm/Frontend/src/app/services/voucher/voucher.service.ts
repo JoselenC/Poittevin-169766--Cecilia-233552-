@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Voucher} from '../../models/Voucher';
 import {HttpClient} from '@angular/common/http';
-import {Playlist} from '../../models/Playlist';
 import {Status} from '../../models/Status';
 
 @Injectable({

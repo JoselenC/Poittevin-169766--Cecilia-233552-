@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Please select percetange of discount</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="outline">
+    <mat-label>Discount</mat-label>
+    <mat-select (selectionChange)="changeDiscount($event)" [formControl]="formDiscount">
+      <mat-option *ngFor="let discount of discounts" [value]="discount">{{discount}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="discount" cdkFocusInitial>Ok</button>
+</div>
