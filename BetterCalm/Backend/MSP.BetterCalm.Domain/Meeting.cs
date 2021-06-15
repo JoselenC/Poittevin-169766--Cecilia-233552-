@@ -11,6 +11,7 @@ namespace MSP.BetterCalm.Domain
         public DateTime DateTime { get; set; }
         public string Address { get; set; }
         private Times _duration { get; set; }
+        public double Cost { get; set; }
         public double Duration { get => DurationGet(); set => DurationSet(value); }
 
         private void DurationSet(double durationValue)
@@ -48,10 +49,11 @@ namespace MSP.BetterCalm.Domain
         
         protected bool Equals(Meeting other)
         {
-            return Equals(Psychologist, other.Psychologist) && 
-                   Equals(Patient, other.Patient) && 
-                   Address == other.Address &&
-                   DateTime.Equals(other.DateTime);
+            bool hasSamePsychology = Equals(Psychologist, other.Psychologist);
+            bool hasSamePatient = Equals(Patient, other.Patient);
+            bool hasSameAddress = Address == other.Address;
+            bool hasSameDateTime = DateTime.Equals(other.DateTime);
+            return hasSamePatient && hasSamePsychology && hasSameAddress && hasSameDateTime;
         }
 
         public override bool Equals(object obj)

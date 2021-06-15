@@ -20,11 +20,7 @@ namespace MSP.BetterCalm.Domain
                    Name == other.Name &&
                    LastName == other.LastName &&
                    Cellphone == other.Cellphone &&
-                   BirthDay.Equals(other.BirthDay) &&
-                   Meetings.OrderBy(
-                       x => x.Psychologist.PsychologistId).SequenceEqual(
-                       other.Meetings.OrderBy(
-                           x => x.Psychologist.PsychologistId)); ;
+                   BirthDay.Equals(other.BirthDay);
         }
 
         public override bool Equals(object obj)

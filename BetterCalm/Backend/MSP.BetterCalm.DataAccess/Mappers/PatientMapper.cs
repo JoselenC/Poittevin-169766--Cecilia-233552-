@@ -48,13 +48,12 @@ namespace MSP.BetterCalm.DataAccess.Mappers
                         if(problematicById!=null)
                             problematics.Add(problematicMapper.DtoToDomain(problematicById, context));
                     }
-
-
                     domainMeetings.Add(
                         new Meeting()
                         {
                             DateTime = meeting.DateTime,
                             Address = meeting.Address,
+                            Cost = meeting.Cost,
                             Psychologist = new Psychologist()
                             {
                                 Name = meeting.Psychologist.Name,
