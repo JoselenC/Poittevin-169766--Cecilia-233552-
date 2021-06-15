@@ -3,7 +3,7 @@ import {Content} from '../../models/Content';
 import {ActivatedRoute} from '@angular/router';
 import {ContentService} from '../../services/content/content.service';
 import {Observable} from 'rxjs';
-import {DomSanitizer} from '@angular/platform-browser';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-content-detail',
@@ -14,6 +14,7 @@ export class ContentDetailComponent implements OnInit {
   content: Content | undefined;
   public url = 'https://cdn3.iconfinder.com/data/icons/audio-visual-acquicons/512/Eighth-Note-Double.png';
   urlVideo: string | undefined;
+
   constructor(
     private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
@@ -32,9 +33,14 @@ export class ContentDetailComponent implements OnInit {
       }
     );
   }
-  // tslint:disable-next-line:typedef
-    getEmbebedUrl(){
-    return this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.content!.urlArchive!.split('=')[1]);
+
+  getEmbebedUrl(): SafeResourceUrl {
+    if (this.content!.urlArchive!.includes('youtube')) {
+      return this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + this.content!.urlArchive!.split('=')[1]);
+    } else if (this.content!.urlArchive!.includes('vimeo')) {
+      return this.sanitizer.bypassSecurityTrustResourceUrl(this.content!.urlArchive!);
     }
+    return this.sanitizer.bypassSecurityTrustResourceUrl('');
+  }
 
 }
