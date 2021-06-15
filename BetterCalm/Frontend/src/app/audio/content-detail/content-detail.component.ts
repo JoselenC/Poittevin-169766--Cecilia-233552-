@@ -40,7 +40,7 @@ export class ContentDetailComponent implements OnInit {
     } else if (this.content!.urlArchive!.includes('vimeo')) {
       return this.sanitizer.bypassSecurityTrustResourceUrl(this.content!.urlArchive!);
     }
-    return this.sanitizer.bypassSecurityTrustResourceUrl('');
+    return this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/');
   }
 
 }

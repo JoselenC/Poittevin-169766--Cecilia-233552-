@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Playlist} from '../../models/Playlist';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {PlaylistService} from '../../services/playlist/playlist.service';
+import {ContentService} from '../../services/content/content.service';
 
 @Component({
   selector: 'app-playlist-detail',
@@ -14,7 +15,8 @@ export class PlaylistDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private playlistService: PlaylistService
+    private playlistService: PlaylistService,
+    private router: Router
   ) {
   }
 
@@ -28,5 +30,7 @@ export class PlaylistDetailComponent implements OnInit {
       }
     );
   }
-
+  navigateTo(contentId?: number): void {
+    this.router.navigate(['contents', contentId]);
+  }
 }

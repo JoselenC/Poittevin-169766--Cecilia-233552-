@@ -118,10 +118,7 @@ namespace MSP.BetterCalm.BusinessLogic.Services
        {
            try
            {
-               Content content = _repository.Contents.FindById(id);
-               if (!content.AssociatedToPlaylist)
-                   return content;
-               throw new NotFoundId();
+               return _repository.Contents.FindById(id);
            }
            catch (KeyNotFoundException)
            {
