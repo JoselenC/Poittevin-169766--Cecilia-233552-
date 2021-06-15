@@ -213,6 +213,9 @@ namespace MSP.BetterCalm.Test.BusinessLogic
             _voucherMock.Setup(
                 x => x.Find(It.IsAny<Predicate<Voucher>>())
             ).Throws(new KeyNotFoundException());
+            _voucherMock.Setup(
+                x => x.Add(It.IsAny<Voucher>())
+            ).Returns(new Voucher());
             Meeting actualMeeting = _service.ScheduleNewMeeting(_patient, _problematics[0], 1);
             Assert.AreEqual(expectedMeeting, actualMeeting);
             _psychologistMock.VerifyAll();

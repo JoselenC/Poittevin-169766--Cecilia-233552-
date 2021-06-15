@@ -90,10 +90,15 @@ namespace MSP.BetterCalm.Test
         }
      
         [TestMethod]
-        [ExpectedException(typeof(NotImplementedException))]
         public void UpdateTest()
         {
-            repoMeetings.Update(meetingTest, meetingTest);
+            Meeting actualMeeting = repoMeetings.Find(
+                x => x.Patient.Id == meetingTest.Patient.Id &&
+                     x.Psychologist.PsychologistId == meetingTest.Psychologist.PsychologistId
+                );
+            actualMeeting.Address = "new Address";
+            Meeting updatedMeeting = repoMeetings.Update(meetingTest, actualMeeting);
+            Assert.AreEqual(actualMeeting, updatedMeeting);
         }
         
         [TestMethod]
