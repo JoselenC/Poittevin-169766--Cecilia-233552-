@@ -1,4 +1,5 @@
 using System;
+using MSP.BetterCalm.BusinessLogicInterface;
 
 namespace MSP.BetterCalm.BusinessLogic.Services
 {

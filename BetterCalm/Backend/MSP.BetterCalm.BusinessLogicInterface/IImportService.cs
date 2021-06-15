@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.Importer;
 using MSP.BetterCalm.Importer.Models;
 
-namespace MSP.BetterCalm.BusinessLogic.Services
+namespace MSP.BetterCalm.BusinessLogicInterface
 {
     public interface IImportService
     {

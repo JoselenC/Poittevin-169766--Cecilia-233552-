@@ -1,6 +1,6 @@
 using System;
 
-namespace MSP.BetterCalm.BusinessLogic.Services
+namespace MSP.BetterCalm.BusinessLogicInterface
 {
     public interface IGuidService
     {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using MSP.BetterCalm.BusinessLogic;
+using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.DataAccess.Mappers;
 using EntityState = Microsoft.EntityFrameworkCore.EntityState;
 

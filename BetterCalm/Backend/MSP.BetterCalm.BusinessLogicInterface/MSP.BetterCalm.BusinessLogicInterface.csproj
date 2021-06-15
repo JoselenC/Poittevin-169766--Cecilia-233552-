@@ -5,7 +5,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\MSP.BetterCalm.BusinessLogicInterface\MSP.BetterCalm.BusinessLogicInterface.csproj" />
       <ProjectReference Include="..\MSP.BetterCalm.Domain\MSP.BetterCalm.Domain.csproj" />
       <ProjectReference Include="..\MSP.BetterCalm.Importer\MSP.BetterCalm.Importer.csproj" />
     </ItemGroup>

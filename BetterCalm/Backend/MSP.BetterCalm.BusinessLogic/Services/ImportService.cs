@@ -6,13 +6,14 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
+using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.Importer;
 using MSP.BetterCalm.Importer.Models;
 
 namespace MSP.BetterCalm.BusinessLogic.Services
 {
-    public class ImportService:IImportService
+    public class ImportService: IImportService
     {
         private IContentService _contentService;
 

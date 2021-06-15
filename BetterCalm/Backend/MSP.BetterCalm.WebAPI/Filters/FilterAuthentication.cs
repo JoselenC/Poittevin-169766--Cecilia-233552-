@@ -6,6 +6,7 @@ using Microsoft.Extensions.Primitives;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.BusinessLogic.Services;
+using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.WebAPI.Dtos;
 
 namespace MSP.BetterCalm.WebAPI.Filters

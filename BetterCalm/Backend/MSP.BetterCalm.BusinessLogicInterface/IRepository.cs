@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MSP.BetterCalm.BusinessLogic
+namespace MSP.BetterCalm.BusinessLogicInterface
 {
     public interface IRepository<T>
     {

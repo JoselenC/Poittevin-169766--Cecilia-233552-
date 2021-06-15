@@ -6,6 +6,7 @@ using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.BusinessLogic.Managers;
 using MSP.BetterCalm.BusinessLogic.Services;
+using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.Test.BusinessLogic

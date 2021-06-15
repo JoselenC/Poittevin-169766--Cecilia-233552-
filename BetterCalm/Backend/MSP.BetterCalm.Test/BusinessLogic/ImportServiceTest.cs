@@ -4,6 +4,7 @@ using Moq;
 using MSP.BetterCalm.BusinessLogic;
 using MSP.BetterCalm.BusinessLogic.Managers;
 using MSP.BetterCalm.BusinessLogic.Services;
+using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.Importer;
 

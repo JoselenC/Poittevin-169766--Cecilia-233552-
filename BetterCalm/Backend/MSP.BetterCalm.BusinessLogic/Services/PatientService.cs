@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MSP.BetterCalm.BusinessLogic.Exceptions;
 using MSP.BetterCalm.BusinessLogic.Managers;
+using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.BusinessLogic.Services
