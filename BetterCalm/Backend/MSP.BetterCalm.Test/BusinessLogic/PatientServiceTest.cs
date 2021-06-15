@@ -329,6 +329,41 @@ namespace MSP.BetterCalm.Test.BusinessLogic
         }
         
         [TestMethod]
+        public void TestScheduleNewMeetingWithDiscount()
+        {
+            Psychologist busyPsychologist = new Psychologist()
+            {
+                Name = "BusyPerson",
+                Meetings = GetMeetingsForDays(14),
+                Problematics = _problematics,
+                Rate = Rates.Expensive
+            };
+            Voucher voucher = new Voucher()
+            {
+                Discount = Discounts.Medium,
+                Status = Status.Approved
+            };
+            _psychologistMock.Setup(
+                x => 
+                    x.Get()
+            ).Returns(new List<Psychologist>(){busyPsychologist});
+            _voucherMock.Setup(
+                x => x.Find(It.IsAny<Predicate<Voucher>>())
+            ).Returns(voucher);
+            Voucher updatedVoucher = new Voucher()
+            {
+                Discount = Discounts.Medium,
+                Status = Status.Used
+            };
+            _voucherMock.Setup(
+                x => x.Update(updatedVoucher, updatedVoucher)
+            ).Returns(voucher);
+            Meeting actualMeeting = _service.ScheduleNewMeeting(_patient, _problematics[0], 1);
+            Assert.AreEqual(750, actualMeeting.Cost);
+            _psychologistMock.VerifyAll();
+        }
+        
+        [TestMethod]
         public void TestUpdatePatient()
         {
             Patient oldPatient = new Patient()

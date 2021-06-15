@@ -43,6 +43,7 @@ namespace MSP.BetterCalm.Test
             {
                 DateTime = new DateTime(2011, 07, 15),
                 Duration = 1,
+                Cost = 12,
                 Patient = new Patient(){Name = "Patient1"},
                 Psychologist = new Psychologist() {Name = "psyco1", Problematics = problematics}
             };
@@ -65,6 +66,7 @@ namespace MSP.BetterCalm.Test
                 Patient = patient,
                 Psychologist = psychologist,
                 Duration = 1,
+                Cost = 12,
                 DateTime = new DateTime(2011,07,16),
             };
             meetingTest = repoMeetings.Add(meetingTest);
