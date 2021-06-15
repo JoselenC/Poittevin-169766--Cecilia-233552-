@@ -8,6 +8,7 @@ export class Meeting {
   dateTime: Date;
   address: string;
   duration: number;
+  cost: number;
 
 
   constructor(
@@ -16,7 +17,8 @@ export class Meeting {
     psychologist: Psychology,
     dateTime: Date,
     address: string,
-    duration: number
+    duration: number,
+    cost: number
   ) {
     this.id = id;
     this.patient = patient;
@@ -24,5 +26,6 @@ export class Meeting {
     this.dateTime = dateTime;
     this.address = address;
     this.duration = duration;
+    this.cost = cost;
   }
 }
