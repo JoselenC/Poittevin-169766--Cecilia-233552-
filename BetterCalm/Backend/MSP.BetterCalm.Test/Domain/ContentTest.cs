@@ -35,7 +35,7 @@ namespace MSP.BetterCalm.Test
         {
             string ContentName = "aaaa";
             Content content = new Content();
-            content.Type = "audio";
+            content.Type = "otro";
         }
         
         [TestMethod]
@@ -68,11 +68,21 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
-        public void GetSetContentUrlContent()
+        public void GetSetContentUrlYoutubeContent()
         {
             string urlContentName = "https://www.youtube.com/watch?v=QDYfEBY9NM4";
             Content content = new Content();
             content.UrlArchive = "https://www.youtube.com/watch?v=QDYfEBY9NM4";
+            string getContentUrlContent = content.UrlArchive;
+            Assert.AreEqual(urlContentName, getContentUrlContent);
+        }
+        
+        [TestMethod]
+        public void GetSetContentUrlVimeoContent()
+        {
+            string urlContentName ="https://player.vimeo.com/video/336812660";
+            Content content = new Content();
+            content.UrlArchive = "https://player.vimeo.com/video/336812660";
             string getContentUrlContent = content.UrlArchive;
             Assert.AreEqual(urlContentName, getContentUrlContent);
         }

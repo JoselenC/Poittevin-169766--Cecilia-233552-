@@ -50,6 +50,17 @@ namespace MSP.BetterCalm.Domain
             Regex reg = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
             return reg.IsMatch(url);
         }
+        
+        private bool IsUrlValidContent(string url)
+        {
+            string patternYutube =
+                @"(youtube\.com/)(.*)v=([a-zA-Z0-9-_]+)";
+            string patternVimeo =
+                @"player.vimeo\.com/(?:.*#|.*/videos/)?([a-zA-Z0-9-_]+)";
+            Regex regYoutube = new Regex(patternYutube, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            Regex regVimeo = new Regex(patternVimeo, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            return regYoutube.IsMatch(url) || regVimeo.IsMatch(url);
+        }
 
         private void SetUrlImage(string vUrl)
         {
@@ -61,7 +72,7 @@ namespace MSP.BetterCalm.Domain
         
         private void SetUrlContent(string vUrl)
         {
-            if (IsUrlValid(vUrl) || vUrl == "")
+            if (IsUrlValidContent(vUrl) || vUrl == "")
                 _urlArchive=vUrl;
             else
                 throw new InvalidUrl();
