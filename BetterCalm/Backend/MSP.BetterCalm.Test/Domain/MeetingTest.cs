@@ -37,6 +37,17 @@ namespace MSP.BetterCalm.Test
         }
         
         [TestMethod]
+        public void GetSetCost()
+        {
+
+            Meeting meeting = new Meeting()
+            {
+                Cost = 12
+            };
+            Assert.AreEqual(meeting.Cost, 12);
+        }
+        
+        [TestMethod]
         public void GetSetDuration()
         {
 
