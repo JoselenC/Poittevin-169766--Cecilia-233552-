@@ -33,7 +33,7 @@ export class ContentService {
     return this.http.get<Content[]>(this.uri + '/author?author=' + name);
   }
 
-  newContent(content: Content): Observable<Content> {
+  addContent(content: Content): Observable<Content> {
     return this.http.post<any>(this.uri, content);
   }
 

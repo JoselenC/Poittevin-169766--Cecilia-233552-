@@ -64,7 +64,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
 
         
         [HttpPost]
-        [ServiceFilter(typeof(FilterAuthentication))]
+       // [ServiceFilter(typeof(FilterAuthentication))]
         public IActionResult CreateContent([FromBody] ContentDto content)
         {
             Content contentAdded = _contentService.SetContent(content.CreateContent());

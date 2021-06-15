@@ -69,7 +69,7 @@ export class AddContentToPlaylistComponent implements OnInit {
 
   addContent(): void {
     const content = new Content(this.id, this.name, this.authorName, this.urlContent, this.urlImage, this.duration, this.cat.value.map((x: any) => (new Category(0, x))), this.typ.value.toString());
-    this.serviceContent.newContent(content).subscribe(
+    this.serviceContent.addContent(content).subscribe(
             (error: any) => {
         console.log(error);
         alert(error);
