@@ -4,14 +4,16 @@
     <div class="mat-subheading-1"> Duration:  {{content.duration}} </div>
     <div class="mat-subheading-1"> Creator name:  {{content.creatorName}} </div>
     <div class="mat-subheading-1"> Type:  {{content.type}}</div>
-    <div [innerHTML]="content.urlArchive"></div>
-    <p mat-line *ngIf="content.type == 'video' && (content.urlArchive!.length>0 || content.urlArchive!=null) ">
-        <iframe width="560" height="315"  [src]="getEmbebedUrl()" frameborder="0" allowfullscreen
+    <p mat-line *ngIf="content.type == 'video' && (content.urlArchive!.length>0 || content.urlArchive!=null)">
+        <iframe width="560" height="315" [src]="getEmbebedUrl()" frameborder="0" allowfullscreen
       ></iframe>
     </p>
     <p mat-line *ngIf="content.type=='audio' && content.urlImage!.length<1 || content.urlImage==null">
         <img src="{{url}}" width="300" height="300" alt="">
+
   </p>
+    <audio [src]=content.urlArchive controls="controls" type="audio/ogg" preload="preload">
+    </audio>
     <p mat-line *ngIf="content.type=='audio' && content.urlImage!.length > 0 ">
       <img src="{{content.urlImage}}" width="300" height="300" alt="">
     </p>
