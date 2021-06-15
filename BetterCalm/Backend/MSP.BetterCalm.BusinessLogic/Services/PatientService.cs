@@ -52,25 +52,49 @@ namespace MSP.BetterCalm.BusinessLogic.Services
             return patientRepository.Patients.Add(patient);
         }
 
-        private void CreateOrUpdateVoucher(Patient patient)
+        private double CalculateAndUpdateMeetingCost(Meeting meeting)
+        {
+            double cost = (int) meeting.Psychologist.Rate * meeting.Duration;
+            meeting.Cost = cost;
+            meetingRepository.Meetings.Update(meeting, meeting);
+            return cost;
+        }
+
+        private double ApplyAndUpdateVoucher(double cost, Voucher voucher)
+        {
+            double newCost = cost;
+            if (voucher.Status == Status.Approved)
+            {
+                newCost = ((100 - (int) voucher.Discount) * cost) / 100;
+                voucher.Status = Status.Used;
+                voucherRepository.Vouchers.Update(voucher, voucher);
+            }
+
+            return newCost;
+        }
+
+        private Voucher CreateOrUpdateVoucher(Patient patient)
         {
             try
             {
                 Voucher voucher = voucherRepository.Vouchers.Find(
                     x => (x.Status == Status.NotReady ||
-                          x.Status == Status.Pending)  &&
+                          x.Status == Status.Pending ||
+                          x.Status == Status.Approved)  &&
                          x.Patient.Id == patient.Id
                 );
                 voucher.MeetingsAmount += 1;
                 voucherRepository.Vouchers.Update(voucher, voucher);
+                return voucher;
             }
             catch (KeyNotFoundException)
             {
-                voucherRepository.Vouchers.Add(
-                    new Voucher()
-                    {
-                        Patient = patient
-                    }
+                Voucher voucher = new Voucher()
+                {
+                    Patient = patient
+                };
+                return voucherRepository.Vouchers.Add(
+                    voucher
                 );
             }
         }
@@ -114,7 +138,13 @@ namespace MSP.BetterCalm.BusinessLogic.Services
                     Duration = duration
                 };
                 meetingRepository.Meetings.Add(meeting);
-                CreateOrUpdateVoucher(patient);
+                Voucher activeVoucher = CreateOrUpdateVoucher(patient);
+                meeting.Cost = CalculateAndUpdateMeetingCost(meeting);
+                if (activeVoucher.Status == Status.Approved)
+                {
+                    meeting.Cost = ApplyAndUpdateVoucher(meeting.Cost, activeVoucher);
+                    meetingRepository.Meetings.Update(meeting, meeting);
+                }
                 return meeting;
             }
             catch (InvalidOperationException)

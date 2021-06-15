@@ -28,6 +28,7 @@ namespace MSP.BetterCalm.DataAccess.Mappers
                 DateTime = obj.DateTime,
                 Patient = patientDto,
                 Psychologist = psychologistDto,
+                Cost = obj.Cost,
                 Address = obj.Address,
                 Duration = obj.Duration
             };
@@ -58,6 +59,7 @@ namespace MSP.BetterCalm.DataAccess.Mappers
                     {
                         problematics.Add(new Problematic()
                         {
+                            Id = psychologistProblematicDto.Problematic.ProblematicDtoId,
                             Name = psychologistProblematicDto.Problematic.Name
                         });
                     }
@@ -83,6 +85,7 @@ namespace MSP.BetterCalm.DataAccess.Mappers
             {
                 DateTime = obj.DateTime,
                 Address = obj.Address,
+                Cost = obj.Cost,
                 Duration = obj.Duration,
                 Patient = DtoToDomainPatientWithoutMeetings(obj.Patient),
                 Psychologist = DtoToDomainpPsychologistWithoutMeetings(obj.Psychologist)
@@ -96,7 +99,10 @@ namespace MSP.BetterCalm.DataAccess.Mappers
 
         public MeetingDto UpdateDtoObject(MeetingDto objToUpdate, Meeting updatedObject, ContextDb context)
         {
-            throw new System.NotImplementedException();
+            objToUpdate.Address = updatedObject.Address;
+            objToUpdate.Cost = updatedObject.Cost;
+            objToUpdate.Duration = updatedObject.Duration;
+            return objToUpdate;
         }
     }
 }

@@ -34,12 +34,12 @@ namespace MSP.BetterCalm.Domain
         public void SetMeetingsAmount(int value)
         {
             _meetingAmount = value;
-            if (Status == Status.Approved || Status == Status.Rejected || Status == Status.Used)
+            if (Status == Status.Rejected || Status == Status.Used)
             {
                 throw new VoucherAlreadyClosed();
             }
 
-            if (value >= 5)
+            if (value >= 5 && Status != Status.Approved && Status != Status.Used)
             {
                 Status = Status.Pending;
             }

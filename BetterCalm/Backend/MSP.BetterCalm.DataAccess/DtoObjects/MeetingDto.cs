@@ -11,5 +11,6 @@ namespace MSP.BetterCalm.DataAccess.DtoObjects
         public DateTime DateTime { get; set; }
         public string Address { get; set; }
         public double Duration { get; set; }
+        public double Cost { get; set; }
     }
 }
