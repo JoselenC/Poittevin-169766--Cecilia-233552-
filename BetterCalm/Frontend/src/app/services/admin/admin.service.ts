@@ -27,4 +27,8 @@ export class AdminService {
   delete(id: number): Observable<Administrator> {
     return this.http.delete<Administrator>(this.administratorUri + '/' + id);
   }
+
+  update(admin: Administrator): Observable<Administrator> {
+    return this.http.put<Administrator>(this.administratorUri + '/' + admin.administratorId, admin);
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Administrator} from '../../models/Administrator';
 import {Router} from '@angular/router';
 import {AdminService} from '../../services/admin/admin.service';
@@ -40,4 +40,17 @@ export class GetAdminComponent implements OnInit {
     this.router.navigate(['admins', administratorId]);
   }
 
+  navigateToAddEdit(admin ?: Administrator): void {
+    if (admin === undefined) {
+      admin = new Administrator(
+        0,
+        '',
+        '',
+        '',
+        '',
+        ''
+      );
+    }
+    this.router.navigate(['add-admin'], {state: {admin}});
+  }
 }

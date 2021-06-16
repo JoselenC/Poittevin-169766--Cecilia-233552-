@@ -1,39 +1,51 @@
 <h3>Add new psychology</h3>
 <form class="standardForm">
   <div fxLayout="column">
-    <div fxLayout="row" fxLayoutAlign="space-between start" >
+    <div fxLayout="row" fxLayoutAlign="space-between start">
       <mat-form-field appearance="outline">
         <mat-label>Name</mat-label>
-        <input matInput type="text" placeholder="Jose" min="3" name="name" [(ngModel)]="name">
+        <input matInput type="text" placeholder="Jose" min="3" name="psychologic.name"
+               [(ngModel)]="psychology.name">
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>LastName</mat-label>
-        <input matInput type="text" placeholder="Pedro" min="3" name="lastName" [(ngModel)]="lastName">
+        <input matInput type="text" placeholder="Pedro" min="3" name="psychologic.lastName"
+               [(ngModel)]="psychology.lastName">
       </mat-form-field>
     </div>
     <mat-form-field appearance="outline">
       <mat-label>Address</mat-label>
-      <input matInput type="text" placeholder="My house 1234" min="9" name="address" [(ngModel)]="address">
+      <input matInput type="text" placeholder="My house 1234" min="9" name="psychologic.address"
+             [(ngModel)]="psychology.address">
     </mat-form-field>
-    <mat-form-field floatLabel="always" appearance="legacy">
-      <mat-label>Works Online</mat-label>
-      <mat-slide-toggle [(ngModel)]="worksOnline">Works Online</mat-slide-toggle>
-      <textarea matInput hidden></textarea>
+    <mat-form-field appearance="outline">
+      <mat-label>Works Online?</mat-label>
+      <mat-select [(value)]="psychology.worksOnline">
+        <mat-option [value]="true">Yes!</mat-option>
+        <mat-option [value]="false">Nop</mat-option>
+      </mat-select>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Problems</mat-label>
-      <mat-select [formControl]="problems" multiple>
-        <mat-option *ngFor="let problem of problematics" [value]="problem">{{problem}}</mat-option>
+      <mat-select [(value)]="selectedProblematics" multiple>
+        <mat-option *ngFor="let problem of problematics" [value]="problem.name">
+          {{problem.name}}
+        </mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Rate</mat-label>
-      <mat-select [formControl]="rate">
-        <mat-option *ngFor="let rate of rates" [value]="rate">{{rate}}</mat-option>
+      <mat-select [(value)]="psychology.rate">
+        <mat-option *ngFor="let rate of rates" [value]="rate">
+          {{rate}}
+        </mat-option>
       </mat-select>
     </mat-form-field>
-    <button mat-raised-button color="primary" (click)="addPsychology()">Add</button>
+    <button mat-raised-button color="primary" (click)="addPsychology()" *ngIf="psychology.psychologistId == 0">Add
+    </button>
+    <button mat-raised-button color="primary" (click)="addPsychology()" *ngIf="psychology.psychologistId != 0">Edit
+    </button>
   </div>
 </form>

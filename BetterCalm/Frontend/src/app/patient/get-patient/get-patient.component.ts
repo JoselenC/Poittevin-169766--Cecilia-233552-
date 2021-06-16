@@ -39,4 +39,11 @@ export class GetPatientComponent implements OnInit {
   navigateTo(patientId: number): void {
     this.router.navigate(['patients', patientId]);
   }
+
+  navigateToAddEdit(patient ?: Patient): void {
+    if (patient === undefined) {
+      patient = new Patient(0, '', '', '', new Date(), []);
+    }
+    this.router.navigate(['add-patient'], {state: {patient}});
+  }
 }

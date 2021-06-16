@@ -5,14 +5,22 @@ export class Patient {
   name ?: string;
   lastName ?: string;
   cellphone ?: string;
-  meetings ?: Array<Meeting>|undefined;
+  birthDay ?: Date;
+  meetings ?: Array<Meeting> | undefined;
 
 
-  constructor(id: number, name ?: string, lastName ?: string, cellphone ?: string, meetings ?: Array<Meeting>){
+  constructor(
+    id: number,
+    name ?: string,
+    lastName ?: string,
+    cellphone ?: string,
+    birthDay ?: Date,
+    meetings ?: Array<Meeting>) {
     this.id = id;
     this.name = name;
     this.lastName = lastName;
     this.cellphone = cellphone;
+    this.birthDay = birthDay;
     this.meetings = meetings;
   }
 
