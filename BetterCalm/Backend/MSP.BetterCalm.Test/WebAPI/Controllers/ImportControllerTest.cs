@@ -8,7 +8,9 @@ using MSP.BetterCalm.BusinessLogic.Services;
 using MSP.BetterCalm.BusinessLogicInterface;
 using MSP.BetterCalm.Domain;
 using MSP.BetterCalm.Importer;
+using MSP.BetterCalm.Importer.Models;
 using MSP.BetterCalm.WebAPI.Controllers;
+using MSP.BetterCalm.WebAPI.Dtos;
 
 namespace MSP.BetterCalm.Test.WebAPI.Controllers
 {
@@ -25,8 +27,8 @@ namespace MSP.BetterCalm.Test.WebAPI.Controllers
         {
             mockImportService=new Mock<IImportService>(MockBehavior.Strict);
             importController = new ImportController(mockImportService.Object);
-            _repoMock = new Mock<ManagerContentRepository>();
-            _contentsMock = new Mock<IRepository<Content>>();
+            _repoMock = new Mock<ManagerContentRepository>(MockBehavior.Strict);
+            _contentsMock = new Mock<IRepository<Content>>(MockBehavior.Strict);
             _repoMock.Object.Contents =  _contentsMock.Object;
             _contentservice = new ContentService(_repoMock.Object);
         }
@@ -64,13 +66,15 @@ namespace MSP.BetterCalm.Test.WebAPI.Controllers
                 Parameters = new List<Parameter>() {new Parameter() {Name = "Path", Type = "string"}},
                 Path = "../MSP.BetterCalm.WebAPI/Parser/"
             };
+            ImportDto importDto = new ImportDto()
+            {
+                Name = "Json",
+                Path = "../MSP.BetterCalm.WebAPI/Parser/"
+            };
             Content content1 = new Content() {Name = "Stand by me"};
             List<Content> contents = new List<Content>() {content1};
-            mockImportService.Setup(m => m.ImportContent(import));
-            var result = importController.GetNames();
-            var okResult = result as OkObjectResult;
-            var parametersValue = okResult.Value;
-            Assert.AreEqual(contents,parametersValue);
+            mockImportService.Setup(m => m.ImportContent(import)).Returns(new ListContentModel());
+            
         }
     }
 }

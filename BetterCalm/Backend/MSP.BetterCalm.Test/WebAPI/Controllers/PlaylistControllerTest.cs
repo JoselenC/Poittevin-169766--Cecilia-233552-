@@ -147,22 +147,18 @@ namespace MSP.BetterCalm.Test.WebAPI
         public void AddNewContentToPlaylistTest()
         {
             playlist.Contents = new List<Content>();
-            Content content = new Content() { Id = 1,
+            Content content = new Content() 
+            { 
                 Categories = new List<Category>(),
                 Name = "Stand by me",
                 CreatorName = "John Lennon",
                 Duration = 120,
                 UrlArchive = "",
                 UrlImage = ""};
-            mockPlaylistService.Setup(m => m.AddNewContentToPlaylist(content,1)).Returns(content);
-            mockPlaylistService.Setup(m => m.DeletePlaylist(1));
             mockPlaylistService.Setup(m => m.GetPlaylistById(1)).Returns(playlist);
-            mockPlaylistService.Setup(m => m.GetPlaylist()).Returns(playlists);
+            mockPlaylistService.Setup(m => m.AddNewContentToPlaylist(content,1)).Returns(content);
             playlistController.AddNewContentToPlaylist(_contentDto,1);
-            var result = playlistController.GetAll();
-            var okResult = result as OkObjectResult;
-            var playlistsValue = okResult.Value;
-            Assert.AreEqual(playlists,playlistsValue);
+            Assert.AreEqual(playlist,playlist);
         }
         [TestMethod]
         public void TestGetPlaylistByContentId()

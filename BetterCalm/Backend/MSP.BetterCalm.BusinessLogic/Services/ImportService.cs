@@ -26,6 +26,13 @@ namespace MSP.BetterCalm.BusinessLogic.Services
             _playlistService = playlistService;
         }
         
+        public ImportService(IContentService contentService,IPlaylistService playlistService, string path )
+        {
+            _path = path;
+            _contentService = contentService;
+            _playlistService = playlistService;
+        }
+        
         public List<string> GetImportersName()
         {
             List<string> names = new List<string>();

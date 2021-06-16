@@ -418,7 +418,6 @@ namespace MSP.BetterCalm.Test.BusinessLogic
         }
         
         [TestMethod]
-        [ExpectedException(typeof(NotFoundId), "")]
         public void GetContentByIdAssociatedTest()
         {  
             Content content = new Content()

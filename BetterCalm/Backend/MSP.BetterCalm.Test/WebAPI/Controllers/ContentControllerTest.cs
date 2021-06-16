@@ -143,23 +143,61 @@ namespace MSP.BetterCalm.Test.WebAPI
         [ExpectedException(typeof(InvalidNameLength))]
         public void TestNoCreateContentEmptyName()
         {
-            mockContentService.Setup(m => m.SetContent(_content)).Throws(new InvalidNameLength());
-            ContentController.CreateContent(ContentDto);
+            ContentDto expectedContent = new ContentDto()
+            {
+                Categories = new List<Category>(),
+                Name = "Stand by me",
+                CreatorName = "John Lennon",
+                Duration = "12s",
+                UrlArchive = "",
+                UrlImage = "",
+                Type = "audio"
+            };
+            Content content = new Content()
+            {
+                Categories = new List<Category>(),
+                Name = "",
+                CreatorName = "John Lennon",
+                Duration = 12,
+                UrlArchive = "",
+                UrlImage = "",
+                Type = "audio"
+            };
+            mockContentService.Setup(m => m.SetContent(content)).Throws(new InvalidNameLength());
+            var result = ContentController.CreateContent(expectedContent);
         }
         
         [TestMethod]
         [ExpectedException(typeof(AlreadyExistThisContent))]
         public void TestNoCreateContent()
         {
-            mockContentService.Setup(m => m.SetContent(_content)).Throws(new AlreadyExistThisContent());
-            ContentController.CreateContent(ContentDto);
+            ContentDto expectedContent = new ContentDto()
+            {
+                Categories = new List<Category>(),
+                Name = "Stand by me",
+                CreatorName = "John Lennon",
+                Duration = "12s",
+                UrlArchive = "",
+                UrlImage = "",
+                Type = "audio"
+            };
+            Content content = new Content()
+            {
+                Categories = new List<Category>(),
+                Name = "Stand by me",
+                CreatorName = "John Lennon",
+                Duration = 12,
+                UrlArchive = "",
+                UrlImage = "",
+                Type = "audio"
+            };
+            mockContentService.Setup(m => m.SetContent(content)).Throws(new AlreadyExistThisContent());
+            var result = ContentController.CreateContent(expectedContent);
         }
         
         [TestMethod]
         public void TestGetContentByCategoryNAme()
         {
-            mockContentService.Setup(m => m.SetContent(_content)).Returns(_content);
-            ContentController.CreateContent(ContentDto);
             mockContentService.Setup(m => m.GetContentsByCategoryName("Dormir")).Returns(Contents);
             var result = ContentController.GetContentsByCategoryName("Dormir");
             var okResult = result as OkObjectResult;
@@ -179,8 +217,6 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestDeleteContent()
         {
-            mockContentService.Setup(m => m.SetContent(_content)).Returns(_content);
-            ContentController.CreateContent(ContentDto);
             mockContentService.Setup(m => m.DeleteContent(_content.Id));
             var result = ContentController.DeleteContent(_content.Id);
             var okResult = result as OkObjectResult;
@@ -192,8 +228,19 @@ namespace MSP.BetterCalm.Test.WebAPI
         [ExpectedException(typeof(KeyNotFoundException))]
         public void TestNoDeleteContent()
         {
-            mockContentService.Setup(m => m.DeleteContent(_content.Id)).Throws(new KeyNotFoundException());
-            ContentController.DeleteContent(_content.Id);
+            Content content = new Content()
+            {
+                Id=1,
+                Categories = new List<Category>(),
+                Name = "Stand by me",
+                CreatorName = "John Lennon",
+                Duration = 12,
+                UrlArchive = "",
+                UrlImage = "",
+                Type = "audio"
+            };
+            mockContentService.Setup(m => m.DeleteContent(content.Id)).Throws(new KeyNotFoundException());
+            ContentController.DeleteContent(content.Id);
         }
        
         [TestMethod]
@@ -229,8 +276,28 @@ namespace MSP.BetterCalm.Test.WebAPI
         [TestMethod]
         public void TestUpdateContent()
         {
-            mockContentService.Setup(m => m.UpdateContentById(1, _content));
-            var result = ContentController.UpdateContent(1,ContentDto);
+            ContentDto expectedContent = new ContentDto()
+            {
+                Categories = new List<Category>(),
+                Name = "Stand by me",
+                CreatorName = "John Lennon",
+                Duration = "12s",
+                UrlArchive = "",
+                UrlImage = "",
+                Type = "audio"
+            };
+            Content content = new Content()
+            {
+                Categories = new List<Category>(),
+                Name = "Stand by me",
+                CreatorName = "John Lennon",
+                Duration = 12,
+                UrlArchive = "",
+                UrlImage = "",
+                Type = "audio"
+            };
+            mockContentService.Setup(m => m.UpdateContentById(1, content));
+            var result = ContentController.UpdateContent(1,expectedContent);
             var okResult = result as OkObjectResult;
             Assert.IsNotNull(okResult);
         }
@@ -239,8 +306,28 @@ namespace MSP.BetterCalm.Test.WebAPI
         [ExpectedException(typeof(KeyNotFoundException))]
         public void TestNoUpdateContent()
         {
-            mockContentService.Setup(m => m.UpdateContentById(1, _content)).Throws(new KeyNotFoundException());
-            ContentController.UpdateContent(1, ContentDto);
+            ContentDto expectedContent = new ContentDto()
+            {
+                Categories = new List<Category>(),
+                Name = "Stand by me",
+                CreatorName = "John Lennon",
+                Duration = "12s",
+                UrlArchive = "",
+                UrlImage = "",
+                Type = "audio"
+            };
+            Content content = new Content()
+            {
+                Categories = new List<Category>(),
+                Name = "Stand by me",
+                CreatorName = "John Lennon",
+                Duration = 12,
+                UrlArchive = "",
+                UrlImage = "",
+                Type = "audio"
+            };
+            mockContentService.Setup(m => m.UpdateContentById(1, content)).Throws(new KeyNotFoundException());
+            ContentController.UpdateContent(1, expectedContent);
         }
     }
 }

@@ -33,12 +33,15 @@ namespace MSP.BetterCalm.Test.BusinessLogic
             _repoPlaylitMock.Object.Playlists = _playlistMock.Object;
             _playlistService = new PlaylistService(_repoPlaylitMock.Object, _repoMock.Object);
             _contentservice = new ContentService(_repoMock.Object);
-            _importService = new ImportService(_contentservice,_playlistService);
+            
+            _importService = new ImportService(_contentservice,_playlistService, @"../../../../MSP.BetterCalm.WebAPI/Parser/");
+            
         }
         
         [TestMethod]
         public void GetImportersNameTest()
         {
+              
             List<string> importersNames= _importService.GetImportersName();
            List<string> importers = new List<string>() {"Json", "Xml"};
            CollectionAssert.AreEqual(importers,importersNames);
@@ -59,7 +62,7 @@ namespace MSP.BetterCalm.Test.BusinessLogic
             {
                 Name = "Json",
                 Parameters = new List<Parameter>() {new Parameter() {Name = "Path", Type = "string"}},
-                Path = "../MSP.BetterCalm.WebAPI/Parser/"
+                Path = @"../../../../MSP.BetterCalm.WebAPI/Parser/example.json"
             };
             _importService.ImportContent(import);
             
