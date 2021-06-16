@@ -55,7 +55,7 @@ export class ImportContentComponent implements OnInit {
   importContent(): void {
     const importer = new Import(
       this.id,
-      this.fileInfo.name,
+      this.import.value,
       this.fileInfo.path
     );
 
@@ -68,11 +68,13 @@ export class ImportContentComponent implements OnInit {
       );
   }
 
-  // tslint:disable-next-line:typedef
-      private result(data: Import) {
+  private result(data: Import): void {
     this.router.navigate(['/contents']);
   }
 
+  acceptType(): string {
+    return '.' + this.import.value;
+  }
 
 }
 

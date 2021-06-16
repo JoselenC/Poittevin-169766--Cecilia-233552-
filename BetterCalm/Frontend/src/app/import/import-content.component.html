@@ -1,18 +1,16 @@
 <h3>Import new content</h3>
     <mat-form-field appearance="outline">
       <mat-label>Names</mat-label>
-      <mat-select [formControl]="import" multiple >
+      <mat-select [formControl]="import" >
         <mat-option *ngFor="let imp of importNames" [value]="imp">{{imp}}</mat-option>
       </mat-select>
     </mat-form-field>
 
-<div style="margin-top: 20px">
-  <mat-label>File  </mat-label>
+<div class="import" >
   <input type="file" id="input-file" size="50" class="form-control form-control-alternative"
-         (change)="onSelectFile($event)" value="file.path" />
-
+         (change)="onSelectFile($event)" value="file.path"  [accept]="acceptType()"/>
 </div>
 
 <div style="margin-top: 20px">
-<button mat-raised-button color="primary" (click)="importContent()">Import </button>
+<button mat-raised-button color="primary" (click)="importContent()">Import content </button>
 </div>
