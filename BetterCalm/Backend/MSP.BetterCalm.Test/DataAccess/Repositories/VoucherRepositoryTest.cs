@@ -7,6 +7,7 @@ using MSP.BetterCalm.Domain;
 
 namespace MSP.BetterCalm.Test
 {
+    [TestClass]
     public class VoucherRepositoryTest
     {
         [TestMethod]
