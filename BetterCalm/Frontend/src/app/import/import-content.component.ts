@@ -11,6 +11,7 @@ import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
   styleUrls: ['./import-content.component.css']
 })
 export class ImportContentComponent implements OnInit {
+  fileInfo: Import = {} as Import;
 
   constructor(
     private router: Router,
@@ -25,6 +26,12 @@ export class ImportContentComponent implements OnInit {
   importNames: string[] | undefined;
   import = new FormControl();
   importGroup ?: FormGroup;
+
+  onSelectFile(event: any): void{
+    const fileName = event.target.files[0] ? event.target.files[0] : '';
+    this.fileInfo.path = './Parser/' + fileName.name;
+  }
+
 
   ngOnInit(): void {
     this.importService.getImportNames()
@@ -48,8 +55,8 @@ export class ImportContentComponent implements OnInit {
   importContent(): void {
     const importer = new Import(
       this.id,
-      this.import.value.toString(),
-      this.path
+      this.fileInfo.name,
+      this.fileInfo.path
     );
 
     this.importService.importContent(importer).subscribe(
