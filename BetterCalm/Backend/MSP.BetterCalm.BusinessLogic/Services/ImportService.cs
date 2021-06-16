@@ -66,10 +66,19 @@ namespace MSP.BetterCalm.BusinessLogic.Services
                     {
                         ListContentModel listContentModels =
                             importer.ImportContent(import.Path) ?? new ListContentModel();
-                        foreach (var contentModel in listContentModels.ListContentModels)
+
+                        for (int i = 0; i < listContentModels.ListContentModels.Count; i++)
                         {
-                            SetContent(contentModel);
+                            try
+                            {
+                                SetContent(listContentModels.ListContentModels[i]);
+                            }
+                            catch (Exception e)
+                            {
+                                // ignored
+                            }
                         }
+
 
                         return listContentModels;
                     }

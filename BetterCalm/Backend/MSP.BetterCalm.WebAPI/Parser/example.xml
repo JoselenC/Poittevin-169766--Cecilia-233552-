@@ -24,6 +24,75 @@
                             <name>Dormir</name>                        
                     </Categories>                                
             </Playlists>
+            <name/>
+            <duration>120m</duration>
+            <UrlImage />
+            <UrlArchive />
+            <type>audio</type>
+            <creatorName>The beatles</creatorName>
+            <Categories>
+                    <name>Dormir</name>
+            </Categories>
+            <Playlists>
+                    <name>Beatles's songs</name>
+                    <description>beatles's songs</description>
+                    <UrlImage>https://cdn.culturagenial.com/es/imagenes/let-it-be-0-cke.jpg</UrlImage>
+                    <Categories>
+                            <name>Musica</name>
+                    </Categories>
+                    <name>Old songs</name>
+                    <description>old songs</description>
+                    <UrlImage />
+                    <Categories>
+                            <name>Dormir</name>
+                    </Categories>
+            </Playlists>
+            <name>Help</name>
+            <duration>120y</duration>
+            <UrlImage />
+            <UrlArchive />
+            <type>audio</type>
+            <creatorName>The beatles</creatorName>
+            <Categories>
+                    <name>Dormir</name>
+            </Categories>
+            <Playlists>
+                    <name>Beatles's songs</name>
+                    <description>beatles's songs</description>
+                    <UrlImage>https://cdn.culturagenial.com/es/imagenes/let-it-be-0-cke.jpg</UrlImage>
+                    <Categories>
+                            <name>Musica</name>
+                    </Categories>
+                    <name>Old songs</name>
+                    <description>old songs</description>
+                    <UrlImage />
+                    <Categories>
+                            <name>Dormir</name>
+                    </Categories>
+            </Playlists>
+            <name>Help</name>
+            <duration>120s</duration>
+            <UrlImage />
+            <UrlArchive />
+            <type/>
+            <creatorName>The beatles</creatorName>
+            <Categories>
+                    <name>Dormir</name>
+            </Categories>
+            <Playlists>
+                    <name>Beatles's songs</name>
+                    <description>beatles's songs</description>
+                    <UrlImage>https://cdn.culturagenial.com/es/imagenes/let-it-be-0-cke.jpg</UrlImage>
+                    <Categories>
+                            <name>Musica</name>
+                    </Categories>
+                    <name>Old songs</name>
+                    <description>old songs</description>
+                    <UrlImage />
+                    <Categories>
+                            <name>Dormir</name>
+                    </Categories>
+            </Playlists>
             <name>Let it be</name>
             <duration>120m</duration>
             <UrlImage>https://cdn.culturagenial.com/es/imagenes/let-it-be-0-cke.jpg</UrlImage>
