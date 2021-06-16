@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {Patient} from '../../models/Patient';
 import {PatientService} from '../../services/patient/patient.service';
 import {Router} from '@angular/router';
@@ -6,33 +6,37 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'app-add-patient',
   templateUrl: './add-patient.component.html',
-  styleUrls: ['./add-patient.component.css']
+  styleUrls: ['./add-patient.component.css'],
 })
 
 export class AddPatientComponent implements OnInit {
-  name ?: string;
-  lastName ?: string;
-  cellphone ?: string;
-  birthday ?: Date;
+  public patient: Patient = new Patient(
+    0,
+    '',
+    '',
+    '',
+    new Date(),
+    []
+  );
 
   constructor(
     private patientService: PatientService,
-    private router: Router
+    private router: Router,
   ) {
   }
 
-  addPatient(): void {
-    const patient = new Patient(
-      0,
-      this.name,
-      this.lastName,
-      this.cellphone,
-      undefined
-    );
-    this.patientService.add(patient).subscribe(
-      (data: Patient) => this.result(data),
-      (error: any) => alert(error)
-    );
+  editOrAddPatient(): void {
+    if (this.patient.id === 0) {
+      this.patientService.add(this.patient).subscribe(
+        (data: Patient) => this.result(data),
+        (error: any) => alert(error)
+      );
+    } else {
+      this.patientService.update(this.patient).subscribe(
+        (data: Patient) => this.result(data),
+        (error: any) => alert(error)
+      );
+    }
   }
 
   private result(data: Patient): void {
@@ -40,6 +44,9 @@ export class AddPatientComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (history.state.patient !== undefined) {
+      this.patient = history.state.patient;
+    }
   }
 
 }

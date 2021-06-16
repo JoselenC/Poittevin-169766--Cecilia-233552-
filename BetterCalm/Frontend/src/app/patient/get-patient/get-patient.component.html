@@ -7,22 +7,23 @@
       <p mat-line *ngIf="patient.meetings!.length == 0 "> This patient has no meetings</p>
       <p mat-line *ngIf="patient.meetings!.length > 0 "> Amount of meetings: {{ patient.meetings!.length}}</p>
     </mat-list-option>
+    <button mat-icon-button (click)="navigateToAddEdit(patient)">
+      <mat-icon class="mat-24">edit</mat-icon>
+    </button>
     <button mat-icon-button (click)="delete(patient.id)">
       <mat-icon class="mat-24">delete</mat-icon>
     </button>
   </mat-list-item>
 </mat-selection-list>
 
-<a [routerLink]="['/add-patient']">
 <button
   mat-fab
   color="primary"
   id="add-button"
   matTooltip="Add new patient"
   class="add-button"
-
+  (click)="navigateToAddEdit()"
 >
   <mat-icon>add</mat-icon>
 </button>
-</a>
 

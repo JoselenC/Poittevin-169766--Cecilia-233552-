@@ -7,21 +7,24 @@
       <p mat-line *ngIf="psychology.meetings!.length == 0 "> This psycholgy has no meetings</p>
       <p mat-line *ngIf="psychology.meetings!.length > 0 "> Amount of meetings: {{ psychology.meetings!.length}}</p>
     </mat-list-option>
+    <button mat-icon-button (click)="navigateToAddEdit(psychology)">
+      <mat-icon class="mat-24">edit</mat-icon>
+    </button>
     <button mat-icon-button (click)="delete(psychology.psychologistId)">
       <mat-icon class="mat-24">delete</mat-icon>
     </button>
   </mat-list-item>
 </mat-selection-list>
 
-<a [routerLink]="['/add-psychology']">
-  <button
-    mat-fab
-    color="primary"
-    id="add-button"
-    matTooltip="Add new psychology"
-    class="add-button"
 
-  >
-    <mat-icon>add</mat-icon>
-  </button>
-</a>
+<button
+  mat-fab
+  color="primary"
+  id="add-button"
+  matTooltip="Add new psychology"
+  class="add-button"
+  (click)="navigateToAddEdit()"
+>
+  <mat-icon>add</mat-icon>
+</button>
+

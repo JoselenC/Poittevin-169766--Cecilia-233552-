@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Psychology} from '../../models/Psychology';
+import {Patient} from '../../models/Patient';
 
 
 @Injectable({
@@ -30,4 +31,7 @@ export class PsychologyService {
     return this.http.delete<Psychology>(this.uri + '/' + id);
   }
 
+  update(psychology: Psychology): Observable<Psychology> {
+    return this.http.put<Psychology>(this.uri + '/' + psychology.psychologistId, psychology);
+  }
 }

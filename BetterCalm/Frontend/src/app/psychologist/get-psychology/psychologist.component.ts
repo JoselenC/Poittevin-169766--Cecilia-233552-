@@ -39,4 +39,20 @@ export class PsychologyComponent implements OnInit {
   navigateTo(psychologyId: number): void {
     this.router.navigate(['psychology', psychologyId]);
   }
+
+  navigateToAddEdit(psychology ?: Psychology): void {
+    if (psychology === undefined) {
+      psychology = new Psychology(
+        0,
+        '',
+        '',
+        '',
+        false,
+        500,
+        [],
+        []
+      );
+    }
+    this.router.navigate(['add-psychology'], {state: {psychology}});
+  }
 }
