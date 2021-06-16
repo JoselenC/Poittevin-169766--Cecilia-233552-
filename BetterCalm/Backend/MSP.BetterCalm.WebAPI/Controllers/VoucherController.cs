@@ -8,7 +8,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
 {
     [ApiController]
     [FilterExceptions]
-    // [ServiceFilter(typeof(FilterAuthentication))]
+    [ServiceFilter(typeof(FilterAuthentication))]
     [Route("api/Voucher")]
     public class VoucherController : ControllerBase
     {
