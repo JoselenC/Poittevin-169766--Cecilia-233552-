@@ -1,6 +1,6 @@
-<mat-selection-list multiple="false">
-  <mat-grid-list cols=4 rowHeight="1.2:1" >
-    <mat-grid-tile *ngFor="let content of contents" >
+<mat-selection-list  multiple="false">
+  <mat-grid-list fxLayoutGap cols="4" rowHeight="4:4" >
+    <mat-grid-tile *ngFor="let content of contents">
       <div>
     <mat-list-option (click)="navigateTo(content.id)">
       <b> {{content.name}} </b>
