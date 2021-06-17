@@ -7,6 +7,7 @@ import {CategoryService} from '../../services/category/category.service';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {Content} from '../../models/Content';
 import {Category} from '../../models/Category';
+import {newArray} from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-add-playlist',
@@ -23,10 +24,17 @@ export class AddPlaylistComponent implements OnInit {
   private formBuilder: FormBuilder
   ){ }
 
-  id = 0;
-  name = '';
-  urlImage = '';
-  description = '';
+  public playlist: Playlist = new Playlist(
+    0,
+    '',
+    '',
+    '',
+    new Array<Category>(),
+    new Array<Content>()
+  );
+
+  selectedCategories: Array<string> = [];
+  selectedContents: Array<string> = [];
   categories: Category[] | undefined;
   cat = new FormControl();
   catGroup ?: FormGroup;
@@ -36,13 +44,17 @@ export class AddPlaylistComponent implements OnInit {
   click?: boolean;
 
   ngOnInit(): void {
-
-    this.categoryService.getCategories().subscribe(
-      ((data: Array<Category>) => this.getCategories(data)),
-      ((error: any) => alert(error.message))
-    );
+    if (history.state.playlist !== undefined) {
+      this.playlist = history.state.playlist;
+      this.selectedCategories = this.playlist.categories.map((x: any) => x.name);
+      this.selectedContents = this.playlist.contents.map((x: any) => x.id);
+    }
     this.serviceContent.getAll().subscribe(
       ((data: Array<Content>) => this.getContents(data)),
+      ((error: any) => alert(error.message))
+    );
+    this.categoryService.getCategories().subscribe(
+      ((data: Array<Category>) => this.getCategories(data)),
       ((error: any) => alert(error.message))
     );
     this.initFormCategories();
@@ -78,26 +90,27 @@ export class AddPlaylistComponent implements OnInit {
  }
 
   addPlaylist(): void{
-    this.playlist.categories = this.selectedCategories.map((x: any) => new Category(0, x));
-    this.playlist.contents =  this.selectedContents.map((x: any) => x.id);
-     this.servicePlaylist.add(this.playlist).subscribe(
+  this.playlist.categories = this.cat.value.map((x: any) => (new Category(0, x)));
+  this.playlist.contents =  this.cont.value.map((x: any ) =>
+      ( new Content(x, x.name, x.creatorName, x.type, x.urlImage, x.duration, x.categories, x.urlArchive)));
+  this.servicePlaylist.add(this.playlist).subscribe(
       (data: Playlist) => this.result(data),
       (error: any) => alert(error)
-      this.cat.value.map((x: any) => (new Category(0, x))),
-      this.cont.value.map((x: any ) => ( new Content(x, x.name, x.creatorName, x.type, x.urlImage, x.duration, x.categories, x.urlArchive)))
-    );
+   );
   }
 
   updatePlaylist(): void{
-    this.playlist.categories = this.selectedCategories.map((x: any) => new Category(0, x));
+    this.playlist.categories = this.cat.value.map((x: any) => (new Category(0, x)));
+    this.playlist.contents =  this.cont.value.map((x: any ) =>
+      ( new Content(x, x.name, x.creatorName, x.type, x.urlImage, x.duration, x.categories, x.urlArchive)));
     this.servicePlaylist.update(this.playlist.id, this.playlist).subscribe(
       (data: Playlist) => this.result(data),
       (error: any) => alert(error)
     );
   }
 
-  // tslint:disable-next-line:typedef
-  private result(data: Playlist) {
+
+  private result(data: Playlist): void {
     this.router.navigate(['/playlists']);
   }
 
