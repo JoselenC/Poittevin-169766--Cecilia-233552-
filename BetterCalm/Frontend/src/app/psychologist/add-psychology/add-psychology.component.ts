@@ -51,16 +51,10 @@ export class AddPsychologyComponent implements OnInit {
     if (this.psychology.psychologistId === 0) {
       this.psychologyService.add(this.psychology).subscribe(
         (data: Psychology) => this.result(data),
-        (error: any) => {
-          alert(error);
-        }
       );
     } else {
       this.psychologyService.update(this.psychology).subscribe(
         (data: Psychology) => this.result(data),
-        (error: any) => {
-          alert(error);
-        }
       );
     }
   }

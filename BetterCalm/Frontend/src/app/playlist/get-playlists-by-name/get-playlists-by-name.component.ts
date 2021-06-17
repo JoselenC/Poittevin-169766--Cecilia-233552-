@@ -22,8 +22,7 @@ export class GetPlaylistsByNameComponent implements OnInit {
   ngOnInit(): void {
     this.playlistService.getAll()
       .subscribe(
-        ((data: Array<Playlist>) => this.result(data)),
-        ((error: any) => alert(error.message))
+        ((data: Array<Playlist>) => this.result(data))
       );
   }
 
@@ -37,7 +36,6 @@ export class GetPlaylistsByNameComponent implements OnInit {
 
   delete(id: number): void {
     this.playlistService.delete(id).subscribe(
-      (error: any) => alert(error)
     );
     this.playlists = this.playlists.filter(p => p.id !== id);
   }
@@ -45,7 +43,6 @@ export class GetPlaylistsByNameComponent implements OnInit {
   filtrar(): void {
     this.playlistService.getByName(this.filter).subscribe(
       ((data: Array<Playlist>) => this.getByName(data)),
-      ((error: any) => alert(error.message))
     );
   }
 

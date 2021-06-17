@@ -57,7 +57,6 @@ export class UpdateContentComponent implements OnInit {
 
     this.serviceCategory.getCategories().subscribe(
       ((data: Array<Category>) => this.getResult(data)),
-      ((error: any) => alert(error.message))
     );
     this.initFormCategories();
     this.initFormTypes();
@@ -95,10 +94,6 @@ export class UpdateContentComponent implements OnInit {
     );
     this.serviceContent.update(contentId, content).subscribe(
       (data: Content) => this.result(data),
-      (error: any) => {
-        console.log(error);
-        alert(error);
-      }
     );
   }
 

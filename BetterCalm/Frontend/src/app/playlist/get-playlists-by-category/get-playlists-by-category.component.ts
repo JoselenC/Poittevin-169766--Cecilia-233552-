@@ -23,7 +23,6 @@ export class GetPlaylistsByCategoryComponent implements OnInit {
     this.playlistService.getAll()
       .subscribe(
         ((data: Array<Playlist>) => this.result(data)),
-        ((error: any) => alert(error.message))
       );
   }
 
@@ -37,7 +36,6 @@ export class GetPlaylistsByCategoryComponent implements OnInit {
 
   delete(id: number): void {
     this.playlistService.delete(id).subscribe(
-      (error: any) => alert(error)
     );
     this.playlists = this.playlists.filter(p => p.id !== id);
   }
@@ -45,7 +43,6 @@ export class GetPlaylistsByCategoryComponent implements OnInit {
   filtrar(): void {
     this.playlistService.getByCategoryName(this.filter).subscribe(
       ((data: Array<Playlist>) => this.getByCategoryName(data)),
-      ((error: any) => alert(error.message))
     );
   }
 

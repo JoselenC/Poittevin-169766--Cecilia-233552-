@@ -41,7 +41,6 @@ export class AddContentComponent implements OnInit {
   ngOnInit(): void {
     this.serviceCategory.getCategories().subscribe(
       ((data: Array<Category>) => this.getResult(data)),
-      ((error: any) => alert(error.message))
     );
     this.initFormCategories();
     this.initFormTypes();
@@ -68,10 +67,6 @@ export class AddContentComponent implements OnInit {
     const content = new Content(this.id, this.name, this.authorName, this.urlContent, this.urlImage, this.duration, this.cat.value.map((x: any) => (new Category(0, x))), this.typ.value.toString());
     this.serviceContent.addContent(content).subscribe(
       (data: Content) => this.result(data),
-      (error: any) => {
-        console.log(error);
-        alert(error);
-      }
     );
   }
 

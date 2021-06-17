@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {ErrorHandler, NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {BrowserModule} from '@angular/platform-browser';
 import {MatSliderModule} from '@angular/material/slider';
@@ -19,6 +19,9 @@ import {AuthInterceptor} from './interceptors/auth.interceptor';
 import {ImportContentModule} from './import/import-content.module';
 import {AdminModule} from './admin/admin.module';
 import {VoucherModule} from './voucher/voucher.module';
+import {CustomErrorHandler} from './interceptors/error-interceptor/error-interceptor.service';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 
 const routes: Routes = [
   {
@@ -51,13 +54,18 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
   ],
   exports: [
-    RouterModule
+    RouterModule,
+    MatSnackBarModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
+    },
+    {
+      provide: ErrorHandler,
+      useClass: CustomErrorHandler,
     }
   ],
   bootstrap: [AppComponent]

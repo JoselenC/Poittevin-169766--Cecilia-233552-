@@ -17,7 +17,8 @@ export class AddContentToPlaylistComponent implements OnInit {
     private serviceCategory: CategoryService,
     private router: Router,
     private formBuilder: FormBuilder,
-  ) {}
+  ) {
+  }
 
   id = 0;
   name = '';
@@ -26,7 +27,7 @@ export class AddContentToPlaylistComponent implements OnInit {
   urlImage = '';
   duration = '';
   data = Content;
-  categories: Category[]| undefined;
+  categories: Category[] | undefined;
   cat = new FormControl();
   catGroup ?: FormGroup;
 
@@ -41,7 +42,6 @@ export class AddContentToPlaylistComponent implements OnInit {
   ngOnInit(): void {
     this.serviceCategory.getCategories().subscribe(
       ((data: Array<Category>) => this.getResult(data)),
-      ((error: any) => alert(error.message))
     );
     this.initFormCategories();
     this.initFormTypes();
@@ -70,10 +70,6 @@ export class AddContentToPlaylistComponent implements OnInit {
   addContent(): void {
     const content = new Content(this.id, this.name, this.authorName, this.urlContent, this.urlImage, this.duration, this.cat.value.map((x: any) => (new Category(0, x))), this.typ.value.toString());
     this.serviceContent.addContent(content).subscribe(
-            (error: any) => {
-        console.log(error);
-        alert(error);
-      }
     );
   }
 

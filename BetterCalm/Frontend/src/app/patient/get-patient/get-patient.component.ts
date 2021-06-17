@@ -21,7 +21,6 @@ export class GetPatientComponent implements OnInit {
     this.patientService.getAll()
       .subscribe(
         ((data: Array<Patient>) => this.result(data)),
-        ((error: any) => alert(error.message))
       );
   }
 
@@ -31,7 +30,6 @@ export class GetPatientComponent implements OnInit {
 
   delete(id: number): void {
     this.patientService.delete(id).subscribe(
-      (error: any) => alert(error)
     );
     this.patients = this.patients.filter(p => p.id !== id);
   }

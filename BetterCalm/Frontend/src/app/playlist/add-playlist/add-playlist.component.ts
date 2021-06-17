@@ -39,11 +39,9 @@ export class AddPlaylistComponent implements OnInit {
 
     this.categoryService.getCategories().subscribe(
       ((data: Array<Category>) => this.getCategories(data)),
-      ((error: any) => alert(error.message))
     );
     this.serviceContent.getAll().subscribe(
       ((data: Array<Content>) => this.getContents(data)),
-      ((error: any) => alert(error.message))
     );
     this.initFormCategories();
     this.initFormContents();
@@ -72,7 +70,6 @@ export class AddPlaylistComponent implements OnInit {
  reloadContents(): void{
    this.serviceContent.getAll().subscribe(
      ((data: Array<Content>) => this.getContents(data)),
-     ((error: any) => alert(error.message))
    );
    this.initFormContents();
  }
@@ -87,7 +84,6 @@ export class AddPlaylistComponent implements OnInit {
     );
     this.servicePlaylist.add(playlist).subscribe(
       (data: Playlist) => this.result(data),
-      (error: any) => alert(error)
     );
   }
 
