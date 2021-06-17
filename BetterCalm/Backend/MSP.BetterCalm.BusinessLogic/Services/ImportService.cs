@@ -1,4 +1,4 @@
-﻿#nullable enable
+#nullable enable
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -60,6 +60,7 @@ namespace MSP.BetterCalm.BusinessLogic.Services
 
         public ListContentModel ImportContent(Import import)
         {
+            ListContentModel contentsAdded = new ListContentModel();
             var directory = new DirectoryInfo(_path);
             FileInfo[] files = directory.GetFiles("*.dll");
             foreach (var file in files)
@@ -79,15 +80,14 @@ namespace MSP.BetterCalm.BusinessLogic.Services
                             try
                             {
                                 SetContent(listContentModels.ListContentModels[i]);
+                                contentsAdded.ListContentModels.Add(listContentModels.ListContentModels[i]);
                             }
                             catch (Exception e)
                             {
                                 // ignored
                             }
                         }
-
-
-                        return listContentModels;
+                        return contentsAdded;
                     }
                 }
             }

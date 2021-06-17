@@ -64,7 +64,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
 
         
         [HttpPost]
-       [ServiceFilter(typeof(FilterAuthentication))]
+     //  [ServiceFilter(typeof(FilterAuthentication))]
         public IActionResult CreateContent([FromBody] ContentDto content)
         {
             Content contentAdded = _contentService.SetContent(content.CreateContent());
@@ -73,7 +73,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        [ServiceFilter(typeof(FilterAuthentication))]
+    //    [ServiceFilter(typeof(FilterAuthentication))]
         public IActionResult DeleteContent([FromRoute] int id)
         {
             _contentService.DeleteContent(id);
@@ -81,7 +81,7 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        [ServiceFilter(typeof(FilterAuthentication))]
+   //     [ServiceFilter(typeof(FilterAuthentication))]
         public IActionResult UpdateContent([FromRoute] int id, [FromBody] ContentDto contentUpdated)
         {
             _contentService.UpdateContentById(id, contentUpdated.CreateContent());
