@@ -72,10 +72,20 @@ namespace MSP.BetterCalm.Domain
         
         private void SetUrlContent(string vUrl)
         {
-            if (IsUrlValidContent(vUrl) || vUrl == "")
-                _urlArchive=vUrl;
+            if (Type == "video")
+            {
+                if (IsUrlValidContent(vUrl) || vUrl == "")
+                    _urlArchive = vUrl;
+                else
+                    throw new InvalidUrl();
+            }
             else
-                throw new InvalidUrl();
+            {
+                if (IsUrlValid(vUrl) || vUrl == "")
+                    _urlArchive = vUrl;
+                else
+                    throw new InvalidUrl();
+            }
         }
         public List<Category> Categories {get; set; }
         public bool AssociatedToPlaylist { get; set; }
