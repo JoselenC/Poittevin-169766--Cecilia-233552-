@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Content} from '../../models/Content';
 import {ContentService} from '../../services/content/content.service';
 import {Router} from '@angular/router';
+import {Category} from '../../models/Category';
 
 
 @Component({
@@ -53,5 +54,20 @@ export class GetContentByNameComponent implements OnInit {
 
   getByName(data: Array<Content>): void{
     this.contents = data;
+  }
+
+  navigateToAddEdit(content ?: Content): void {
+    if (content === undefined) {
+      content = new Content(
+        0,
+        '',
+        '',
+        '',
+        '',
+        '',
+        new Array<Category>(),
+        ''
+      ); }
+    this.router.navigate(['add-content'], {state: {content}});
   }
 }

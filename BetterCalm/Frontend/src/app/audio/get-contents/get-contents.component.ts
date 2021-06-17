@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Content} from '../../models/Content';
 import {Router} from '@angular/router';
 import {ContentService} from '../../services/content/content.service';
+import {Playlist} from '../../models/Playlist';
+import {Category} from '../../models/Category';
 
 
 @Component({
@@ -39,5 +41,20 @@ export class GetContentsComponent implements OnInit {
       (error: any) => alert(error)
     );
     this.contents = this.contents.filter(p => p.id !== id);
+  }
+
+  navigateToAddEdit(content ?: Content): void {
+    if (content === undefined) {
+      content = new Content(
+        0,
+        '',
+        '',
+        '',
+        '',
+        '',
+        new Array<Category>(),
+        ''
+      ); }
+    this.router.navigate(['add-content'], {state: {content}});
   }
 }

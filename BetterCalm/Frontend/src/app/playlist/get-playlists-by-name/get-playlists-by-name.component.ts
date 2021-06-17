@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Playlist} from '../../models/Playlist';
 import {PlaylistService} from '../../services/playlist/playlist.service';
 import {Router} from '@angular/router';
+import {Category} from '../../models/Category';
+import {Content} from '../../models/Content';
 
 
 @Component({
@@ -51,5 +53,17 @@ export class GetPlaylistsByNameComponent implements OnInit {
 
   getByName(data: Array<Playlist>): void{
     this.playlists = data;
+  }
+
+  navigateToAddEdit(playlist ?: Playlist): void {
+    if (playlist === undefined) {
+      playlist = new Playlist (0,
+        '',
+        '',
+        '',
+        new Array<Category>(),
+        new Array<Content>()
+      ); }
+    this.router.navigate(['add-playlist'], {state: {playlist}});
   }
 }

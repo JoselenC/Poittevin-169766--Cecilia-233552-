@@ -16,23 +16,21 @@
     <button mat-icon-button (click)="delete(content.id)">
       <mat-icon class="mat-24">delete</mat-icon>
     </button>
-    <a [routerLink]="['/update-content/' + content.id]">
-  <button mat-icon-button >
-    <mat-icon class="mat-24">edit</mat-icon>
-  </button>
-    </a>
+        <button mat-icon-button (click)="navigateToAddEdit(content)">
+          <mat-icon class="mat-24">edit</mat-icon>
+        </button>
       </div>
     </mat-grid-tile>
   </mat-grid-list>
 </mat-selection-list>
 
-<a [routerLink]="['/add-content']">
   <button
     mat-fab
     color="primary"
     id="add-button"
     matTooltip="Add customer"
     class="add-button">
+    (click)="navigateToAddEdit()"
     <mat-icon>add</mat-icon>
   </button>
-</a>
+

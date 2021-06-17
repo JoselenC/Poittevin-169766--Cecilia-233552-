@@ -24,7 +24,6 @@ import {ContentModule} from '../audio/content.module';
 import {GetPlaylistsByNameComponent} from './get-playlists-by-name/get-playlists-by-name.component';
 import {GetPlaylistsByContentComponent} from './get-playlists-by-content/get-playlists-by-name.component';
 import {GetPlaylistsByCategoryComponent} from './get-playlists-by-category/get-playlists-by-category.component';
-import {UpdatePlaylistComponent} from './update-playlist/update-playlist.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 
 const routes: Routes = [
@@ -47,13 +46,6 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: '', component: AddPlaylistComponent },
-    ]
-  },
-  {
-    path: 'update-playlist/:playlistId',
-    component: LayoutComponent,
-    children: [
-      { path: '', component: UpdatePlaylistComponent },
     ]
   },
   {
@@ -86,8 +78,7 @@ const routes: Routes = [
     AddPlaylistComponent,
     GetPlaylistsByNameComponent,
     GetPlaylistsByContentComponent,
-    GetPlaylistsByCategoryComponent,
-    UpdatePlaylistComponent
+    GetPlaylistsByCategoryComponent
   ],
     imports: [
         CommonModule,

@@ -27,7 +27,6 @@ import {GetContentByCategoryComponent} from './get-content-by-category/get-conte
 import {GetPlaylistsByCategoryComponent} from '../playlist/get-playlists-by-category/get-playlists-by-category.component';
 import {GetContentByAuthorComponent} from './get-content-by-author/get-content-by-author.component';
 import {AddContentToPlaylistComponent} from './add-content-to-playlit/add-content-to-playlist.component';
-import {UpdateContentComponent} from './update-content/update-content.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 
 
@@ -52,13 +51,6 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: '', component: AddContentComponent },
-    ]
-  },
-  {
-    path: 'update-content/:contentId',
-    component: LayoutComponent,
-    children: [
-      { path: '', component: UpdateContentComponent },
     ]
   },
   {
@@ -99,8 +91,7 @@ const routes: Routes = [
     GetContentByNameComponent,
     GetContentByCategoryComponent,
     GetContentByAuthorComponent,
-    AddContentToPlaylistComponent,
-    UpdateContentComponent
+    AddContentToPlaylistComponent
   ],
   imports: [
     CommonModule,
