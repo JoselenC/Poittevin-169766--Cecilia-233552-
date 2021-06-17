@@ -14,10 +14,17 @@ namespace MSP.BetterCalm.BusinessLogic.Services
         {
             _repository = vRepository;
         }
-        
+
         public List<Content> GetContents()
         {
-            return _repository.Contents.Get();
+            List<Content> contents = new List<Content>();
+            foreach (var content in _repository.Contents.Get())
+            {
+                if (!content.AssociatedToPlaylist)
+                    contents.Add(content);
+            }
+
+            return contents;
         }
 
         public void SetContents(List<Content> contents)
@@ -118,12 +125,15 @@ namespace MSP.BetterCalm.BusinessLogic.Services
        {
            try
            {
-               return _repository.Contents.FindById(id);
+               Content content =  _repository.Contents.FindById(id);
+               if (!content.AssociatedToPlaylist)
+                   return content;
            }
            catch (KeyNotFoundException)
            {
                throw new NotFoundId();
            }
+           throw new NotFoundId();
        }
     }
 }
