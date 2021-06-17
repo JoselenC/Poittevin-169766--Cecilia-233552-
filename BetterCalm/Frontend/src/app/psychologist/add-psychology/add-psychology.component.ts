@@ -4,6 +4,7 @@ import {Psychology} from '../../models/Psychology';
 import {PsychologyService} from '../../services/Psychology/psychology.service';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {Problematic} from '../../models/Problematic';
+import {ProblematicService} from '../../services/problematic/problematic.service';
 
 @Component({
   selector: 'app-add-psychology',
@@ -22,16 +23,7 @@ export class AddPsychologyComponent implements OnInit {
     [],
     []
   );
-  problematics: Array<Problematic> = [
-    new Problematic(1, 'Depresión'),
-    new Problematic(2, 'Estrés'),
-    new Problematic(3, 'Ansiedad'),
-    new Problematic(4, 'Autoestima'),
-    new Problematic(5, 'Enojo'),
-    new Problematic(6, 'Relaciones'),
-    new Problematic(7, 'Duelo'),
-    new Problematic(8, 'Otros')
-  ];
+  problematics: Array<Problematic> = [];
   selectedProblematics: Array<string> = [];
   rates: Array<number> = [
     500,
@@ -42,6 +34,7 @@ export class AddPsychologyComponent implements OnInit {
 
   constructor(
     private psychologyService: PsychologyService,
+    private problematicService: ProblematicService,
     private router: Router,
   ) {
   }
@@ -64,6 +57,10 @@ export class AddPsychologyComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.problematicService.getProblematics().subscribe(
+      (result: Array<Problematic>) => {
+        this.problematics = result;
+      });
     if (history.state.psychology !== undefined) {
       this.psychology = history.state.psychology;
       this.selectedProblematics = this.psychology.problematics.map((x: any) => x.name);
