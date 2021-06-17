@@ -51,7 +51,6 @@ export class AddPlaylistComponent implements OnInit {
     }
     this.serviceContent.getAll().subscribe(
       ((data: Array<Content>) => this.getContents(data)),
-      ((error: any) => alert(error.message))
     );
     this.categoryService.getCategories().subscribe(
       ((data: Array<Category>) => this.getCategories(data)),
@@ -93,7 +92,6 @@ export class AddPlaylistComponent implements OnInit {
       ( new Content(x, x.name, x.creatorName, x.type, x.urlImage, x.duration, x.categories, x.urlArchive)));
   this.servicePlaylist.add(this.playlist).subscribe(
       (data: Playlist) => this.result(data),
-      (error: any) => alert(error)
    );
   }
 
@@ -103,7 +101,6 @@ export class AddPlaylistComponent implements OnInit {
       ( new Content(x, x.name, x.creatorName, x.type, x.urlImage, x.duration, x.categories, x.urlArchive)));
     this.servicePlaylist.update(this.playlist.id, this.playlist).subscribe(
       (data: Playlist) => this.result(data),
-      (error: any) => alert(error)
     );
   }
 

@@ -82,10 +82,6 @@ export class AddContentComponent implements OnInit {
     this.content.type = this.typ.value;
     this.serviceContent.addContent(this.content).subscribe(
       (data: Content) => this.result(data),
-      (error: any) => {
-        console.log(error);
-        alert(error);
-      }
     );
   }
 
