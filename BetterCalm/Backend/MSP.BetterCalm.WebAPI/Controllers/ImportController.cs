@@ -38,8 +38,8 @@ namespace MSP.BetterCalm.WebAPI.Controllers
         {
             Import import = new Import() {Name = importDto.Name, 
                 Path = importDto.Path ,Parameters = importService.GetParameters()};
-            importService.ImportContent(import);
-            return Ok("The new content was successfully imported");
+            string message = importService.ImportContent(import);
+            return Ok(message);
         }
     }
 }

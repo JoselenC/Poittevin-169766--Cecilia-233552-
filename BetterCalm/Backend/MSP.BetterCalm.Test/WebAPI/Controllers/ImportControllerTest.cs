@@ -73,7 +73,7 @@ namespace MSP.BetterCalm.Test.WebAPI.Controllers
             };
             Content content1 = new Content() {Name = "Stand by me"};
             List<Content> contents = new List<Content>() {content1};
-            mockImportService.Setup(m => m.ImportContent(import)).Returns(new ListContentModel());
+            mockImportService.Setup(m => m.ImportContent(import)).Returns("");
             
         }
     }

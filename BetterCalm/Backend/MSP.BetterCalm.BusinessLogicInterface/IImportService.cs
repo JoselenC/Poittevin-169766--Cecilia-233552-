@@ -7,7 +7,7 @@ namespace MSP.BetterCalm.BusinessLogicInterface
     public interface IImportService
     {
         List<string> GetImportersName();
-        ListContentModel ImportContent(Import import);
+        string ImportContent(Import import);
         List<Parameter> GetParameters();
     }
 }

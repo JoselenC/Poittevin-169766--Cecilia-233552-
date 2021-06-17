@@ -58,10 +58,13 @@ namespace MSP.BetterCalm.BusinessLogic.Services
             return names;
         }
 
-        public ListContentModel ImportContent(Import import)
+        public string ImportContent(Import import)
         {
             ListContentModel contentsAdded = new ListContentModel();
             var directory = new DirectoryInfo(_path);
+            string message = "";
+            int cantContentsAdded = 0;
+            int cantContentsNotAdded = 0;
             FileInfo[] files = directory.GetFiles("*.dll");
             foreach (var file in files)
             {
@@ -80,14 +83,16 @@ namespace MSP.BetterCalm.BusinessLogic.Services
                             try
                             {
                                 SetContent(listContentModels.ListContentModels[i]);
-                                contentsAdded.ListContentModels.Add(listContentModels.ListContentModels[i]);
+                                cantContentsAdded++;
                             }
                             catch (Exception e)
                             {
-                                // ignored
+                                cantContentsNotAdded++;
                             }
                         }
-                        return contentsAdded;
+
+                        return cantContentsAdded + " songs added and " + cantContentsNotAdded + " songs are not added";
+                        ;
                     }
                 }
             }
