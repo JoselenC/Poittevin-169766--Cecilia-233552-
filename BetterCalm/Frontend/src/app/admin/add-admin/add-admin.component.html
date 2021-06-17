@@ -1,5 +1,6 @@
-<h3>Add new patient</h3>
 <form class="standardForm">
+  <h3  *ngIf="admin.administratorId == 0">Add new psychologis</h3>
+  <h3 *ngIf="admin.administratorId != 0">Edit psychologist</h3>
   <div fxLayout="column">
     <div fxLayout="row" fxLayoutAlign="space-between start" >
       <mat-form-field appearance="outline">
@@ -14,7 +15,7 @@
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
       <input
-        matInput 
+        matInput
         type="email"
         placeholder="email@email.com"
         min="3"
