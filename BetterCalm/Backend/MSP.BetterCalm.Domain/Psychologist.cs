@@ -31,15 +31,19 @@ namespace MSP.BetterCalm.Domain
         }
         protected bool Equals(Psychologist other)
         {
-            return Address == other.Address &&
-                   CreationDate == other.CreationDate &&
-                   Name == other.Name &&
-                   LastName == other.LastName &&
-                   WorksOnline == other.WorksOnline &&
-                   Problematics.OrderBy(
-                       x => x.Id).SequenceEqual(
-                       other.Problematics.OrderBy(
-                           x => x.Id));
+            bool hasSameADdress = Address == other.Address;
+            bool hasSameCreationDate = CreationDate == other.CreationDate;
+            bool hasSameName = Name == other.Name;
+            bool hasSameLastName = LastName == other.LastName;
+            bool hasSameProblematic = Problematics.OrderBy(
+                x => x.Id).SequenceEqual(
+                other.Problematics.OrderBy(
+                    x => x.Id));
+            return hasSameADdress &&
+                   hasSameCreationDate &&
+                   hasSameName &&
+                   hasSameLastName &&
+                   hasSameProblematic;
         }
 
         public override bool Equals(object obj)

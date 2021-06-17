@@ -14,8 +14,7 @@ export class CustomErrorHandler implements ErrorHandler {
   }
 
   handleError(error: any): void {
-    console.log(error);
-    if (error.status >= 400) {
+    if (error.status !== undefined && error.status >= 400) {
       if (error.error.errors !== undefined) {
         for (let key in error.error.errors) {
           this.zone.run(() => {
@@ -29,10 +28,13 @@ export class CustomErrorHandler implements ErrorHandler {
       }
     } else {
       this.zone.run(() => {
-        this.snackBar.open(error.text, 'close');
+        if (error.error !== undefined && error.error.text !== undefined) {
+          this.snackBar.open(error.error.text, 'close');
+        } else {
+          this.snackBar.open(error.text, 'close');
+        }
       });
     }
-
   }
 }
 

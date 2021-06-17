@@ -52,9 +52,6 @@ export class AddMeetingComponent implements OnInit {
     );
     this.patientService.scheduleMeeting(schedule).subscribe(
       (data: any) => this.result(data),
-      (error: any) => {
-        console.log(error);
-      }
     );
   }
 

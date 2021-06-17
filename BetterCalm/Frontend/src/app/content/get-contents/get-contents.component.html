@@ -1,5 +1,5 @@
 <mat-selection-list  multiple="false">
-  <mat-grid-list fxLayoutGap cols="4" rowHeight="4:4" >
+  <mat-grid-list fxLayoutGap cols="4" >
     <mat-grid-tile *ngFor="let content of contents">
       <div>
     <mat-list-option (click)="navigateTo(content.id)">
@@ -24,13 +24,13 @@
   </mat-grid-list>
 </mat-selection-list>
 
-  <button
-    mat-fab
-    color="primary"
-    id="add-button"
-    matTooltip="Add customer"
-    class="add-button"
-    (click)="navigateToAddEdit()">
-    <mat-icon>add</mat-icon>
-  </button>
+<button
+  mat-fab
+  color="primary"
+  id="add-button"
+  matTooltip="Add customer"
+  class="add-button"
+  (click)="navigateToAddEdit()">
+  <mat-icon>add</mat-icon>
+</button>
 

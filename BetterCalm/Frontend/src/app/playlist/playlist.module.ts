@@ -20,7 +20,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {FlexModule} from '@angular/flex-layout';
 import {CategoryModule} from '../category/category.module';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {ContentModule} from '../audio/content.module';
+import {ContentModule} from '../content/content.module';
 import {GetPlaylistsByNameComponent} from './get-playlists-by-name/get-playlists-by-name.component';
 import {GetPlaylistsByContentComponent} from './get-playlists-by-content/get-playlists-by-name.component';
 import {GetPlaylistsByCategoryComponent} from './get-playlists-by-category/get-playlists-by-category.component';

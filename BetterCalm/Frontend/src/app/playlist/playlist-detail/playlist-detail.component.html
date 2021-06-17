@@ -7,7 +7,7 @@
 <div>
   <h2>Contents</h2>
   <mat-selection-list multiple="false">
-    <mat-grid-list cols=4 rowHeight="1.2:1" >
+    <mat-grid-list fxLayoutGap cols="4" >
       <mat-grid-tile *ngFor="let content of playlist.contents" >
         <div>
           <mat-list-option (click)="navigateTo(content.id)">
