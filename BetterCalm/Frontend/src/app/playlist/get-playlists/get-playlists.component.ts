@@ -25,7 +25,6 @@ export class GetPlaylistsComponent implements OnInit {
     this.playlistService.getAll()
       .subscribe(
         ((data: Array<Playlist>) => this.result(data)),
-        ((error: any) => alert(error.message))
       );
   }
 
@@ -39,7 +38,6 @@ export class GetPlaylistsComponent implements OnInit {
 
   delete(id: number): void {
     this.playlistService.delete(id).subscribe(
-      (error: any) => alert(error)
     );
     this.playlists = this.playlists.filter(p => p.id !== id);
   }

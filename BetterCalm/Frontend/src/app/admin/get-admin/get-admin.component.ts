@@ -21,7 +21,6 @@ export class GetAdminComponent implements OnInit {
     this.adminService.getAll()
       .subscribe(
         ((data: Array<Administrator>) => this.result(data)),
-        ((error: any) => alert(error.message))
       );
   }
 
@@ -31,7 +30,6 @@ export class GetAdminComponent implements OnInit {
 
   delete(id: number): void {
     this.adminService.delete(id).subscribe(
-      (error: any) => alert(error)
     );
     this.administrators = this.administrators.filter(p => p.administratorId !== id);
   }

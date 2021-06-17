@@ -28,12 +28,10 @@ export class AddAdminComponent implements OnInit {
     if (this.admin.administratorId === 0) {
       this.adminService.add(this.admin).subscribe(
         (data: Administrator) => this.result(data),
-        (error: any) => alert(error)
       );
     } else {
       this.adminService.update(this.admin).subscribe(
         (data: Administrator) => this.result(data),
-        (error: any) => alert(error)
       );
     }
   }

@@ -21,7 +21,6 @@ export class PsychologyComponent implements OnInit {
     this.psychologyService.getAll()
       .subscribe(
         ((data: Array<Psychology>) => this.result(data)),
-        ((error: any) => alert(error.message))
       );
   }
 
@@ -31,7 +30,6 @@ export class PsychologyComponent implements OnInit {
 
   delete(id: number): void {
     this.psychologyService.delete(id).subscribe(
-      (error: any) => alert(error)
     );
     this.psychologies = this.psychologies.filter(p => p.psychologistId !== id);
   }

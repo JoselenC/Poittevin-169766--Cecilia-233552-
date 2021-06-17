@@ -55,7 +55,6 @@ export class AddContentComponent implements OnInit {
     }
     this.serviceCategory.getCategories().subscribe(
       ((data: Array<Category>) => this.getResult(data)),
-      ((error: any) => alert(error.message))
     );
     this.initFormCategories();
     this.initFormTypes();
@@ -95,10 +94,6 @@ export class AddContentComponent implements OnInit {
     this.content.type = this.typ.value;
     this.serviceContent.update(this.content.id , this.content).subscribe(
       (data: Content) => this.result(data),
-      (error: any) => {
-        console.log(error);
-        alert(error);
-      }
     );
   }
 

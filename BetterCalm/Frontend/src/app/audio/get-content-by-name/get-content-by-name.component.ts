@@ -24,7 +24,6 @@ export class GetContentByNameComponent implements OnInit {
     this.contentService.getAll()
       .subscribe(
         ((data: Array<Content>) => this.result(data)),
-        ((error: any) => alert(error.message))
       );
   }
 
@@ -38,7 +37,6 @@ export class GetContentByNameComponent implements OnInit {
 
   delete(id?: number): void {
     this.contentService.delete(id).subscribe(
-      (error: any) => alert(error)
     );
     this.contents = this.contents?.filter(p => p.id !== id);
   }
@@ -48,7 +46,6 @@ export class GetContentByNameComponent implements OnInit {
       (data: Array<Content>) => {
         this.getByName(data);
       },
-      ((error: any) => alert(error.message))
     );
   }
 

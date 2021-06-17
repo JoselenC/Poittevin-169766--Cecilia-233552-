@@ -24,7 +24,6 @@ export class CategoryComponent implements OnInit {
     this.categoryService.getCategories()
       .subscribe(
         ((data: Array<Category>) => this.result(data)),
-        ((error: any) => alert(error.message))
       );
   }
   private result(data: Array<Category>): void {

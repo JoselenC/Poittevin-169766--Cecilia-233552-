@@ -29,12 +29,10 @@ export class AddPatientComponent implements OnInit {
     if (this.patient.id === 0) {
       this.patientService.add(this.patient).subscribe(
         (data: Patient) => this.result(data),
-        (error: any) => alert(error)
       );
     } else {
       this.patientService.update(this.patient).subscribe(
         (data: Patient) => this.result(data),
-        (error: any) => alert(error)
       );
     }
   }

@@ -32,7 +32,7 @@ namespace MSP.BetterCalm.WebAPI.Filters
             
             StringValues token;
             context.HttpContext.Request.Headers.TryGetValue("Authorization", out token);
-            if (token.Count == 0)
+            if (token.Count == 0 || token == "")
             {
                 context.Result = new ObjectResult(error)
                 {

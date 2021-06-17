@@ -28,7 +28,6 @@ export class GetVoucherComponent implements OnInit {
     this.voucherService.getAll()
       .subscribe(
         ((data: Array<Voucher>) => this.result(data)),
-        ((error: any) => alert(error.message))
       );
   }
 

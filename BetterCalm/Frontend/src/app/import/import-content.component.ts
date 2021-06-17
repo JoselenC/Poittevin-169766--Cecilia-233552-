@@ -37,7 +37,6 @@ export class ImportContentComponent implements OnInit {
     this.importService.getImportNames()
       .subscribe(
         ((data: Array<string>) => this.getNames(data)),
-        ((error: any) => alert(error.message))
       );
     this.initImportNames();
   }
@@ -61,10 +60,6 @@ export class ImportContentComponent implements OnInit {
 
     this.importService.importContent(importer).subscribe(
       (data: Import) => this.result(data),
-      (error: any) => {
-        console.log(error);
-        alert(error);
-      }
       );
   }
 
