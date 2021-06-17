@@ -210,3 +210,9 @@ BetterCalm/.idea/.idea.BetterCalm/.idea/
 BetterCalm/MSP.BetterCalm.WebAPI/appsettings.json
 
 BetterCalm/MSP.BetterCalm.DataAccess/Migrations/
+
+BetterCalm/Backend/MSP.BetterCalm.DataAccess/Migrations/
+
+BetterCalm/Backend/.idea/.idea.BetterCalm/.idea/
+
+BetterCalm/Backend/MSP.BetterCalm.WebAPI/appsettings.json

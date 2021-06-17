@@ -1,0 +1,49 @@
+<mat-form-field>
+  <div fxLayout="row" fxLayoutAlign="space-between start" >
+    <mat-form-field appearance="outline">
+      <mat-label>Search by playlist name</mat-label>
+      <input matInput type="text" placeholder="favorites songs" min="1" name="Playlist name" [(ngModel)]="filter">
+    </mat-form-field>
+    <button mat-icon-button (click)="filtrar()">
+      <mat-icon class="mat-24">search</mat-icon>
+    </button>
+  </div>
+</mat-form-field>
+
+<mat-selection-list multiple="false">
+  <mat-grid-list cols=4 rowHeight="1.2:1" >
+    <mat-grid-tile *ngFor="let playlist of playlists" >
+      <div>
+    <mat-list-option (click)="navigateTo(playlist.id)">
+      <h3 mat-line> {{playlist.name}} </h3>
+      <p mat-line> {{playlist.description}} </p>
+      <p mat-line *ngIf="playlist.urlImage!.length<1 || playlist.urlImage==null">
+        <img src="{{url}}" width="200" height="200" alt="">
+      </p>
+      <p mat-line *ngIf="playlist.urlImage!.length > 0 ">
+        <img src="{{playlist.urlImage}}" width="210" height="210" alt="">
+      </p>
+    </mat-list-option>
+    <button mat-icon-button (click)="delete(playlist.id)">
+      <mat-icon class="mat-20">delete</mat-icon>
+    </button>
+        <button mat-icon-button (click)="navigateToAddEdit(playlist)">
+          <mat-icon class="mat-24">edit</mat-icon>
+        </button>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</mat-selection-list>
+
+
+  <button
+    mat-fab
+    color="primary"
+    id="add-button"
+    matTooltip="Add customer"
+    class="add-button"
+    (click)="navigateToAddEdit()"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
+

@@ -1,0 +1,17 @@
+.add-button{
+  left: auto;
+  bottom: 40px;
+  right: 50px;
+  position: fixed;
+}
+
+.mat-list-item {
+  height: auto !important;
+  border-bottom: 50px;
+}
+
+mat-grid-tile {
+  background: #AEBDE9   ;
+  border: solid 30px white;
+  padding-top: 310px !important;
+}

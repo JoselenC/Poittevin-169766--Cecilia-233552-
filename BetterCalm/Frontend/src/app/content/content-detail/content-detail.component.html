@@ -1,0 +1,37 @@
+<div *ngIf="content != undefined">
+  <div class="mat-headline">
+    <h1> {{content.name}}</h1>
+    <div class="mat-subheading-1"> Duration:  {{content.duration}} </div>
+    <div class="mat-subheading-1"> Creator name:  {{content.creatorName}} </div>
+    <div class="mat-subheading-1"> Type:  {{content.type}}</div>
+    <p mat-line *ngIf="content.type == 'video' && (content.urlArchive!.length>0 || content.urlArchive!=null)">
+      <iframe width="560" height="315" [src]="getEmbebedUrl()" frameborder="0" allowfullscreen
+      ></iframe>
+    </p>
+    <p mat-line *ngIf="content.type=='audio' && (content.urlImage!.length<1 || content.urlImage==null)">
+      <img src="{{url}}" width="300" height="300" alt="">
+    </p>
+
+    <p mat-line *ngIf="content.type=='audio' && content.urlImage!.length > 0 ">
+      <img src="{{content.urlImage}}" width="300" height="300" alt="">
+    </p>
+
+    <div *ngIf="content.type == 'audio' && (content.urlArchive != undefined && content.urlArchive.length >0 )">
+      <audio [src]=content.urlArchive controls="controls" preload="preload">
+      </audio>
+    </div>
+
+
+  </div>
+  <mat-divider></mat-divider>
+
+  <h2>Categories</h2>
+  <mat-selection-list class="cl" *ngFor="let category of content.categories" multiple="false">
+    <mat-list-option>
+      <h3 matLine> {{category.name}}</h3>
+    </mat-list-option>
+  </mat-selection-list>
+</div>
+<div *ngIf="content == undefined">
+  404 content not found
+</div>

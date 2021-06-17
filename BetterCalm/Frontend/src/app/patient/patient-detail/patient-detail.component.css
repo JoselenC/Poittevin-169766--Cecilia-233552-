@@ -1,0 +1,11 @@
+.mat-list-item {
+  border: gray 1px solid;
+  border-radius: 10px;
+}
+
+.add-button{
+  left: auto;
+  bottom: 20px;
+  right: 50px;
+  position: fixed;
+}

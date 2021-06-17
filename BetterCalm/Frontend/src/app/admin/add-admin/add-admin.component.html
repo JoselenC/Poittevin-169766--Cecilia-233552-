@@ -1,0 +1,39 @@
+<form class="standardForm">
+  <h3  *ngIf="admin.administratorId == 0">Add new psychologis</h3>
+  <h3 *ngIf="admin.administratorId != 0">Edit psychologist</h3>
+  <div fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="space-between start" >
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" placeholder="Jose" min="3" name="name" [(ngModel)]="admin.name">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input matInput type="text" placeholder="Pedro" min="3" name="lastName" [(ngModel)]="admin.lastName">
+      </mat-form-field>
+    </div>
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        type="email"
+        placeholder="email@email.com"
+        min="3"
+        name="email"
+        [disabled]="admin.administratorId != 0"
+        [(ngModel)]="admin.email"
+      >
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" placeholder="pass" min="9" name="password" [(ngModel)]="admin.password">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="addEditAdministrator()" *ngIf="admin.administratorId === 0">
+      Add
+    </button>
+    <button mat-raised-button color="primary" (click)="addEditAdministrator()" *ngIf="admin.administratorId !== 0">
+      Edit
+    </button>
+  </div>
+</form>

@@ -1,0 +1,30 @@
+<div *ngIf="patient != undefined">
+  <div class="mat-headline">
+    <h1> {{patient.name}} {{ patient.lastName }}</h1>
+    <div class="mat-subheading-1"> cellphone:  {{patient.cellphone}} </div>
+  </div>
+  <mat-divider></mat-divider>
+  <h2>Meetings</h2>
+  <mat-selection-list class="cl" *ngFor="let meeting of patient.meetings" multiple="false">
+    <mat-list-option>
+      <h3 matLine>Psychology: {{meeting.psychologist.name}}</h3>
+      <p matLine>Dat, Time and duration: {{meeting.dateTime | date:'short' }} - {{ meeting.duration}} hs</p>
+      <p matLine>Cost: {{meeting.cost}} </p>
+      <p matLine>Address: {{meeting.address}}</p>
+    </mat-list-option>
+  </mat-selection-list>
+  <a [routerLink]="['/patients/' + patient.id + '/add-meeting']">
+    <button
+      mat-fab
+      color="primary"
+      id="add-button"
+      matTooltip="Add new meeting"
+      class="add-button"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+  </a>
+</div>
+<div *ngIf="patient == undefined">
+  404 patient not found
+</div>

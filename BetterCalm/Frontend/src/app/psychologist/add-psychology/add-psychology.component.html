@@ -1,0 +1,52 @@
+<form class="standardForm">
+  <h3  *ngIf="psychology.psychologistId == 0">Add new psychologis</h3>
+  <h3 *ngIf="psychology.psychologistId != 0">Edit psychologist</h3>
+  <div fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="space-between start">
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" placeholder="Jose" min="3" name="psychologic.name"
+               [(ngModel)]="psychology.name" required>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>LastName</mat-label>
+        <input matInput type="text" placeholder="Pedro" min="3" name="psychologic.lastName"
+               [(ngModel)]="psychology.lastName" >
+      </mat-form-field>
+    </div>
+    <mat-form-field appearance="outline">
+      <mat-label>Address</mat-label>
+      <input matInput type="text" placeholder="My house 1234" min="9" name="psychologic.address"
+             [(ngModel)]="psychology.address">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Works Online?</mat-label>
+      <mat-select [(value)]="psychology.worksOnline" required>
+        <mat-option [value]="true">Yes</mat-option>
+        <mat-option [value]="false">No</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Problems</mat-label>
+      <mat-select [(value)]="selectedProblematics" multiple required>
+        <mat-option *ngFor="let problem of problematics" [value]="problem.name">
+          {{problem.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Rate</mat-label>
+      <mat-select [(value)]="psychology.rate">
+        <mat-option *ngFor="let rate of rates" [value]="rate">
+          {{rate}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="addPsychology()" *ngIf="psychology.psychologistId == 0">Add
+    </button>
+    <button mat-raised-button color="primary" (click)="addPsychology()" *ngIf="psychology.psychologistId != 0">Edit
+    </button>
+  </div>
+</form>

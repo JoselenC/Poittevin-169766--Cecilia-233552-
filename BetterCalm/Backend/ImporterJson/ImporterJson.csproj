@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MSP.BetterCalm.Importer\MSP.BetterCalm.Importer.csproj" />
+      <ProjectReference Include="..\MSP.BetterCalm.WebAPI\MSP.BetterCalm.WebAPI.csproj" />
+    </ItemGroup>
+
+</Project>

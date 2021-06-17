@@ -1,0 +1,36 @@
+<mat-selection-list  multiple="false">
+  <mat-grid-list fxLayoutGap cols="4" >
+    <mat-grid-tile *ngFor="let content of contents">
+      <div>
+    <mat-list-option (click)="navigateTo(content.id)">
+      <b> {{content.name}} </b>
+      <p mat-line> {{content.creatorName}} </p>
+      <p mat-line *ngIf="content.urlImage!.length<1 || content.urlImage==null">
+        <img src="{{url}}" width="200" height="200" alt="">
+      </p>
+      <p mat-line *ngIf="content.urlImage!.length > 0 ">
+      <img src="{{content.urlImage}}" width="210" height="210" alt="">
+      </p>
+    </mat-list-option>
+
+    <button mat-icon-button (click)="delete(content.id)">
+      <mat-icon class="mat-24">delete</mat-icon>
+    </button>
+        <button mat-icon-button (click)="navigateToAddEdit(content)">
+          <mat-icon class="mat-24">edit</mat-icon>
+        </button>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</mat-selection-list>
+
+<button
+  mat-fab
+  color="primary"
+  id="add-button"
+  matTooltip="Add customer"
+  class="add-button"
+  (click)="navigateToAddEdit()">
+  <mat-icon>add</mat-icon>
+</button>
+

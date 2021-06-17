@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <PlatformTarget>AnyCPU</PlatformTarget>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ImporterJson\ImporterJson.csproj" />
+      <ProjectReference Include="..\ImporterXml\ImporterXml.csproj" />
+      <ProjectReference Include="..\MSP.BetterCalm.DataAccess\MSP.BetterCalm.DataAccess.csproj" />
+      <ProjectReference Include="..\MSP.BetterCalm.Domain\MSP.BetterCalm.Domain.csproj" />
+      <ProjectReference Include="..\MSP.BetterCalm.WebAPI\MSP.BetterCalm.WebAPI.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="coverlet.collector" Version="3.0.3">
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        <PrivateAssets>all</PrivateAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
+      <PackageReference Include="moq" Version="4.16.1" />
+      <PackageReference Include="MSTest.TestAdapter" Version="2.2.3" />
+      <PackageReference Include="MSTest.TestFramework" Version="2.2.3" />
+    </ItemGroup>
+
+</Project>
