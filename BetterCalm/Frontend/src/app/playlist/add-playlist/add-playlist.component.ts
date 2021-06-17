@@ -76,16 +76,21 @@ export class AddPlaylistComponent implements OnInit {
    );
    this.initFormContents();
  }
+
   addPlaylist(): void{
-    const playlist = new Playlist(
-      this.id,
-      this.name,
-      this.urlImage,
-      this.description,
+    this.playlist.categories = this.selectedCategories.map((x: any) => new Category(0, x));
+    this.playlist.contents =  this.selectedContents.map((x: any) => x.id);
+     this.servicePlaylist.add(this.playlist).subscribe(
+      (data: Playlist) => this.result(data),
+      (error: any) => alert(error)
       this.cat.value.map((x: any) => (new Category(0, x))),
       this.cont.value.map((x: any ) => ( new Content(x, x.name, x.creatorName, x.type, x.urlImage, x.duration, x.categories, x.urlArchive)))
     );
-    this.servicePlaylist.add(playlist).subscribe(
+  }
+
+  updatePlaylist(): void{
+    this.playlist.categories = this.selectedCategories.map((x: any) => new Category(0, x));
+    this.servicePlaylist.update(this.playlist.id, this.playlist).subscribe(
       (data: Playlist) => this.result(data),
       (error: any) => alert(error)
     );

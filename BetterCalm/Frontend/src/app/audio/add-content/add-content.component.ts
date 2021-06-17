@@ -5,12 +5,14 @@ import {Router} from '@angular/router';
 import {Category} from '../../models/Category';
 import {CategoryService} from '../../services/category/category.service';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {Problematic} from '../../models/Problematic';
 
 @Component({
   selector: 'app-add-content',
   templateUrl: './add-content.component.html',
   styleUrls: ['./add-content.component.css']
 })
+
 export class AddContentComponent implements OnInit {
   constructor(
     private serviceContent: ContentService,
@@ -19,17 +21,24 @@ export class AddContentComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {}
 
-  id = 0;
-  name = '';
-  authorName = '';
-  urlContent = '';
-  urlImage = '';
-  duration = '';
+  public content: Content = new Content(
+    0,
+    '',
+    '',
+    '',
+    '',
+    '',
+    new Array<Category>(),
+    ''
+  );
+
   data = Content;
   categories: Category[]| undefined;
   cat = new FormControl();
   catGroup ?: FormGroup;
 
+  selectedType = '';
+  selectedCategories: Array<string> = [];
   types: Array<string> = [
     'audio',
     'video'
@@ -39,6 +48,11 @@ export class AddContentComponent implements OnInit {
   typGroup ?: FormGroup;
 
   ngOnInit(): void {
+    if (history.state.content !== undefined) {
+      this.content = history.state.content;
+      this.selectedType = this.content.type;
+      this.selectedCategories = this.content.categories.map((x: any) => x.name);
+    }
     this.serviceCategory.getCategories().subscribe(
       ((data: Array<Category>) => this.getResult(data)),
       ((error: any) => alert(error.message))
@@ -65,8 +79,9 @@ export class AddContentComponent implements OnInit {
 
 
   addContent(): void {
-    const content = new Content(this.id, this.name, this.authorName, this.urlContent, this.urlImage, this.duration, this.cat.value.map((x: any) => (new Category(0, x))), this.typ.value.toString());
-    this.serviceContent.addContent(content).subscribe(
+    this.content.categories = this.selectedCategories.map((x: any) => new Category(0, x));
+    this.content.type = this.typ.value;
+    this.serviceContent.addContent(this.content).subscribe(
       (data: Content) => this.result(data),
       (error: any) => {
         console.log(error);
@@ -75,8 +90,19 @@ export class AddContentComponent implements OnInit {
     );
   }
 
-  // tslint:disable-next-line:typedef
-  private result(data: Content) {
+  updateContent(): void {
+    this.content.categories = this.selectedCategories.map((x: any) => new Category(0, x));
+    this.content.type = this.typ.value;
+    this.serviceContent.update(this.content.id , this.content).subscribe(
+      (data: Content) => this.result(data),
+      (error: any) => {
+        console.log(error);
+        alert(error);
+      }
+    );
+  }
+
+  private result(data: Content): void {
     this.router.navigate(['/contents']);
   }
 }

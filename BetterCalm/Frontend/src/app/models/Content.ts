@@ -1,18 +1,18 @@
 ﻿import {Category} from './Category';
 
 export class Content {
-  id: number | undefined;
+  id: number;
   name: string | undefined;
   creatorName: string | undefined;
   urlArchive: string | undefined;
   urlImage: string | undefined;
-  categories: Array<Category> | undefined;
+  categories: Array<Category>;
   duration: string | undefined;
-  type: string | undefined;
+  type: string ;
 
-  constructor(id: number| undefined, name: string | undefined, authorName: string | undefined, urlAudio: string | undefined,
+  constructor(id: number, name: string | undefined, authorName: string | undefined, urlAudio: string | undefined,
               urlImage: string | undefined, duration: string | undefined,
-              categories: Array<Category>| undefined, type: string| undefined){
+              categories: Array<Category>, type: string){
     this.id = id;
     this.categories = categories;
     this.name = name;
